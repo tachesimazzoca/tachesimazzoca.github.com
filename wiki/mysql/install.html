@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>インストール</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.autoc.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toc({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+          <div class="pull-left">
+            <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+          </div>
+          <ul class="nav">
+            <li><a href="/wiki/mysql/index.html">MySQL</a></li>
+          </ul>
+<!--
+          <form class="navbar-search pull-right" action="#">
+            <input type="text" class="search-query" name="q" placeholder="Search">
+          </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/mysql/index.html">MySQL</a> <span class="divider">/</span></li><li>インストール</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li class="active"><a href="/wiki/mysql/install.html">インストール</a></li><li><a href="/wiki/mysql/replication.html">レプリケーション</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>インストール</h1>
+          <div id="toc">
+          </div>
+          <h2>mysql-4.1</h2>
+
+<pre><code>% su -
+% cd /usr/local/src
+% curl -O "http://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-4.1/mysql-4.1.22.tar.gz"
+% tar xvfz mysql-4.1.22.tar.gz
+% cd mysql-4.1.22
+% CFLAGS="-O3 -DPIC -fPIC -DUNDEF_HAVE_INITGROUPS -fno-strict-aliasing" \
+  CXXFLAGS="-O3 -fno-strict-aliasing -felide-constructors -fno-exceptions -fno-rtti -fPIC -DPIC -DUNDEF_HAVE_INITGROUPS" \
+  ./configure --without-readline \
+  --with-charset=ujis --with-extra-charsets=all \
+  --with-mysqld-user=mysql --prefix=/usr/local/mysql
+% make
+% make test
+% make install
+
+% cp /usr/local/mysql/share/mysql/my-medium.cnf /etc/my.cnf
+% /usr/local/mysql/bin/mysql_install_db --user=mysql
+% chown -R root:mysql /usr/local/mysql
+% chown -R mysql:mysql /usr/local/mysql/var
+
+% cp /usr/local/mysql/share/mysql/mysql.server /etc/init.d/mysqld
+% chkconfig --add mysqld
+% chkconfig mysqld on
+
+% /etc/init.d/mysqld start
+</code></pre>
+
+<p>CentOS5系に含まれる gcc-4.x 系の場合 <code>make test</code> で <code>mysql_client_test</code> が失敗します。</p>
+
+<pre><code>TEST                            RESULT
+-------------------------------------------------------
+....
+mysql_client_test              [ fail ]
+
+Errors are (from /usr/src/mysql-4.1.18/mysql-test/var/log/mysqltest-time) :
+mysql_client_test.c:3573: check failed: '(int) i8_data == rc'
+mysqltest: At line 10: command "$MYSQL_CLIENT_TEST --getopt-ll-test=25600M" failed
+(the last lines may be the most important ones)
+</code></pre>
+
+<p><code>configure</code> 時に以下の環境変数を設定することで解決します。</p>
+
+<pre><code>CFLAGS="-O3 -DPIC -fPIC -DUNDEF_HAVE_INITGROUPS -fno-strict-aliasing"
+CXXFLAGS="-O3 -fno-strict-aliasing -felide-constructors -fno-exceptions -fno-rtti -fPIC -DPIC -DUNDEF_HAVE_INITGROUPS"
+</code></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+

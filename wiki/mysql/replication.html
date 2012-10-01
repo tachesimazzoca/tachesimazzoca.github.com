@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>レプリケーション</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.autoc.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toc({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+          <div class="pull-left">
+            <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+          </div>
+          <ul class="nav">
+            <li><a href="/wiki/mysql/index.html">MySQL</a></li>
+          </ul>
+<!--
+          <form class="navbar-search pull-right" action="#">
+            <input type="text" class="search-query" name="q" placeholder="Search">
+          </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/mysql/index.html">MySQL</a> <span class="divider">/</span></li><li>レプリケーション</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li><a href="/wiki/mysql/install.html">インストール</a></li><li class="active"><a href="/wiki/mysql/replication.html">レプリケーション</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>レプリケーション</h1>
+          <div id="toc">
+          </div>
+          <h2>MyISAM</h2>
+
+<p>Master 側では、バイナリログを記録する設定とし <code>server-id</code> を設定します。</p>
+
+<pre><code>% vim /etc/my.cnf
+....
+[mysqld]
+...
+# バイナリログを保管
+log-bin
+# Master の ID
+server-id=1
+...
+</code></pre>
+
+<p>Slave サーバに <code>REPLICATION SLAVE</code> 権限を与えます。</p>
+
+<pre><code>-- 192.168.0.0/24 からの slave ユーザを許可
+mysql&gt; GRANT REPLICATION SLAVE ON *.* TO slave@'192.168.0.%' IDENTIFIED BY '';
+</code></pre>
+
+<p>レプリケーションを開始する Master のバイナリログの現在位置を調べておきます。</p>
+
+<pre><code>mysql&gt; SHOW MASTER STATUS;
++---------------+----------+--------------+------------------+
+| File          | Position | Binlog_Do_DB | Binlog_Ignore_DB |
++---------------+----------+--------------+------------------+
+| db-bin.000003 |       79 |              |                  |
++---------------+----------+--------------+------------------+
+1 row in set (0.00 sec)
+</code></pre>
+
+<p>Slave サーバにユニークな <code>server-id</code> を設定し、Slave の <code>mysqld</code> を起動します。</p>
+
+<pre><code>% vim /etc/my.cnf
+....
+[mysqld]
+...
+# Slave の ID
+server-id=2
+...
+
+% /etc/init.d/mysqld start
+</code></pre>
+
+<p>Slave サーバにて Master の設定を行いレプリケーションを開始します。</p>
+
+<pre><code>-- Master データベース 192.168.0.10 から同期
+mysql&gt; CHANGE MASTER TO MASTER_HOST='192.168.0.10',
+       MASTER_USER='slave',
+       MASTER_PASSWORD='',
+       MASTER_LOG_FILE='db-bin.000003',
+       MASTER_LOG_POS=79;
+
+-- レプリケーション開始
+mysql&gt; START SLAVE;
+
+-- Slave 状況を確認
+mysql&gt; SHOW SLAVE STATUS \G
+....
+</code></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>インストール</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.autoc.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toc({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+          <div class="pull-left">
+            <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+          </div>
+          <ul class="nav">
+            <li><a href="/wiki/rvm/index.html">Ruby Version Manager</a></li>
+          </ul>
+<!--
+          <form class="navbar-search pull-right" action="#">
+            <input type="text" class="search-query" name="q" placeholder="Search">
+          </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/rvm/index.html">Ruby Version Manager</a> <span class="divider">/</span></li><li>インストール</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li class="active"><a href="/wiki/rvm/install.html">インストール</a></li><li><a href="/wiki/rvm/basic.html">基本操作</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>インストール</h1>
+          <div id="toc">
+          </div>
+          <p><a href="https://get.rvm.io">https://get.rvm.io</a> へアクセスすると、bash スクリプトにリダイレクトされることがわかります。</p>
+
+<p>このスクリプトを bash コマンドに渡すことで、ログインユーザの <code>~/.rvm</code> ディレクトリ以下に RVM がインストールされます。</p>
+
+<pre><code>% curl -L "get.rvm.io" | bash -s stable
+</code></pre>
+
+<p><code>~/.bashrc</code> <code>~/.zshrc</code> に <code>~/.rvm/bin</code> へのコマンド検索パスが追加されています。</p>
+
+<pre><code>PATH=$PATH:$HOME/.rvm/bin
+</code></pre>
+
+<p><code>~/.bashrc</code> <code>~/.zlogin</code> に RVM 用のスクリプトが追加されていることが分かります。シェルログイン時に必要な環境変数が設定されます。</p>
+
+<pre><code>[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; source "$HOME/.rvm/scripts/rvm"
+</code></pre>
+
+<p>これによりユーザディレクトリ以下の <code>~/.rvm</code> を見るようになります。</p>
+
+<pre><code>% which rvm
+~/.rvm/bin/rvm
+</code></pre>
+
+<p><code>root</code> ユーザでインストールした場合には、<code>/root/.rvm</code> ではなく <code>/usr/local/rvm</code> 以下にインストールされます。<code>/etc/profile.d/rvm.sh</code> に、ユーザ共通のログインスクリプトが追加され <code>~/.rvm</code> のディレクトリが存在しないユーザは <code>/usr/local/rvm</code> を見るようになります。</p>
+
+<pre><code>% which rvm
+/usr/local/rvm/bin/rvm
+</code></pre>
+
+<p><code>rvm requirements</code> で必要なパッケージを教えてくれます。以下は CentOS 5.8 の例です。</p>
+
+<pre><code>% rvm requirements
+
+Requirements for Linux ( CentOS release 5.8 (Final) )
+
+NOTE: 'ruby' represents Matz's Ruby Interpreter (MRI) (1.8.X, 1.9.X)
+             This is the *original* / standard Ruby Language Interpreter
+      'ree'  represents Ruby Enterprise Edition
+      'rbx'  represents Rubinius
+
+bash &gt;= 4.1 required
+curl is required
+git is required (&gt;= 1.7 for ruby-head)
+patch is required (for 1.8 rubies and some ruby-head's).
+
+To install rbx and/or Ruby 1.9 head (MRI) (eg. 1.9.2-head),
+then you must install and use rvm 1.8.7 first.
+
+Additional Dependencies:
+# For Ruby / Ruby HEAD (MRI, Rubinius, &amp; REE), install the following:
+  ruby: yum install -y gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison iconv-devel ## NOTE: For centos &gt;= 5.4 iconv-devel is provided by glibc
+
+# For JRuby, install the following:
+  jruby: yum install -y java
+</code></pre>
+
+<p><code>For Ruby / Ruby HEAD (MRI, Rubinius, &amp; REE), install the following:</code> にあるパッケージをあらかじめインストールしておきます。<code>iconv-devel</code> は <code>NOTE: For centos &gt;= 5.4 iconv-devel is provided by glibc</code> とありますので除外します。</p>
+
+<pre><code>% yum install gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison
+</code></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+

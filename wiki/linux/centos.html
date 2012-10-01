@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>CentOS</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.autoc.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toc({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+          <div class="pull-left">
+            <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+          </div>
+          <ul class="nav">
+            <li><a href="/wiki/linux/index.html">Linux</a></li>
+          </ul>
+<!--
+          <form class="navbar-search pull-right" action="#">
+            <input type="text" class="search-query" name="q" placeholder="Search">
+          </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/linux/index.html">Linux</a> <span class="divider">/</span></li><li>CentOS</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li class="active"><a href="/wiki/linux/centos.html">CentOS</a></li><li><a href="/wiki/linux/tips.html">Tips</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>CentOS</h1>
+          <div id="toc">
+          </div>
+          <h2>CentOS-5.x-i386-netinstall.iso</h2>
+
+<p><code>/5/isos/i386/CentOS-5.x-i386-netinstall.iso</code> から最小構成でインストールする例です。</p>
+
+<p>以下のミラーサイトを例に説明します。</p>
+
+<p><a href="http://ftp.riken.jp/Linux/centos/5/isos/i386/">http://ftp.riken.jp/Linux/centos/5/isos/i386/</a></p>
+
+<p>旧バージョンは <a href="http://vault.centos.org">http://vault.centos.org</a> にあります。</p>
+
+<p><code>netinstall.iso</code> では、ネット経由でのインストールを行います。</p>
+
+<dl>
+<dt>Choose a language</dt>
+<dd>English</dd>
+<dt>Keybord Type</dt>
+<dd>jp106 または利用しているキーボードを選択</dd>
+<dt>Installation Method</dt>
+<dd>FTP</dd>
+<dt>Configure TCP/IP</dt>
+<dd>IPv6 が不要なら <code>Enable IPv6 Support</code> をオフにします。</dd>
+<dt>FTP Setup</dt>
+<dd><code>ftp.riken.jp</code></dd>
+<dd><code>/Linux/centos/5/os/i386</code></dd>
+</dl>
+
+
+<p>ネット経由でインストーライメージがダウンロードされた後、インストーラが起動します。</p>
+
+<p>最小パッケージとするために、以下のオプションを指定します。</p>
+
+<ul>
+<li><code>Desktop GNOME</code> のチェックを外す</li>
+<li><code>Customize later</code> を選択</li>
+</ul>
+
+
+<p>インストールが終わったら、インストールCD(ISOイメージ)を取り出したのち再起動して完了です。</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+

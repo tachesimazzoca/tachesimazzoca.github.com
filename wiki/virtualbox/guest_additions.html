@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>VirtualBox Guest Additions</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="pull-left">
+          <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+        </div>
+<!--
+        <form class="navbar-search pull-right" action="#">
+          <input type="text" class="search-query" name="q" placeholder="Search">
+        </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <h1>VirtualBox Guest Additions</h1>
+          <h2>CentOS5</h2>
+
+<ul>
+<li>gcc</li>
+<li>kernel</li>
+<li>kernel-devel</li>
+</ul>
+
+
+<p>のパッケージが必要になります。</p>
+
+<p><code>kernel-devel</code> は <code>kernel</code> と同じバージョンを指定してインストールしておきます。</p>
+
+<pre><code>% yum list installed | grep kernel
+kernel.i686 2.6.18-274.el5
+...
+% yum install kernel-devel-2.6.18-274.el5
+</code></pre>
+
+<p>ゲストOSのウインドウメニューより</p>
+
+<pre><code>デバイス &gt; Guest Additions のインストール
+</code></pre>
+
+<p>を選択すると、インストールCDが <code>/dev/cdrom</code> にマウントされます。</p>
+
+<p><code>/mnt/cdrom</code> などにマウントし、インストールCD内の <code>VBoxLinuxAdditions.run</code> を実行します。</p>
+
+<pre><code>% mkdir /mnt/cdrom
+% mount -r /dev/cdrom /mnt/cdrom
+% cd /mnt/cdrom
+% ./VBoxLinuxAdditions.run
+</code></pre>
+
+          <h2>Index of Pages</h2>
+          <ul><li><a href="/wiki/virtualbox/vm.html">仮想マシン</a></li><li><a href="/wiki/virtualbox/manager.html">VirtualBox マネージャー</a></li><li><a href="/wiki/virtualbox/tips.html">Tips</a></li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+

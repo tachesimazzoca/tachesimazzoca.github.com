@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>基本操作</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.autoc.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toc({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+          <div class="pull-left">
+            <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+          </div>
+          <ul class="nav">
+            <li><a href="/wiki/pgsql/index.html">PostgreSQL</a></li>
+          </ul>
+<!--
+          <form class="navbar-search pull-right" action="#">
+            <input type="text" class="search-query" name="q" placeholder="Search">
+          </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/pgsql/index.html">PostgreSQL</a> <span class="divider">/</span></li><li>基本操作</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li><a href="/wiki/pgsql/install.html">インストール</a></li><li class="active"><a href="/wiki/pgsql/basic.html">基本操作</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>基本操作</h1>
+          <div id="toc">
+          </div>
+          <h2>ユーザ作成</h2>
+
+<p>ユーザ作成は <code>postgres</code> ユーザで行い、データベースのみを作成できるユーザを作成しておくとよいでしょう。</p>
+
+<pre><code>% su - postgres
+% createuser dev
+Shall the new role be a superuser? (y/n) n
+Shall the new role be allowed to create databases? (y/n) y
+Shall the new role be allowed to create more new roles? (y/n) n
+CREATE ROLE
+</code></pre>
+
+<h2>データベース作成</h2>
+
+<pre><code>% su - postgres
+% createdb -U dev (データベース名)
+CREATE DATABASE
+</code></pre>
+
+<p><code>pg_hba.conf</code> での設定が <code>ident sameuser</code> となっていると、同名のOSユーザが存在しなければ作成できません。ポリシーに応じて <code>trust</code> や <code>password</code> 等に変更します。</p>
+
+<h2>ログイン</h2>
+
+<p>   % psql -W -U (ユーザ名) -d (データベース名)
+   Password for user dev:
+   ....</p>
+
+<table>
+<tr>
+  <td><code>-W</code></td><td>パスワード認証を要求</td>
+  <td><code>-U</code></td><td>ユーザ名</td>
+  <td><code>-d</code></td><td>データベース名。オプションでなく最後の引数としても指定可</td>
+</tr>
+</table>
+
+
+<h2>SELECT 結果を CSV 形式で出力する</h2>
+
+<p>   % echo "SELECT * FROM emp LIMIT 5" | psql -A -F "," ...</p>
+
+<table>
+<tr>
+  <td><code>-A</code></td><td>位置揃え無しの出力モード</td>
+  <td><code>-F</code></td><td>区切り文字</td>
+</tr>
+</table>
+
+
+<h2>SQL ダンプ</h2>
+
+<pre><code>% pg_dump -O -x -U dev (データベース名) &gt; dump.sql
+</code></pre>
+
+<table>
+<tr>
+  <td><code>-O</code></td><td>所有権を元のデータベースに一致させるためのコマンドを出力しない</td>
+  <td><code>-x</code></td><td>アクセス権限のダンプを抑制</td>
+  <td><code>-s</code></td><td>テーブル定義のみをダンプ</td>
+</tr>
+</table>
+
+
+<p>SQL ダンプからのレストアは <code>psql</code> コマンド経由で行います。</p>
+
+<p>   # シェルからの入力リダイレクトの場合は、手入力を行った場合と同等です。
+   % psql .... -d (データベース名) &lt; dump.sql</p>
+
+<p>   # -f オプションでのファイル名指定であれば、行番号付でエラーメッセージが確認できます。
+   % psql .... -d (データベース名) -f dump.sql</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>xsbt-web-plugin</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.autoc.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toc({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+          <div class="pull-left">
+            <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+          </div>
+          <ul class="nav">
+            <li><a href="/wiki/sbt/index.html">sbt</a></li>
+          </ul>
+<!--
+          <form class="navbar-search pull-right" action="#">
+            <input type="text" class="search-query" name="q" placeholder="Search">
+          </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/sbt/index.html">sbt</a> <span class="divider">/</span></li><li><a href="/wiki/sbt/plugins/index.html">Plugins</a> <span class="divider">/</span></li><li>xsbt-web-plugin</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li class="active"><a href="/wiki/sbt/plugins/web.html">xsbt-web-plugin</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>xsbt-web-plugin</h1>
+          <div id="toc">
+          </div>
+          <h2>Dependencies</h2>
+
+<p><a href="https://github.com/siasia/xsbt-web-plugin">https://github.com/siasia/xsbt-web-plugin</a></p>
+
+<p><code>build.sbt</code>:</p>
+
+<pre><code>seq(webSettings :_*)
+
+libraryDependencies ++= Seq(
+  "org.mortbay.jetty" % "jetty" % "6.1.22" % "container",
+  "javax.servlet" % "servlet-api" % "2.5" % "provided"
+)
+</code></pre>
+
+<p><code>project/plugins.sbt</code>:</p>
+
+<pre><code>libraryDependencies &lt;+= sbtVersion(v =&gt; v match {
+  case "0.11.0" =&gt; "com.github.siasia" %% "xsbt-web-plugin" % "0.11.0-0.2.8"
+  case "0.11.1" =&gt; "com.github.siasia" %% "xsbt-web-plugin" % "0.11.1-0.2.10"
+  case "0.11.2" =&gt; "com.github.siasia" %% "xsbt-web-plugin" % "0.11.2-0.2.11"
+  case "0.11.3" =&gt; "com.github.siasia" %% "xsbt-web-plugin" % "0.11.3-0.2.11.1"
+})
+</code></pre>
+
+<h2>使い方</h2>
+
+<p><code>net.example.servlets.SandboxServlet</code> を作成してみます。ソースは <code>src/main/scala/net/example/servlets/SandboxServlet.scala</code> に設置します。</p>
+
+<pre><code>package net.example.servlets
+
+import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
+
+class SandboxServlet extends HttpServlet {
+  override def doGet(request:HttpServletRequest, response:HttpServletResponse) {
+    response.setContentType("text/plain")
+    response.setCharacterEncoding("UTF-8")
+    response.getWriter().write("Hello World")
+  }
+}
+</code></pre>
+
+<p><code>src/main/webpp/WEB-INF/web.xml</code> を配置します。</p>
+
+<pre><code>&lt;web-app&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;sandbox&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;net.example.servlets.SandboxServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;sandbox&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/sandbox&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;
+</code></pre>
+
+<p>sbt コンソールから <code>container:start</code> で Jetty を起動します。</p>
+
+<pre><code>% sbt
+[info] Loading project definition from ....
+[info] Set current project to sandbox (in build file:...)
+&gt; container:start
+[info] Compiling 1 Scala source to ...
+...:INFO::Logging to STDERR via org.mortbay.log.StdErrLog
+[info] jetty-6.1.22
+[info] NO JSP Support for /, did not find org.apache.jasper.servlet.JspServlet
+[info] Started SelectChannelConnector@0.0.0.0:8080
+....
+</code></pre>
+
+<p><code>http://localhost:8080/sandbox</code> にアクセスすると応答が確認できます。</p>
+
+<pre><code>% telnet localhost 8080
+Trying ::1...
+Connected to localhost.
+Escape character is '^]'.
+GET /sandbox HTTP/1.1
+Host: localhost
+
+HTTP/1.1 200 OK
+Content-Type: text/plain; charset=utf-8
+....
+
+Hello World
+</code></pre>
+
+<p><code>container:reload /</code> でソース変更を反映できます。<code>~</code> 付きの以下のコマンドではソース更新を検知して自動で反映を行ってくれます。</p>
+
+<pre><code>&gt; ~; container:start; container:reload /
+</code></pre>
+
+<p><code>container:stop</code> でサーバを停止します。</p>
+
+<pre><code>&gt; container:stop
+</code></pre>
+
+<p><code>package</code> で .war パッケージが <code>target/(パッケージ名).war</code> に作成されます。</p>
+
+<pre><code>&gt; package
+</code></pre>
+
+<p>生成される .war ファイル名にバージョン情報が付与されるのを回避するには、<code>build.sbt</code> に以下の行を追加して <code>artifactName</code> 値でパッケージ名のフォーマットを変更します。</p>
+
+<pre><code>artifactName := { (config:String, module:ModuleID, artifact:Artifact) =&gt;
+  artifact.name + "." + artifact.extension
+}
+</code></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+

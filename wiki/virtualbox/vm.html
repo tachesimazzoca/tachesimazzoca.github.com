@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>仮想マシン</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.autoc.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toc({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+          <div class="pull-left">
+            <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+          </div>
+          <ul class="nav">
+            <li><a href="/wiki/virtualbox/index.html">VirtualBox</a></li>
+          </ul>
+<!--
+          <form class="navbar-search pull-right" action="#">
+            <input type="text" class="search-query" name="q" placeholder="Search">
+          </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/virtualbox/index.html">VirtualBox</a> <span class="divider">/</span></li><li>仮想マシン</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li class="active"><a href="/wiki/virtualbox/vm.html">仮想マシン</a></li><li><a href="/wiki/virtualbox/manager.html">VirtualBox マネージャー</a></li><li><a href="/wiki/virtualbox/tips.html">Tips</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>仮想マシン</h1>
+          <div id="toc">
+          </div>
+          <h2>インストールCDからの起動</h2>
+
+<p>仮想マシンを起動すると、初回起動時はインストールCDの選択ダイアログが開きます。初回起動以降は、起動メディアが見つからないメッセージがゲストOS画面に表示されます。</p>
+
+<pre><code>デバイス &gt; CD/DVDデバイス
+</code></pre>
+
+<p>から <code>仮想CD/DVDデバイスの選択</code> でISOイメージを選択するか、<code>ホストドライブ</code> から実メディアを選択したのち</p>
+
+<pre><code>仮想マシン &gt; リセット
+</code></pre>
+
+<p>してインストールCDから起動します。</p>
+
+<p>インストール後の再起動で、インストールCDから起動してしまう場合は</p>
+
+<pre><code>デバイス &gt; CD/DVDデバイス &gt; 仮想ドライブ
+</code></pre>
+
+<p>からディスクを除去したのち、仮想マシンを再起動します。</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+

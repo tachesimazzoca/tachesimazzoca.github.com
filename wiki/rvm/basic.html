@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>基本操作</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.autoc.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toc({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+          <div class="pull-left">
+            <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+          </div>
+          <ul class="nav">
+            <li><a href="/wiki/rvm/index.html">Ruby Version Manager</a></li>
+          </ul>
+<!--
+          <form class="navbar-search pull-right" action="#">
+            <input type="text" class="search-query" name="q" placeholder="Search">
+          </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/rvm/index.html">Ruby Version Manager</a> <span class="divider">/</span></li><li>基本操作</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li><a href="/wiki/rvm/install.html">インストール</a></li><li class="active"><a href="/wiki/rvm/basic.html">基本操作</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>基本操作</h1>
+          <div id="toc">
+          </div>
+          <h2>バージョン一覧</h2>
+
+<pre><code>% rvm list
+# インストール可能なバージョンを確認
+% rvm list known
+</code></pre>
+
+<h2>指定バージョンのインストール</h2>
+
+<p><code>rvm install (パッケージ名)</code> で、指定バージョンのソース取得/ビルド/パッチまで行ってくれます。<code>~/.rvm/rubies/</code> に保存されます。</p>
+
+<pre><code>% rvm install ruby-1.8.7
+...
+% rvm install ruby-1.9.2
+...
+</code></pre>
+
+<h2>バージョン切替</h2>
+
+<pre><code>% rvm use ruby-1.8.7
+% ruby --version
+ruby 1.8.7 (2012-02-08 patchlevel 358) [i686-linux]
+
+% rvm use ruby-1.9.2
+% ruby --version
+ruby 1.9.2p320 (2012-04-20 revision 35421) [i686-linux]
+</code></pre>
+
+<p>環境変数の書き換えにより、バージョン切り換えが行われていることがわかります。</p>
+
+<pre><code>% env
+...
+GEM_HOME=.../.rvm/gems/ruby-1.8.7-p358
+...
+IRBRC=.../.rvm/rubies/ruby-1.8.7-p358/.irbrc
+...
+PATH=.../.rvm/gems/ruby-1.8.7-p358/bin:...
+rvm_env_string=ruby-1.8.7-p358
+rvm_ruby_string=ruby-1.8.7-p358
+...
+GEM_PATH=.../.rvm/gems/ruby-1.8.7-p358:...
+...
+RUBY_VERSION=ruby-1.8.7-p358
+...
+</code></pre>
+
+<h2>ライブラリの手動追加</h2>
+
+<p><code>rvm requirements</code> により確認できる必要なパッケージがインストールされていないと、ライブラリ不足でエラーとなります。この場合は、ライブラリを手動で再インストールすることで解決します。</p>
+
+<pre><code>% yum install openssl-devel
+
+% cd ~/.rvm/src/ruby-1.8.7-p358/ext/openssl
+% ruby extconf.rb
+% make
+% make install
+</code></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+

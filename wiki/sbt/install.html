@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>インストール</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.autoc.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toc({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+          <div class="pull-left">
+            <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+          </div>
+          <ul class="nav">
+            <li><a href="/wiki/sbt/index.html">sbt</a></li>
+          </ul>
+<!--
+          <form class="navbar-search pull-right" action="#">
+            <input type="text" class="search-query" name="q" placeholder="Search">
+          </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/sbt/index.html">sbt</a> <span class="divider">/</span></li><li>インストール</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li class="active"><a href="/wiki/sbt/install.html">インストール</a></li><li><a href="/wiki/sbt/basic.html">基本操作</a></li><li><a href="/wiki/sbt/libraries.html">Libraries</a></li><li><a href="/wiki/sbt/plugins/index.html">Plugins</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>インストール</h1>
+          <div id="toc">
+          </div>
+          <h2>Unix</h2>
+
+<p>以下の2つのファイルが必要になります。</p>
+
+<ul>
+<li><code>sbt-launch.jar</code></li>
+<li><code>sbt-launch.jar</code> を起動するシェルスクリプト = <code>sbt</code> コマンド</li>
+</ul>
+
+
+<p><code>sbt-launch.jar</code> は <a href="http://typesafe.artifactoryonline.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/">typesafe のリポジトリ</a> から取得します。</p>
+
+<pre><code>% curl -LO "http://typesafe.artifactoryonline.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.11.3-2/sbt-launch.jar"
+</code></pre>
+
+<p>同ディレクトリに、以下のシェルスクリプトで <code>sbt-launch.jar</code> を起動する <code>sbt</code> コマンドを作成します。</p>
+
+<pre><code>#!/bin/sh
+
+java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=384M -jar `dirname $0`/sbt-launch.jar "$@"
+</code></pre>
+
+<p>32bit OS で JavaVM のメモリ制限にかかる場合は -Xmx (ヒープの最大サイズ) を下げます。</p>
+
+<pre><code>java -Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=384M -jar `dirname $0`/sbt-launch.jar "$@"
+</code></pre>
+
+<p>作成した <code>sbt</code> コマンドにパスを通しておきます。以下の例では <code>~/.sbt/bin</code> に設置しています。</p>
+
+<pre><code>% vi ~/.bash_profile
+...
+export PATH=~/.sbt/bin:${PATH}
+...
+
+% source ~/.bash_profile
+% which sbt
+~/.sbt/bin/sbt
+</code></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>基本操作</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.autoc.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toc({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+          <div class="pull-left">
+            <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+          </div>
+          <ul class="nav">
+            <li><a href="/wiki/httpd/index.html">httpd</a></li>
+          </ul>
+<!--
+          <form class="navbar-search pull-right" action="#">
+            <input type="text" class="search-query" name="q" placeholder="Search">
+          </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/httpd/index.html">httpd</a> <span class="divider">/</span></li><li>基本操作</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li><a href="/wiki/httpd/install.html">インストール</a></li><li class="active"><a href="/wiki/httpd/basic.html">基本操作</a></li><li><a href="/wiki/httpd/tips.html">Tips</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>基本操作</h1>
+          <div id="toc">
+          </div>
+          <h2>設定確認</h2>
+
+<p><code>httpd.conf</code> でサーバ全体の設定を行います。ファイルパスについては、起動スクリプト <code>/etc/init.d/httpd</code> または実行中のプロセスを確認して判断してください。</p>
+
+<p>パッケージからのインストールを行った場合は</p>
+
+<p><code>/etc/httpd/conf/httpd.conf</code></p>
+
+<p>ソースから <code>/usr/local/apache</code> へインストールを行った場合は</p>
+
+<p><code>/usr/local/apache/conf/httpd.conf</code></p>
+
+<p>を確認してみてください。</p>
+
+<p>起動前に <code>httpd.conf</code> の記述が正しいかをチェックします。エラーがある場合、httpd の起動ができませんので、必ずチェックします。</p>
+
+<pre><code>% /etc/init.d/httpd configtest
+Syntax OK
+</code></pre>
+
+<p><code>CustomLog</code> <code>ErrorLog</code> で指定したログファイルのディレクトリが存在しないことがよくあります。この場合、起動ができてもサーバが応答しなくなりますので注意してください。</p>
+
+<h2>起動と停止</h2>
+
+<p><code>start</code> オプションで起動します。</p>
+
+<pre><code>% /etc/init.d/httpd start
+</code></pre>
+
+<p>SSLを利用するには <code>startssl</code> オプションを指定します。</p>
+
+<pre><code>% /etc/init.d/httpd startssl
+</code></pre>
+
+<p><code>ps</code> コマンドで、親プロセスと子プロセスが起動していることが確認できます。</p>
+
+<pre><code>% ps auxf | grep 'httpd' | grep -v grep
+</code></pre>
+
+<p><code>stop</code> オプションで停止します。</p>
+
+<pre><code>% /etc/init.d/httpd stop
+</code></pre>
+
+<h2>再起動</h2>
+
+<p>緩やかな再起動方法として <code>graceful</code> オプションがあります。親プロセスに <code>USR1</code> シグナルを送ることで、処理中の子プロセスがある場合、処理終了後に新しいプロセスに置き換えます。</p>
+
+<pre><code>% /etc/init.d/httpd graceful
+
+# 以下と同じことです
+% kill -USR1 (親プロセス番号)
+</code></pre>
+
+<p><code>restart</code> オプションでは、親プロセスに <code>HUP</code> シグナルを送ることで、子プロセスを即座に終了させ新しい設定で子プロセスを起動します。親プロセスは終了しません。</p>
+
+<pre><code>% /etc/init.d/httpd restart
+
+# 以下と同じことです
+% kill -HUP (親プロセス番号)
+</code></pre>
+
+<p><code>stop</code> での停止後に <code>(start|startssl)</code> で起動する方法です。 <code>restart</code> との違いは <code>stop</code> オプションで <code>TERM</code> シグナルが送られ、親プロセスが終了する点です。</p>
+
+<pre><code>% /etc/init.d/httpd stop
+% /etc/init.d/httpd start
+</code></pre>
+
+<p><code>graceful</code> <code>restart</code> オプションでは親プロセスは終了しないため、SSL証明書の変更やモジュール追加の場合に変更が正しく反映されない場合があります。プロセスが中断しますが、最も確実な再起動方法です。</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+

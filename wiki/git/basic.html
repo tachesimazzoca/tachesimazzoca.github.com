@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>基本操作</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.autoc.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toc({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+          <div class="pull-left">
+            <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+          </div>
+          <ul class="nav">
+            <li><a href="/wiki/git/index.html">Git</a></li>
+          </ul>
+<!--
+          <form class="navbar-search pull-right" action="#">
+            <input type="text" class="search-query" name="q" placeholder="Search">
+          </form>
+-->
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/git/index.html">Git</a> <span class="divider">/</span></li><li>基本操作</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li><a href="/wiki/git/install.html">インストール</a></li><li><a href="/wiki/git/tutorial.html">チュートリアル</a></li><li class="active"><a href="/wiki/git/basic.html">基本操作</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>基本操作</h1>
+          <div id="toc">
+          </div>
+          <h2>リポジトリの作成</h2>
+
+<pre><code>% cd /path/to/git/project
+% git init
+
+% ls -a
+. .. .git
+</code></pre>
+
+<h2>ユーザ情報の登録</h2>
+
+<pre><code>% git config user.name "Taro Yamada"
+% git config user.email "yamada@example.net"
+</code></pre>
+
+<h2>コミット</h2>
+
+<pre><code># コミット候補を追加
+% git add a.txt
+# add 時点の状態でコミットされる
+% git commit
+
+% vi a.txt
+....
+# 更新をコミットする場合も add してコミット候補に含める
+% git add a.txt
+% git commit
+
+# -a オプションで作業ファイルの状態でコミットできる
+# 全ての追跡対象ファイルを ad したのち commit することと同義
+% git commit -a
+</code></pre>
+
+<h2>差分比較</h2>
+
+<table class="table table-bordered table-striped">
+<tr>
+  <td><code>git diff</code></td>
+  <td>作業ファイルと索引の差分 = コミットされない差分。ステージし忘れている差分を確認</td>
+</tr>
+<tr>
+  <td><code>git diff --cached</code></td>
+  <td>索引とHEADの差分 = コミットされる差分。コミットし忘れている差分を確認</td>
+</tr>
+<tr>
+  <td><code>git diff HEAD</code></td>
+  <td>作業ファイルとHEADの差分。`git commit -a` でコミットされる差分を確認</td>
+</tr>
+</table>
+
+
+<h2>ブランチ操作</h2>
+
+<pre><code># 現在のブランチを確認
+% git branch
+* master
+
+# current ブランチを作成
+% git branch current
+% git branch
+  current
+* master
+
+# current ブランチに切替
+% git checkout current
+% git branch
+* current
+  master
+
+....
+
+# master ブランチにマージされていないブランチを確認
+% git checkout master
+% git branch --no-merge
+  current
+# master / current ブランチの差分を確認
+% git diff master..curent
+....
+# master ブランチに current ブランチをマージ
+% git merge current
+....
+# master ブランチにマージされているブランチを確認
+% git branch --merged
+  current
+* master
+
+# current ブランチを削除
+% git branch -d current
+</code></pre>
+
+<h2>リモート操作</h2>
+
+<pre><code># リモートを確認
+% git remove -v
+origin  git@github.com:foo/bar.git (fetch)
+origin  git@github.com:foo/bar.git (push)
+
+# リモートブランチを含めた全てのブランチを確認
+% git branch -a
+* master
+  remotes/origin/master
+
+#
+# リモートブランチの更新を、作業ブランチへ反映
+#
+#  1. リモート origin の変更を取得
+#
+#     git fetch
+#     git fetch (リモート名)
+#
+% git fetch origin
+....
+#  2. fetch したリモート origin の最新と比較
+% git diff FETCH_HEAD
+....
+#  3. リモート origin の master ブランチを、作業ブランチにマージ
+% git merge origin/master
+....
+#  4. pull で fetch + merge をまとめて行うこともできる
+% git pull
+
+#
+# 作業ブランチの更新を、リモートブランチへ反映
+#
+#  1. 作業ブランチの変更を commit
+....
+% git commit
+....
+#
+#  2. master ブランチをリモート origin へ反映
+#
+#      git push (リモート名) (ブランチ名)
+#      git push (リモート名) (ローカルブランチ名):(リモートブランチ名)
+#
+% git push origin master
+
+# リモート origin/development をローカルブランチ development としてチェックアウト
+% git checkout -b development origin/development
+
+# リモートブランチ origin/development を削除
+# 空のローカルブランチでリモートブランチ development を更新と考えると覚えやすい
+% git push origin :development
+</code></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+</body>
+</html>
+
