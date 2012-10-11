@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>Command | Mahout</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="pull-left">
+          <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+        </div>
+        <ul class="nav">
+          <li><a href="/wiki/mahout/index.html">Mahout</a></li>
+        </ul>
+        <form class="navbar-search pull-right" action="/wiki/search.html">
+          <input type="text" class="search-query" name="q" placeholder="Search">
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/mahout/index.html">Mahout</a> <span class="divider">/</span></li><li>Command</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li><a href="/wiki/mahout/install.html">Install</a></li><li class="active"><a href="/wiki/mahout/command.html">Command</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>Command</h1>
+          <div id="toc">
+          </div>
+          <h2>itemsimilarity</h2>
+
+<p>アイテムから類似アイテムを抽出します。</p>
+
+<pre><code>% hadoop fs -rmr inputdir
+% hadoop fs -rmr outputdir
+% hadoop fs -put /path/to/data/* inputdir/.
+
+% mahout itemsimilarity --input inputdir --output outputdir --similarityClassname SIMILARITY_LOGLIKEHOOD --maxSimilaritiesPerItem 5 --booleanData true
+</code></pre>
+
+<p>以下の形式で入力データを準備します。</p>
+
+<pre><code>ユーザID,アイテムID[,評価値]
+....
+</code></pre>
+
+<p><strong>Job-Secific Options:</strong></p>
+
+<table class="table table-bordered table-striped">
+<tr>
+  <td><code>--input</code> <code>-i</code></td><td>HDFS入力ディレクトリ</td>
+</tr>
+<tr>
+  <td><code>--output</code> <code>-o</code></td><td>HDFS出力ディレクトリ</td>
+</tr>
+<tr>
+  <td><code>--similarityClassname</code> <code>-s</code></td>
+  <td>
+    <p>類似判定の計算方法を指定。<a href="https://builds.apache.org/job/Mahout-Quality/javadoc/org/apache/mahout/math/hadoop/similarity/cooccurrence/measures/VectorSimilarityMeasures.html">VectorSimilarityMeasures</a> 参照</p>
+    <ul>
+      <li><code>SIMILARITY_COOCCURRENCE</code></li>
+      <li><code>SIMILARITY_LOGLIKELIHOOD</code></li>
+      <li><code>SIMILARITY_TANIMOTO_COEFFICIENT</code></li>
+      <li><code>SIMILARITY_CITY_BLOCK</code></li>
+      <li><code>SIMILARITY_COSINE</code></li>
+      <li><code>SIMILARITY_PEARSON_CORRELATION</code></li>
+      <li><code>SIMILARITY_EUCLIDEAN_DISTANCE</code></li>
+    </ul>
+  </td>
+</tr>
+<tr>
+  <td><code>--maxSimilaritiesPerItem</code> <code>-m</code></td>
+  <td>最大類似アイテム数。デフォルトは 100</td>
+</tr>
+<tr>
+  <td><code>--maxPrefsPerUser</code> <code>-mppu</code></td>
+  <td>
+    <p>評価値の上限。同値に評価値が制限される。デフォルトは 1000</p>
+  </td>
+</tr>
+<tr>
+  <td><code>--minPrefsPerUser</code> <code>-mp</code></td>
+  <td>
+    <p>評価値の下限。同値未満の評価値のデータは無視される。デフォルトは 1</p>
+  </td>
+</tr>
+<tr>
+  <td><code>--booleandData</code> <code>-b</code></td>
+  <td>
+    <p>評価値を持たないデータの場合 <code>true</code> を指定。デフォルトは <code>false</code></p>
+  </td>
+</tr>
+</table>
+
+
+<p><strong>org.apache.mahout.cf.taste.hadoop.similarity.item.ItemSimilarityJob</strong></p>
+
+<ul>
+<li><a href="https://builds.apache.org/job/Mahout-Quality/javadoc/org/apache/mahout/cf/taste/hadoop/similarity/item/ItemSimilarityJob.html">JavaDoc</a></li>
+<li><a href="http://svn.apache.org/viewvc/mahout/trunk/core/src/main/java/org/apache/mahout/cf/taste/hadoop/similarity/item/ItemSimilarityJob.java?view=markup">View Source</a></li>
+</ul>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.com" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
