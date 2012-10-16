@@ -16,15 +16,15 @@
             <h1>Takeshi Matsuoka<small> on GitHub</small></h1>
           </div>
           <ul class="nav nav-tabs nav-stacked">
-            <li><a data-gaq="click" href="wiki/">wiki</a></li>
+            <li><a data-click="menus click wiki/" href="wiki/">wiki</a></li>
           </ul>
         </div>
       </div>
       <dl class="well">
         <dt><span class="muted">Twitter</span></dt>
-        <dd><a data-gaq="click" href="https://twitter.com/tachesimazzoca">@tachesimazzoca</a></dd>
+        <dd><a data-click="about click twitter" href="https://twitter.com/tachesimazzoca">@tachesimazzoca</a></dd>
         <dt><span class="muted">GitHub</span></dt>
-        <dd><a data-gaq="click" href="https://github.com/tachesimazzoca">https://github.com/tachesimazzoca</a></dd>
+        <dd><a data-click="about click github" href="https://github.com/tachesimazzoca">https://github.com/tachesimazzoca</a></dd>
       </dl>
     </div>
   </div>
@@ -52,8 +52,10 @@ if ("tachesimazzoca.github.com" == location.hostname) {
 
 (function($) {
   $(function() {
-    $('[data-gaq]').on("click", function(event) {
-      _gaq.push(["_trackEvent", "click"])
+    $('[data-click]').on("click", function(event) {
+      var q = this.getAttribute('data-click').split(" ") 
+      q.unshift("_trackEvent")
+      _gaq.push(q)
     })
   })
 })(jQuery)
