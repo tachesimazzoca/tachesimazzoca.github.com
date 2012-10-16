@@ -4,6 +4,7 @@
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <title>Takeshi Matsuoka(tachesimazzoca) on GitHub</title>
 <link href="assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="assets/javascripts/jquery-1.7.1.min.js"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -15,15 +16,15 @@
             <h1>Takeshi Matsuoka<small> on GitHub</small></h1>
           </div>
           <ul class="nav nav-tabs nav-stacked">
-            <li><a href="wiki/">wiki</a></li>
+            <li><a data-gaq="click" href="wiki/">wiki</a></li>
           </ul>
         </div>
       </div>
       <dl class="well">
         <dt><span class="muted">Twitter</span></dt>
-        <dd><a href="https://twitter.com/tachesimazzoca">@tachesimazzoca</a></dd>
+        <dd><a data-gaq="click" href="https://twitter.com/tachesimazzoca">@tachesimazzoca</a></dd>
         <dt><span class="muted">GitHub</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">https://github.com/tachesimazzoca</a></dd>
+        <dd><a data-gaq="click" href="https://github.com/tachesimazzoca">https://github.com/tachesimazzoca</a></dd>
       </dl>
     </div>
   </div>
@@ -33,12 +34,11 @@
 <!--Google Analytics-->
 <script type="text/javascript">
 
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-35398490-1']);
+_gaq.push(['_trackPageview']);
+
 if ("tachesimazzoca.github.com" == location.hostname) {
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-35398490-1']);
-  _gaq.push(['_trackPageview']);
-
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -48,5 +48,16 @@ if ("tachesimazzoca.github.com" == location.hostname) {
 
 </script>
 <!--/Google Analytics-->
+<script type="text/javascript">
+
+(function($) {
+  $(function() {
+    $('[data-gaq]').on("click", function(event) {
+      _gaq.push(["_trackEvent", "click"])
+    })
+  })
+})(jQuery)
+
+</script>
 </body>
 </html>
