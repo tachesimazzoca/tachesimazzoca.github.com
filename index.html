@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <title>Takeshi Matsuoka(tachesimazzoca) on GitHub</title>
-<link href="assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="assets/javascripts/jquery-1.7.1.min.js"></script>
+<link href="assets/lib/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="assets/lib/jquery/jquery-1.7.1.min.js"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -16,15 +16,15 @@
             <h1>Takeshi Matsuoka<small> on GitHub</small></h1>
           </div>
           <ul class="nav nav-tabs nav-stacked">
-            <li><a data-click="menus click wiki/" href="wiki/">wiki</a></li>
+            <li><a href="wiki/">wiki</a></li>
           </ul>
         </div>
       </div>
       <dl class="well">
         <dt><span class="muted">Twitter</span></dt>
-        <dd><a data-click="about click twitter" href="https://twitter.com/tachesimazzoca">@tachesimazzoca</a></dd>
+        <dd><a href="https://twitter.com/tachesimazzoca">@tachesimazzoca</a></dd>
         <dt><span class="muted">GitHub</span></dt>
-        <dd><a data-click="about click github" href="https://github.com/tachesimazzoca">https://github.com/tachesimazzoca</a></dd>
+        <dd><a href="https://github.com/tachesimazzoca">https://github.com/tachesimazzoca</a></dd>
       </dl>
     </div>
   </div>
@@ -48,18 +48,5 @@ if ("tachesimazzoca.github.com" == location.hostname) {
 
 </script>
 <!--/Google Analytics-->
-<script type="text/javascript">
-
-(function($) {
-  $(function() {
-    $('[data-click]').on("click", function(event) {
-      var q = this.getAttribute('data-click').split(" ") 
-      q.unshift("_trackEvent")
-      _gaq.push(q)
-    })
-  })
-})(jQuery)
-
-</script>
 </body>
 </html>
