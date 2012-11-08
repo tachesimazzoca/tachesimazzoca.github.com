@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>基本操作 | Ruby Version Manager</title>
+<title>TIPS | Ruby Version Manager</title>
 <link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
@@ -41,7 +41,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="/wiki/rvm/index.html">Ruby Version Manager</a> <span class="divider">/</span></li><li>基本操作</li>
+        <li><a href="/wiki/rvm/index.html">Ruby Version Manager</a> <span class="divider">/</span></li><li>TIPS</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -52,77 +52,27 @@
               <ul class="nav nav-list">
                 <li class="nav-header">Table of Contents</li>
               </ul>
-              <ul class="nav nav-list"><li><a href="/wiki/rvm/install.html">インストール</a></li><li class="active"><a href="/wiki/rvm/basic.html">基本操作</a></li><li><a href="/wiki/rvm/tips.html">TIPS</a></li></ul>
+              <ul class="nav nav-list"><li><a href="/wiki/rvm/install.html">インストール</a></li><li><a href="/wiki/rvm/basic.html">基本操作</a></li><li class="active"><a href="/wiki/rvm/tips.html">TIPS</a></li></ul>
             </div>
           </div>
         </div>
         <div class="span9">
           <div id="content">
-          <h1>基本操作</h1>
+          <h1>TIPS</h1>
           <div id="toc">
           </div>
-          <h2>バージョン一覧</h2>
+          <h2>ruby-1.9.3 で yaml.rb の Warning</h2>
 
-<pre><code>% rvm list
-# インストール可能なバージョンを確認
-% rvm list known
+<p>ruby-1.9.3 より YAML パーサに <a href="http://doc.ruby-lang.org/ja/1.9.3/library/psych.html">psych</a> が採用されています。libyaml がインストールされていないと、以下の警告が出力され、代わりに <a href="http://doc.ruby-lang.org/ja/1.9.3/library/syck.html">syck</a> が用いられます。</p>
+
+<pre><code>It seems your ruby installation is missing psych (for YAML output).
+To eliminate this warning, please install libyaml and reinstall your ruby.
 </code></pre>
 
-<h2>指定バージョンのインストール</h2>
+<p>RVM は libyaml を <code>~/.rvm/usr</code> 以下にソースインストールしてくれるのですが、バージョンによってはコンパイルオプションが正常に渡らない場合があります。この場合は明示的にパス指定してインストールしなおします。</p>
 
-<p><code>rvm install (パッケージ名)</code> で、指定バージョンのソース取得/ビルド/パッチまで行ってくれます。<code>~/.rvm/rubies/</code> に保存されます。</p>
-
-<pre><code>% rvm install ruby-1.8.7
-...
-% rvm install ruby-1.9.3
-...
-</code></pre>
-
-<p><code>-C</code> により configure オプションを指定できます。</p>
-
-<pre><code>% rvm install ruby-1.9.3 -C --with-opt-dir=$HOME/.rvm/usr
-</code></pre>
-
-<h2>バージョン切替</h2>
-
-<pre><code>% rvm use ruby-1.8.7
-% ruby --version
-ruby 1.8.7 (2012-02-08 patchlevel 358) [i686-linux]
-
-% rvm use ruby-1.9.2
-% ruby --version
-ruby 1.9.2p320 (2012-04-20 revision 35421) [i686-linux]
-</code></pre>
-
-<p>環境変数の書き換えにより、バージョン切り換えが行われていることがわかります。</p>
-
-<pre><code>% env
-...
-GEM_HOME=.../.rvm/gems/ruby-1.8.7-p358
-...
-IRBRC=.../.rvm/rubies/ruby-1.8.7-p358/.irbrc
-...
-PATH=.../.rvm/gems/ruby-1.8.7-p358/bin:...
-rvm_env_string=ruby-1.8.7-p358
-rvm_ruby_string=ruby-1.8.7-p358
-...
-GEM_PATH=.../.rvm/gems/ruby-1.8.7-p358:...
-...
-RUBY_VERSION=ruby-1.8.7-p358
-...
-</code></pre>
-
-<h2>拡張ライブラリ</h2>
-
-<p>ライブラリを rvm ディレクトリ以下にソースインストールする方法です。</p>
-
-<pre><code>% rvm pkg install openssl 
-% rvm reinstall 1.9.3 -C --with-openssl-dir=$HOME/.rvm/usr
-</code></pre>
-
-<p>インストール済みのパスを指定することもできます。</p>
-
-<pre><code>% rvm reinstall 1.9.3 -C --with-openssl-dir=/usr/local
+<pre><code>% rvm pkg install libyaml 
+% rvm reinstall 1.9.3 -C --with-libyaml-dir=$HOME/.rvm/usr
 </code></pre>
 
           </div>
