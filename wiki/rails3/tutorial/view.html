@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>ビュー生成 | Rails3</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="pull-left">
+          <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+        </div>
+        <ul class="nav">
+          <li><a href="/wiki/rails3/index.html">Rails3</a></li>
+        </ul>
+        <form class="navbar-search pull-right" action="/wiki/search.html">
+          <input type="text" class="search-query" name="q" placeholder="Search">
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/rails3/index.html">Rails3</a> <span class="divider">/</span></li><li><a href="/wiki/rails3/tutorial/index.html">Tutorial</a> <span class="divider">/</span></li><li>ビュー生成</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li><a href="/wiki/rails3/tutorial/static.html">静的ファイル出力</a></li><li><a href="/wiki/rails3/tutorial/page.html">HTMLページ出力</a></li><li class="active"><a href="/wiki/rails3/tutorial/view.html">ビュー生成</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>ビュー生成</h1>
+          <div id="toc">
+          </div>
+          <h2>ERB テンプレート</h2>
+
+<p>ビュー生成には ERB が用いられます。PHP のように Ruby 構文を含めることができます。</p>
+
+<pre><code>&lt;ul&gt;
+  &lt;% 1.upto(10) do |n| %&gt;
+  &lt;li&gt;&lt;%= sprintf('Item %d', n) %&gt;&lt;/li&gt;
+  &lt;% end %&gt;
+&lt;/ul&gt;
+
+&lt;% time = Time.new %&gt;
+Last updated at &lt;%= time.strftime('%Y/%m/%d') %&gt;
+
+&lt;%# これはコメントブロックです。出力されません %&gt;
+</code></pre>
+
+<p>Rails3 からはデフォルトでHTMLエスケープされた結果が出力されます。HTMLエスケープをスキップするには <code>raw</code> メゾッドを使います</p>
+
+<pre><code>&lt;!-- &amp;lt;strong&amp;gt;foo&amp;lt;/strong&amp;gt; --&gt;
+&lt;%= '&lt;strong&gt;foo&lt;strong&gt;' %&gt;
+
+&lt;!-- &lt;strong&gt;foo&lt;/strong&gt; --&gt;
+&lt;%= raw '&lt;strong&gt;foo&lt;strong&gt;' %&gt;
+&lt;!-- &lt;%== .... %&gt; 構文も使えます --&gt;
+&lt;%== '&lt;strong&gt;foo&lt;strong&gt;' %&gt;
+</code></pre>
+
+<h2>テンプレートからレイアウトテンプレートにコンテンツを渡す</h2>
+
+<ul>
+<li><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/CaptureHelper.html">ActionView::Helpers::CaptureHelper</a></li>
+</ul>
+
+
+<p><code>content_for</code> メゾッドを使います。</p>
+
+<p><code>app/views/(:controller)/(:action).html.erb</code>:</p>
+
+<pre><code>&lt;% content_for :link do %&gt;
+&lt;link rel="next" href="..." /&gt;
+&lt;link rel="prev" href="..." /&gt;
+&lt;% end %&gt;
+&lt;% content_for :title do %&gt;Home&lt;% end %&gt;
+&lt;h1&gt;&lt;%= content_for :title %&gt;&lt;/h1&gt;
+</code></pre>
+
+<p><code>app/views/layouts/*.html.erb</code>:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;&lt;%= content_for?(:title) ? sprintf('%s | Sandbox', (yield :title)) : 'Sandbox' %&gt;&lt;/title&gt;
+  &lt;%= yield :link &gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;%= yield %&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h2>他ファイルのインクルード</h2>
+
+<ul>
+<li><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/RenderingHelper.html">ActionView::Helpers::RenderingHelper</a></li>
+<li><a href="http://api.rubyonrails.org/classes/ActionView/PartialRenderer.html">ActionView::PartialRenderer</a></li>
+</ul>
+
+
+<p><code>render</code> メゾッドにより他のファイルを差し込むことができます。</p>
+
+<p><code>app/views/(:controller)/_(name_of_partial).html.erb</code> のように先頭にアンダースコアを付与したファイル名を読み込みます。</p>
+
+<pre><code>&lt;!-- app/views/(:controller)/_item.html.erb --&gt;
+&lt;%= render :partial =&gt; 'item' %&gt;
+
+&lt;!-- app/views/layouts/_navs.html.erb --&gt;
+&lt;%= render :partial =&gt; 'layouts/navs' %&gt;
+</code></pre>
+
+<p><code>:locals</code> により、インクルードファイルに変数を渡すことができます。</p>
+
+<pre><code>  ....
+  &lt;%= render :partial =&gt; 'layouts/footer', :locals =&gt; { :time =&gt; Time.new } %&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><code>app/views/layouts/_footer.html.erb</code>:</p>
+
+<pre><code>&lt;div class="footer"&gt;Last updated: &lt;%= time.strftime('%Y/%m/%d') %&gt;&lt;/div&gt;
+</code></pre>
+
+<p><code>:collection</code> でリストを渡して繰り返すことができます。<code>:partial</code> で指定した <code>item</code> がローカル変数として割り当てられます。<code>(partial_name)_counter</code> にはリストのインデックス値が割り当てられます。</p>
+
+<pre><code>&lt;%= render :partial =&gt; 'item', :collection =&gt; @items %&gt;
+</code></pre>
+
+<p><code>app/views/(:controller)/_item.html.erb</code>:</p>
+
+<pre><code>&lt;li&gt;&lt;%= item_counter + 1 &gt;. &lt;%= item %&gt;&lt;/li&gt;
+</code></pre>
+
+<p>partial_name を明示的に指定するには <code>:as</code> で指定します。</p>
+
+<pre><code>&lt;%= render :partial =&gt; 'product', :collection =&gt; @products, :as =&gt; 'element' %&gt;
+</code></pre>
+
+<h2>URLの一元管理</h2>
+
+<ul>
+<li><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html">ActionView::Helpers::UrlHelper</a></li>
+</ul>
+
+
+<p><code>url_for</code> メゾッドで <code>config/routes.rb</code> で設定したマッピングで URL を取得できます。</p>
+
+<pre><code>&lt;%= url_for :controller =&gt; 'pages', :action =&gt; 'help', :format =&gt; 'html' %&gt;
+</code></pre>
+
+<p><code>(name_of_route)_path</code> <code>(name_of_route)_url</code> メゾッドで指定することもできます。</p>
+
+<pre><code>&lt;!-- /pages/help.html --&gt;
+&lt;%= pages_help_path(:format =&gt; 'html') %&gt;
+
+&lt;!-- http://www.exmaple.net/pages/help.html --&gt;
+&lt;%= pages_help_url(:format =&gt; 'html') %&gt; #
+</code></pre>
+
+<p><code>link_to</code> メゾッドでリンク記述を簡略化できます。</p>
+
+<pre><code>&lt;%= link_to :controller =&gt; 'pages', :action =&gt; 'help', :format =&gt; 'html' do %&gt;Help&lt;% end %&gt;
+&lt;%= link_to 'Back To Home', pages_home_path(:format =&gt; 'html') %&gt;
+</code></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.com" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
