@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>インストール | gitolite</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="pull-left">
+          <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+        </div>
+        <ul class="nav">
+          <li><a href="/wiki/gitolite/index.html">gitolite</a></li>
+        </ul>
+        <form class="navbar-search pull-right" action="/wiki/search.html">
+          <input type="text" class="search-query" name="q" placeholder="Search">
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/gitolite/index.html">gitolite</a> <span class="divider">/</span></li><li>インストール</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li class="active"><a href="/wiki/gitolite/install.html">インストール</a></li><li><a href="/wiki/gitolite/basic.html">基本操作</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>インストール</h1>
+          <div id="toc">
+          </div>
+          <h2>gitolite-2.3</h2>
+
+<p>github からソースを取得します。2.3.x 系のブランチは <code>g2</code> になります。</p>
+
+<pre><code>% cd /tmp
+% git https://github.com/sitaramc/gitolite.git
+% cd /tmp/gitolite
+% git checkout g2
+</code></pre>
+
+<p><code>gitolite</code> ユーザを作成し、<code>gl-system-install</code> コマンドを実行します。</p>
+
+<pre><code>% su - 
+% useradd gitolite
+% su - gitolite 
+% /tmp/gitolite/src/gl-system-install
+</code></pre>
+
+<ul>
+<li><code>%HOME/bin</code></li>
+<li><code>%HOME/share</code></li>
+</ul>
+
+
+<p>にインストールされます。<code>$HOME/bin</code> にパスが通っていなければ追加します。</p>
+
+<pre><code>% su - gitolite 
+% vim ~/.bash_profile
+...
+export PATH=$PATH:$HOME:/bin
+...
+% source ~/.bash_profile
+
+% which gl-setup 
+~/bin/gl-setup 
+</code></pre>
+
+<p>gitolite 管理ユーザ用の SSH 鍵を作成します。ファイル名はユーザ名と同じにします。</p>
+
+<pre><code># admin ユーザの SSH鍵を作成します 
+% ssh-keygen -t rsa
+Enter file in which to save the key (/home/gitolite/.ssh/id_rsa): /home/gitolite/.ssh/admin
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/gitolite/.ssh/admin.
+Your public key has been saved in /home/gitolite/.ssh/admin.pub.
+</code></pre>
+
+<p>公開鍵 <code>*.pub</code> へのファイルパスを指定して <code>gl-setup</code> を実行します。</p>
+
+<pre><code>% gl-setup ~/.ssh/admin.pub
+</code></pre>
+
+<p>セットアップ間で <code>$HOME/.gitolite.rc</code> の編集画面が開きますが、特に変更せずそのまま保存します。以上でセットアップは完了です。</p>
+
+<ul>
+<li><code>$HOME/.gitolite</code></li>
+<li><code>$HOME/repositries</code></li>
+<li><code>$HOME/projects.list</code></li>
+</ul>
+
+
+<p>が作成されています。</p>
+
+<p><code>$HOME/.ssh/authorized_keys</code> に <code>gl-setup</code> 時に指定した公開鍵が追加されています。通常の SSH 鍵でのログインとは異なり <code>gl-auth-command</code> が実行されます。</p>
+
+<pre><code># gitolite start
+command="/home/gitolite/bin/gl-auth-command admin",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ssh-rsa ... 
+# gitolite end
+</code></pre>
+
+<p>公開鍵により gitolite ユーザを判別し、UNIX ユーザ <code>gitolite</code> が、実際に git リポジトリを操作することになります。</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.com" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
