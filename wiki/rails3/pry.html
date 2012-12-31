@@ -2,11 +2,23 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>Tutorial | Rails3</title>
+<title>Pry | Rails3</title>
 <link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
 <script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
 </head>
 <body>
 <div id="wrapper">
@@ -29,7 +41,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="/wiki/rails3/index.html">Rails3</a> <span class="divider">/</span></li><li>Tutorial</li>
+        <li><a href="/wiki/rails3/index.html">Rails3</a> <span class="divider">/</span></li><li>Pry</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -40,16 +52,38 @@
               <ul class="nav nav-list">
                 <li class="nav-header">Table of Contents</li>
               </ul>
-              <ul class="nav nav-list"><li><a href="/wiki/rails3/install.html">インストール</a></li><li><a href="/wiki/rails3/pry.html">Pry</a></li><li><a href="/wiki/rails3/rspec.html">RSpec Rails + Spork</a></li><li class="active"><a href="/wiki/rails3/tutorial/index.html">Tutorial</a></li></ul>
+              <ul class="nav nav-list"><li><a href="/wiki/rails3/install.html">インストール</a></li><li class="active"><a href="/wiki/rails3/pry.html">Pry</a></li><li><a href="/wiki/rails3/rspec.html">RSpec Rails + Spork</a></li><li><a href="/wiki/rails3/tutorial/index.html">Tutorial</a></li></ul>
             </div>
           </div>
         </div>
         <div class="span9">
           <div id="content">
-            <h1>Tutorial</h1>
-            
+          <h1>Pry</h1>
+          <div id="toc">
+          </div>
+          <h2>概要</h2>
 
-            <ul><li><a href="/wiki/rails3/tutorial/static.html">静的ファイル出力</a></li><li><a href="/wiki/rails3/tutorial/page.html">HTMLページ出力</a></li><li><a href="/wiki/rails3/tutorial/view.html">Views</a></li><li><a href="/wiki/rails3/tutorial/database.html">データベース操作</a></li></ul>
+<ul>
+<li><a href="http://pryrepl.org/">Pry</a></li>
+</ul>
+
+
+<h2>Gemfile</h2>
+
+<pre><code>group :development do
+  gem 'pry-rails', '0.2.2'
+end
+</code></pre>
+
+<h2>使い方</h2>
+
+<p><code>rails console</code> コマンドで <code>irb</code> の代わりに <code>pry</code> が起動します。</p>
+
+<pre><code>% bundle exec rails c
+Loading development environment (Rails 3.2.8)
+[1] pry(main)&gt;
+</code></pre>
+
           </div>
         </div>
       </div>

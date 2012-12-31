@@ -75,7 +75,7 @@
 
 <pre><code>host gitolite-admin
     user gitolite
-    hostname gitolite.example.net 
+    hostname gitolite.example.net
     port 22
     identityfile ~/.ssh/gitolite_admin.pem
 </code></pre>
@@ -102,7 +102,7 @@
 <pre><code>% cd /path/to/gitolite-admin/keydir
 % cp /path/to/new/id_rsa.pub staff.pub
 % git add staff.pub
-% git commit -m 'Add user staff' 
+% git commit -m 'Add user staff'
 </code></pre>
 
 <p>ユーザ側は秘密鍵を使ってアクセスできるようになります。</p>
@@ -126,10 +126,10 @@ host gitolite-staff
 <p><code>gitolite-admin/conf/gitolite.conf</code> を編集し push することで反映されます。</p>
 
 <pre><code>repo    gitolite-admin
-        RW+     = admin 
+        RW+     = admin
 
-repo    testing 
-        RW+     = @all 
+repo    testing
+        RW+     = @all
 </code></pre>
 
           </div>

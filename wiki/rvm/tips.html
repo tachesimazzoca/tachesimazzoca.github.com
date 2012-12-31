@@ -71,7 +71,7 @@ To eliminate this warning, please install libyaml and reinstall your ruby.
 
 <p>RVM は libyaml を <code>~/.rvm/usr</code> 以下にソースインストールしてくれるのですが、バージョンによってはコンパイルオプションが正常に渡らない場合があります。この場合は明示的にパス指定してインストールしなおします。</p>
 
-<pre><code>% rvm pkg install libyaml 
+<pre><code>% rvm pkg install libyaml
 % rvm reinstall 1.9.3 -C --with-libyaml-dir=$HOME/.rvm/usr
 </code></pre>
 

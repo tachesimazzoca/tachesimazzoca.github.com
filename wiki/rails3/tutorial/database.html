@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>データベース操作 | Rails3</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="pull-left">
+          <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+        </div>
+        <ul class="nav">
+          <li><a href="/wiki/rails3/index.html">Rails3</a></li>
+        </ul>
+        <form class="navbar-search pull-right" action="/wiki/search.html">
+          <input type="text" class="search-query" name="q" placeholder="Search">
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/rails3/index.html">Rails3</a> <span class="divider">/</span></li><li><a href="/wiki/rails3/tutorial/index.html">Tutorial</a> <span class="divider">/</span></li><li>データベース操作</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li><a href="/wiki/rails3/tutorial/static.html">静的ファイル出力</a></li><li><a href="/wiki/rails3/tutorial/page.html">HTMLページ出力</a></li><li><a href="/wiki/rails3/tutorial/view.html">Views</a></li><li class="active"><a href="/wiki/rails3/tutorial/database.html">データベース操作</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>データベース操作</h1>
+          <div id="toc">
+          </div>
+          <h2>データベース設定</h2>
+
+<p><code>config/database.yml</code> にデータベースの設定を記述します。</p>
+
+<p><code>mysql2</code> アダプタを用いた場合の記述例です。</p>
+
+<pre><code>development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: sandbox_development
+  pool: 5
+  username: root
+  password:
+  socket: /var/lib/mysql/mysql.sock
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: sandbox_test
+  pool: 5
+  username: root
+  password:
+  socket: /var/lib/mysql/mysql.sock
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: sandbox
+  pool: 5
+  username: root
+  password:
+  socket: /var/lib/mysql/mysql.sock
+</code></pre>
+
+<p><a href="http://api.rubyonrails.org/classes/ActiveRecord/Base.html">ActiveRecord::Base</a> の <a href="http://api.rubyonrails.org/classes/ActiveRecord/Base.html#method-c-establish_connection">establish_connection</a> メゾッドを通じて、この設定ファイルが読み込まれます。</p>
+
+<pre><code>#!/usr/bin/env ruby
+
+require ::File.expand_path('../config/boot',  __FILE__)
+require "active_record"
+
+ActiveRecord::Base.establish_connection(YAML.load_file('/path/to/rails/config/database.yml')['development'])
+
+adapter = ActiveRecord::Base.connection
+result_set = adapter.exec_query("SELECT * FROM users")
+....
+</code></pre>
+
+<h2>Active Record Migraions</h2>
+
+<p><a href="http://api.rubyonrails.org/classes/ActiveRecord/Migration.html">ActiveRecord::Migration</a> の仕組みを用いてデータベース管理を容易にします。</p>
+
+<h3>データベース作成/削除</h3>
+
+<p>設定したユーザに、データベース作成権限があれば、<code>rake</code> コマンドで作成/削除ができます。</p>
+
+<pre><code># データベース作成
+% bundle exec rake db:create
+# データベース削除
+% bundle exec rake db:drop
+</code></pre>
+
+<h3>テーブル作成</h3>
+
+<p><code>db/migrate/(バージョン番号)_create_(テーブル名).rb</code> の命名規則でファイルを作成します。</p>
+
+<p><code>products</code> テーブルを例にします。</p>
+
+<p><code>db/migrate/1_create_products.rb</code></p>
+
+<pre><code>class CreateProducts &lt; ActiveRecord::Migration
+  def change
+    create_table(:products, :primary_key =&gt; 'id') do |t|
+      t.string :code, :null =&gt; false, :default =&gt; ''
+      t.string :name, :null =&gt; false, :default =&gt; ''
+      t.text :description
+      t.integer :price, :null =&gt; false, :default =&gt; 0
+      t.datetime :open_date
+      t.datetime :close_date
+      t.timestamp :deleted_at
+
+      t.timestamps
+    end
+  end
+end
+</code></pre>
+
+<p><code>db:migrate</code> でテーブルを作成します。</p>
+
+<pre><code>% bundle exec rake db:migrate
+</code></pre>
+
+<p>間違えた場合は <code>db:rollback</code> でやり直すことができます。</p>
+
+<pre><code>% bundle exec rake db:rollback
+% vim db/migrate/1_create_products.rb
+....
+% bundle exec rake db:migrate
+</code></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.com" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
