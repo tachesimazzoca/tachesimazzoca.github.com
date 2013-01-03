@@ -86,7 +86,7 @@ fos.close();
 fis.close();
 </code></pre>
 
-<p>を用いて、バッファを介して読み書きすることができます。</p>
+<p>上記例では１バイトづつ読み書きを行っていますので非効率です。</p>
 
 <ul>
 <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedInputStream.html">java.io.BufferedInputStream</a></li>
@@ -94,7 +94,7 @@ fis.close();
 </ul>
 
 
-<p>を用いて、バッファを介することで読み書き回数を減らすようにします。</p>
+<p>を用いて、バッファを介して読み書きすることができます。</p>
 
 <pre><code>FileInputStream fis = new FileInputStream("/path/to/input.dat");
 BufferedInputStream bis = new BufferedInputStream(fis);
