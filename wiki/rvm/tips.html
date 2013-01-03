@@ -61,7 +61,16 @@
           <h1>TIPS</h1>
           <div id="toc">
           </div>
-          <h2>ruby-1.9.3 で yaml.rb の Warning</h2>
+          <h2>screen 上で利用</h2>
+
+<p><a href="https://rvm.io/workflow/screen/">Using RVM inside GNU Screen</a></p>
+
+<p><code>~/.screenrc</code> に以下のコマンドを設定する</p>
+
+<pre><code>shell -${SHELL}
+</code></pre>
+
+<h2>ruby-1.9.3 で yaml.rb の Warning</h2>
 
 <p>ruby-1.9.3 より YAML パーサに <a href="http://doc.ruby-lang.org/ja/1.9.3/library/psych.html">psych</a> が採用されています。libyaml がインストールされていないと、以下の警告が出力され、代わりに <a href="http://doc.ruby-lang.org/ja/1.9.3/library/syck.html">syck</a> が用いられます。</p>
 

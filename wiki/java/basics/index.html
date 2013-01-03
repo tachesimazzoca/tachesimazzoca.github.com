@@ -2,23 +2,11 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>JAD Java Decompiler | Java</title>
+<title>Basics | Java</title>
 <link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
 <script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="/wiki/assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 </head>
 <body>
 <div id="wrapper">
@@ -41,7 +29,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="/wiki/java/index.html">Java</a> <span class="divider">/</span></li><li>JAD Java Decompiler</li>
+        <li><a href="/wiki/java/index.html">Java</a> <span class="divider">/</span></li><li>Basics</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -52,57 +40,16 @@
               <ul class="nav nav-list">
                 <li class="nav-header">Table of Contents</li>
               </ul>
-              <ul class="nav nav-list"><li><a href="/wiki/java/junit.html">JUnit</a></li><li class="active"><a href="/wiki/java/jad.html">JAD Java Decompiler</a></li><li><a href="/wiki/java/basics/index.html">Basics</a></li></ul>
+              <ul class="nav nav-list"><li><a href="/wiki/java/junit.html">JUnit</a></li><li><a href="/wiki/java/jad.html">JAD Java Decompiler</a></li><li class="active"><a href="/wiki/java/basics/index.html">Basics</a></li></ul>
             </div>
           </div>
         </div>
         <div class="span9">
           <div id="content">
-          <h1>JAD Java Decompiler</h1>
-          <div id="toc">
-          </div>
-          <h2>概要</h2>
+            <h1>Basics</h1>
+            
 
-<p><strong>JAD Java Decompiler Download Mirror</strong></p>
-
-<p><a href="http://www.varaneckas.com/jad/">http://www.varaneckas.com/jad/</a></p>
-
-<h2>Unix</h2>
-
-<p>jad コマンドを実行するだけです。</p>
-
-<pre><code>% jad A.class
-# .java ファイルを上書きしないように、デフォルトでは .jad で書き出されます。
-% ls A.*
-A.class A.jad
-
-# -p オプションで標準出力に出力されます。
-% jad -p B.class &gt; B.java
-% ls B.*
-B.class B.java
-</code></pre>
-
-<p>以下のエラーが表示される場合は <code>libstdc++-libc6.2-2.so.3</code> が含まれていません。</p>
-
-<pre><code>jad: error while loading shared libraries: libstdc++-libc6.2-2.so.3: cannot open shared object file: No such file or directory
-</code></pre>
-
-<p><code>libstdc++-libc6.2-2.so.3</code> が含まれるパッケージを yum でインストールする例です。</p>
-
-<pre><code>% yum provides libstdc++-libc6.2-2.so.3
-
-....
-
-compat-libstdc++-296-2.96-138.i386 : Compatibility 2.96-RH standard C++ libraries
-Repo        : base
-Matched from:
-Other       : libstdc++-libc6.2-2.so.3
-
-....
-
-% yum install compat-libstdc++-296
-</code></pre>
-
+            <ul><li><a href="/wiki/java/basics/io.html">入出力</a></li></ul>
           </div>
         </div>
       </div>
