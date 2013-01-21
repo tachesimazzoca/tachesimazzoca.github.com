@@ -160,11 +160,18 @@ PEERDNS=no
 
 <h2>EPEL リポジトリの追加</h2>
 
-<pre><code>% rpm --import http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-5
-# i386(32bit)
-% rpm -ivh http://dl.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm
-# x86_64(64bit)
-% rpm -ivh http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
+<p><a href="http://dl.fedoraproject.org/pub/epel/">http://dl.fedoraproject.org/pub/epel/</a> より <code>epel-release</code> パッケージをインストールします。</p>
+
+<p>あらかじめ GPG キー <code>http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-*</code> をインポートしておきます。</p>
+
+<pre><code># CentOS6系の場合 
+% rpm --import http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
+</code></pre>
+
+<p><code>http://dl.fedoraproject.org/pub/epel/(バージョン番号)/(i386|x86_64)/epel-release.html</code> よりパッケージ名を確認して rpm インストールします。</p>
+
+<pre><code># CentOS6 x86_64(64bit)
+% rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 </code></pre>
 
 <ul>
@@ -176,15 +183,20 @@ PEERDNS=no
 <p>が追加されます。通常は EPEL は含めないように <code>enabled=0</code> としておくとよいでしょう。</p>
 
 <pre><code>[epel]
-name=Extra Packages for Enterprise Linux 5 - $basearch
-#baseurl=http://download.fedoraproject.org/pub/epel/5/$basearch
-mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=epel-5&amp;arch=$basearch
+name=Extra Packages for Enterprise Linux 6 - $basearch
+#baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&amp;arch=$basearch
 failovermethod=priority
 enabled=0
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 
 ....
+</code></pre>
+
+<p>epel リポジトリを使う場合は <code>--enablerepo=epel</code> を指定します。</p>
+
+<pre><code>% yum --enablerepo=epel install ...
 </code></pre>
 
           </div>
