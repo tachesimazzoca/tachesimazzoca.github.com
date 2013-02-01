@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>Unicorn | Rails3</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="pull-left">
+          <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+        </div>
+        <ul class="nav">
+          <li><a href="/wiki/rails3/index.html">Rails3</a></li>
+        </ul>
+        <form class="navbar-search pull-right" action="/wiki/search.html">
+          <input type="text" class="search-query" name="q" placeholder="Search">
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/rails3/index.html">Rails3</a> <span class="divider">/</span></li><li>Unicorn</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li><a href="/wiki/rails3/install.html">インストール</a></li><li class="active"><a href="/wiki/rails3/unicorn.html">Unicorn</a></li><li><a href="/wiki/rails3/pry.html">Pry</a></li><li><a href="/wiki/rails3/rspec.html">RSpec Rails + Spork</a></li><li><a href="/wiki/rails3/tutorial/index.html">Tutorial</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="content">
+          <h1>Unicorn</h1>
+          <div id="toc">
+          </div>
+          <h2>インストール</h2>
+
+<p><code>rails server</code> で起動するデフォルトのサーバは WEBrick で実用レベルではありません。代わりに Unicorn を利用します。</p>
+
+<pre><code># gem パッケージに含まれていなければ追加します
+% vi Gemfile
+...
+gem 'unicorn'
+
+% bundle update
+</code></pre>
+
+<h2>設定</h2>
+
+<p><code>config/unicorn.rb</code> として設定ファイルを作成します。</p>
+
+<pre><code>worker_processes 2
+
+stderr_path File.expand_path('../../log/unicorn/stderr.log', __FILE__)
+stdout_path File.expand_path('../../log/unicorn/stdout.log', __FILE__)
+
+pid File.expand_path('../../log/unicorn/unicorn.pid', __FILE__)
+
+preload_app false
+</code></pre>
+
+<p>詳しくは <a href="http://unicorn.bogomips.org/Unicorn/Configurator.html">Unicorn::Configurator</a> を参照してください。</p>
+
+<ul>
+<li><a href="http://unicorn.bogomips.org/examples/unicorn.conf.rb">http://unicorn.bogomips.org/examples/unicorn.conf.rb</a></li>
+<li><a href="http://unicorn.bogomips.org/examples/unicorn.conf.minimal.rb">http://unicorn.bogomips.org/examples/unicorn.conf.minimal.rb</a></li>
+</ul>
+
+
+<h2>基本操作</h2>
+
+<h3>起動/停止/再起動</h3>
+
+<p>unicorn_rails コマンドで起動します。<code>http://(ホスト名):8080</code> で確認できます。</p>
+
+<pre><code># -c 設定ファイルへのパス
+# -p ポート番号
+# -D デーモン起動
+% bundle exec unicorn_rails -c config/unicorn.rb -p 8080 -D
+</code></pre>
+
+<p>unicorn を停止するには、親プロセスに <code>-QUIT</code> シグナルを送ります。</p>
+
+<pre><code>% kill -QUIT `cat /path/to/unicorn.pid`
+</code></pre>
+
+<p>unicorn を再起動するには、親プロセスに <code>-HUP</code> シグナルを送ります。</p>
+
+<pre><code>% kill -HUP `cat /path/to/unicorn.pid`
+</code></pre>
+
+<h3>緩やかな再起動</h3>
+
+<p><code>-USR2</code> シグナルを用いることで、旧プロセスを保持したまま、新プロセスを起動できます。</p>
+
+<pre><code>% kill -USR2 `cat /path/to/unicorn.pid`
+</code></pre>
+
+<p>新プロセスで pid ファイルが更新されます。旧プロセスの pid は <code>.oldbin</code> が付与されたファイル名に保存されます。</p>
+
+<pre><code>% ls /path/to/pid/dir
+unicorn.pid unicorn.pid.oldbin
+</code></pre>
+
+<p>このままでは旧プロセスが残ったままですので、旧 master プロセスに <code>WINCH</code> シグナルを送り、旧 worker プロセスを停止 (graceful stop) させます。</p>
+
+<pre><code>% kill -WINCH `cat /path/to/unicorn.pid.oldbin`
+</code></pre>
+
+<p>旧 worker が全て停止したら、旧 master プロセスに <code>QUIT</code> シグナルを送り、旧プロセスを停止させます。</p>
+
+<pre><code>% kill -QUIT `cat /path/to/unicorn.pid.oldbin`
+</code></pre>
+
+<p>Unicorn サイトの設定ファイル例 <a href="http://unicorn.bogomips.org/examples/unicorn.conf.rb">http://unicorn.bogomips.org/examples/unicorn.conf.rb</a> にあるように、<code>befor_fork</code> のフックを追加しておくことで、<code>USR2</code>シグナルの送信だけで旧プロセスを停止することもできます。</p>
+
+<pre><code>before_fork do |server, worker|
+  old_pid = "#{server.config[:pid]}.oldbin"
+  if old_pid != server.pid
+    begin
+      sig = (worker.nr + 1) &gt;= server.worker_processes ? :QUIT : :TTOU
+      Process.kill(sig, File.read(old_pid).to_i)
+    rescue Errno::ENOENT, Errno::ESRCH
+    end
+  end
+end
+</code></pre>
+
+<h2>make コマンドを使った運用</h2>
+
+<p>以下のような Makefile を作成し make コマンドで起動/停止できるようにしておくとよいでしょう。</p>
+
+<pre><code>PID = /path/to/unicorn.pid
+
+all:
+    @echo Usage: (start|stop|restart|graceful)
+start:
+    @bundle exec unicorn_rails -c config/unicorn.rb -D
+stop:
+    @[[ -s "$(PID)" ]] &amp;&amp; kill -QUIT `cat $(PID)`
+restart:
+    @[[ -s "$(PID)" ]] &amp;&amp; kill -HUP `cat $(PID)`
+graceful:
+    @[[ -s "$(PID)" ]] &amp;&amp; kill -USR2 `cat $(PID)`
+</code></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.com" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+

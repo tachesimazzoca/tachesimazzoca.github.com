@@ -52,7 +52,7 @@
               <ul class="nav nav-list">
                 <li class="nav-header">Table of Contents</li>
               </ul>
-              <ul class="nav nav-list"><li class="active"><a href="/wiki/rails3/install.html">インストール</a></li><li><a href="/wiki/rails3/pry.html">Pry</a></li><li><a href="/wiki/rails3/rspec.html">RSpec Rails + Spork</a></li><li><a href="/wiki/rails3/tutorial/index.html">Tutorial</a></li></ul>
+              <ul class="nav nav-list"><li class="active"><a href="/wiki/rails3/install.html">インストール</a></li><li><a href="/wiki/rails3/unicorn.html">Unicorn</a></li><li><a href="/wiki/rails3/pry.html">Pry</a></li><li><a href="/wiki/rails3/rspec.html">RSpec Rails + Spork</a></li><li><a href="/wiki/rails3/tutorial/index.html">Tutorial</a></li></ul>
             </div>
           </div>
         </div>
@@ -186,58 +186,7 @@ Overwrite /path/to/rails/sandbox/Gemfile? (enter "h" for help) [Ynaqdh]
 <pre><code>% bundle exec rails server
 </code></pre>
 
-<p><code>CTRL-C</code> でアプリケーションサーバを停止します。</p>
-
-<h2>unicorn</h2>
-
-<p><code>rails server</code> で起動するアプリケーションサーバは WEBrick で実用レベルではありません。代わりに unicorn を利用します。</p>
-
-<pre><code># gem パッケージに含まれていなければ追加します
-% vi Gemfile
-...
-gem 'unicorn'
-
-% bundle update
-</code></pre>
-
-<p><code>config/unicorn.rb</code> として設定ファイルを作成します。</p>
-
-<pre><code>worker_processes 2
-
-stderr_path File.expand_path('../../log/unicorn.log', __FILE__)
-stdout_path File.expand_path('../../log/unicorn.log', __FILE__)
-
-preload_app false
-</code></pre>
-
-<p>unicorn を起動します。<code>http://(ホスト名):8080</code> で確認できます。</p>
-
-<pre><code># -c 設定ファイルへのパス
-# -D デーモン起動
-% bundle exec unicorn -c config/unicorn.rb -D
-</code></pre>
-
-<p>unicorn を再起動するには、親プロセスに <code>-HUP</code> シグナルを送ります。</p>
-
-<pre><code>% pgrep -f 'unicorn master' | xargs kill -HUP
-</code></pre>
-
-<p>unicorn を停止するには、親プロセスに <code>-QUIT</code> シグナルを送ります。</p>
-
-<pre><code>% pgrep -f 'unicorn master' | xargs kill -QUIT
-</code></pre>
-
-<p>以下のような Makefile を作成し make コマンドで起動/停止できるようにしておくとよいでしょう。</p>
-
-<pre><code>all:
-    @echo "Usage: make (start|stop|restart)"
-start:
-    @bundle exec unicorn -c config/unicorn.rb -D
-stop:
-    @pgrep -f 'unicorn master' | xargs kill -QUIT
-restart:
-    @pgrep -f 'unicorn master' | xargs kill -HUP
-</code></pre>
+<p><code>CTRL-C</code> でサーバを停止します。</p>
 
           </div>
         </div>
