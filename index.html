@@ -5,6 +5,18 @@
 <title>Takeshi Matsuoka</title>
 <link href="assets/lib/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="assets/lib/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+  (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
+  b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
+  '//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';d=c.getElementsByTagName("script")[0];
+  d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){
+  var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(
+  Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?g=a[f]=[]:
+  f="mixpanel";g.people=g.people||[];h=['disable','track','track_pageview','track_links',
+  'track_forms','register','register_once','unregister','identify','alias','name_tag',
+  'set_config','people.set','people.increment','people.track_charge','people.append'];
+  for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.2;})(document,window.mixpanel||[]);
+</script>
 </head>
 <body>
 <div id="wrapper">
@@ -22,13 +34,13 @@
       </div>
       <dl class="well">
         <dt><span class="muted">GitHub</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">https://github.com/tachesimazzoca</a></dd>
+        <dd><a id="jsGithubLink" class="mixpanel-event" href="https://github.com/tachesimazzoca">https://github.com/tachesimazzoca</a></dd>
         <dt><span class="muted">Twitter</span></dt>
-        <dd><a href="https://twitter.com/tachesimazzoca">https://twitter.com/tachesimazzoca</a></dd>
+        <dd><a id="jsTwitterLink" class="mixpanel-event" href="https://twitter.com/tachesimazzoca">https://twitter.com/tachesimazzoca</a></dd>
         <dt><span class="muted">Blog</span></dt>
-        <dd><a href="http://tachesimazzoca.blogspot.com">http://tachesimazzoca.blogspot.com</a></dd>
+        <dd><a id="jsBlogLink" class="mixpanel-event" href="http://tachesimazzoca.blogspot.com">http://tachesimazzoca.blogspot.com</a></dd>
         <dt><span class="muted">SlideShare</span></dt>
-        <dd><a href="http://www.slideshare.net/tachesimazzoca">http://www.slideshare.net/tachesimazzoca</a></dd>
+        <dd><a id="jsSlideShareLink" class="mixpanel-event" href="http://www.slideshare.net/tachesimazzoca">http://www.slideshare.net/tachesimazzoca</a></dd>
       </dl>
     </div>
   </div>
@@ -59,5 +71,19 @@ if ("tachesimazzoca.github.com" == location.hostname) {
 
 </script>
 <!--/Google Analytics-->
+<!--Mixpanel-->
+<script type="text/javascript">
+if ("tachesimazzoca.github.com" == location.hostname) {
+  (function($, mp) {
+    $(function() {
+      mp.init("282cc83fe0907b05be17432252e28984");
+      $('a.mixpanel-event').each(function() {
+        mp.track_link('#' + this.id, 'clicked ' + this.id); 
+      });
+    });
+  })(window.jQuery, mixpanel);
+}
+</script>
+<!--/Mixpanel-->
 </body>
 </html>
