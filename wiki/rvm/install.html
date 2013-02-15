@@ -57,6 +57,12 @@
           </div>
         </div>
         <div class="span9">
+          
+          <div class="btn-group pull-right">
+            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/rvm/install.md">Raw</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/rvm/install.md">Blame</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/rvm/install.md">History</a>
+          </div>
           <div id="content">
           <h1>インストール</h1>
           <div id="toc">
@@ -73,7 +79,7 @@
 <pre><code>PATH=$PATH:$HOME/.rvm/bin
 </code></pre>
 
-<p><code>~/.bashrc</code> <code>~/.zlogin</code> に RVM 用のスクリプトが追加されていることが分かります。シェルログイン時に必要な環境変数が設定されます。</p>
+<p><code>~/.bash_profile</code> <code>~/.zlogin</code> に RVM 用のスクリプトが追加されていることが分かります。シェルログイン時に必要な環境変数が設定されます。</p>
 
 <pre><code>[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; source "$HOME/.rvm/scripts/rvm"
 </code></pre>
@@ -118,15 +124,6 @@ Additional Dependencies:
 </code></pre>
 
 <p><code>For Ruby / Ruby HEAD (MRI, Rubinius, &amp; REE), install the following:</code> にあるパッケージが必要になります。</p>
-
-<p><code>libyaml-devel</code> <code>libffi-devel</code> は標準のCentOSパッケージにふくまれていません。EPEL リポジトリを追加しておきます。</p>
-
-<pre><code>% rpm --import http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-5
-# i386(32bit) の場合
-% rpm -ivh http://dl.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm
-# x86_64(64bit) の場合
-% rpm -ivh http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
-</code></pre>
 
 <p><code>iconv-devel</code> は <code>NOTE: For centos &gt;= 5.4 iconv-devel is provided by glibc</code> とありますので除外してインストールします。</p>
 
