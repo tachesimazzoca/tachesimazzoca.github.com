@@ -78,7 +78,7 @@ if ("tachesimazzoca.github.com" == location.hostname) {
     $(function() {
       mp.init("282cc83fe0907b05be17432252e28984");
       $('a.mixpanel-event').each(function() {
-        mp.track_link('#' + this.id, 'clicked ' + this.id); 
+        mp.track_links('#' + this.id, 'clicked ' + this.id); 
       });
     });
   })(window.jQuery, mixpanel);
