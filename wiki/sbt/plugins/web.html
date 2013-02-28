@@ -69,7 +69,7 @@
           </div>
           <h2>Dependencies</h2>
 
-<p><a href="https://github.com/siasia/xsbt-web-plugin">https://github.com/siasia/xsbt-web-plugin</a></p>
+<p><a href="https://github.com/JamesEarlDouglas/xsbt-web-plugin">https://github.com/JamesEarlDouglas/xsbt-web-plugin</a></p>
 
 <p><code>build.sbt</code>:</p>
 
@@ -88,6 +88,7 @@ libraryDependencies ++= Seq(
   case "0.11.1" =&gt; "com.github.siasia" %% "xsbt-web-plugin" % "0.11.1-0.2.10"
   case "0.11.2" =&gt; "com.github.siasia" %% "xsbt-web-plugin" % "0.11.2-0.2.11"
   case "0.11.3" =&gt; "com.github.siasia" %% "xsbt-web-plugin" % "0.11.3-0.2.11.1"
+  case x if (x.startsWith("0.12")) =&gt; "com.github.siasia" %% "xsbt-web-plugin" % "0.12.0-0.2.11.1"
 })
 </code></pre>
 
@@ -168,6 +169,15 @@ Hello World
 </code></pre>
 
 <p>生成される .war ファイル名にバージョン情報が付与されるのを回避するには、<code>build.sbt</code> に以下の行を追加して <code>artifactName</code> 値でパッケージ名のフォーマットを変更します。</p>
+
+<p>0.12.x 系では artifactName の型は <code>(ScalaVersion, ModuleID, Artifact) =&gt; String</code> になります。</p>
+
+<pre><code>artifactName := { (config:ScalaVersion, module:ModuleID, artifact:Artifact) =&gt;
+  artifact.name + "." + artifact.extension
+}
+</code></pre>
+
+<p>0.11.x 系では artifactName の型は <code>(String, ModuleID, Artifact) =&gt; String</code> になります。</p>
 
 <pre><code>artifactName := { (config:String, module:ModuleID, artifact:Artifact) =&gt;
   artifact.name + "." + artifact.extension
