@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>VPC | Amazon Web Services</title>
+<title>EC2 | Amazon Web Services</title>
 <link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
@@ -41,7 +41,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="/wiki/aws/index.html">Amazon Web Services</a> <span class="divider">/</span></li><li>VPC</li>
+        <li><a href="/wiki/aws/index.html">Amazon Web Services</a> <span class="divider">/</span></li><li>EC2</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -52,63 +52,45 @@
               <ul class="nav nav-list">
                 <li class="nav-header">Table of Contents</li>
               </ul>
-              <ul class="nav nav-list"><li><a href="/wiki/aws/ec2.html">EC2</a></li><li class="active"><a href="/wiki/aws/vpc.html">VPC</a></li></ul>
+              <ul class="nav nav-list"><li class="active"><a href="/wiki/aws/ec2.html">EC2</a></li><li><a href="/wiki/aws/vpc.html">VPC</a></li></ul>
             </div>
           </div>
         </div>
         <div class="span9">
           
           <div class="btn-group pull-right">
-            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/aws/vpc.md">Raw</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/aws/vpc.md">Blame</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/aws/vpc.md">History</a>
+            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/aws/ec2.md">Raw</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/aws/ec2.md">Blame</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/aws/ec2.md">History</a>
           </div>
           <div id="content">
-          <h1>VPC</h1>
+          <h1>EC2</h1>
           <div id="toc">
           </div>
-          <h2>Public Subnet の作成</h2>
+          <h2>EBS ボリュームのサイズアップ</h2>
 
-<p>CIDR Block <code>10.0.0.0/16</code> の VPC に <code>10.0.0.0/24</code> のアドレス範囲を持つ Public Subnet を作成する例です。</p>
+<h3>EC2 Management Console</h3>
 
-<h3>Your VPCs</h3>
+<p>対象の EC2 インスタンスを Stop します。<strong>Terminate すると EBS Volume が失われますので注意してください。</strong></p>
+
+<p>以下の手順で EBS Volume を拡張します。</p>
 
 <ul>
-<li><code>VPC &gt; Your VPCs</code> を選択します。</li>
-<li><code>Create VPC</code> ボタンを押下します。</li>
-<li>CIDR Block <code>10.0.0.0/16</code> を指定し VPC を作成します。</li>
+<li><code>EC2 &gt; ELASTIC BLOCK STORE &gt; Volumes</code> より対象の EBS Volume を選択します。</li>
+<li>下部のメッセージペインの Attachement: よりデバイス名を確認しておきます。例として <code>/dev/sda1</code> とします。</li>
+<li><code>Actions &gt; Detach Volume</code> で対象の EBS Volume を EC2 インスタンスから切り離します。</li>
+<li><code>Actions &gt; Create Sanpshot</code> で対象の EBS Volume のスナップショットを作成します。</li>
+<li><code>EC2 &gt; ELASTIC BLOCK STORE &gt; Snapshots</code> より作成したスナップショットを選択します。</li>
+<li><code>Actions &gt; Create Volume</code> で希望のサイズを指定して EBS Volume を作成します。</li>
+<li><code>EC2 &gt; ELASTIC BLOCK STORE &gt; Volumes</code> より作成された EBS Volume を選択します。</li>
+<li><code>Actions &gt; Attach Volume</code> で作成した EBS Volume を対象の EC2 インスタンスに接続します。デバイス名には事前に確認しておいた <code>/dev/sda1</code> を指定します。</li>
 </ul>
 
 
-<h3>Internet Gateways</h3>
+<p>対象の EC2 インスタンスを Start します。起動後、<code>resize2fs</code> コマンドで論理ボリュームをサイズアップします。</p>
 
-<ul>
-<li><code>VPC &gt; Internet Gateways</code> を選択します。</li>
-<li><code>Create Internet Gateway</code> ボタンを押下します。</li>
-<li>作成された Internet Gateway を選択します。</li>
-<li><code>Attache to VPC</code> ボタンを押下します。</li>
-<li>対象の VPC を選択し Internet Gateway と紐付けます。</li>
-</ul>
-
-
-<h3>Subnets</h3>
-
-<ul>
-<li><code>VPC &gt; Subnets</code> を選択します。</li>
-<li><code>Create Subnet</code> ボタンを押下します。</li>
-<li>Public Subnet 用に CIDR Block <code>10.0.0.0/24</code> で作成します。</li>
-</ul>
-
-
-<h3>Route Tables</h3>
-
-<ul>
-<li><code>VPC &gt; Route Tables</code> を選択します。</li>
-<li>作成した Public Subnet の Route Table を選択します。</li>
-<li><code>Routes</code> タブを選択します。</li>
-<li>Destination <code>0.0.0.0/0</code> Target に Internet Gateway (igw-*) を入力し、Add ボタンで追加します。</li>
-</ul>
-
+<pre><code>% resize2fs /dev/sda1
+</code></pre>
 
           </div>
         </div>
