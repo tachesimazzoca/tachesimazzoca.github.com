@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>TIPS | Postfix</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="pull-left">
+          <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+        </div>
+        <ul class="nav">
+          <li><a href="/wiki/postfix/index.html">Postfix</a></li>
+        </ul>
+        <form class="navbar-search pull-right" action="/wiki/search.html">
+          <input type="text" class="search-query" name="q" placeholder="Search">
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/postfix/index.html">Postfix</a> <span class="divider">/</span></li><li>TIPS</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li><a href="/wiki/postfix/install.html">Install</a></li><li class="active"><a href="/wiki/postfix/tips.html">TIPS</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          
+          <div class="btn-group pull-right">
+            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/postfix/tips.md">Raw</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/postfix/tips.md">Blame</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/postfix/tips.md">History</a>
+          </div>
+          <div id="content">
+          <h1>TIPS</h1>
+          <div id="toc">
+          </div>
+          <h2>設定更新</h2>
+
+<p><code>main.cf</code> を変更した場合、設定をすぐに反映させるには <code>reload</code> を行います。</p>
+
+<pre><code>% postfix reload
+postfix/postfix-script: refreshing the Postfix mail system
+</code></pre>
+
+<p><code>reload</code> を行わなくても、<code>main.cf</code> の変更は反映されるため、更新の際には注意してください。設定が不正な状態で保存されていると問題が起こります。</p>
+
+<p><code>reload</code> では更新されない設定項目があります。この場合は <code>stop/start</code> で更新を行います。</p>
+
+<pre><code>% postfix reload
+postfix/postfix-script: refreshing the Postfix mail system
+
+# /var/log/maillog を確認すると inet_interfaces を変更する場合は stop/start を行うように警告されている
+% less /var/log/maillog
+.... postfix/postfix-script[xxxx]: refreshing the Postfix mail system
+.... postfix/master[xxxx]: reload -- version 2.6.6, configuration /etc/postfix
+.... postfix/master[xxxx]: warning: service smtp: ignoring inet_interfaces change
+.... postfix/master[xxxx]: warning: to change inet_interfaces, stop and start Postfix
+
+% postfix stop
+% postfix start
+% less /var/log/maillog
+.... postfix/postfix-script[xxxx]: stopping the Postfix mail system
+.... postfix/master[xxxx]: terminating on signal 15
+.... postfix/postfix-script[xxxx]: starting the Postfix mail system
+.... postfix/master[xxxx]: daemon started -- version 2.6.6, configuration /etc/postfix
+</code></pre>
+
+<h2>バーチャルなメールアドレス</h2>
+
+<p>実ユーザを作成しなくても、<code>virtual_alias_maps</code> を用いて、バーチャルなメールアドレスでのメール受信ができます。</p>
+
+<h3>エイリアスマップの作成</h3>
+
+<h4>hash</h4>
+
+<p>ハッシュテーブルを用いる方法です。<code>/etc/postfix/virtual</code> に作成する例です。</p>
+
+<pre><code>% cat /etc/postfix/virtual
+example.net anything
+support@example.net username
+info@example.net username
+</code></pre>
+
+<p><code>postmap</code> コマンドで、ハッシュテーブルを作成します。</p>
+
+<pre><code># /etc/postfix/virtual.db が作成されます。
+% postmap /etc/postfix/virtual
+</code></pre>
+
+<h4>regexp</h4>
+
+<p>正規表現で設定を記述します。<code>/etc/postfix/virtual_regexp</code> に作成する例です。</p>
+
+<pre><code>% cat /etc/postfix/virtual_regexp
+/^[0-9a-z]{16}@example\.net$/ username@example.net
+</code></pre>
+
+<h3>エイリアスマップの指定</h3>
+
+<p><code>main.cf</code> でエイリアスマップを指定します。</p>
+
+<pre><code>% cat /etc/postfix/main.cf
+....
+# 外部ホストからの配送を許可
+inet_interfaces = all
+....
+# 配送を受け付けるドメイン example.net を追加
+mydestination = $myhostname, localhost.$mydomain, localhost, example.net
+....
+# エイリアスマップを指定
+virtual_alias_maps = hash:/etc/postfix/virtual, regexp:/etc/postfix/virtual_regexp
+</code></pre>
+
+<h2>ハイフンで始まるメールアドレス</h2>
+
+<p>ハイフンで始まるメールアドレスは、コマンドオプションと認識される危険性があるため送信されません。危険性を了承した上で送信を行う場合は、<code>main.cf</code> で <code>allow_min_user</code> の値を設定することで送信されるようになります。</p>
+
+<pre><code>allow_min_user = yes
+</code></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
