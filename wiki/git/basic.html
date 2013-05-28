@@ -121,6 +121,26 @@
 % git push origin --tags
 </code></pre>
 
+<h2>ログ</h2>
+
+<p>ログのフォーマットを指定することができます。</p>
+
+<pre><code>% git log --pretty="format:%h %s"
+
+# フォーマットについての詳細はマニュアルを参照
+% man git-log
+</code></pre>
+
+<h2>表示</h2>
+
+<p><code>git show (リビジョン):(ファイル名)</code> で特定リビジョンのファイルを表示できます。</p>
+
+<pre><code># ひとつ前のコミットの ./README.md を表示
+% git show HEAD^:./README.md
+# コミット deadbeef.... の ./README.md を表示
+% git show deadbeef:./README.md
+</code></pre>
+
 <h2>差分比較</h2>
 
 <table class="table table-bordered table-striped">
