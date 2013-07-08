@@ -302,6 +302,4 @@ var BackboneSurvey = BackboneSurvey || {};
       return ans;
     }
   });
-  // Global Survey instance
-  BackboneSurvey.survey = new Survey();
 })();
