@@ -47,6 +47,8 @@
             
                 <li><a href="../classes/Extendable.html">Extendable</a></li>
             
+                <li><a href="../classes/MultiAnswerView.html">MultiAnswerView</a></li>
+            
                 <li><a href="../classes/NonAnswerView.html">NonAnswerView</a></li>
             
                 <li><a href="../classes/OptionAnswerViewProto.html">OptionAnswerViewProto</a></li>
@@ -305,6 +307,9 @@ var BackboneSurvey = BackboneSurvey || {};
       case BackboneSurvey.QuestionType.TEXT:
         func = BackboneSurvey.TextAnswerView;
         break;
+      case BackboneSurvey.QuestionType.MULTI:
+        func = BackboneSurvey.MultiAnswerView;
+        break;
       case BackboneSurvey.QuestionType.RADIO:
         func = BackboneSurvey.RadioAnswerView;
         break;
@@ -371,6 +376,46 @@ var BackboneSurvey = BackboneSurvey || {};
   , answers: function() {
       var v = this.$(&#x27;[name=&quot;answer-&#x27; + this.model.id + &#x27;&quot;]&#x27;).val();
       return (_.isEmpty(v)) ? [] : [v];
+    }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      return {};
+    }
+  });
+
+  /**
+   * @class MultiAnswerView
+   * @extends {Backbone.View}
+   */
+  var MultiAnswerView = BackboneSurvey.MultiAnswerView = Backbone.View.extend({
+    template: &#x27;&lt;dl&gt;&lt;% _.each(fields, function(field, i) { %&gt;&#x27; +
+      &#x27;&lt;dt&gt;&lt;%= field.label %&gt;&lt;/dt&gt;&#x27; +
+      &#x27;&lt;dd&gt;&lt;input type=&quot;text&quot; name=&quot;answer-&lt;%- id %&gt;-&lt;%- i %&gt;&quot; value=&quot;&lt;%- answers[i] %&gt;&quot;&gt;&lt;/dd&gt;&#x27; +
+      &#x27;&lt;% }); %&gt;&lt;/dl&gt;&#x27;
+
+    /**
+     * @method render
+     * @chainable
+     */
+  , render: function() {
+      this.$el.html(_.template(this.template)(this.model.toJSON()));
+      return this;
+    }
+
+    /**
+     * @method answers
+     * @return {Array}
+     */
+  , answers: function() {
+      var vs = [];
+      this.$(&#x27;[name^=&quot;answer-&#x27; + this.model.id + &#x27;-&quot;]&#x27;).each(function() {
+        vs.push($(this).val());
+      });
+      return vs;
     }
 
     /**

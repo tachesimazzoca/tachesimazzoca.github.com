@@ -100,6 +100,14 @@ var BackboneSurvey = BackboneSurvey || {};
   BackboneSurvey.QuestionType.TEXT = new QuestionType(BackboneSurvey.AnswerType.TEXT, false);
 
   /**
+   * @property MULTI
+   * @type {QuestionType}
+   * @static
+   * @final
+   */
+  BackboneSurvey.QuestionType.MULTI = new QuestionType(BackboneSurvey.AnswerType.TEXT, true);
+
+  /**
    * @property RADIO
    * @type {QuestionType}
    * @static
@@ -286,6 +294,7 @@ var BackboneSurvey = BackboneSurvey || {};
     , question: ""
     , label: ""
     , guide: ""
+    , fields: [] // multi fields
     , options: [] // select options
     , singleOptions: [] // option keys that disable the other keys
     , defaultAnswers: []
@@ -338,11 +347,25 @@ var BackboneSurvey = BackboneSurvey || {};
       var errors = [];
       var answers = this.answers(attr);
       var me = this;
-      _.each(this.attributes.rules, function(rule) {
-        if (errors.length > 0) return;
-        var result = rule.validate(answers, me.attributes);
-        if (!result.valid) errors.push(result.message);
-      });
+      if (this.get("type") === BackboneSurvey.QuestionType.MULTI) {
+        var fields = this.get("fields") || [];
+        _.each(fields, function(field, i) {
+          var rules = field.rules || [];
+          var err = [];
+          _.each(rules, function(rule) {
+            if (err.length > 0) return;
+            var result = rule.validate([answers[i]], me.attributes);
+            if (!result.valid) errors.push(result.message);
+          });
+          _.union(errors, err);
+        });
+      } else {
+        _.each(this.attributes.rules, function(rule) {
+          if (errors.length > 0) return;
+          var result = rule.validate(answers, me.attributes);
+          if (!result.valid) errors.push(result.message);
+        });
+      }
       if (errors.length > 0) return errors;
     }
 
@@ -836,6 +859,9 @@ var BackboneSurvey = BackboneSurvey || {};
       case BackboneSurvey.QuestionType.TEXT:
         func = BackboneSurvey.TextAnswerView;
         break;
+      case BackboneSurvey.QuestionType.MULTI:
+        func = BackboneSurvey.MultiAnswerView;
+        break;
       case BackboneSurvey.QuestionType.RADIO:
         func = BackboneSurvey.RadioAnswerView;
         break;
@@ -902,6 +928,46 @@ var BackboneSurvey = BackboneSurvey || {};
   , answers: function() {
       var v = this.$('[name="answer-' + this.model.id + '"]').val();
       return (_.isEmpty(v)) ? [] : [v];
+    }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      return {};
+    }
+  });
+
+  /**
+   * @class MultiAnswerView
+   * @extends {Backbone.View}
+   */
+  var MultiAnswerView = BackboneSurvey.MultiAnswerView = Backbone.View.extend({
+    template: '<dl><% _.each(fields, function(field, i) { %>' +
+      '<dt><%= field.label %></dt>' +
+      '<dd><input type="text" name="answer-<%- id %>-<%- i %>" value="<%- answers[i] %>"></dd>' +
+      '<% }); %></dl>'
+
+    /**
+     * @method render
+     * @chainable
+     */
+  , render: function() {
+      this.$el.html(_.template(this.template)(this.model.toJSON()));
+      return this;
+    }
+
+    /**
+     * @method answers
+     * @return {Array}
+     */
+  , answers: function() {
+      var vs = [];
+      this.$('[name^="answer-' + this.model.id + '-"]').each(function() {
+        vs.push($(this).val());
+      });
+      return vs;
     }
 
     /**

@@ -179,6 +179,9 @@ var BackboneSurvey = BackboneSurvey || {};
       case BackboneSurvey.QuestionType.TEXT:
         func = BackboneSurvey.TextAnswerView;
         break;
+      case BackboneSurvey.QuestionType.MULTI:
+        func = BackboneSurvey.MultiAnswerView;
+        break;
       case BackboneSurvey.QuestionType.RADIO:
         func = BackboneSurvey.RadioAnswerView;
         break;
@@ -245,6 +248,46 @@ var BackboneSurvey = BackboneSurvey || {};
   , answers: function() {
       var v = this.$('[name="answer-' + this.model.id + '"]').val();
       return (_.isEmpty(v)) ? [] : [v];
+    }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      return {};
+    }
+  });
+
+  /**
+   * @class MultiAnswerView
+   * @extends {Backbone.View}
+   */
+  var MultiAnswerView = BackboneSurvey.MultiAnswerView = Backbone.View.extend({
+    template: '<dl><% _.each(fields, function(field, i) { %>' +
+      '<dt><%= field.label %></dt>' +
+      '<dd><input type="text" name="answer-<%- id %>-<%- i %>" value="<%- answers[i] %>"></dd>' +
+      '<% }); %></dl>'
+
+    /**
+     * @method render
+     * @chainable
+     */
+  , render: function() {
+      this.$el.html(_.template(this.template)(this.model.toJSON()));
+      return this;
+    }
+
+    /**
+     * @method answers
+     * @return {Array}
+     */
+  , answers: function() {
+      var vs = [];
+      this.$('[name^="answer-' + this.model.id + '-"]').each(function() {
+        vs.push($(this).val());
+      });
+      return vs;
     }
 
     /**

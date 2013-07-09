@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Section</title>
+    <title>MultiAnswerView</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -122,19 +122,19 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Section Class</h1>
+                        <h1>MultiAnswerView Class</h1>
 <div class="box meta">
     
 
     
         <div class="extends">
-            Extends Backbone.Model
+            Extends Backbone.View
         </div>
     
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_assets_js_models.js.html#l7"><code>src&#x2F;assets&#x2F;js&#x2F;models.js:7</code></a>
+            Defined in: <a href="../files/src_assets_js_views.js.html#l262"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:262</code></a>
         </div>
     
 
@@ -178,13 +178,6 @@
                     <ul class="index-list methods extends">
                         
                             <li class="index-item method">
-                                <a href="#method_answeredRoutes">answeredRoutes</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
                                 <a href="#method_answers">answers</a>
 
                                 
@@ -192,7 +185,14 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_clearAnswers">clearAnswers</a>
+                                <a href="#method_render">render</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_subAnswer">subAnswer</a>
 
                                 
                                 
@@ -214,91 +214,11 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_answeredRoutes" class="method item">
-    <h3 class="name"><code>answeredRoutes</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Array</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_assets_js_models.js.html#l119"><code>src&#x2F;assets&#x2F;js&#x2F;models.js:119</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Returns the route keys.</p>
-    </div>
-
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Array</span>:
-                    
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
                     <div id="method_answers" class="method item">
     <h3 class="name"><code>answers</code></h3>
 
     
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code class="optional">[attr]</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
+        <span class="paren">()</span>
     
 
     
@@ -330,7 +250,7 @@
             
         
         
-        <a href="../files/src_assets_js_models.js.html#l98"><code>src&#x2F;assets&#x2F;js&#x2F;models.js:98</code></a>
+        <a href="../files/src_assets_js_views.js.html#l281"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:281</code></a>
         
         </p>
 
@@ -341,33 +261,9 @@
     </div>
 
     <div class="description">
-        <p>Pick the answers according to the section type.</p>
+        
     </div>
 
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[attr]</code>
-                        <span class="type">Object</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>If it's undefined, Use this.attributes.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
     
@@ -388,13 +284,73 @@
 </div>
 
                 
-                    <div id="method_clearAnswers" class="method item">
-    <h3 class="name"><code>clearAnswers</code></h3>
+                    <div id="method_render" class="method item">
+    <h3 class="name"><code>render</code></h3>
 
     
         <span class="paren">()</span>
     
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_assets_js_views.js.html#l272"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:272</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_subAnswer" class="method item">
+    <h3 class="name"><code>subAnswer</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
     
 
     
@@ -420,7 +376,7 @@
             
         
         
-        <a href="../files/src_assets_js_models.js.html#l110"><code>src&#x2F;assets&#x2F;js&#x2F;models.js:110</code></a>
+        <a href="../files/src_assets_js_views.js.html#l293"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:293</code></a>
         
         </p>
 
@@ -431,11 +387,23 @@
     </div>
 
     <div class="description">
-        <p>Clear all answer attributes.</p>
+        
     </div>
 
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                
+            </div>
+        </div>
     
 
     

@@ -4,6 +4,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "AnswerType",
         "CheckboxAnswerView",
         "Extendable",
+        "MultiAnswerView",
         "NonAnswerView",
         "OptionAnswerViewProto",
         "QuestionType",

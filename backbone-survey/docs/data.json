@@ -55,6 +55,7 @@
                 "SectionView": 1,
                 "NonAnswerView": 1,
                 "TextAnswerView": 1,
+                "MultiAnswerView": 1,
                 "OptionAnswerViewProto": 1,
                 "RadioAnswerView": 1,
                 "CheckboxAnswerView": 1
@@ -84,6 +85,7 @@
                 "SectionView": 1,
                 "NonAnswerView": 1,
                 "TextAnswerView": 1,
+                "MultiAnswerView": 1,
                 "OptionAnswerViewProto": 1,
                 "RadioAnswerView": 1,
                 "CheckboxAnswerView": 1
@@ -92,7 +94,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/assets/js/views.js",
-            "line": 348
+            "line": 391
         }
     },
     "classes": {
@@ -164,7 +166,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/models.js",
-            "line": 132,
+            "line": 147,
             "extends": "{Backbone.Collection}"
         },
         "Survey": {
@@ -178,7 +180,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/models.js",
-            "line": 199,
+            "line": 214,
             "extends": "{Backbone.Model}"
         },
         "ValidationResult": {
@@ -328,7 +330,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 199,
+            "line": 202,
             "extends": "{Backbone.View}"
         },
         "TextAnswerView": {
@@ -342,7 +344,21 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 223,
+            "line": 226,
+            "extends": "{Backbone.View}"
+        },
+        "MultiAnswerView": {
+            "name": "MultiAnswerView",
+            "shortname": "MultiAnswerView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "backbone-survey",
+            "namespace": "",
+            "file": "src/assets/js/views.js",
+            "line": 262,
             "extends": "{Backbone.View}"
         },
         "OptionAnswerViewProto": {
@@ -359,7 +375,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 259
+            "line": 302
         },
         "RadioAnswerView": {
             "name": "RadioAnswerView",
@@ -372,7 +388,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 330,
+            "line": 373,
             "extends": "{Backbone.View}",
             "uses": [
                 "OptionAnswerViewProto"
@@ -389,7 +405,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 348,
+            "line": 391,
             "extends": "{Backbone.View}",
             "uses": [
                 "OptionAnswerViewProto"
@@ -480,7 +496,7 @@
             "file": "src/assets/js/enum.js",
             "line": 75,
             "itemtype": "property",
-            "name": "RADIO",
+            "name": "MULTI",
             "type": "{QuestionType}",
             "static": 1,
             "final": 1,
@@ -491,6 +507,17 @@
             "file": "src/assets/js/enum.js",
             "line": 83,
             "itemtype": "property",
+            "name": "RADIO",
+            "type": "{QuestionType}",
+            "static": 1,
+            "final": 1,
+            "class": "QuestionType",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/enum.js",
+            "line": 91,
+            "itemtype": "property",
             "name": "CHECKBOX",
             "type": "{QuestionType}",
             "static": 1,
@@ -500,7 +527,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 83,
+            "line": 98,
             "description": "Pick the answers according to the section type.",
             "itemtype": "method",
             "name": "answers",
@@ -521,7 +548,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 95,
+            "line": 110,
             "description": "Clear all answer attributes.",
             "itemtype": "method",
             "name": "clearAnswers",
@@ -530,7 +557,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 104,
+            "line": 119,
             "description": "Returns the route keys.",
             "itemtype": "method",
             "name": "answeredRoutes",
@@ -543,7 +570,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 139,
+            "line": 154,
             "itemtype": "method",
             "name": "fistPage",
             "return": {
@@ -555,7 +582,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 150,
+            "line": 165,
             "itemtype": "method",
             "name": "lastPage",
             "return": {
@@ -567,7 +594,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 161,
+            "line": 176,
             "itemtype": "method",
             "name": "prevPage",
             "params": [
@@ -586,7 +613,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 179,
+            "line": 194,
             "itemtype": "method",
             "name": "nextPage",
             "params": [
@@ -605,7 +632,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 205,
+            "line": 220,
             "itemtype": "property",
             "name": "sections",
             "type": "{Sections}",
@@ -614,7 +641,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 225,
+            "line": 240,
             "description": "Parser method for using `{ parse: true }` option.\n\n<pre><code>var survey = new BackboneSurvey.Survey({\n   survey: {\n     // Survey.attributes ....\n   }\n , sections: [\n     // An array of Section.attributes ....\n   ]\n}, { parse: true });\n</code></pre>",
             "itemtype": "method",
             "name": "parse",
@@ -639,7 +666,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 250,
+            "line": 265,
             "description": "Move to a first page, and reset all answers.",
             "itemtype": "method",
             "name": "startPage",
@@ -648,7 +675,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 265,
+            "line": 280,
             "description": "Move to a prev page.",
             "itemtype": "method",
             "name": "prevPage",
@@ -657,7 +684,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 277,
+            "line": 292,
             "description": "Move to a next page.",
             "itemtype": "method",
             "name": "nextPage",
@@ -666,7 +693,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 311,
+            "line": 326,
             "itemtype": "method",
             "name": "isFirstPage",
             "return": {
@@ -678,7 +705,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 319,
+            "line": 334,
             "itemtype": "method",
             "name": "isLastPage",
             "return": {
@@ -690,7 +717,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 327,
+            "line": 342,
             "description": "Returns an array of Section in a current page.",
             "itemtype": "method",
             "name": "currentSections",
@@ -703,7 +730,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 337,
+            "line": 352,
             "description": "Returns all answers.",
             "itemtype": "method",
             "name": "answers",
@@ -716,7 +743,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 360,
+            "line": 375,
             "description": "Add an answered section ID.",
             "itemtype": "method",
             "name": "addAnsweredSectionId",
@@ -732,7 +759,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 374,
+            "line": 389,
             "description": "Returns the route keys in the sections.",
             "itemtype": "method",
             "name": "answeredRoutes",
@@ -876,7 +903,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 208,
+            "line": 211,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -888,7 +915,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 214,
+            "line": 217,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -900,7 +927,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 232,
+            "line": 235,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -909,7 +936,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 241,
+            "line": 244,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -921,7 +948,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 250,
+            "line": 253,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -933,7 +960,40 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 263,
+            "line": 272,
+            "itemtype": "method",
+            "name": "render",
+            "chainable": 1,
+            "class": "MultiAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 281,
+            "itemtype": "method",
+            "name": "answers",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "MultiAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 293,
+            "itemtype": "method",
+            "name": "subAnswer",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "MultiAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 306,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -942,7 +1002,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 275,
+            "line": 318,
             "itemtype": "method",
             "name": "normalize",
             "params": [
@@ -957,7 +1017,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 300,
+            "line": 343,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -969,7 +1029,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 313,
+            "line": 356,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {

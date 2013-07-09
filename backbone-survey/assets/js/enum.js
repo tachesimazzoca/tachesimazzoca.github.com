@@ -73,6 +73,14 @@ var BackboneSurvey = BackboneSurvey || {};
   BackboneSurvey.QuestionType.TEXT = new QuestionType(BackboneSurvey.AnswerType.TEXT, false);
 
   /**
+   * @property MULTI
+   * @type {QuestionType}
+   * @static
+   * @final
+   */
+  BackboneSurvey.QuestionType.MULTI = new QuestionType(BackboneSurvey.AnswerType.TEXT, true);
+
+  /**
    * @property RADIO
    * @type {QuestionType}
    * @static

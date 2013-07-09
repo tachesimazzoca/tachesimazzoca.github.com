@@ -30,7 +30,7 @@
       , {
           id: "q1"
         , page: 2
-        , question: "Q1. テキスト入力設問です。<strong><em>HTMLタグはエスケープされません</em></strong>"
+        , question: "Q1. 単一テキスト入力設問です。<strong><em>HTMLタグはエスケープされません</em></strong>"
         , type: BackboneSurvey.QuestionType.TEXT
         , label: "<strong>ラベル：</strong>"
         , guide: "<em>(2..10文字以内)</em>"
@@ -57,8 +57,34 @@
       , {
           id: "q3"
         , page: 3
+        , question: "Q3. 複数テキスト設問です。"
+        , type: BackboneSurvey.QuestionType.MULTI
+        , fields: [
+            {
+              label: "サブ設問1 <em>(HTMLタグはエスケープされません)</em>"
+            , rules: [
+                new BackboneSurvey.RequiredValidator({
+                  message: "サブ設問1を入力してください"
+                })
+              ]
+            }
+          , {
+              label: "サブ設問2"
+            , rules: [
+                new BackboneSurvey.RangeLengthValidator({
+                  message: "サブ設問2は10文字以内で入力してください"
+                , max: 10
+                })
+              ]
+            }
+          , { label: "サブ設問3" }
+          ]
+        }
+      , {
+          id: "q4"
+        , page: 4
         , routeDependencies: [["Y", "N"]] // Y or N いずれかを選択した場合に表示されます。
-        , question: "Q3. 複数選択設問です。(未選択可)"
+        , question: "Q4. 複数選択設問です。(未選択可)"
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , options: [
             { value: "A", label: "スポーツ", route: "ANY", sub: { placeholder: "好きなスポーツ" } }
@@ -73,8 +99,8 @@
         , defaultAnswers: ["B", "C", "NONE"]
         }
       , {
-          id: "q4"
-        , page: 4
+          id: "q5"
+        , page: 5
         , routeDependencies: ["Y", ["ANY", "OTHER"]] // Y && (ANY || OTHER) を選択した場合に表示されます。
         , question: "Q4. 複数選択設問です。(選択必須)"
         , type: BackboneSurvey.QuestionType.CHECKBOX

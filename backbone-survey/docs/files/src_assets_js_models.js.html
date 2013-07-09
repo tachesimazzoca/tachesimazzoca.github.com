@@ -47,6 +47,8 @@
             
                 <li><a href="../classes/Extendable.html">Extendable</a></li>
             
+                <li><a href="../classes/MultiAnswerView.html">MultiAnswerView</a></li>
+            
                 <li><a href="../classes/NonAnswerView.html">NonAnswerView</a></li>
             
                 <li><a href="../classes/OptionAnswerViewProto.html">OptionAnswerViewProto</a></li>
@@ -146,6 +148,7 @@ var BackboneSurvey = BackboneSurvey || {};
     , question: &quot;&quot;
     , label: &quot;&quot;
     , guide: &quot;&quot;
+    , fields: [] // multi fields
     , options: [] // select options
     , singleOptions: [] // option keys that disable the other keys
     , defaultAnswers: []
@@ -198,11 +201,25 @@ var BackboneSurvey = BackboneSurvey || {};
       var errors = [];
       var answers = this.answers(attr);
       var me = this;
-      _.each(this.attributes.rules, function(rule) {
-        if (errors.length &gt; 0) return;
-        var result = rule.validate(answers, me.attributes);
-        if (!result.valid) errors.push(result.message);
-      });
+      if (this.get(&quot;type&quot;) === BackboneSurvey.QuestionType.MULTI) {
+        var fields = this.get(&quot;fields&quot;) || [];
+        _.each(fields, function(field, i) {
+          var rules = field.rules || [];
+          var err = [];
+          _.each(rules, function(rule) {
+            if (err.length &gt; 0) return;
+            var result = rule.validate([answers[i]], me.attributes);
+            if (!result.valid) errors.push(result.message);
+          });
+          _.union(errors, err);
+        });
+      } else {
+        _.each(this.attributes.rules, function(rule) {
+          if (errors.length &gt; 0) return;
+          var result = rule.validate(answers, me.attributes);
+          if (!result.valid) errors.push(result.message);
+        });
+      }
       if (errors.length &gt; 0) return errors;
     }
 
