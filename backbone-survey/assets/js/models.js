@@ -21,12 +21,9 @@ var BackboneSurvey = BackboneSurvey || {};
     , label: ""
     , guide: ""
     , options: [] // select options
-    , textOptions: [] // option keys that need a free text answer
     , singleOptions: [] // option keys that disable the other keys
-    , optionAnswers: [] // selected options
-    , textAnswers: [] // free text answers
-    , defaultOptionAnswers: []
-    , defaultTextAnswers: []
+    , answers: [] // selected options
+    , defaultAnswers: []
     , rules: []
     }
 
@@ -85,19 +82,7 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , answers: function(attr) {
       attr = attr || this.attributes;
-      var vals = [];
-      switch (this.get("type")) {
-        case BackboneSurvey.QuestionType.TEXT:
-          vals = attr.textAnswers;
-          break;
-        case BackboneSurvey.QuestionType.RADIO:
-        case BackboneSurvey.QuestionType.CHECKBOX:
-          vals = attr.optionAnswers;
-          break;
-        default:
-          break;
-      }
-      return vals;
+      return attr.answers;
     }
 
     /**
@@ -106,10 +91,7 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method clearAnswers
      */
   , clearAnswers: function() {
-      this.set({
-        optionAnswers: []
-      , textAnswers: []
-      }, { silent: true });
+      this.set({ answers: [] }, { silent: true });
     }
 
     /**
@@ -267,10 +249,7 @@ var BackboneSurvey = BackboneSurvey || {};
       this.set("answeredSectionIds", []);
       this.sections.each(function(section) {
         section.clearAnswers();
-        section.set({
-          optionAnswers: section.get("defaultOptionAnswers")
-        , textAnswers: section.get("defaultTextAnswers")
-        });
+        section.set({ answers: section.get("defaultAnswers") });
       });
       var p = this.sections.firstPage();
       this.set({ page: p });
@@ -364,8 +343,7 @@ var BackboneSurvey = BackboneSurvey || {};
         if (section.get("type") === BackboneSurvey.QuestionType.NONE) return;
         ans.push({
           id: section.id
-        , textAnswers: section.get("textAnswers")
-        , optionAnswers: section.get("optionAnswers")
+        , answers: section.get("answers")
         });
       });
       return ans;

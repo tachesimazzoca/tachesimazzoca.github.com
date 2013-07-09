@@ -1,28 +1,30 @@
 (function($) {
   module("backbone-survey models");
 
-  test("Section", function() {
+  test("Section#clearAnswers", function() {
     var model;
     var attr = {};
 
     model = new BackboneSurvey.Section();
-    attr = {
-      textAnswers: ["回答テキスト"]
-    , optionAnswers: ["1", "2"]
-    };
+    attr = { answers: ["1", "2"] };
     model.set(attr);
-    deepEqual(model.get("textAnswers"), attr.textAnswers);
-    deepEqual(model.get("optionAnswers"), attr.optionAnswers);
+    deepEqual(model.get("answers"), attr.answers);
     model.clearAnswers();
-    deepEqual(model.get("textAnswers"), []);
-    deepEqual(model.get("optionAnswers"), []);
+    deepEqual(model.get("answers"), []);
+  });
 
+  test("Section#set should normalize :options", function() {
+    var model = new BackboneSurvey.Section();
+    var attr = {};
     model.set({ options: ["A", "B"] });
     deepEqual(model.get("options"), [
       { value: "A", label: "A" }
     , { value: "B", label: "B" }
-    ], ".set with normalizer");
+    ]);
+  });
 
+  test("Section#answeredRoutes", function() {
+    var model = new BackboneSurvey.Section();
     model.set({
       type: BackboneSurvey.QuestionType.CHECKBOX
     , options: [
@@ -32,15 +34,15 @@
       , { value: "0", label: "None", route: "N" }
       ]
     });
-    model.set({ optionAnswers: ["2"] });
+    model.set({ answers: ["2"] });
     deepEqual(model.answeredRoutes(), []);
-    model.set({ optionAnswers: ["1"] });
+    model.set({ answers: ["1"] });
     deepEqual(model.answeredRoutes(), ["A"]);
-    model.set({ optionAnswers: ["0"] });
+    model.set({ answers: ["0"] });
     deepEqual(model.answeredRoutes(), ["N"]);
-    model.set({ optionAnswers: ["1", "3"] });
+    model.set({ answers: ["1", "3"] });
     deepEqual(model.answeredRoutes(), ["A"]);
-    model.set({ optionAnswers: ["1", "0"] });
+    model.set({ answers: ["1", "0"] });
     deepEqual(model.answeredRoutes(), ["A", "N"]);
   });
 
@@ -155,7 +157,7 @@
     survey.nextPage();
     deepEqual(survey.get("page"), 1);
     section = survey.sections.get("q1");
-    section.set("optionAnswers", ["0"]);
+    section.set("answers", ["0"]);
     survey.addAnsweredSectionId("q1");
     survey.nextPage();
     deepEqual(survey.get("page"), 1, "The route is N");
@@ -164,34 +166,34 @@
     survey.nextPage();
     deepEqual(survey.get("page"), 1);
     section = survey.sections.get("q1");
-    section.set("optionAnswers", ["1"]);
+    section.set("answers", ["1"]);
     survey.addAnsweredSectionId("q1");
     survey.nextPage();
     deepEqual(survey.get("page"), 2, "The route is Y");
     section = survey.sections.get("q2");
-    section.set("optionAnswers", ["C"]);
+    section.set("answers", ["C"]);
     survey.addAnsweredSectionId("q2");
     survey.nextPage();
     deepEqual(survey.get("page"), 2, "The route is C");
-    section.set("optionAnswers", ["A"]);
+    section.set("answers", ["A"]);
     survey.addAnsweredSectionId("q2");
     survey.nextPage();
     deepEqual(survey.get("page"), 2, "The route is A");
-    section.set("optionAnswers", ["B"]);
+    section.set("answers", ["B"]);
     survey.addAnsweredSectionId("q2");
     survey.nextPage();
     deepEqual(survey.get("page"), 2, "The route is B");
-    section.set("optionAnswers", ["B", "C"]);
+    section.set("answers", ["B", "C"]);
     survey.addAnsweredSectionId("q2");
     survey.nextPage();
     deepEqual(survey.get("page"), 2, "The route is B && C");
-    section.set("optionAnswers", ["A", "B"]);
+    section.set("answers", ["A", "B"]);
     survey.addAnsweredSectionId("q2");
     survey.nextPage();
     deepEqual(survey.get("page"), 3, "The route is A && B");
     survey.prevPage();
     deepEqual(survey.get("page"), 2);
-    section.set("optionAnswers", ["A", "C"]);
+    section.set("answers", ["A", "C"]);
     survey.addAnsweredSectionId("q2");
     survey.nextPage();
     deepEqual(survey.get("page"), 3, "The route is A && C");

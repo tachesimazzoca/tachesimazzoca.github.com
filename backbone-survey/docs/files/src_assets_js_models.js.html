@@ -147,12 +147,9 @@ var BackboneSurvey = BackboneSurvey || {};
     , label: &quot;&quot;
     , guide: &quot;&quot;
     , options: [] // select options
-    , textOptions: [] // option keys that need a free text answer
     , singleOptions: [] // option keys that disable the other keys
-    , optionAnswers: [] // selected options
-    , textAnswers: [] // free text answers
-    , defaultOptionAnswers: []
-    , defaultTextAnswers: []
+    , answers: [] // selected options
+    , defaultAnswers: []
     , rules: []
     }
 
@@ -211,19 +208,7 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , answers: function(attr) {
       attr = attr || this.attributes;
-      var vals = [];
-      switch (this.get(&quot;type&quot;)) {
-        case BackboneSurvey.QuestionType.TEXT:
-          vals = attr.textAnswers;
-          break;
-        case BackboneSurvey.QuestionType.RADIO:
-        case BackboneSurvey.QuestionType.CHECKBOX:
-          vals = attr.optionAnswers;
-          break;
-        default:
-          break;
-      }
-      return vals;
+      return attr.answers;
     }
 
     /**
@@ -232,10 +217,7 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method clearAnswers
      */
   , clearAnswers: function() {
-      this.set({
-        optionAnswers: []
-      , textAnswers: []
-      }, { silent: true });
+      this.set({ answers: [] }, { silent: true });
     }
 
     /**
@@ -393,10 +375,7 @@ var BackboneSurvey = BackboneSurvey || {};
       this.set(&quot;answeredSectionIds&quot;, []);
       this.sections.each(function(section) {
         section.clearAnswers();
-        section.set({
-          optionAnswers: section.get(&quot;defaultOptionAnswers&quot;)
-        , textAnswers: section.get(&quot;defaultTextAnswers&quot;)
-        });
+        section.set({ answers: section.get(&quot;defaultAnswers&quot;) });
       });
       var p = this.sections.firstPage();
       this.set({ page: p });
@@ -490,8 +469,7 @@ var BackboneSurvey = BackboneSurvey || {};
         if (section.get(&quot;type&quot;) === BackboneSurvey.QuestionType.NONE) return;
         ans.push({
           id: section.id
-        , textAnswers: section.get(&quot;textAnswers&quot;)
-        , optionAnswers: section.get(&quot;optionAnswers&quot;)
+        , answers: section.get(&quot;answers&quot;)
         });
       });
       return ans;

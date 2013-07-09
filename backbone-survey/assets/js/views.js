@@ -95,10 +95,7 @@ var BackboneSurvey = BackboneSurvey || {};
         var view = me.sectionViewMap[sectionId];
         var $error = view.$("." + me.elPrefix + "error");
         $error.html("").hide();
-        model.set({
-          textAnswers: view.textAnswers()
-        , optionAnswers: view.optionAnswers()
-        }, { validate: true });
+        model.set({ answers: view.answers() }, { validate: true });
         // RV : Async validation support
         if (model.validationError) {
           valid = false;
@@ -138,7 +135,7 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , initialize: function() {
       this.elPrefix = this.elPrefix || "survey-";
-      this.answerView = AnswerViewFactory(this);
+      this.answerView = AnswerViewFactory.create(this);
     }
 
     /**
@@ -156,23 +153,16 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * @method textAnswers
+     * @method answers
      * @return {Array}
      */
-  , textAnswers: function() {
-      return (this.answerView) ? this.answerView.textAnswers() : [];
-    }
-
-    /**
-     * @method optionAnswers
-     * @return {Array}
-     */
-  , optionAnswers: function() {
-      return (this.answerView) ? this.answerView.optionAnswers() : [];
+  , answers: function() {
+      return (this.answerView) ? this.answerView.answers() : [];
     }
   });
 
-  var AnswerViewFactory = BackboneSurvey.AnswerViewFactory = function(sectionView) {
+  var AnswerViewFactory = BackboneSurvey.AnswerViewFactory = {};
+  AnswerViewFactory.create = function(sectionView) {
     var func;
     switch (sectionView.model.get("type")) {
       case BackboneSurvey.QuestionType.TEXT:
@@ -205,16 +195,10 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * @method textAnswers
+     * @method answers
      * @return {Array}
      */
-  , textAnswers: function() { return []; }
-
-    /**
-     * @method optionAnswers
-     * @return {Array}
-     */
-  , optionAnswers: function() { return []; }
+  , answers: function() { return []; }
   });
 
   /**
@@ -223,7 +207,7 @@ var BackboneSurvey = BackboneSurvey || {};
    */
   var TextAnswerView = BackboneSurvey.TextAnswerView = Backbone.View.extend({
     template: '<%= label %><input type="text" name="answer-<%- id %>"' +
-      '<% if (textAnswers.length !== 0) { %> value="<%- textAnswers[0] %>"<% } %>>' +
+      '<% if (answers.length !== 0) { %> value="<%- answers[0] %>"<% } %>>' +
       '<%= guide %>'
 
     /**
@@ -236,19 +220,13 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * @method textAnswers
+     * @method answers
      * @return {Array}
      */
-  , textAnswers: function() {
+  , answers: function() {
       var v = this.$('[name="answer-' + this.model.id + '"]').val();
       return (_.isEmpty(v)) ? [] : [v];
     }
-
-    /**
-     * @method optionAnswers
-     * @return {Array}
-     */
-  , optionAnswers: function() { return []; }
   });
 
   /**
@@ -286,16 +264,10 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * @method textAnswers
+     * @method answers
      * @return {Array}
      */
-  , textAnswers: function() { return []; }
-
-    /**
-     * @method optionAnswers
-     * @return {Array}
-     */
-  , optionAnswers: function() {
+  , answers: function() {
       var vs = [];
       this.$('[name="answer-' + this.model.id + '"]').each(function() {
         var $this = $(this);
@@ -313,7 +285,7 @@ var BackboneSurvey = BackboneSurvey || {};
   var RadioAnswerView = BackboneSurvey.RadioAnswerView = Backbone.View.extend({
     template: '<ul><% _.each(options, function(option) { %>' +
       '<li><label><input type="radio" name="answer-<%- id %>" value="<%- option.value %>"' +
-      '<% if (_.contains(optionAnswers, option.value)) { %> checked="checked"<% } %>>' +
+      '<% if (_.contains(answers, option.value)) { %> checked="checked"<% } %>>' +
       '<%- option.label %></label></li><% }); %></ul>'
   });
   _.extend(RadioAnswerView.prototype, OptionAnswerViewProto);
@@ -326,7 +298,7 @@ var BackboneSurvey = BackboneSurvey || {};
   var CheckboxAnswerView = BackboneSurvey.CheckboxAnswerView = Backbone.View.extend({
     template: '<ul><% _.each(options, function(option) { %>' +
       '<li><label><input type="checkbox" name="answer-<%- id %>" value="<%- option.value %>"' +
-      '<% if (_.contains(optionAnswers, option.value)) { %> checked="checked"<% } %>>' +
+      '<% if (_.contains(answers, option.value)) { %> checked="checked"<% } %>>' +
       '<%- option.label %></label></li><% }); %></ul>'
   });
   _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto);

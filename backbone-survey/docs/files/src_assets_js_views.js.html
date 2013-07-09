@@ -221,10 +221,7 @@ var BackboneSurvey = BackboneSurvey || {};
         var view = me.sectionViewMap[sectionId];
         var $error = view.$(&quot;.&quot; + me.elPrefix + &quot;error&quot;);
         $error.html(&quot;&quot;).hide();
-        model.set({
-          textAnswers: view.textAnswers()
-        , optionAnswers: view.optionAnswers()
-        }, { validate: true });
+        model.set({ answers: view.answers() }, { validate: true });
         // RV : Async validation support
         if (model.validationError) {
           valid = false;
@@ -264,7 +261,7 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , initialize: function() {
       this.elPrefix = this.elPrefix || &quot;survey-&quot;;
-      this.answerView = AnswerViewFactory(this);
+      this.answerView = AnswerViewFactory.create(this);
     }
 
     /**
@@ -282,23 +279,16 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * @method textAnswers
+     * @method answers
      * @return {Array}
      */
-  , textAnswers: function() {
-      return (this.answerView) ? this.answerView.textAnswers() : [];
-    }
-
-    /**
-     * @method optionAnswers
-     * @return {Array}
-     */
-  , optionAnswers: function() {
-      return (this.answerView) ? this.answerView.optionAnswers() : [];
+  , answers: function() {
+      return (this.answerView) ? this.answerView.answers() : [];
     }
   });
 
-  var AnswerViewFactory = BackboneSurvey.AnswerViewFactory = function(sectionView) {
+  var AnswerViewFactory = BackboneSurvey.AnswerViewFactory = {};
+  AnswerViewFactory.create = function(sectionView) {
     var func;
     switch (sectionView.model.get(&quot;type&quot;)) {
       case BackboneSurvey.QuestionType.TEXT:
@@ -331,16 +321,10 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * @method textAnswers
+     * @method answers
      * @return {Array}
      */
-  , textAnswers: function() { return []; }
-
-    /**
-     * @method optionAnswers
-     * @return {Array}
-     */
-  , optionAnswers: function() { return []; }
+  , answers: function() { return []; }
   });
 
   /**
@@ -349,7 +333,7 @@ var BackboneSurvey = BackboneSurvey || {};
    */
   var TextAnswerView = BackboneSurvey.TextAnswerView = Backbone.View.extend({
     template: &#x27;&lt;%= label %&gt;&lt;input type=&quot;text&quot; name=&quot;answer-&lt;%- id %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (textAnswers.length !== 0) { %&gt; value=&quot;&lt;%- textAnswers[0] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;% if (answers.length !== 0) { %&gt; value=&quot;&lt;%- answers[0] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
       &#x27;&lt;%= guide %&gt;&#x27;
 
     /**
@@ -362,19 +346,13 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * @method textAnswers
+     * @method answers
      * @return {Array}
      */
-  , textAnswers: function() {
+  , answers: function() {
       var v = this.$(&#x27;[name=&quot;answer-&#x27; + this.model.id + &#x27;&quot;]&#x27;).val();
       return (_.isEmpty(v)) ? [] : [v];
     }
-
-    /**
-     * @method optionAnswers
-     * @return {Array}
-     */
-  , optionAnswers: function() { return []; }
   });
 
   /**
@@ -412,16 +390,10 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * @method textAnswers
+     * @method answers
      * @return {Array}
      */
-  , textAnswers: function() { return []; }
-
-    /**
-     * @method optionAnswers
-     * @return {Array}
-     */
-  , optionAnswers: function() {
+  , answers: function() {
       var vs = [];
       this.$(&#x27;[name=&quot;answer-&#x27; + this.model.id + &#x27;&quot;]&#x27;).each(function() {
         var $this = $(this);
@@ -439,7 +411,7 @@ var BackboneSurvey = BackboneSurvey || {};
   var RadioAnswerView = BackboneSurvey.RadioAnswerView = Backbone.View.extend({
     template: &#x27;&lt;ul&gt;&lt;% _.each(options, function(option) { %&gt;&#x27; +
       &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;answer-&lt;%- id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (_.contains(optionAnswers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;% if (_.contains(answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
       &#x27;&lt;%- option.label %&gt;&lt;/label&gt;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
   });
   _.extend(RadioAnswerView.prototype, OptionAnswerViewProto);
@@ -452,7 +424,7 @@ var BackboneSurvey = BackboneSurvey || {};
   var CheckboxAnswerView = BackboneSurvey.CheckboxAnswerView = Backbone.View.extend({
     template: &#x27;&lt;ul&gt;&lt;% _.each(options, function(option) { %&gt;&#x27; +
       &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;answer-&lt;%- id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (_.contains(optionAnswers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;% if (_.contains(answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
       &#x27;&lt;%- option.label %&gt;&lt;/label&gt;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
   });
   _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto);

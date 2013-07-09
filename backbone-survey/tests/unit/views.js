@@ -5,23 +5,23 @@
     var section = new BackboneSurvey.Section();
     var sectionView = new BackboneSurvey.SectionView({ model: section });
     var answerView;
-    answerView = BackboneSurvey.AnswerViewFactory(sectionView);
+    answerView = BackboneSurvey.AnswerViewFactory.create(sectionView);
     ok(answerView instanceof BackboneSurvey.NoneAnswerView, "Create NoneAnswerView");
 
     section.set("type", BackboneSurvey.QuestionType.NONE);
-    answerView = BackboneSurvey.AnswerViewFactory(sectionView);
+    answerView = BackboneSurvey.AnswerViewFactory.create(sectionView);
     ok(answerView instanceof BackboneSurvey.NoneAnswerView, "Create NoneAnswerView");
 
     section.set("type", BackboneSurvey.QuestionType.TEXT);
-    answerView = BackboneSurvey.AnswerViewFactory(sectionView);
+    answerView = BackboneSurvey.AnswerViewFactory.create(sectionView);
     ok(answerView instanceof BackboneSurvey.TextAnswerView, "Create TextAnswerView");
 
     section.set("type", BackboneSurvey.QuestionType.RADIO);
-    answerView = BackboneSurvey.AnswerViewFactory(sectionView);
+    answerView = BackboneSurvey.AnswerViewFactory.create(sectionView);
     ok(answerView instanceof BackboneSurvey.RadioAnswerView, "Create RadioAnswerView");
 
     section.set("type", BackboneSurvey.QuestionType.CHECKBOX);
-    answerView = BackboneSurvey.AnswerViewFactory(sectionView);
+    answerView = BackboneSurvey.AnswerViewFactory.create(sectionView);
     ok(answerView instanceof BackboneSurvey.CheckboxAnswerView, "Create CheckboxAnswerView");
   });
 
@@ -30,13 +30,12 @@
     var section = new BackboneSurvey.Section({
       id: "q1" 
     , type: BackboneSurvey.QuestionType.TEXT
-    , textAnswers: ans
+    , answers: ans
     });
     var view = new BackboneSurvey.TextAnswerView({ model: section });
     view.render();
     deepEqual(view.$el.html(), '<input type="text" name="answer-q1" value="回答文&lt;i&gt;">');
-    deepEqual(view.textAnswers(), ans);
-    deepEqual(view.optionAnswers(), []);
+    deepEqual(view.answers(), ans);
   });
 
   test("RadioAnswerView", function() {
@@ -49,7 +48,7 @@
       id: "q2" 
     , type: BackboneSurvey.QuestionType.Radio
     , options: opts
-    , optionAnswers: ans
+    , answers: ans
     });
     var view = new BackboneSurvey.RadioAnswerView({ model: section });
     view.render();
@@ -59,8 +58,7 @@
       '<li><label><input type="radio" name="answer-q2" value="B" checked="checked">回答B</label></li>' +
       '</ul>'
     );
-    deepEqual(view.textAnswers(), []);
-    deepEqual(view.optionAnswers(), ans);
+    deepEqual(view.answers(), ans);
   });
 
   test("CheckboxAnswerView", function() {
@@ -76,7 +74,7 @@
       id: "q3"
     , type: BackboneSurvey.QuestionType.Checkbox
     , options: opts
-    , optionAnswers: _.union(ans, ["OTHER"]) // "OTHER" will be unchecked.
+    , answers: _.union(ans, ["OTHER"]) // "OTHER" will be unchecked.
     , singleOptions: ["OTHER", "NONE"]
     });
     var view = new BackboneSurvey.CheckboxAnswerView({ model: section });
@@ -90,7 +88,6 @@
       '<li><label><input type="checkbox" name="answer-q3" value="NONE">特になし</label></li>' +
       '</ul>'
     );
-    deepEqual(view.textAnswers(), []);
-    deepEqual(view.optionAnswers(), ans);
+    deepEqual(view.answers(), ans);
   });
 })(jQuery, _);
