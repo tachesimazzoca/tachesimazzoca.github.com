@@ -32,7 +32,7 @@ var BackboneSurvey = BackboneSurvey || {};
   ValidationResult.OK = ValidationResult.extend({ valid: true });
 
   /**
-   * A invalid result.
+   * An invalid result.
    *
    * @class ValidationResult.Error
    * @extends {ValidationResult}

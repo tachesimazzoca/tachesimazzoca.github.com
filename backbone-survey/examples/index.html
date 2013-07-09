@@ -36,22 +36,18 @@
         , guide: "<em>(2..10文字以内)</em>"
         , rules: [
             new BackboneSurvey.RequiredValidator({ message: "入力してください" })
-          , new BackboneSurvey.RangeLengthValidator({
-              message: "2..10文字以内で入力してください"
-            , min: 2
-            , max: 10
-            })
+          , new BackboneSurvey.RangeLengthValidator(
+              { message: "2..10文字以内で入力してください" , min: 2 , max: 10 })
           ]
         }
       , {
           id: "q2"
-          // page 値を合わせることで、複数設問を表示できます。
         , page: 2
-        , question: "Q2. 単一選択設問です。"
+        , question: "Q2. 単一選択設問です。page 値を合わせることで、複数設問を表示できます。"
         , type: BackboneSurvey.QuestionType.RADIO
         , options: [
-            { value: "1", label: "はい" }
-          , { value: "2", label: "いいえ" }
+            { value: "1", label: "はい", route: "Y" }
+          , { value: "2", label: "いいえ", route: "N" }
           , { value: "0", label: "どちらともいえない" }
           ]
         , rules: [
@@ -61,14 +57,15 @@
       , {
           id: "q3"
         , page: 3
+        , routeDependencies: [["Y", "N"]] // Y or N いずれかを選択した場合に表示されます。
         , question: "Q3. 複数選択設問です。(未選択可)"
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , options: [
-            { value: "A", label: "スポーツ" }
-          , { value: "B", label: "読書" }
-          , { value: "C", label: "映画鑑賞" }
+            { value: "A", label: "スポーツ", route: "ANY" }
+          , { value: "B", label: "読書", route: "ANY" }
+          , { value: "C", label: "映画鑑賞", route: "ANY" }
           , { value: "NONE", label: "特になし" }
-          , { value: "OTHER", label: "その他" }
+          , { value: "OTHER", label: "その他", route: "OTHER" }
           ]
         // 背反値です。
         , singleOptions: ["NONE", "OTHER"]
@@ -78,10 +75,10 @@
       , {
           id: "q4"
         , page: 4
+        , routeDependencies: ["Y", ["ANY", "OTHER"]] // Y && (ANY || OTHER) を選択した場合に表示されます。
         , question: "Q4. 複数選択設問です。(選択必須)"
         , type: BackboneSurvey.QuestionType.CHECKBOX
-        // ラベルを省略して値のみ指定できます。
-        , options: [ "赤", "緑", "青" ]
+        , options: [ "赤", "緑", "青" ] // ラベルを省略して値のみ指定できます。
         , rules: [
             new BackboneSurvey.RequiredValidator({ message: "選択してください" })
           ]
@@ -95,7 +92,8 @@
     });
     // 回答完了後に completed でイベントフックが呼ばれます。
     view.on("completed", function() {
-      console.log(["completed", survey.answers()]); });
+      console.log(["completed", survey.answers()]);
+    });
     // SurveyView#startPage() でアンケート開始します。
     view.startPage();
   });

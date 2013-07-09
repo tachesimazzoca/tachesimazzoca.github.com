@@ -22,6 +22,26 @@
       { value: "A", label: "A" }
     , { value: "B", label: "B" }
     ], ".set with normalizer");
+
+    model.set({
+      type: BackboneSurvey.QuestionType.CHECKBOX
+    , options: [
+        { value: "1", label: "1", route: "A" }
+      , { value: "2", label: "2" }
+      , { value: "3", label: "3", route: "A" }
+      , { value: "0", label: "None", route: "N" }
+      ]
+    });
+    model.set({ optionAnswers: ["2"] });
+    deepEqual(model.answeredRoutes(), []);
+    model.set({ optionAnswers: ["1"] });
+    deepEqual(model.answeredRoutes(), ["A"]);
+    model.set({ optionAnswers: ["0"] });
+    deepEqual(model.answeredRoutes(), ["N"]);
+    model.set({ optionAnswers: ["1", "3"] });
+    deepEqual(model.answeredRoutes(), ["A"]);
+    model.set({ optionAnswers: ["1", "0"] });
+    deepEqual(model.answeredRoutes(), ["A", "N"]);
   });
 
   test("Sections", function() {
@@ -41,5 +61,139 @@
     deepEqual(sections.nextPage(1), 2);
     deepEqual(sections.nextPage(2), 2);
     deepEqual(sections.nextPage(3), 2);
+  });
+
+  test("Survey#addAnsweredSectionId", function() {
+    var survey;
+    survey = new BackboneSurvey.Survey();
+    deepEqual(survey.get("answeredSectionIds"), []);
+
+    survey.addAnsweredSectionId("unknownId");
+    deepEqual(survey.get("answeredSectionIds"), [],
+        "#addAnsweredSectionId should skip a non-exsitence ID.");
+
+    survey = new BackboneSurvey.Survey({
+      sections: [
+        { id: "q1" }
+      , { id: "q2" }
+      ]
+    }, { parse: true });
+    survey.addAnsweredSectionId("q1");
+    survey.addAnsweredSectionId("q1");
+    deepEqual(survey.get("answeredSectionIds"), ["q1"],
+        ":answeredSectionIds should be a unique set.");
+  });
+
+  test("Survey#nextPage", function() {
+    var survey, sections;
+    survey = new BackboneSurvey.Survey({
+      sections: [
+        { id: "q1", page: 1 }
+      , { id: "q2", page: 2 }
+      , { id: "q2-2", page: 2 }
+      , { id: "q3", page: 3 }
+      ]
+    }, { parse: true });
+    survey.nextPage();
+    deepEqual(survey.get("page"), 1);
+    sections = survey.currentSections();
+    deepEqual(sections.length, 1);
+    deepEqual(sections[0].id, "q1");
+
+    survey.nextPage();
+    deepEqual(survey.get("page"), 2);
+    sections = survey.currentSections();
+    deepEqual(sections.length, 2);
+    deepEqual(sections[0].id, "q2");
+    deepEqual(sections[1].id, "q2-2");
+
+    survey.nextPage();
+    deepEqual(survey.get("page"), 3);
+    sections = survey.currentSections();
+    deepEqual(sections.length, 1);
+    deepEqual(sections[0].id, "q3");
+
+    survey.nextPage();
+    deepEqual(survey.get("page"), 3);
+    sections = survey.currentSections();
+    deepEqual(sections.length, 1);
+    deepEqual(sections[0].id, "q3");
+  });
+
+  test("Survey#nextPage with routeDependencies", function() {
+    var survey, section;
+    survey = new BackboneSurvey.Survey({
+      sections: [
+        { id: "q1" , page: 1
+        , type: BackboneSurvey.QuestionType.RADIO
+        , options: [
+            { value: "1", route: "Y" }
+          , { value: "0", route: "N" }
+          ]
+        }
+      , { id: "q2", page: 2
+        , routeDependencies: ["Y"]
+        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , options: [
+            { value: "A", route: "A" }
+          , { value: "B", route: "B" }
+          , { value: "C", route: "C" }
+          ]
+        }
+      , { id: "q3", page: 3
+        , routeDependencies: ["A", ["B", "C"]] // A and (B or C)
+        }
+      ]
+    }, { parse: true });
+    survey.nextPage();
+    deepEqual(survey.get("page"), 1);
+    survey.addAnsweredSectionId("q1");
+    survey.nextPage();
+    deepEqual(survey.get("page"), 1, "Has no any required routes.");
+
+    survey.startPage();
+    survey.nextPage();
+    deepEqual(survey.get("page"), 1);
+    section = survey.sections.get("q1");
+    section.set("optionAnswers", ["0"]);
+    survey.addAnsweredSectionId("q1");
+    survey.nextPage();
+    deepEqual(survey.get("page"), 1, "The route is N");
+
+    survey.startPage();
+    survey.nextPage();
+    deepEqual(survey.get("page"), 1);
+    section = survey.sections.get("q1");
+    section.set("optionAnswers", ["1"]);
+    survey.addAnsweredSectionId("q1");
+    survey.nextPage();
+    deepEqual(survey.get("page"), 2, "The route is Y");
+    section = survey.sections.get("q2");
+    section.set("optionAnswers", ["C"]);
+    survey.addAnsweredSectionId("q2");
+    survey.nextPage();
+    deepEqual(survey.get("page"), 2, "The route is C");
+    section.set("optionAnswers", ["A"]);
+    survey.addAnsweredSectionId("q2");
+    survey.nextPage();
+    deepEqual(survey.get("page"), 2, "The route is A");
+    section.set("optionAnswers", ["B"]);
+    survey.addAnsweredSectionId("q2");
+    survey.nextPage();
+    deepEqual(survey.get("page"), 2, "The route is B");
+    section.set("optionAnswers", ["B", "C"]);
+    survey.addAnsweredSectionId("q2");
+    survey.nextPage();
+    deepEqual(survey.get("page"), 2, "The route is B && C");
+    section.set("optionAnswers", ["A", "B"]);
+    survey.addAnsweredSectionId("q2");
+    survey.nextPage();
+    deepEqual(survey.get("page"), 3, "The route is A && B");
+    survey.prevPage();
+    deepEqual(survey.get("page"), 2);
+    section.set("optionAnswers", ["A", "C"]);
+    survey.addAnsweredSectionId("q2");
+    survey.nextPage();
+    deepEqual(survey.get("page"), 3, "The route is A && C");
   });
 })(jQuery);

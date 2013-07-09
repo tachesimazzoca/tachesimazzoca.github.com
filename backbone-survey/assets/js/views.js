@@ -29,6 +29,7 @@ var BackboneSurvey = BackboneSurvey || {};
       this.sectionView = {};
 
       this.listenTo(this.model, "change", this.render);
+      this.listenTo(this.model, "completed", this.complete);
     }
 
     /**
@@ -44,19 +45,16 @@ var BackboneSurvey = BackboneSurvey || {};
       this.sectionViewMap = {};
       if (this.model.get("page") > 0) {
         var me = this;
-        this.model.sections
-          .each(function(section) {
-            if (section.get("page") !== me.model.get("page")) {
-              return;
-            }
-            var view = me.sectionViewMap[section.id] = new SectionView({
-              model: section
-            , className: me.elPrefix + "section"
-            });
-            view.render();
-            view.$("." + me.elPrefix + "error").html("").hide(); // Hide error
-            me.$sections.append(view.el);
+        var sections = this.model.currentSections();
+        _.each(sections, function(section) {
+          var view = me.sectionViewMap[section.id] = new SectionView({
+            model: section
+          , className: me.elPrefix + "section"
           });
+          view.render();
+          view.$("." + me.elPrefix + "error").html("").hide(); // Hide error
+          me.$sections.append(view.el);
+        });
         if (this.model.isFirstPage()) {
           this.$("." + this.elPrefix + "prev").hide();
         } else {
@@ -88,12 +86,14 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , nextPage: function() {
       var valid = true;
-      for (var k in this.sectionViewMap) {
-        var model = this.model.sections.get(k);
+      var sectionIds = _.keys(this.sectionViewMap);
+      var me = this;
+      _.each(sectionIds, function(sectionId) {
+        var model = me.model.sections.get(sectionId);
         if (!model) return;
         model.clearAnswers();
-        var view = this.sectionViewMap[k];
-        var $error = view.$("." + this.elPrefix + "error");
+        var view = me.sectionViewMap[sectionId];
+        var $error = view.$("." + me.elPrefix + "error");
         $error.html("").hide();
         model.set({
           textAnswers: view.textAnswers()
@@ -102,19 +102,26 @@ var BackboneSurvey = BackboneSurvey || {};
         // RV : Async validation support
         if (model.validationError) {
           valid = false;
-          $error.html(_.template(this.templates.error)(
+          $error.html(_.template(me.templates.error)(
               { errors: model.validationError })).show();
         }
-      }
+      });
       if (valid) {
+        _.each(sectionIds, function(sectionId) {
+          me.model.addAnsweredSectionId(sectionId);
+        });
         if (this.model.isLastPage()) {
-          this.$el.html("");
-          this.trigger("completed", this);
+          this.complete();
         } else {
           this.model.nextPage();
         }
       }
     }
+
+    , complete: function() {
+        this.$el.html("");
+        this.trigger("completed", this);
+      }
   });
 
   /**

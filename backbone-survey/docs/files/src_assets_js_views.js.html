@@ -155,6 +155,7 @@ var BackboneSurvey = BackboneSurvey || {};
       this.sectionView = {};
 
       this.listenTo(this.model, &quot;change&quot;, this.render);
+      this.listenTo(this.model, &quot;completed&quot;, this.complete);
     }
 
     /**
@@ -170,19 +171,16 @@ var BackboneSurvey = BackboneSurvey || {};
       this.sectionViewMap = {};
       if (this.model.get(&quot;page&quot;) &gt; 0) {
         var me = this;
-        this.model.sections
-          .each(function(section) {
-            if (section.get(&quot;page&quot;) !== me.model.get(&quot;page&quot;)) {
-              return;
-            }
-            var view = me.sectionViewMap[section.id] = new SectionView({
-              model: section
-            , className: me.elPrefix + &quot;section&quot;
-            });
-            view.render();
-            view.$(&quot;.&quot; + me.elPrefix + &quot;error&quot;).html(&quot;&quot;).hide(); // Hide error
-            me.$sections.append(view.el);
+        var sections = this.model.currentSections();
+        _.each(sections, function(section) {
+          var view = me.sectionViewMap[section.id] = new SectionView({
+            model: section
+          , className: me.elPrefix + &quot;section&quot;
           });
+          view.render();
+          view.$(&quot;.&quot; + me.elPrefix + &quot;error&quot;).html(&quot;&quot;).hide(); // Hide error
+          me.$sections.append(view.el);
+        });
         if (this.model.isFirstPage()) {
           this.$(&quot;.&quot; + this.elPrefix + &quot;prev&quot;).hide();
         } else {
@@ -214,12 +212,14 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , nextPage: function() {
       var valid = true;
-      for (var k in this.sectionViewMap) {
-        var model = this.model.sections.get(k);
+      var sectionIds = _.keys(this.sectionViewMap);
+      var me = this;
+      _.each(sectionIds, function(sectionId) {
+        var model = me.model.sections.get(sectionId);
         if (!model) return;
         model.clearAnswers();
-        var view = this.sectionViewMap[k];
-        var $error = view.$(&quot;.&quot; + this.elPrefix + &quot;error&quot;);
+        var view = me.sectionViewMap[sectionId];
+        var $error = view.$(&quot;.&quot; + me.elPrefix + &quot;error&quot;);
         $error.html(&quot;&quot;).hide();
         model.set({
           textAnswers: view.textAnswers()
@@ -228,19 +228,26 @@ var BackboneSurvey = BackboneSurvey || {};
         // RV : Async validation support
         if (model.validationError) {
           valid = false;
-          $error.html(_.template(this.templates.error)(
+          $error.html(_.template(me.templates.error)(
               { errors: model.validationError })).show();
         }
-      }
+      });
       if (valid) {
+        _.each(sectionIds, function(sectionId) {
+          me.model.addAnsweredSectionId(sectionId);
+        });
         if (this.model.isLastPage()) {
-          this.$el.html(&quot;&quot;);
-          this.trigger(&quot;completed&quot;, this);
+          this.complete();
         } else {
           this.model.nextPage();
         }
       }
     }
+
+    , complete: function() {
+        this.$el.html(&quot;&quot;);
+        this.trigger(&quot;completed&quot;, this);
+      }
   });
 
   /**
