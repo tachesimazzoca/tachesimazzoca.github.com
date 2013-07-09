@@ -22,9 +22,10 @@ var BackboneSurvey = BackboneSurvey || {};
     , guide: ""
     , options: [] // select options
     , singleOptions: [] // option keys that disable the other keys
-    , answers: [] // selected options
     , defaultAnswers: []
     , rules: []
+    , answers: []
+    , subAnswer: {}
     }
 
   , set: function(key, val, options) {
@@ -52,7 +53,13 @@ var BackboneSurvey = BackboneSurvey || {};
         attrs.options = [];
         _.each(opts, function(v) {
           if (typeof(v) !== "object") {
-            v = { value: v.toString(), label: v.toString() };
+            v = { value: v, label: v };
+          }
+          v.label = v.label || v.value;
+          v.value = v.value.toString();
+          v.label = v.label.toString();
+          if (typeof(v.route) !== "undefined") {
+            v.route = v.route.toString();
           }
           attrs.options.push(v);
         });
@@ -344,6 +351,7 @@ var BackboneSurvey = BackboneSurvey || {};
         ans.push({
           id: section.id
         , answers: section.get("answers")
+        , subAnswer: section.get("subAnswer")
         });
       });
       return ans;

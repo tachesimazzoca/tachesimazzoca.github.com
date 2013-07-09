@@ -48,7 +48,7 @@
         , options: [
             { value: "1", label: "はい", route: "Y" }
           , { value: "2", label: "いいえ", route: "N" }
-          , { value: "0", label: "どちらともいえない" }
+          , { value: "0", label: "どちらともいえない", sub: { placeholder: "どちらともいえない理由は？" } }
           ]
         , rules: [
             new BackboneSurvey.RequiredValidator({ message: "選択してください" })
@@ -61,11 +61,11 @@
         , question: "Q3. 複数選択設問です。(未選択可)"
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , options: [
-            { value: "A", label: "スポーツ", route: "ANY" }
-          , { value: "B", label: "読書", route: "ANY" }
-          , { value: "C", label: "映画鑑賞", route: "ANY" }
+            { value: "A", label: "スポーツ", route: "ANY", sub: { placeholder: "好きなスポーツ" } }
+          , { value: "B", label: "読書", route: "ANY", sub: { placeholder: "好きな本" } }
+          , { value: "C", label: "映画鑑賞", route: "ANY", sub: { placeholder: "好きな映画" } }
           , { value: "NONE", label: "特になし" }
-          , { value: "OTHER", label: "その他", route: "OTHER" }
+          , { value: "OTHER", label: "その他", route: "OTHER", sub: {} }
           ]
         // 背反値です。
         , singleOptions: ["NONE", "OTHER"]

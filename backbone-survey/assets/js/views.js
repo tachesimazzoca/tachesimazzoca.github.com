@@ -95,7 +95,10 @@ var BackboneSurvey = BackboneSurvey || {};
         var view = me.sectionViewMap[sectionId];
         var $error = view.$("." + me.elPrefix + "error");
         $error.html("").hide();
-        model.set({ answers: view.answers() }, { validate: true });
+        model.set({
+          answers: view.answers()
+        , subAnswer: view.subAnswer()
+        }, { validate: true });
         // RV : Async validation support
         if (model.validationError) {
           valid = false;
@@ -159,6 +162,14 @@ var BackboneSurvey = BackboneSurvey || {};
   , answers: function() {
       return (this.answerView) ? this.answerView.answers() : [];
     }
+
+    /**
+     * @method subAnswer
+     * @return {Array}
+     */
+  , subAnswer: function() {
+      return (this.answerView) ? this.answerView.subAnswer() : {};
+    }
   });
 
   var AnswerViewFactory = BackboneSurvey.AnswerViewFactory = {};
@@ -199,6 +210,14 @@ var BackboneSurvey = BackboneSurvey || {};
      * @return {Array}
      */
   , answers: function() { return []; }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      return {};
+    }
   });
 
   /**
@@ -226,6 +245,14 @@ var BackboneSurvey = BackboneSurvey || {};
   , answers: function() {
       var v = this.$('[name="answer-' + this.model.id + '"]').val();
       return (_.isEmpty(v)) ? [] : [v];
+    }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      return {};
     }
   });
 
@@ -261,6 +288,13 @@ var BackboneSurvey = BackboneSurvey || {};
         this.$('input[name^="answer-"]').filter(f)
             .prop("checked", false).removeAttr("checked");
       }
+      var ans = this.answers();
+      var ovs = _.pluck(this.model.get("options"), "value");
+      var me = this;
+      _.each(ovs, function(ov, i) {
+        me.$('input[name^="sub-' + me.model.id + '-' + i + '"]')
+            .prop("disabled", !_.contains(ans, ov));
+      });
     }
 
     /**
@@ -275,6 +309,22 @@ var BackboneSurvey = BackboneSurvey || {};
       });
       return vs;
     }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      var sub = {};
+      var opts = this.model.get("options");
+      var me = this;
+      _.each(opts, function(opt, i) {
+        if (!opt.sub) return;
+        var $ov = me.$('input[name^="sub-' + me.model.id + '-' + i + '"]');
+        if (!$ov.prop("disabled")) sub[opt.value] = $ov.val();
+      });
+      return sub;
+    }
   };
 
   /**
@@ -283,10 +333,15 @@ var BackboneSurvey = BackboneSurvey || {};
    * @uses OptionAnswerViewProto
    */
   var RadioAnswerView = BackboneSurvey.RadioAnswerView = Backbone.View.extend({
-    template: '<ul><% _.each(options, function(option) { %>' +
+    template: '<ul><% _.each(options, function(option, i) { %>' +
       '<li><label><input type="radio" name="answer-<%- id %>" value="<%- option.value %>"' +
       '<% if (_.contains(answers, option.value)) { %> checked="checked"<% } %>>' +
-      '<%- option.label %></label></li><% }); %></ul>'
+      '<%- option.label %></label>' +
+      '<% if (option.sub) { %>' +
+      ' <input type="text" name="sub-<%- id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>"' +
+      '<% if (!_.isEmpty(subAnswer[option.value])) { %> value="<%- subAnswer[option.value] %>"<% } %>>' +
+      '<% } %>' +
+      '</li><% }); %></ul>'
   });
   _.extend(RadioAnswerView.prototype, OptionAnswerViewProto);
 
@@ -296,10 +351,15 @@ var BackboneSurvey = BackboneSurvey || {};
    * @uses OptionAnswerViewProto
    */
   var CheckboxAnswerView = BackboneSurvey.CheckboxAnswerView = Backbone.View.extend({
-    template: '<ul><% _.each(options, function(option) { %>' +
+    template: '<ul><% _.each(options, function(option, i) { %>' +
       '<li><label><input type="checkbox" name="answer-<%- id %>" value="<%- option.value %>"' +
       '<% if (_.contains(answers, option.value)) { %> checked="checked"<% } %>>' +
-      '<%- option.label %></label></li><% }); %></ul>'
+      '<%- option.label %></label>' +
+      '<% if (option.sub) { %>' +
+      ' <input type="text" name="sub-<%- id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>"' +
+      '<% if (!_.isEmpty(subAnswer[option.value])) { %> value="<%- subAnswer[option.value] %>"<% } %>>' +
+      '<% } %>' +
+      '</li><% }); %></ul>'
   });
   _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto);
 })();

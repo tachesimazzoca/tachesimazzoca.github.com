@@ -221,7 +221,10 @@ var BackboneSurvey = BackboneSurvey || {};
         var view = me.sectionViewMap[sectionId];
         var $error = view.$(&quot;.&quot; + me.elPrefix + &quot;error&quot;);
         $error.html(&quot;&quot;).hide();
-        model.set({ answers: view.answers() }, { validate: true });
+        model.set({
+          answers: view.answers()
+        , subAnswer: view.subAnswer()
+        }, { validate: true });
         // RV : Async validation support
         if (model.validationError) {
           valid = false;
@@ -285,6 +288,14 @@ var BackboneSurvey = BackboneSurvey || {};
   , answers: function() {
       return (this.answerView) ? this.answerView.answers() : [];
     }
+
+    /**
+     * @method subAnswer
+     * @return {Array}
+     */
+  , subAnswer: function() {
+      return (this.answerView) ? this.answerView.subAnswer() : {};
+    }
   });
 
   var AnswerViewFactory = BackboneSurvey.AnswerViewFactory = {};
@@ -325,6 +336,14 @@ var BackboneSurvey = BackboneSurvey || {};
      * @return {Array}
      */
   , answers: function() { return []; }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      return {};
+    }
   });
 
   /**
@@ -352,6 +371,14 @@ var BackboneSurvey = BackboneSurvey || {};
   , answers: function() {
       var v = this.$(&#x27;[name=&quot;answer-&#x27; + this.model.id + &#x27;&quot;]&#x27;).val();
       return (_.isEmpty(v)) ? [] : [v];
+    }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      return {};
     }
   });
 
@@ -387,6 +414,13 @@ var BackboneSurvey = BackboneSurvey || {};
         this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).filter(f)
             .prop(&quot;checked&quot;, false).removeAttr(&quot;checked&quot;);
       }
+      var ans = this.answers();
+      var ovs = _.pluck(this.model.get(&quot;options&quot;), &quot;value&quot;);
+      var me = this;
+      _.each(ovs, function(ov, i) {
+        me.$(&#x27;input[name^=&quot;sub-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;)
+            .prop(&quot;disabled&quot;, !_.contains(ans, ov));
+      });
     }
 
     /**
@@ -401,6 +435,22 @@ var BackboneSurvey = BackboneSurvey || {};
       });
       return vs;
     }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      var sub = {};
+      var opts = this.model.get(&quot;options&quot;);
+      var me = this;
+      _.each(opts, function(opt, i) {
+        if (!opt.sub) return;
+        var $ov = me.$(&#x27;input[name^=&quot;sub-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;);
+        if (!$ov.prop(&quot;disabled&quot;)) sub[opt.value] = $ov.val();
+      });
+      return sub;
+    }
   };
 
   /**
@@ -409,10 +459,15 @@ var BackboneSurvey = BackboneSurvey || {};
    * @uses OptionAnswerViewProto
    */
   var RadioAnswerView = BackboneSurvey.RadioAnswerView = Backbone.View.extend({
-    template: &#x27;&lt;ul&gt;&lt;% _.each(options, function(option) { %&gt;&#x27; +
+    template: &#x27;&lt;ul&gt;&lt;% _.each(options, function(option, i) { %&gt;&#x27; +
       &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;answer-&lt;%- id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
       &#x27;&lt;% if (_.contains(answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;%- option.label %&gt;&lt;/label&gt;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
+      &#x27;&lt;%- option.label %&gt;&lt;/label&gt;&#x27; +
+      &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
+      &#x27; &lt;input type=&quot;text&quot; name=&quot;sub-&lt;%- id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
+      &#x27;&lt;% if (!_.isEmpty(subAnswer[option.value])) { %&gt; value=&quot;&lt;%- subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;% } %&gt;&#x27; +
+      &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
   });
   _.extend(RadioAnswerView.prototype, OptionAnswerViewProto);
 
@@ -422,10 +477,15 @@ var BackboneSurvey = BackboneSurvey || {};
    * @uses OptionAnswerViewProto
    */
   var CheckboxAnswerView = BackboneSurvey.CheckboxAnswerView = Backbone.View.extend({
-    template: &#x27;&lt;ul&gt;&lt;% _.each(options, function(option) { %&gt;&#x27; +
+    template: &#x27;&lt;ul&gt;&lt;% _.each(options, function(option, i) { %&gt;&#x27; +
       &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;answer-&lt;%- id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
       &#x27;&lt;% if (_.contains(answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;%- option.label %&gt;&lt;/label&gt;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
+      &#x27;&lt;%- option.label %&gt;&lt;/label&gt;&#x27; +
+      &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
+      &#x27; &lt;input type=&quot;text&quot; name=&quot;sub-&lt;%- id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
+      &#x27;&lt;% if (!_.isEmpty(subAnswer[option.value])) { %&gt; value=&quot;&lt;%- subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;% } %&gt;&#x27; +
+      &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
   });
   _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto);
 })();
