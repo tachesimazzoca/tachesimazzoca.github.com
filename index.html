@@ -5,53 +5,58 @@
 <title>Takeshi Matsuoka</title>
 <link href="assets/lib/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="assets/lib/jquery/jquery-1.7.1.min.js"></script>
-<script type="text/javascript">
-  (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
-  b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
-  '//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';d=c.getElementsByTagName("script")[0];
-  d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){
-  var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(
-  Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?g=a[f]=[]:
-  f="mixpanel";g.people=g.people||[];h=['disable','track','track_pageview','track_links',
-  'track_forms','register','register_once','unregister','identify','alias','name_tag',
-  'set_config','people.set','people.increment','people.track_charge','people.append'];
-  for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.2;})(document,window.mixpanel||[]);
-</script>
 </head>
 <body>
 <div id="wrapper">
   <div id="main">
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span12">
-          <div class="page-header">
-            <h1>Takeshi Matsuoka</h1>
+        <div>
+          <h1>Takeshi Matsuoka</h1>
+          <div>
+            <small class="muted">
+            <div id="gr_quote_body"></div><script src="http://www.goodreads.com/quotes/widget/22576164-takeshi-matsuoka?v=2" type="text/javascript"></script>
+            </small>
           </div>
-          <ul class="nav nav-tabs nav-stacked">
-            <li><a href="wiki/">wiki</a></li>
-          </ul>
         </div>
       </div>
-      <dl class="well">
-        <dt><span class="muted">GitHub</span></dt>
-        <dd><a id="jsGithubLink" class="mixpanel-event" href="https://github.com/tachesimazzoca">https://github.com/tachesimazzoca</a></dd>
-        <dt><span class="muted">Twitter</span></dt>
-        <dd><a id="jsTwitterLink" class="mixpanel-event" href="https://twitter.com/tachesimazzoca">https://twitter.com/tachesimazzoca</a></dd>
-        <dt><span class="muted">Blog</span></dt>
-        <dd><a id="jsBlogLink" class="mixpanel-event" href="http://tachesimazzoca.blogspot.com">http://tachesimazzoca.blogspot.com</a></dd>
-        <dt><span class="muted">SlideShare</span></dt>
-        <dd><a id="jsSlideShareLink" class="mixpanel-event" href="http://www.slideshare.net/tachesimazzoca">http://www.slideshare.net/tachesimazzoca</a></dd>
-      </dl>
+      <div class="row-fluid">
+        <div class="span12">
+          <h2>Table of Contents</h2>
+
+          <h3>Github Projects</h3>
+          <ul>
+            <li><a href="backbone-survey/docs/">backbone-survey</a></li>
+            <li><a href="crx-pwgen/popup.html">crx-pwgen</a></li>
+            <li><a href="https://github.com/tachesimazzoca/imgconv">imgconv</a></li>
+            <li><a href="https://github.com/tachesimazzoca/jquery-toctree">jquery-toctree</a></li>
+            <li><a href="wiki/">wiki</a></li>
+            <li><a href="https://github.com/tachesimazzoca/xml2pdf">xml2pdf</a></li>
+          </ul>
+
+          <h3>Links</h3>
+          <dl>
+            <dt><span class="muted">GitHub</span></dt>
+            <dd><a class="mixpanel-event" href="https://github.com/tachesimazzoca">https://github.com/tachesimazzoca</a></dd>
+            <dt><span class="muted">Google+</span></dt>
+            <dd><a class="mixpanel-event" href="https://plus.google.com/u/1/108254019107816818607/posts">https://plus.google.com/u/1/108254019107816818607/posts</a></dd>
+            <dt><span class="muted">Twitter</span></dt>
+            <dd><a class="mixpanel-event" href="https://twitter.com/tachesimazzoca">https://twitter.com/tachesimazzoca</a></dd>
+            <dt><span class="muted">Blog</span></dt>
+            <dd><a class="mixpanel-event" href="http://tachesimazzoca.blogspot.com">http://tachesimazzoca.blogspot.com</a></dd>
+            <dt><span class="muted">SlideShare</span></dt>
+            <dd><a class="mixpanel-event" href="http://www.slideshare.net/tachesimazzoca">http://www.slideshare.net/tachesimazzoca</a></dd>
+
+          </dl>
+        </div>
     </div>
   </div>
   <!--/#main-->
-  <!--mixpanel-->
   <div id="footer">
     <div class="container-fluid">
-      <a href="http://mixpanel.com/f/partner"><img src="http://mixpanel.com/site_media/images/partner/badge_blue.png" alt="Mobile Analytics" /></a>
+      <small>&copy; Copyright 2013 Takeshi Matsuoka All Rights Reserved.</small>
     </div>
   </div>
-  <!--mixpanel-->
 </div>
 <!--/#wrapper-->
 <!--Google Analytics-->
@@ -71,19 +76,5 @@ if ("tachesimazzoca.github.io" == location.hostname) {
 
 </script>
 <!--/Google Analytics-->
-<!--Mixpanel-->
-<script type="text/javascript">
-if ("tachesimazzoca.github.io" == location.hostname) {
-  (function($, mp) {
-    $(function() {
-      mp.init("282cc83fe0907b05be17432252e28984");
-      $('a.mixpanel-event').each(function() {
-        mp.track_links('#' + this.id, 'clicked ' + this.id); 
-      });
-    });
-  })(window.jQuery, mixpanel);
-}
-</script>
-<!--/Mixpanel-->
 </body>
 </html>
