@@ -117,6 +117,36 @@ var BackboneSurvey = BackboneSurvey || {};
 
   /**
    *
+<pre><code>var validator = new PatternValidator({
+    message: "Name must be [a-z] characters"
+  , pattern: "^[a-z]+$" // new RegExp(...)
+});</code></pre>
+   *
+   * @class PatternValidator
+   * @extends {Validator}
+   */
+  BackboneSurvey.PatternValidator = Validator.extend({
+    validate: function(value, data) {
+      var vs = _.isArray(value) ? value : [value];
+      var result;
+      var regex = new RegExp(this.attributes.pattern);
+      var me = this;
+      _.each(vs, function(v) {
+        if (result) return;
+        if (!_.isString(v)) v = (typeof(v) !== "undefined" && v !== null) ? v.toString() : "";
+        if (!v.match(regex)) {
+          result = new ValidationResult.Error(me.message());
+        }
+      });
+      if (!result) {
+          result = new ValidationResult.OK();
+      }
+      return result;
+    }
+  });
+
+  /**
+   *
 <pre><code>var validator = new RangeLengthValidator({
     message: "Name must be between 8 and 32."
   , min: 8
@@ -133,7 +163,7 @@ var BackboneSurvey = BackboneSurvey || {};
       var me = this;
       _.each(vs, function(v) {
         if (result) return;
-        if (_.isNumber(v)) v = v.toString();
+        if (!_.isString(v)) v = (typeof(v) !== "undefined" && v !== null) ? v.toString() : "";
         var min = _.isNumber(me.attributes.min) ? me.attributes.min : null;
         var max = _.isNumber(me.attributes.max) ? me.attributes.max : null;
         if ((min && min > v.length) || (max && max < v.length)) {

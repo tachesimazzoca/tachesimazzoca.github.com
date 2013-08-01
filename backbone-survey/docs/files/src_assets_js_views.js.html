@@ -53,6 +53,8 @@
             
                 <li><a href="../classes/OptionAnswerViewProto.html">OptionAnswerViewProto</a></li>
             
+                <li><a href="../classes/PatternValidator.html">PatternValidator</a></li>
+            
                 <li><a href="../classes/QuestionType.html">QuestionType</a></li>
             
                 <li><a href="../classes/RadioAnswerView.html">RadioAnswerView</a></li>
@@ -70,6 +72,8 @@
                 <li><a href="../classes/Survey.html">Survey</a></li>
             
                 <li><a href="../classes/SurveyView.html">SurveyView</a></li>
+            
+                <li><a href="../classes/Templates.html">Templates</a></li>
             
                 <li><a href="../classes/TextAnswerView.html">TextAnswerView</a></li>
             
@@ -200,6 +204,7 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , startPage: function() {
       this.model.startPage();
+      this.trigger(&quot;start&quot;, this);
     }
 
     /**
@@ -207,6 +212,7 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , prevPage: function() {
       this.model.prevPage();
+      this.trigger(&quot;prev&quot;, this);
     }
 
     /**
@@ -242,6 +248,7 @@ var BackboneSurvey = BackboneSurvey || {};
           this.complete();
         } else {
           this.model.nextPage();
+          this.trigger(&quot;next&quot;, this);
         }
       }
     }
@@ -259,11 +266,6 @@ var BackboneSurvey = BackboneSurvey || {};
   var SectionView = BackboneSurvey.SectionView = Backbone.View.extend({
     tagName: &quot;div&quot;
 
-  , template: &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;question&quot;&gt;&#x27; +
-      &#x27;&lt;span class=&quot;&lt;%- elPrefix %&gt;question-title&quot;&gt;&lt;%= model.question %&gt;&lt;/span&gt;&lt;/div&gt;&#x27; +
-      &#x27;&lt;div id=&quot;&lt;%- elPrefix %&gt;error-&lt;%- model.id %&gt;&quot; class=&quot;&lt;%- elPrefix %&gt;error&quot;&gt;&lt;/div&gt;&#x27; +
-      &#x27;&lt;div id=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;&quot; class=&quot;&lt;%- elPrefix %&gt;answer&quot;&gt;&lt;/div&gt;&#x27;
-
   , initialize: function() {
       this.elPrefix = this.elPrefix || &quot;survey-&quot;;
       this.answerView = AnswerViewFactory.create(this);
@@ -274,7 +276,7 @@ var BackboneSurvey = BackboneSurvey || {};
      * @chainable
      */
   , render: function() {
-      this.$el.html(_.template(this.template)({
+      this.$el.html(_.template(BackboneSurvey.Templates.SectionView)({
         elPrefix : this.elPrefix
       , model: this.model.toJSON()
       }));
@@ -356,16 +358,14 @@ var BackboneSurvey = BackboneSurvey || {};
    * @extends {Backbone.View}
    */
   var TextAnswerView = BackboneSurvey.TextAnswerView = Backbone.View.extend({
-    template: &#x27;&lt;%= label %&gt;&lt;input type=&quot;text&quot; name=&quot;answer-&lt;%- id %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (answers.length !== 0) { %&gt; value=&quot;&lt;%- answers[0] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;%= guide %&gt;&#x27;
+    templateName: &quot;TextAnswerView&quot;
 
     /**
      * @method render
      * @chainable
      */
   , render: function() {
-      this.$el.html(_.template(this.template)(this.model.toJSON()));
+      this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({ model: this.model.toJSON() }));
       return this;
     }
 
@@ -392,17 +392,14 @@ var BackboneSurvey = BackboneSurvey || {};
    * @extends {Backbone.View}
    */
   var MultiAnswerView = BackboneSurvey.MultiAnswerView = Backbone.View.extend({
-    template: &#x27;&lt;dl&gt;&lt;% _.each(fields, function(field, i) { %&gt;&#x27; +
-      &#x27;&lt;dt&gt;&lt;%= field.label %&gt;&lt;/dt&gt;&#x27; +
-      &#x27;&lt;dd&gt;&lt;input type=&quot;text&quot; name=&quot;answer-&lt;%- id %&gt;-&lt;%- i %&gt;&quot; value=&quot;&lt;%- answers[i] %&gt;&quot;&gt;&lt;/dd&gt;&#x27; +
-      &#x27;&lt;% }); %&gt;&lt;/dl&gt;&#x27;
+    templateName: &quot;MultiAnswerView&quot;
 
     /**
      * @method render
      * @chainable
      */
   , render: function() {
-      this.$el.html(_.template(this.template)(this.model.toJSON()));
+      this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({ model: this.model.toJSON() }));
       return this;
     }
 
@@ -436,7 +433,7 @@ var BackboneSurvey = BackboneSurvey || {};
      * @chainable
      */
     render: function() {
-      this.$el.html(_.template(this.template)(this.model.toJSON()));
+      this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({ model: this.model.toJSON() }));
       var me = this;
       var fn = function() { me.normalize($(this)); };
       this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).each(fn).on(&quot;change&quot;, fn);
@@ -504,15 +501,7 @@ var BackboneSurvey = BackboneSurvey || {};
    * @uses OptionAnswerViewProto
    */
   var RadioAnswerView = BackboneSurvey.RadioAnswerView = Backbone.View.extend({
-    template: &#x27;&lt;ul&gt;&lt;% _.each(options, function(option, i) { %&gt;&#x27; +
-      &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;answer-&lt;%- id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (_.contains(answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;%- option.label %&gt;&lt;/label&gt;&#x27; +
-      &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
-      &#x27; &lt;input type=&quot;text&quot; name=&quot;sub-&lt;%- id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (!_.isEmpty(subAnswer[option.value])) { %&gt; value=&quot;&lt;%- subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;% } %&gt;&#x27; +
-      &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
+    templateName: &quot;RadioAnswerView&quot;
   });
   _.extend(RadioAnswerView.prototype, OptionAnswerViewProto);
 
@@ -522,15 +511,7 @@ var BackboneSurvey = BackboneSurvey || {};
    * @uses OptionAnswerViewProto
    */
   var CheckboxAnswerView = BackboneSurvey.CheckboxAnswerView = Backbone.View.extend({
-    template: &#x27;&lt;ul&gt;&lt;% _.each(options, function(option, i) { %&gt;&#x27; +
-      &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;answer-&lt;%- id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (_.contains(answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;%- option.label %&gt;&lt;/label&gt;&#x27; +
-      &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
-      &#x27; &lt;input type=&quot;text&quot; name=&quot;sub-&lt;%- id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (!_.isEmpty(subAnswer[option.value])) { %&gt; value=&quot;&lt;%- subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;% } %&gt;&#x27; +
-      &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
+    templateName: &quot;CheckboxAnswerView&quot;
   });
   _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto);
 })();

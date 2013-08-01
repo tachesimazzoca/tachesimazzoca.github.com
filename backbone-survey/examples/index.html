@@ -31,6 +31,19 @@
           id: "q1"
         , page: 2
         , question: "Q1. 単一テキスト入力設問です。<strong><em>HTMLタグはエスケープされません</em></strong>"
+        , contents: {
+            // タイトル直下
+            main: '<p>任意のHTMLコンテンツを表示できます。</p>' +
+            '<div class="survey-question-image"><img src="images/red.gif"></div>' +
+            '<div class="survey-question-image"><img src="images/green.gif"></div>' +
+            '<div class="survey-question-image"><img src="images/blue.gif"></div>'
+            // 回答直前
+          , caption: '<em>回答直前のHTMLを表示できます。</em>'
+            // 回答直後
+          , note: '<ul><li>回答直後のHTMLを表示できます。</li><li>HTMLタグが使えます</li></ul>'
+            // これらのキーはデフォルトテンプレートで利用されているだけです。
+            // テンプレートをカスタマイズすれば任意のキーであらゆるコンテンツを渡せます。
+          }
         , type: BackboneSurvey.QuestionType.TEXT
         , label: "<strong>ラベル：</strong>"
         , guide: "<em>(2..10文字以内)</em>"
@@ -48,7 +61,7 @@
         , options: [
             { value: "1", label: "はい", route: "Y" }
           , { value: "2", label: "いいえ", route: "N" }
-          , { value: "0", label: "どちらともいえない", sub: { placeholder: "どちらともいえない理由は？" } }
+          , { value: "0", label: "どちらともいえない<em>タグが使えます</em>", sub: { placeholder: "どちらともいえない理由は？" } }
           ]
         , rules: [
             new BackboneSurvey.RequiredValidator({ message: "選択してください" })
@@ -77,7 +90,16 @@
                 })
               ]
             }
-          , { label: "サブ設問3" }
+          , {
+              label: "サブ設問3"
+            , rules: [
+                new BackboneSurvey.PatternValidator({
+                  message: "サブ設問3はアルファベットで入力してください"
+                , pattern: "^(?:|[a-zA-Z]+)$"
+                })
+              ]
+            }
+          , { label: "サブ設問4" }
           ]
         }
       , {
@@ -87,10 +109,10 @@
         , question: "Q4. 複数選択設問です。(未選択可)"
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , options: [
-            { value: "A", label: "スポーツ", route: "ANY", sub: { placeholder: "好きなスポーツ" } }
-          , { value: "B", label: "読書", route: "ANY", sub: { placeholder: "好きな本" } }
-          , { value: "C", label: "映画鑑賞", route: "ANY", sub: { placeholder: "好きな映画" } }
-          , { value: "NONE", label: "特になし" }
+            { value: "A", label: '<img src="images/yellow.gif"> スポーツ', route: "ANY", sub: { placeholder: "好きなスポーツ" } }
+          , { value: "B", label: '<img src="images/cyan.gif"> 読書', route: "ANY", sub: { placeholder: "好きな本" } }
+          , { value: "C", label: '<img src="images/magenta.gif"> 映画鑑賞', route: "ANY", sub: { placeholder: "好きな映画" } }
+          , { value: "NONE", label: '<img src="images/black.gif"> 特になし' }
           , { value: "OTHER", label: "その他", route: "OTHER", sub: {} }
           ]
         // 背反値です。
@@ -115,6 +137,19 @@
     var view = new BackboneSurvey.SurveyView({
       model: survey // BackboneSurvey.Survey
     , el: $("#survey-app") // アンケートを表示する jQuery オブジェクト
+    });
+    var lastPage = survey.sections.lastPage();
+    // アンケート開始時に start でイベントフックが呼ばれます。
+    view.on("start", function() {
+      console.log("start - " + survey.get("page") + " of " + lastPage);
+    });
+    // 前ページ移動時に prev でイベントフックが呼ばれます。
+    view.on("prev", function() {
+      console.log("prev - " + survey.get("page") + " of " + lastPage);
+    });
+    // 次ページ移動時に next でイベントフックが呼ばれます。
+    view.on("next", function() {
+      console.log("next - " + survey.get("page") + " of " + lastPage);
     });
     // 回答完了後に completed でイベントフックが呼ばれます。
     view.on("completed", function() {

@@ -20,6 +20,7 @@ var BackboneSurvey = BackboneSurvey || {};
     , question: ""
     , label: ""
     , guide: ""
+    , contents: {}
     , fields: [] // multi fields
     , options: [] // select options
     , singleOptions: [] // option keys that disable the other keys
@@ -46,6 +47,13 @@ var BackboneSurvey = BackboneSurvey || {};
       // :page must be a number
       if (typeof(attrs.page) !== "undefined") {
         attrs.page = _.isNumber(attrs.page) ? parseInt(attrs.page, 10) : 0;
+      }
+
+      // Convert :contents must be an object
+      if (typeof(attrs.contents) !== "undefined") {
+          if (typeof(attrs.contents) !== "object") {
+            attrs.contents = {};
+          }
       }
 
       // Convert :options string to object

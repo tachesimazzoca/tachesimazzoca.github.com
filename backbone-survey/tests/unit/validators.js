@@ -30,8 +30,23 @@
     });
   });
 
+  test("PatternValidator", function() {
+    var validator = new BackboneSurvey.PatternValidator({
+      message: "must be a [a-c] character"
+    , pattern: "^[a-c]+$"
+    });
+    ok(validator instanceof BackboneSurvey.Validator);
+    _.each(["a", "ab", "abc"], function(v) {
+      var rslt = validator.validate(v, {});
+      ok(rslt instanceof BackboneSurvey.ValidationResult.OK, "OK - " + typeof(v));
+    });
+    _.each([0, {}, false, null, undefined, "", "abcd", "dabc"], function(v) {
+      var rslt = validator.validate(v, {});
+      ok(rslt instanceof BackboneSurvey.ValidationResult.Error, "Error - " + typeof(v));
+    });
+  });
+
   test("RangeLengthValidator", function() {
-    var str = "Required";
     var validator = new BackboneSurvey.RangeLengthValidator({
       template: '<%- label %> must be <%- (min ? min : "") %>..<%- (max ? max : "") %> characters'
     , label: "Name"

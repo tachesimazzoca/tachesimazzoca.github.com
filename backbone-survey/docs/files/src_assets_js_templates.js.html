@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>RequiredValidator</title>
+    <title>src/assets/js/templates.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -126,73 +126,89 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>RequiredValidator Class</h1>
-<div class="box meta">
-    
+                        <h1 class="file-heading">File: src/assets/js/templates.js</h1>
 
-    
-        <div class="extends">
-            Extends <a href="../classes/Validator.html" class="crosslink">Validator</a>
-        </div>
-    
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * @module backbone-survey
+ */
+var BackboneSurvey = BackboneSurvey || {};
 
-    
-        <div class="foundat">
-            Defined in: <a href="../files/src_assets_js_validators.js.html#l85"><code>src&#x2F;assets&#x2F;js&#x2F;validators.js:85</code></a>
-        </div>
-    
+(function() {
+  /**
+   * @class Templates
+   */
+  BackboneSurvey.Templates = {
+    /**
+     * See {{#crossLink &quot;SectionView&quot;}}{{/crossLink}}
+     *
+     * @property SectionView
+     * @type {String}
+     */
+    SectionView: &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;question&quot;&gt;&lt;%= model.question %&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;% if (model.contents.main) { %&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;contents-main&quot;&gt;&lt;%= model.contents.main %&gt;&lt;/div&gt;&lt;% } %&gt;&#x27; +
+      &#x27;&lt;div id=&quot;&lt;%- elPrefix %&gt;error-&lt;%- model.id %&gt;&quot; class=&quot;&lt;%- elPrefix %&gt;error&quot;&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;% if (model.contents.caption) { %&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;contents-caption&quot;&gt;&lt;%= model.contents.caption %&gt;&lt;/div&gt;&lt;% } %&gt;&#x27; +
+      &#x27;&lt;div id=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;&quot; class=&quot;&lt;%- elPrefix %&gt;answer&quot;&gt;&lt;/div&gt;&#x27; +
+      &#x27;&lt;% if (model.contents.note) { %&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;contents-note&quot;&gt;&lt;%= model.contents.note %&gt;&lt;/div&gt;&lt;% } %&gt;&#x27;
 
-    
-        
-            Module: <a href="../modules/backbone-survey.html">backbone-survey</a>
-        
-    
+    /**
+     * See {{#crossLink &quot;TextAnswerView&quot;}}{{/crossLink}}
+     *
+     * @property TextAnswerView
+     * @type {String}
+     */
+  , TextAnswerView: &#x27;&lt;%= model.label %&gt;&lt;input type=&quot;text&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot;&#x27; +
+      &#x27;&lt;% if (model.answers.length !== 0) { %&gt; value=&quot;&lt;%- model.answers[0] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;%= model.guide %&gt;&#x27;
 
-    
-</div>
+    /**
+     * See {{#crossLink &quot;MultiAnswerView&quot;}}{{/crossLink}}
+     *
+     * @property MultiAnswerView
+     * @type {String}
+     */
+  , MultiAnswerView: &#x27;&lt;dl&gt;&lt;% _.each(model.fields, function(field, i) { %&gt;&#x27; +
+      &#x27;&lt;dt&gt;&lt;%= field.label %&gt;&lt;/dt&gt;&#x27; +
+      &#x27;&lt;dd&gt;&lt;input type=&quot;text&quot; name=&quot;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; value=&quot;&lt;%- model.answers[i] %&gt;&quot;&gt;&lt;/dd&gt;&#x27; +
+      &#x27;&lt;% }); %&gt;&lt;/dl&gt;&#x27;
 
+    /**
+     * See {{#crossLink &quot;RadioAnswerView&quot;}}{{/crossLink}}
+     *
+     * @property RadioAnswerView
+     * @type {String}
+     */
+  , RadioAnswerView: &#x27;&lt;ul&gt;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
+      &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
+      &#x27;&lt;% if (_.contains(model.answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;%= option.label %&gt;&lt;/label&gt;&#x27; +
+      &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
+      &#x27; &lt;input type=&quot;text&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
+      &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;% } %&gt;&#x27; +
+      &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
 
+    /**
+     * See {{#crossLink &quot;CheckboxAnswerView&quot;}}{{/crossLink}}
+     *
+     * @property CheckboxAnswerView
+     * @type {String}
+     */
+  , CheckboxAnswerView: &#x27;&lt;ul&gt;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
+      &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
+      &#x27;&lt;% if (_.contains(model.answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;%= option.label %&gt;&lt;/label&gt;&#x27; +
+      &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
+      &#x27; &lt;input type=&quot;text&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
+      &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;% } %&gt;&#x27; +
+      &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
+  };
+})();
 
-<div class="box intro">
-    <pre class="code prettyprint"><code>var validator = new RequiredValidator({
-    message: "Name is Required."
-});
-</code></pre>
-</div>
-
-
-
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
-
-        
-        
-        
-        
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
-
-            
-
-            
-
-            
-
-            
-        </div>
-
-        
-
-        
-
-        
-
-        
-    </div>
+    </pre>
 </div>
 
                     </div>
