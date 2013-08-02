@@ -4,7 +4,7 @@
 var BackboneSurvey = BackboneSurvey || {};
 
 (function() {
-  BackboneSurvey.VERSION = "0.1.1";
+  BackboneSurvey.VERSION = "0.1.2";
 
   /**
    * Functions to set up the prototype chain by saving
@@ -866,7 +866,6 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method startPage
      */
   , startPage: function() {
-      this.model.startPage();
       this.trigger("start", this);
     }
 
@@ -874,7 +873,6 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method prevPage
      */
   , prevPage: function() {
-      this.model.prevPage();
       this.trigger("prev", this);
     }
 
@@ -910,7 +908,6 @@ var BackboneSurvey = BackboneSurvey || {};
         if (this.model.isLastPage()) {
           this.complete();
         } else {
-          this.model.nextPage();
           this.trigger("next", this);
         }
       }

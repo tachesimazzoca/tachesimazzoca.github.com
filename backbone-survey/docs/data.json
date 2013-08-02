@@ -106,7 +106,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/assets/js/views.js",
-            "line": 376
+            "line": 373
         }
     },
     "classes": {
@@ -356,7 +356,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 130,
+            "line": 127,
             "extends": "{Backbone.View}"
         },
         "NonAnswerView": {
@@ -370,7 +370,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 200,
+            "line": 197,
             "extends": "{Backbone.View}"
         },
         "TextAnswerView": {
@@ -384,7 +384,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 224,
+            "line": 221,
             "extends": "{Backbone.View}"
         },
         "MultiAnswerView": {
@@ -398,7 +398,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 258,
+            "line": 255,
             "extends": "{Backbone.View}"
         },
         "OptionAnswerViewProto": {
@@ -415,7 +415,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 295
+            "line": 292
         },
         "RadioAnswerView": {
             "name": "RadioAnswerView",
@@ -428,7 +428,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 366,
+            "line": 363,
             "extends": "{Backbone.View}",
             "uses": [
                 "OptionAnswerViewProto"
@@ -445,7 +445,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 376,
+            "line": 373,
             "extends": "{Backbone.View}",
             "uses": [
                 "OptionAnswerViewProto"
@@ -944,7 +944,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 78,
+            "line": 77,
             "itemtype": "method",
             "name": "prevPage",
             "class": "SurveyView",
@@ -952,7 +952,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 86,
+            "line": 84,
             "itemtype": "method",
             "name": "nextPage",
             "class": "SurveyView",
@@ -960,7 +960,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 142,
+            "line": 139,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -969,7 +969,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 156,
+            "line": 153,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -981,7 +981,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 164,
+            "line": 161,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -993,7 +993,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 209,
+            "line": 206,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1005,7 +1005,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 215,
+            "line": 212,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1017,7 +1017,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 231,
+            "line": 228,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1026,7 +1026,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 240,
+            "line": 237,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1038,7 +1038,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 249,
+            "line": 246,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1050,7 +1050,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 265,
+            "line": 262,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1059,7 +1059,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 274,
+            "line": 271,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1071,7 +1071,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 286,
+            "line": 283,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1083,7 +1083,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 299,
+            "line": 296,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1092,7 +1092,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 311,
+            "line": 308,
             "itemtype": "method",
             "name": "normalize",
             "params": [
@@ -1107,7 +1107,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 336,
+            "line": 333,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1119,7 +1119,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 349,
+            "line": 346,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {

@@ -138,23 +138,79 @@
       model: survey // BackboneSurvey.Survey
     , el: $("#survey-app") // アンケートを表示する jQuery オブジェクト
     });
+
+    // 現在ページ
     var lastPage = survey.sections.lastPage();
-    // アンケート開始時に start でイベントフックが呼ばれます。
-    view.on("start", function() {
-      console.log("start - " + survey.get("page") + " of " + lastPage);
+    survey.on("change", function() {
+      console.log(survey.get("page") + " of " + lastPage);
     });
-    // 前ページ移動時に prev でイベントフックが呼ばれます。
-    view.on("prev", function() {
-      console.log("prev - " + survey.get("page") + " of " + lastPage);
-    });
-    // 次ページ移動時に next でイベントフックが呼ばれます。
-    view.on("next", function() {
-      console.log("next - " + survey.get("page") + " of " + lastPage);
-    });
-    // 回答完了後に completed でイベントフックが呼ばれます。
-    view.on("completed", function() {
-      console.log(["completed", survey.answers()]);
-    });
+
+    if (false) {
+      // ブラウザ履歴移動を利用しない
+      view.on("start", function() { survey.startPage() } );
+      view.on("prev", function() { survey.prevPage() } );
+      view.on("next", function() { survey.nextPage() } );
+
+    } else {
+      // ブラウザ履歴移動を利用する
+      var Workspace = Backbone.Router.extend({
+        routes: {
+          "page/:n": "page"
+        }
+  
+      , prevPages: []
+      , nextPages: []
+  
+      , start: function() {
+        this.prevPages = [survey.get("page")];
+        this.nextPages = [];
+        this.navigate("page/" + survey.get("page"));
+      }
+  
+      , next: function() {
+        this.prevPages.push(survey.get("page"));
+        this.nextPages = [];
+        this.navigate("page/" + survey.get("page"));
+      }
+  
+      , completed: function() {
+        this.prevPages = [];
+        this.nextPages = [];
+        this.navigate("completed");
+      }
+  
+      , page: function(n) {
+          if (this.prevPages.length > 1 && this.prevPages[this.prevPages.length - 2] == n) {
+            this.nextPages.push(this.prevPages.pop());
+            survey.prevPage();
+          } else if (this.nextPages.length > 0 && this.nextPages[this.nextPages.length - 1] == n) {
+            this.prevPages.push(this.nextPages.pop());
+            survey.nextPage();
+          }
+          console.log([n, this.prevPages, this.nextPages]);
+        }
+      });
+  
+      var router = new Workspace();
+      view.on("start", function() {
+        survey.startPage();
+        router.start();
+      });
+      view.on("prev", function() {
+        history.back();
+      });
+      view.on("next", function() {
+        survey.nextPage();
+        router.next();
+      });
+      view.on("completed", function() {
+        console.log(["completed", survey.answers()]);
+        router.completed();
+      });
+
+      Backbone.history.start();
+    }
+
     // SurveyView#startPage() でアンケート開始します。
     view.startPage();
   });
