@@ -73,5 +73,21 @@ var BackboneSurvey = BackboneSurvey || {};
       '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
       '<% } %>' +
       '</li><% }); %></ul>'
+
+    /**
+     * @property CardAnswerView
+     * @type {String}
+     */
+  , CardAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
+      '<li><a onclick="return false;" href="javascript:void();" <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
+      '<span><%= option.label %></span>' +
+      '<input type="hidden" name="answer-<%- model.id %>" value="<%- option.value %>">' +
+      '<% if (option.sub) { %>' +
+      '<input type="hidden" name="sub-<%- model.id %>-<%- i %>"' +
+      '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
+      '<% } %>' +
+      '</a></li><% }); %></ul>' +
+      '<div class="<%= elPrefix %>sub-dialog"><div class="<%= elPrefix %>sub-dialog-inner">' +
+      '<input type="text"><button>OK</button></div></div>'
   };
 })();

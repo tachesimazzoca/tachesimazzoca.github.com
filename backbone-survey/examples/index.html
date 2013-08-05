@@ -131,6 +131,24 @@
             new BackboneSurvey.RequiredValidator({ message: "選択してください" })
           ]
         }
+      , {
+          id: "q6"
+        , page: 6
+        , question: "Q6. カード設問です"
+        , type: BackboneSurvey.QuestionType.RADIO
+        , view: "CardAnswerView"
+        , options: [
+            { value: "1", label: "カード1" }
+          , { value: "2", label: "カード2" }
+          , { value: "3", label: "カード3" }
+          , { value: "4", label: "カード4" }
+          , { value: "5", label: "カード5" }
+          , { value: "0", label: "その他", sub: {} }
+          ]
+        , rules: [
+            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
+          ]
+        }
       ]
     }, { parse: true });
 
@@ -157,28 +175,28 @@
         routes: {
           "page/:n": "page"
         }
-  
+
       , prevPages: []
       , nextPages: []
-  
+
       , start: function() {
         this.prevPages = [survey.get("page")];
         this.nextPages = [];
         this.navigate("page/" + survey.get("page"));
       }
-  
+
       , next: function() {
         this.prevPages.push(survey.get("page"));
         this.nextPages = [];
         this.navigate("page/" + survey.get("page"));
       }
-  
+
       , completed: function() {
         this.prevPages = [];
         this.nextPages = [];
         this.navigate("completed");
       }
-  
+
       , page: function(n) {
           if (this.prevPages.length > 1 && this.prevPages[this.prevPages.length - 2] == n) {
             this.nextPages.push(this.prevPages.pop());
@@ -190,7 +208,7 @@
           console.log([n, this.prevPages, this.nextPages]);
         }
       });
-  
+
       var router = new Workspace();
       view.on("start", function() {
         survey.startPage();

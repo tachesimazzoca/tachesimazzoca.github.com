@@ -134,6 +134,7 @@ var BackboneSurvey = BackboneSurvey || {};
   , initialize: function() {
       this.elPrefix = this.elPrefix || "survey-";
       this.answerView = AnswerViewFactory.create(this);
+      this.answerView.elPrefix = this.elPrefix;
     }
 
     /**
@@ -169,23 +170,25 @@ var BackboneSurvey = BackboneSurvey || {};
 
   var AnswerViewFactory = BackboneSurvey.AnswerViewFactory = {};
   AnswerViewFactory.create = function(sectionView) {
-    var func;
-    switch (sectionView.model.get("type")) {
-      case BackboneSurvey.QuestionType.TEXT:
-        func = BackboneSurvey.TextAnswerView;
-        break;
-      case BackboneSurvey.QuestionType.MULTI:
-        func = BackboneSurvey.MultiAnswerView;
-        break;
-      case BackboneSurvey.QuestionType.RADIO:
-        func = BackboneSurvey.RadioAnswerView;
-        break;
-      case BackboneSurvey.QuestionType.CHECKBOX:
-        func = BackboneSurvey.CheckboxAnswerView;
-        break;
-      default:
-        func = BackboneSurvey.NoneAnswerView;
-        break;
+    var func = BackboneSurvey[sectionView.model.get("view")];
+    if (typeof func !== 'function') {
+      switch (sectionView.model.get("type")) {
+        case BackboneSurvey.QuestionType.TEXT:
+          func = BackboneSurvey.TextAnswerView;
+          break;
+        case BackboneSurvey.QuestionType.MULTI:
+          func = BackboneSurvey.MultiAnswerView;
+          break;
+        case BackboneSurvey.QuestionType.RADIO:
+          func = BackboneSurvey.RadioAnswerView;
+          break;
+        case BackboneSurvey.QuestionType.CHECKBOX:
+          func = BackboneSurvey.CheckboxAnswerView;
+          break;
+        default:
+          func = BackboneSurvey.NoneAnswerView;
+          break;
+      }
     }
     return new func({
       model: sectionView.model
@@ -199,7 +202,11 @@ var BackboneSurvey = BackboneSurvey || {};
    * @extends {Backbone.View}
    */
   var NoneAnswerView = BackboneSurvey.NoneAnswerView = Backbone.View.extend({
-    render: function() {
+    initialize: function() {
+      this.elPrefix = this.elPrefix || "survey-";
+    }
+
+  , render: function() {
       return this;
     }
 
@@ -224,6 +231,10 @@ var BackboneSurvey = BackboneSurvey || {};
    */
   var TextAnswerView = BackboneSurvey.TextAnswerView = Backbone.View.extend({
     templateName: "TextAnswerView"
+
+  , initialize: function() {
+      this.elPrefix = this.elPrefix || "survey-";
+    }
 
     /**
      * @method render
@@ -259,6 +270,10 @@ var BackboneSurvey = BackboneSurvey || {};
   var MultiAnswerView = BackboneSurvey.MultiAnswerView = Backbone.View.extend({
     templateName: "MultiAnswerView"
 
+  , initialize: function() {
+      this.elPrefix = this.elPrefix || "survey-";
+    }
+
     /**
      * @method render
      * @chainable
@@ -293,11 +308,15 @@ var BackboneSurvey = BackboneSurvey || {};
    * @class OptionAnswerViewProto
    */
   var OptionAnswerViewProto = {
+    initialize: function() {
+      this.elPrefix = this.elPrefix || "survey-";
+    }
+
     /**
      * @method render
      * @chainable
      */
-    render: function() {
+  , render: function() {
       this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({ model: this.model.toJSON() }));
       var me = this;
       var fn = function() { me.normalize($(this)); };
@@ -379,4 +398,89 @@ var BackboneSurvey = BackboneSurvey || {};
     templateName: "CheckboxAnswerView"
   });
   _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto);
+
+  /**
+   * @class CardAnswerView
+   */
+  var CardAnswerView = BackboneSurvey.CardAnswerView = Backbone.View.extend({
+    templateName: "CardAnswerView"
+
+  , initialize: function() {
+      this.elPrefix = this.elPrefix || "survey-";
+      this.$selected = null;
+    }
+
+    /**
+     * @method render
+     * @chainable
+     */
+  , render: function() {
+      this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({
+        elPrefix: this.elPrefix
+      , model: this.model.toJSON()
+      }));
+
+      var me = this;
+      var sel = this.elPrefix + 'selected';
+
+      // subDialog
+      var $subDialog = this.$('.' + this.elPrefix + 'sub-dialog');
+      $subDialog.hide();
+      $subDialog.find('button').on("click", function() {
+        me.updateSubAnswer(me.$selected, $subDialog.find('input').val());
+        me.$selected = null;
+        $subDialog.hide();
+      });
+      // options
+      this.$('a').on("click", function() {
+        if (me.$selected) return;
+        $this = $(this);
+        me.$('a').removeClass(sel);
+        $this.addClass(sel);
+        var $sub = $this.find('input[name^="sub-"]');
+        if ($sub.length) {
+          me.$selected = $this;
+          $subDialog.find('input').val($sub.val());
+          me.$('.' + me.elPrefix + 'sub-dialog').show();
+        }
+      });
+      return this;
+    }
+
+    /**
+     * @method answers
+     * @return {Array}
+     */
+  , answers: function() {
+      var vs = [];
+      this.$('a[class="' + this.elPrefix + 'selected"] > input[name^="answer-"]').each(function() {
+        vs.push($(this).val());
+      });
+      return vs;
+    }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      var sub = {};
+      return sub;
+    }
+
+    /**
+     * @method updateSubAnswer
+     */
+  , updateSubAnswer: function($selected, sub) {
+      $selected.find('input[name^="sub-"]').val(sub);
+      $label = $selected.find('span');
+      if (_.isEmpty(sub)) {
+        var v = $selected.find('input[name^="answer-"]').val();
+        var option = _.find(this.model.get("options"), function(o) { return o.value == v; });
+        if (option) $label.text(option.label);
+      } else {
+        $label.text(sub);
+      }
+    }
+  });
 })();

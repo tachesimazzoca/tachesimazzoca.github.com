@@ -43,6 +43,8 @@
             
                 <li><a href="../classes/AnswerType.html">AnswerType</a></li>
             
+                <li><a href="../classes/CardAnswerView.html">CardAnswerView</a></li>
+            
                 <li><a href="../classes/CheckboxAnswerView.html">CheckboxAnswerView</a></li>
             
                 <li><a href="../classes/Extendable.html">Extendable</a></li>
@@ -266,6 +268,7 @@ var BackboneSurvey = BackboneSurvey || {};
   , initialize: function() {
       this.elPrefix = this.elPrefix || &quot;survey-&quot;;
       this.answerView = AnswerViewFactory.create(this);
+      this.answerView.elPrefix = this.elPrefix;
     }
 
     /**
@@ -301,23 +304,25 @@ var BackboneSurvey = BackboneSurvey || {};
 
   var AnswerViewFactory = BackboneSurvey.AnswerViewFactory = {};
   AnswerViewFactory.create = function(sectionView) {
-    var func;
-    switch (sectionView.model.get(&quot;type&quot;)) {
-      case BackboneSurvey.QuestionType.TEXT:
-        func = BackboneSurvey.TextAnswerView;
-        break;
-      case BackboneSurvey.QuestionType.MULTI:
-        func = BackboneSurvey.MultiAnswerView;
-        break;
-      case BackboneSurvey.QuestionType.RADIO:
-        func = BackboneSurvey.RadioAnswerView;
-        break;
-      case BackboneSurvey.QuestionType.CHECKBOX:
-        func = BackboneSurvey.CheckboxAnswerView;
-        break;
-      default:
-        func = BackboneSurvey.NoneAnswerView;
-        break;
+    var func = BackboneSurvey[sectionView.model.get(&quot;view&quot;)];
+    if (typeof func !== &#x27;function&#x27;) {
+      switch (sectionView.model.get(&quot;type&quot;)) {
+        case BackboneSurvey.QuestionType.TEXT:
+          func = BackboneSurvey.TextAnswerView;
+          break;
+        case BackboneSurvey.QuestionType.MULTI:
+          func = BackboneSurvey.MultiAnswerView;
+          break;
+        case BackboneSurvey.QuestionType.RADIO:
+          func = BackboneSurvey.RadioAnswerView;
+          break;
+        case BackboneSurvey.QuestionType.CHECKBOX:
+          func = BackboneSurvey.CheckboxAnswerView;
+          break;
+        default:
+          func = BackboneSurvey.NoneAnswerView;
+          break;
+      }
     }
     return new func({
       model: sectionView.model
@@ -331,7 +336,11 @@ var BackboneSurvey = BackboneSurvey || {};
    * @extends {Backbone.View}
    */
   var NoneAnswerView = BackboneSurvey.NoneAnswerView = Backbone.View.extend({
-    render: function() {
+    initialize: function() {
+      this.elPrefix = this.elPrefix || &quot;survey-&quot;;
+    }
+
+  , render: function() {
       return this;
     }
 
@@ -356,6 +365,10 @@ var BackboneSurvey = BackboneSurvey || {};
    */
   var TextAnswerView = BackboneSurvey.TextAnswerView = Backbone.View.extend({
     templateName: &quot;TextAnswerView&quot;
+
+  , initialize: function() {
+      this.elPrefix = this.elPrefix || &quot;survey-&quot;;
+    }
 
     /**
      * @method render
@@ -391,6 +404,10 @@ var BackboneSurvey = BackboneSurvey || {};
   var MultiAnswerView = BackboneSurvey.MultiAnswerView = Backbone.View.extend({
     templateName: &quot;MultiAnswerView&quot;
 
+  , initialize: function() {
+      this.elPrefix = this.elPrefix || &quot;survey-&quot;;
+    }
+
     /**
      * @method render
      * @chainable
@@ -425,11 +442,15 @@ var BackboneSurvey = BackboneSurvey || {};
    * @class OptionAnswerViewProto
    */
   var OptionAnswerViewProto = {
+    initialize: function() {
+      this.elPrefix = this.elPrefix || &quot;survey-&quot;;
+    }
+
     /**
      * @method render
      * @chainable
      */
-    render: function() {
+  , render: function() {
       this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({ model: this.model.toJSON() }));
       var me = this;
       var fn = function() { me.normalize($(this)); };
@@ -511,6 +532,91 @@ var BackboneSurvey = BackboneSurvey || {};
     templateName: &quot;CheckboxAnswerView&quot;
   });
   _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto);
+
+  /**
+   * @class CardAnswerView
+   */
+  var CardAnswerView = BackboneSurvey.CardAnswerView = Backbone.View.extend({
+    templateName: &quot;CardAnswerView&quot;
+
+  , initialize: function() {
+      this.elPrefix = this.elPrefix || &quot;survey-&quot;;
+      this.$selected = null;
+    }
+
+    /**
+     * @method render
+     * @chainable
+     */
+  , render: function() {
+      this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({
+        elPrefix: this.elPrefix
+      , model: this.model.toJSON()
+      }));
+
+      var me = this;
+      var sel = this.elPrefix + &#x27;selected&#x27;;
+
+      // subDialog
+      var $subDialog = this.$(&#x27;.&#x27; + this.elPrefix + &#x27;sub-dialog&#x27;);
+      $subDialog.hide();
+      $subDialog.find(&#x27;button&#x27;).on(&quot;click&quot;, function() {
+        me.updateSubAnswer(me.$selected, $subDialog.find(&#x27;input&#x27;).val());
+        me.$selected = null;
+        $subDialog.hide();
+      });
+      // options
+      this.$(&#x27;a&#x27;).on(&quot;click&quot;, function() {
+        if (me.$selected) return;
+        $this = $(this);
+        me.$(&#x27;a&#x27;).removeClass(sel);
+        $this.addClass(sel);
+        var $sub = $this.find(&#x27;input[name^=&quot;sub-&quot;]&#x27;);
+        if ($sub.length) {
+          me.$selected = $this;
+          $subDialog.find(&#x27;input&#x27;).val($sub.val());
+          me.$(&#x27;.&#x27; + me.elPrefix + &#x27;sub-dialog&#x27;).show();
+        }
+      });
+      return this;
+    }
+
+    /**
+     * @method answers
+     * @return {Array}
+     */
+  , answers: function() {
+      var vs = [];
+      this.$(&#x27;a[class=&quot;&#x27; + this.elPrefix + &#x27;selected&quot;] &gt; input[name^=&quot;answer-&quot;]&#x27;).each(function() {
+        vs.push($(this).val());
+      });
+      return vs;
+    }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      var sub = {};
+      return sub;
+    }
+
+    /**
+     * @method updateSubAnswer
+     */
+  , updateSubAnswer: function($selected, sub) {
+      $selected.find(&#x27;input[name^=&quot;sub-&quot;]&#x27;).val(sub);
+      $label = $selected.find(&#x27;span&#x27;);
+      if (_.isEmpty(sub)) {
+        var v = $selected.find(&#x27;input[name^=&quot;answer-&quot;]&#x27;).val();
+        var option = _.find(this.model.get(&quot;options&quot;), function(o) { return o.value == v; });
+        if (option) $label.text(option.label);
+      } else {
+        $label.text(sub);
+      }
+    }
+  });
 })();
 
     </pre>
