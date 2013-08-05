@@ -127,6 +127,7 @@
         , question: "Q4. 複数選択設問です。(選択必須)"
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , options: [ "赤", "緑", "青" ] // ラベルを省略して値のみ指定できます。
+        , view: "CardAnswerView"
         , rules: [
             new BackboneSurvey.RequiredValidator({ message: "選択してください" })
           ]
