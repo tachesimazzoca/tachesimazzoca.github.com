@@ -551,6 +551,15 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , subAnswer: function() {
       var sub = {};
+      var opts = this.model.get("options");
+      var me = this;
+      _.each(opts, function(opt, i) {
+        if (!opt.sub) return;
+        var $ov = me.$('input[name^="sub-' + me.model.id + '-' + i + '"]');
+        if (!_.isEmpty($ov.val())) {
+          sub[opt.value] = $ov.val();
+        }
+      });
       return sub;
     }
 

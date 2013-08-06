@@ -1267,7 +1267,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 557,
+            "line": 566,
             "itemtype": "method",
             "name": "updateSubAnswer",
             "class": "CardAnswerView",
