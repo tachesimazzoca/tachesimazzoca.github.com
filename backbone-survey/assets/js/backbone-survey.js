@@ -793,18 +793,38 @@ var BackboneSurvey = BackboneSurvey || {};
       '</li><% }); %></ul>'
 
     /**
+     * See {{#crossLink "TextCardAnswerView"}}{{/crossLink}}
+     *
+     * @property TextCardAnswerView
+     * @type {String}
+     */
+  , TextCardAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
+      '<li><input type="<%- multiple ? "checkbox" :  "radio" %>"' +
+      ' name="answer-<%- model.id %>" value="<%- option.value %>"' +
+      ' id="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"' +
+      '<% if (_.contains(model.answers, option.value)) { %> checked="checked"<% } %>>' +
+      '<% if (option.sub) { %>' +
+      '<input type="hidden" name="sub-<%- model.id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>"' +
+      '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
+      '<% } %>' +
+      '<label for="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"><%= option.label %></label>' +
+      '</li><% }); %></ul>' +
+      '<div class="<%= elPrefix %>sub-dialog"><div class="<%= elPrefix %>sub-dialog-inner">' +
+      '<input type="text"><button>OK</button></div></div>'
+
+    /**
      * @property ImageCardAnswerView
      * @type {String}
      */
   , ImageCardAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
       '<li><a onclick="return false;" href="javascript:void();"' +
       ' <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
-      '<span><%= option.label %></span>' +
       '<input type="hidden" name="answer-<%- model.id %>" value="<%- option.value %>">' +
       '<% if (option.sub) { %>' +
       '<input type="hidden" name="sub-<%- model.id %>-<%- i %>"' +
       '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
       '<% } %>' +
+      '<span><%= option.label %></span>' +
       '</a></li><% }); %></ul>' +
       '<div class="<%= elPrefix %>sub-dialog"><div class="<%= elPrefix %>sub-dialog-inner">' +
       '<input type="text"><button>OK</button></div></div>'
@@ -1206,9 +1226,10 @@ var BackboneSurvey = BackboneSurvey || {};
   , render: function() {
       this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({ model: this.model.toJSON() }));
       var me = this;
-      var fn = function() { me.normalize($(this)); };
-      this.$('input[name^="answer-"]').each(fn).on("change", function() {
-        fn.call();
+      this.$('input[name^="answer-"]') .each(function() {
+        me.normalize($(this));
+      }).on("change", function() {
+        me.normalize($(this));
         me.trigger("answer");
       });
       return this;
@@ -1288,6 +1309,132 @@ var BackboneSurvey = BackboneSurvey || {};
     templateName: "CheckboxAnswerView"
   });
   _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto);
+
+  /**
+   * @class TextCardAnswerView
+   */
+  var TextCardAnswerView = BackboneSurvey.TextCardAnswerView = Backbone.View.extend({
+    templateName: "TextCardAnswerView"
+
+  , initialize: function() {
+      this.elPrefix = this.elPrefix || "survey-";
+      this.multiple = this.model.get("type") === BackboneSurvey.QuestionType.CHECKBOX;
+      this.$selected = null;
+    }
+
+    /**
+     * @method render
+     * @chainable
+     */
+  , render: function() {
+      this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({
+        elPrefix: this.elPrefix
+      , multiple: this.multiple
+      , model: this.model.toJSON()
+      }));
+
+      var me = this;
+      var sel = this.elPrefix + "selected";
+
+      // subDialog
+      var $subDialog = this.$('.' + this.elPrefix + 'sub-dialog');
+      $subDialog.hide();
+      $subDialog.find('button').on("click", function() {
+        me.updateSubAnswer(me.$selected, $subDialog.find('input').val());
+        me.$selected = null;
+        $subDialog.hide();
+        me.$('input[name^="answer-"]').prop("disabled", false);
+      });
+
+      var fn = function() { me.normalize($(this)); };
+      this.$('input[name^="answer-"]').each(function() {
+        me.normalize($(this));
+      }).on("change", function() {
+        if (me.$selected) return;
+        $this = $(this);
+        me.normalize($this);
+        if ($this.prop("checked")) {
+          var $li = $this.parent();
+          var $sub = $li.find('input[name^="sub-"]');
+          if ($sub.length) {
+            me.$('input[name^="answer-"]').prop("disabled", true);
+            me.$selected = $li;
+            $subDialog.find('input')
+              .val($sub.val())
+              .attr("placeholder", $sub.attr("placeholder"));
+            me.$('.' + me.elPrefix + 'sub-dialog').show();
+          }
+        }
+        me.trigger("answer");
+      });
+
+      return this;
+    }
+
+    /**
+     * @method normalize
+     * @param {Object} $changed A last changed jQuery object.
+     */
+  , normalize: function($changed) {
+      var so = this.model.get("singleOptions");
+      if ($changed.prop("checked")) {
+        var v = $changed.val();
+        var f = _.contains(so, v) ?
+          // uncheck other options
+          function() { return this.value != v; } :
+          // uncheck single options
+          function() { return _.contains(so, this.value); };
+        this.$('input[name^="answer-"]').filter(f)
+            .prop("checked", false).removeAttr("checked");
+      }
+    }
+
+    /**
+     * @method answers
+     * @return {Array}
+     */
+  , answers: function() {
+      var vs = [];
+      this.$('[name="answer-' + this.model.id + '"]').each(function() {
+        var $this = $(this);
+        if ($this.prop("checked")) vs.push($this.val());
+      });
+      return vs;
+    }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      var sub = {};
+      var opts = this.model.get("options");
+      var me = this;
+      _.each(opts, function(opt, i) {
+        if (!opt.sub) return;
+        var $ov = me.$('input[name^="sub-' + me.model.id + '-' + i + '"]');
+        if (!_.isEmpty($ov.val())) {
+          sub[opt.value] = $ov.val();
+        }
+      });
+      return sub;
+    }
+
+    /**
+     * @method updateSubAnswer
+     */
+  , updateSubAnswer: function($selected, sub) {
+      $selected.find('input[name^="sub-"]').val(sub);
+      $label = $selected.find('label');
+      if (_.isEmpty(sub)) {
+        var v = $selected.find('input[name^="answer-"]').val();
+        var option = _.find(this.model.get("options"), function(o) { return o.value == v; });
+        if (option) $label.html(option.label);
+      } else {
+        $label.text(sub);
+      }
+    }
+  });
 
   /**
    * @class ImageCardAnswerView

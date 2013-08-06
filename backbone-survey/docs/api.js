@@ -20,6 +20,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "SurveyView",
         "Templates",
         "TextAnswerView",
+        "TextCardAnswerView",
         "ValidationResult",
         "ValidationResult.Error",
         "ValidationResult.OK",

@@ -134,9 +134,9 @@
       , {
           id: "q6"
         , page: 6
-        , question: "Q6. カード設問です"
-        , type: BackboneSurvey.QuestionType.RADIO
-        , view: "ImageCardAnswerView"
+        , question: "Q6. テキストカード設問です"
+        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , view: "TextCardAnswerView"
         , options: [
             { value: "1", label: "カード1" }
           , { value: "2", label: "カード2" }
@@ -145,6 +145,7 @@
           , { value: "5", label: "カード5" }
           , { value: "0", label: "その他", sub: {} }
           ]
+        , singleOptions: ["0"]
         , rules: [
             new BackboneSurvey.RequiredValidator({ message: "選択してください" })
           ]

@@ -69,6 +69,7 @@
                 "OptionAnswerViewProto": 1,
                 "RadioAnswerView": 1,
                 "CheckboxAnswerView": 1,
+                "TextCardAnswerView": 1,
                 "ImageCardAnswerView": 1
             },
             "fors": {},
@@ -102,13 +103,14 @@
                 "OptionAnswerViewProto": 1,
                 "RadioAnswerView": 1,
                 "CheckboxAnswerView": 1,
+                "TextCardAnswerView": 1,
                 "ImageCardAnswerView": 1
             },
             "fors": {},
             "namespaces": {},
             "tag": "module",
             "file": "src/assets/js/views.js",
-            "line": 480
+            "line": 607
         }
     },
     "classes": {
@@ -430,7 +432,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 460,
+            "line": 461,
             "extends": "{Backbone.View}",
             "uses": [
                 "OptionAnswerViewProto"
@@ -447,11 +449,24 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 470,
+            "line": 471,
             "extends": "{Backbone.View}",
             "uses": [
                 "OptionAnswerViewProto"
             ]
+        },
+        "TextCardAnswerView": {
+            "name": "TextCardAnswerView",
+            "shortname": "TextCardAnswerView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "backbone-survey",
+            "namespace": "",
+            "file": "src/assets/js/views.js",
+            "line": 481
         },
         "ImageCardAnswerView": {
             "name": "ImageCardAnswerView",
@@ -464,7 +479,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 480
+            "line": 607
         }
     },
     "classitems": [
@@ -878,6 +893,16 @@
         {
             "file": "src/assets/js/templates.js",
             "line": 77,
+            "description": "See {{#crossLink \"TextCardAnswerView\"}}{{/crossLink}}",
+            "itemtype": "property",
+            "name": "TextCardAnswerView",
+            "type": "{String}",
+            "class": "Templates",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/templates.js",
+            "line": 97,
             "itemtype": "property",
             "name": "ImageCardAnswerView",
             "type": "{String}",
@@ -1195,7 +1220,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 405,
+            "line": 406,
             "itemtype": "method",
             "name": "normalize",
             "params": [
@@ -1210,7 +1235,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 430,
+            "line": 431,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1222,7 +1247,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 443,
+            "line": 444,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1234,7 +1259,63 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 492,
+            "line": 493,
+            "itemtype": "method",
+            "name": "render",
+            "chainable": 1,
+            "class": "TextCardAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 542,
+            "itemtype": "method",
+            "name": "normalize",
+            "params": [
+                {
+                    "name": "$changed",
+                    "description": "A last changed jQuery object.",
+                    "type": "Object"
+                }
+            ],
+            "class": "TextCardAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 560,
+            "itemtype": "method",
+            "name": "answers",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "TextCardAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 573,
+            "itemtype": "method",
+            "name": "subAnswer",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "TextCardAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 591,
+            "itemtype": "method",
+            "name": "updateSubAnswer",
+            "class": "TextCardAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 619,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1243,7 +1324,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 536,
+            "line": 663,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1255,7 +1336,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 548,
+            "line": 675,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1267,7 +1348,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 566,
+            "line": 693,
             "itemtype": "method",
             "name": "updateSubAnswer",
             "class": "ImageCardAnswerView",
