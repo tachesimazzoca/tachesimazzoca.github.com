@@ -518,7 +518,7 @@ var BackboneSurvey = BackboneSurvey || {};
         $subDialog = $($subDialog);
       }
       $subDialog.hide();
-      $subDialog.find('button').on("click", function() {
+      $subDialog.find('button').off("click").on("click", function() {
         me.updateSubAnswer(me.$selected, $subDialog.find('input').val());
         me.$selected = null;
         $subDialog.hide();
@@ -656,7 +656,7 @@ var BackboneSurvey = BackboneSurvey || {};
         console.log("CardAnswerView.$dialog is not a valid DOM element.");
       }
       $subDialog.hide();
-      $subDialog.find('button').on("click", function() {
+      $subDialog.find('button').off("click").on("click", function() {
         me.updateSubAnswer(me.$selected, $subDialog.find('input').val());
         me.$selected = null;
         $subDialog.hide();
