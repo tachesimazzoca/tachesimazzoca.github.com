@@ -528,10 +528,13 @@ var BackboneSurvey = BackboneSurvey || {};
       var fn = function() { me.normalize($(this)); };
       this.$('input[name^="answer-"]').each(function() {
         me.normalize($(this));
+
       }).on("change", function() {
         if (me.$selected) return;
-        $this = $(this);
+        var $this = $(this);
+
         me.normalize($this);
+
         if ($this.prop("checked")) {
           var $li = $this.parent();
           var $sub = $li.find('input[name^="sub-"]');
@@ -574,7 +577,7 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , answers: function() {
       var vs = [];
-      this.$('[name="answer-' + this.model.id + '"]').each(function() {
+      this.$('input[name="answer-' + this.model.id + '"]').each(function() {
         var $this = $(this);
         if ($this.prop("checked")) vs.push($this.val());
       });
@@ -588,10 +591,12 @@ var BackboneSurvey = BackboneSurvey || {};
   , subAnswer: function() {
       var sub = {};
       var opts = this.model.get("options");
+      var ans = this.answers();
       var me = this;
       _.each(opts, function(opt, i) {
         if (!opt.sub) return;
-        var $ov = me.$('input[name^="sub-' + me.model.id + '-' + i + '"]');
+        if (!_.contains(ans, opt.value)) return;
+        var $ov = me.$('input[name="sub-' + me.model.id + '-' + i + '"]');
         if (!_.isEmpty($ov.val())) {
           sub[opt.value] = $ov.val();
         }
@@ -657,15 +662,21 @@ var BackboneSurvey = BackboneSurvey || {};
         $subDialog.hide();
       });
       // options
-      this.$('label').on("click", function() {
+      this.$('label').each(function () {
+        me.normalize($(this));
+
+      }).on("click", function() {
         if (me.$selected) return;
-        $this = $(this);
+        var $this = $(this);
         if (me.multiple) {
           $this.toggleClass(sel);
         } else {
           me.$('label').removeClass(sel);
           $this.addClass(sel);
         }
+
+        me.normalize($this);
+
         if ($this.hasClass(sel)) {
           var $li = $this.parent();
           var $sub = $li.find('input[name^="sub-"]');
@@ -678,6 +689,31 @@ var BackboneSurvey = BackboneSurvey || {};
         me.trigger("answer");
       });
       return this;
+    }
+
+    /**
+     * @method normalize
+     * @param {Object} $changed A last changed jQuery object.
+     */
+  , normalize: function($changed) {
+      var so = this.model.get("singleOptions");
+      var sel = this.elPrefix + "selected";
+      console.log($changed.hasClass(sel));
+      if ($changed.hasClass(sel)) {
+        var v = $changed.parent().find('input[name^="answer-"]').val();
+        var f = _.contains(so, v) ?
+          // uncheck other options
+          function() {
+            var x = $(this).parent().find('input[name^="answer-"]').val();
+            return x != v;
+          } :
+          // uncheck single options
+          function() {
+            var x = $(this).parent().find('input[name^="answer-"]').val();
+            return _.contains(so, x);
+          };
+        this.$('label').filter(f).removeClass(sel);
+      }
     }
 
     /**
@@ -702,9 +738,11 @@ var BackboneSurvey = BackboneSurvey || {};
   , subAnswer: function() {
       var sub = {};
       var opts = this.model.get("options");
+      var ans = this.answers();
       var me = this;
       _.each(opts, function(opt, i) {
         if (!opt.sub) return;
+        if (!_.contains(ans, opt.value)) return;
         var $ov = me.$('input[name^="sub-' + me.model.id + '-' + i + '"]');
         if (!_.isEmpty($ov.val())) {
           sub[opt.value] = $ov.val();

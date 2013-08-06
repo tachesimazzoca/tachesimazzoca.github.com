@@ -664,10 +664,13 @@ var BackboneSurvey = BackboneSurvey || {};
       var fn = function() { me.normalize($(this)); };
       this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).each(function() {
         me.normalize($(this));
+
       }).on(&quot;change&quot;, function() {
         if (me.$selected) return;
-        $this = $(this);
+        var $this = $(this);
+
         me.normalize($this);
+
         if ($this.prop(&quot;checked&quot;)) {
           var $li = $this.parent();
           var $sub = $li.find(&#x27;input[name^=&quot;sub-&quot;]&#x27;);
@@ -710,7 +713,7 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , answers: function() {
       var vs = [];
-      this.$(&#x27;[name=&quot;answer-&#x27; + this.model.id + &#x27;&quot;]&#x27;).each(function() {
+      this.$(&#x27;input[name=&quot;answer-&#x27; + this.model.id + &#x27;&quot;]&#x27;).each(function() {
         var $this = $(this);
         if ($this.prop(&quot;checked&quot;)) vs.push($this.val());
       });
@@ -724,10 +727,12 @@ var BackboneSurvey = BackboneSurvey || {};
   , subAnswer: function() {
       var sub = {};
       var opts = this.model.get(&quot;options&quot;);
+      var ans = this.answers();
       var me = this;
       _.each(opts, function(opt, i) {
         if (!opt.sub) return;
-        var $ov = me.$(&#x27;input[name^=&quot;sub-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;);
+        if (!_.contains(ans, opt.value)) return;
+        var $ov = me.$(&#x27;input[name=&quot;sub-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;);
         if (!_.isEmpty($ov.val())) {
           sub[opt.value] = $ov.val();
         }
@@ -793,15 +798,21 @@ var BackboneSurvey = BackboneSurvey || {};
         $subDialog.hide();
       });
       // options
-      this.$(&#x27;label&#x27;).on(&quot;click&quot;, function() {
+      this.$(&#x27;label&#x27;).each(function () {
+        me.normalize($(this));
+
+      }).on(&quot;click&quot;, function() {
         if (me.$selected) return;
-        $this = $(this);
+        var $this = $(this);
         if (me.multiple) {
           $this.toggleClass(sel);
         } else {
           me.$(&#x27;label&#x27;).removeClass(sel);
           $this.addClass(sel);
         }
+
+        me.normalize($this);
+
         if ($this.hasClass(sel)) {
           var $li = $this.parent();
           var $sub = $li.find(&#x27;input[name^=&quot;sub-&quot;]&#x27;);
@@ -814,6 +825,31 @@ var BackboneSurvey = BackboneSurvey || {};
         me.trigger(&quot;answer&quot;);
       });
       return this;
+    }
+
+    /**
+     * @method normalize
+     * @param {Object} $changed A last changed jQuery object.
+     */
+  , normalize: function($changed) {
+      var so = this.model.get(&quot;singleOptions&quot;);
+      var sel = this.elPrefix + &quot;selected&quot;;
+      console.log($changed.hasClass(sel));
+      if ($changed.hasClass(sel)) {
+        var v = $changed.parent().find(&#x27;input[name^=&quot;answer-&quot;]&#x27;).val();
+        var f = _.contains(so, v) ?
+          // uncheck other options
+          function() {
+            var x = $(this).parent().find(&#x27;input[name^=&quot;answer-&quot;]&#x27;).val();
+            return x != v;
+          } :
+          // uncheck single options
+          function() {
+            var x = $(this).parent().find(&#x27;input[name^=&quot;answer-&quot;]&#x27;).val();
+            return _.contains(so, x);
+          };
+        this.$(&#x27;label&#x27;).filter(f).removeClass(sel);
+      }
     }
 
     /**
@@ -838,9 +874,11 @@ var BackboneSurvey = BackboneSurvey || {};
   , subAnswer: function() {
       var sub = {};
       var opts = this.model.get(&quot;options&quot;);
+      var ans = this.answers();
       var me = this;
       _.each(opts, function(opt, i) {
         if (!opt.sub) return;
+        if (!_.contains(ans, opt.value)) return;
         var $ov = me.$(&#x27;input[name^=&quot;sub-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;);
         if (!_.isEmpty($ov.val())) {
           sub[opt.value] = $ov.val();
