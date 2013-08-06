@@ -230,11 +230,18 @@
       Backbone.history.start();
     }
 
-    // Animation
+    // 回答時に SurveyView から answer フックが呼ばれます。
+    view.on("answer", function() {
+      // SurveyView#isValid で正常回答の判定ができます
+      console.log(["answer", view.isValid()]);
+    });
+
+    // アニメーション
     view.beforeRender = function($el) {
       $el.fadeOut("slow", function() { view.render(); });
     };
     view.afterRender = function($el) {
+      console.log(["afterRender", view.isValid()]);
       $el.fadeIn("slow", function() { view.rendered = true; });
     };
 
