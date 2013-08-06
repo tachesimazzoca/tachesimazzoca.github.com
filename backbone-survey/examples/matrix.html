@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>backbone-survey/examples/matrix</title>
+<script type="text/javascript" src="../lib/json2/json2.js"></script>
+<script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="../lib/backbone/backbone-min.js"></script>
+<script type="text/javascript" src="../assets/js/backbone-survey.js"></script>
+<script type="text/javascript">
+(function($) {
+  $(function() {
+    var survey = new BackboneSurvey.Survey({
+      survey: {
+        title: "マトリクス回答サンプル"
+      , page: 0
+      }
+    , sections: [
+        {
+          id: "q1"
+        , page: 1
+        , question: "Q1. 単一マトリクス設問です。"
+        , type: BackboneSurvey.QuestionType.MATRIX
+        , fields: [
+            {
+              label: "サブ設問1"
+            , rules: [
+                new BackboneSurvey.RequiredValidator({
+                  message: "サブ設問1を入力してください"
+                })
+              ]
+            }
+          , {
+              label: "サブ設問2"
+            , rules: [
+                new BackboneSurvey.RequiredValidator({
+                  message: "サブ設問2を入力してください"
+                })
+              ]
+            }
+          , {
+              label: "サブ設問3"
+            , rules: [
+                new BackboneSurvey.RequiredValidator({
+                  message: "サブ設問3を入力してください"
+                })
+              ]
+            }
+          ]
+        , options: [
+            { value: "2", label: "好き" }
+          , { value: "1", label: "やや好き" }
+          , { value: "0", label: "普通" }
+          , { value: "-1", label: "やや嫌い" }
+          , { value: "-2", label: "嫌い" }
+          ]
+        }
+      , {
+          id: "q2"
+        , page: 2
+        , question: "Q2. 複数マトリクス設問です。"
+        , type: BackboneSurvey.QuestionType.MATRIX_MULTI
+        , fields: [
+            {
+              label: "サブ設問1"
+            , rules: []
+            }
+          , {
+              label: "サブ設問2"
+            , rules: []
+            }
+          , {
+              label: "サブ設問3"
+            , rules: [
+                new BackboneSurvey.RequiredValidator({
+                  message: "サブ設問3を入力してください"
+                })
+              ]
+            }
+          ]
+        , options: [
+            { value: "1", label: "選択肢1" }
+          , { value: "2", label: "選択肢2" }
+          , { value: "3", label: "選択肢3" }
+          , { value: "4", label: "選択肢4" }
+          , { value: "5", label: "選択肢5" }
+          ]
+        }
+      ]
+    }, { parse: true });
+
+    var view = new BackboneSurvey.SurveyView({
+      model: survey // BackboneSurvey.Survey
+    , el: $("#survey-app") // アンケートを表示する jQuery オブジェクト
+    });
+
+    // 現在ページ
+    var lastPage = survey.sections.lastPage();
+    survey.on("change", function() {
+      console.log(survey.get("page") + " of " + lastPage);
+    });
+
+    view.on("start", function() { survey.startPage() } );
+    view.on("prev", function() { survey.prevPage() } );
+    view.on("next", function() { survey.nextPage() } );
+    view.on("completed", function() {
+      console.log(["completed", survey.answers()]);
+    });
+
+    // 回答時に SurveyView から answer フックが呼ばれます。
+    view.on("answer", function() {
+      // SurveyView#isValid で正常回答の判定ができます
+      console.log(["answer", view.isValid()]);
+    });
+
+    // SurveyView#startPage() でアンケート開始します。
+    view.startPage();
+  });
+})(jQuery);
+</script>
+</head>
+<body>
+  <div id="survey-app">
+    <h1 class="survey-title"></h1><!-- アンケートタイトル -->
+    <div id="survey-sections"></div><!-- アンケート設問(必須) -->
+    <input type="button" class="survey-next" value="Next"><!-- 次ページに進みます(必須) -->
+    <input type="button" class="survey-prev" value="Prev"><!-- 前ページに戻ります -->
+    <p><a class="survey-start" href="javascript:void(0);">はじめからやり直す</a></p>
+  </div>
+</body>
+</html>

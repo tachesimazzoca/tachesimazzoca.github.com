@@ -136,7 +136,7 @@
         , page: 6
         , question: "Q6. テキストカード設問です"
         , type: BackboneSurvey.QuestionType.CHECKBOX
-        , view: "CustomTextCardAnswerView"
+        , view: "TextCardAnswerView"
         , options: [
             { value: "1", label: "カード1" }
           , { value: "2", label: "カード2" }
@@ -152,11 +152,6 @@
         }
       ]
     }, { parse: true });
-
-    // 独自ダイアログを使ったテキストカードUI
-    BackboneSurvey.CustomTextCardAnswerView = BackboneSurvey.TextCardAnswerView.extend({
-      $dialog: '#survey-dialog'
-    });
 
     var view = new BackboneSurvey.SurveyView({
       model: survey // BackboneSurvey.Survey
@@ -263,10 +258,6 @@
     <input type="button" class="survey-next" value="Next"><!-- 次ページに進みます(必須) -->
     <input type="button" class="survey-prev" value="Prev"><!-- 前ページに戻ります -->
     <p><a class="survey-start" href="javascript:void(0);">はじめからやり直す</a></p>
-  </div>
-  <div id="survey-dialog" style="display: none; position: absolute; left: 0; top: 0; background: #fff;">
-    <p>Customized dialog!</p>
-    <input type="text"><button>OK</button>
   </div>
 </body>
 </html>

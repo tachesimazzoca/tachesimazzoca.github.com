@@ -66,9 +66,8 @@
                 "NonAnswerView": 1,
                 "TextAnswerView": 1,
                 "MultiAnswerView": 1,
-                "OptionAnswerViewProto": 1,
-                "RadioAnswerView": 1,
-                "CheckboxAnswerView": 1,
+                "OptionAnswerView": 1,
+                "MatrixAnswerView": 1,
                 "TextCardAnswerView": 1,
                 "ImageCardAnswerView": 1
             },
@@ -100,9 +99,8 @@
                 "NonAnswerView": 1,
                 "TextAnswerView": 1,
                 "MultiAnswerView": 1,
-                "OptionAnswerViewProto": 1,
-                "RadioAnswerView": 1,
-                "CheckboxAnswerView": 1,
+                "OptionAnswerView": 1,
+                "MatrixAnswerView": 1,
                 "TextCardAnswerView": 1,
                 "ImageCardAnswerView": 1
             },
@@ -110,7 +108,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/assets/js/views.js",
-            "line": 623
+            "line": 667
         }
     },
     "classes": {
@@ -155,7 +153,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/enum.js",
-            "line": 37
+            "line": 45
         },
         "Section": {
             "name": "Section",
@@ -182,7 +180,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/models.js",
-            "line": 155,
+            "line": 166,
             "extends": "{Backbone.Collection}"
         },
         "Survey": {
@@ -196,7 +194,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/models.js",
-            "line": 222,
+            "line": 233,
             "extends": "{Backbone.Model}"
         },
         "Templates": {
@@ -374,7 +372,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 263,
+            "line": 265,
             "extends": "{Backbone.View}"
         },
         "TextAnswerView": {
@@ -388,7 +386,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 291,
+            "line": 293,
             "extends": "{Backbone.View}"
         },
         "MultiAnswerView": {
@@ -402,28 +400,12 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 335,
+            "line": 337,
             "extends": "{Backbone.View}"
         },
-        "OptionAnswerViewProto": {
-            "name": "OptionAnswerViewProto",
-            "shortname": "OptionAnswerViewProto",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [
-                "RadioAnswerView",
-                "CheckboxAnswerView"
-            ],
-            "module": "backbone-survey",
-            "namespace": "",
-            "file": "src/assets/js/views.js",
-            "line": 382
-        },
-        "RadioAnswerView": {
-            "name": "RadioAnswerView",
-            "shortname": "RadioAnswerView",
+        "OptionAnswerView": {
+            "name": "OptionAnswerView",
+            "shortname": "OptionAnswerView",
             "classitems": [],
             "plugins": [],
             "extensions": [],
@@ -432,15 +414,11 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 469,
-            "extends": "{Backbone.View}",
-            "uses": [
-                "OptionAnswerViewProto"
-            ]
+            "line": 384
         },
-        "CheckboxAnswerView": {
-            "name": "CheckboxAnswerView",
-            "shortname": "CheckboxAnswerView",
+        "MatrixAnswerView": {
+            "name": "MatrixAnswerView",
+            "shortname": "MatrixAnswerView",
             "classitems": [],
             "plugins": [],
             "extensions": [],
@@ -449,11 +427,8 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 478,
-            "extends": "{Backbone.View}",
-            "uses": [
-                "OptionAnswerViewProto"
-            ]
+            "line": 472,
+            "extends": "{Backbone.View}"
         },
         "TextCardAnswerView": {
             "name": "TextCardAnswerView",
@@ -466,7 +441,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 487
+            "line": 531
         },
         "ImageCardAnswerView": {
             "name": "ImageCardAnswerView",
@@ -479,7 +454,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 623
+            "line": 667
         }
     },
     "classitems": [
@@ -518,7 +493,18 @@
         },
         {
             "file": "src/assets/js/enum.js",
-            "line": 45,
+            "line": 37,
+            "itemtype": "property",
+            "name": "MATRIX",
+            "type": "{AnswerType}",
+            "static": 1,
+            "final": 1,
+            "class": "AnswerType",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/enum.js",
+            "line": 53,
             "itemtype": "method",
             "name": "ansewrType",
             "return": {
@@ -530,7 +516,7 @@
         },
         {
             "file": "src/assets/js/enum.js",
-            "line": 51,
+            "line": 59,
             "itemtype": "method",
             "name": "multiple",
             "return": {
@@ -542,7 +528,7 @@
         },
         {
             "file": "src/assets/js/enum.js",
-            "line": 59,
+            "line": 67,
             "itemtype": "property",
             "name": "NONE",
             "type": "{QuestionType}",
@@ -553,7 +539,7 @@
         },
         {
             "file": "src/assets/js/enum.js",
-            "line": 67,
+            "line": 75,
             "itemtype": "property",
             "name": "TEXT",
             "type": "{QuestionType}",
@@ -564,7 +550,7 @@
         },
         {
             "file": "src/assets/js/enum.js",
-            "line": 75,
+            "line": 83,
             "itemtype": "property",
             "name": "MULTI",
             "type": "{QuestionType}",
@@ -575,7 +561,7 @@
         },
         {
             "file": "src/assets/js/enum.js",
-            "line": 83,
+            "line": 91,
             "itemtype": "property",
             "name": "RADIO",
             "type": "{QuestionType}",
@@ -586,7 +572,7 @@
         },
         {
             "file": "src/assets/js/enum.js",
-            "line": 91,
+            "line": 99,
             "itemtype": "property",
             "name": "CHECKBOX",
             "type": "{QuestionType}",
@@ -596,8 +582,30 @@
             "module": "backbone-survey"
         },
         {
+            "file": "src/assets/js/enum.js",
+            "line": 107,
+            "itemtype": "property",
+            "name": "MATRIX",
+            "type": "{QuestionType}",
+            "static": 1,
+            "final": 1,
+            "class": "QuestionType",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/enum.js",
+            "line": 115,
+            "itemtype": "property",
+            "name": "MATRIX_MULTI",
+            "type": "{QuestionType}",
+            "static": 1,
+            "final": 1,
+            "class": "QuestionType",
+            "module": "backbone-survey"
+        },
+        {
             "file": "src/assets/js/models.js",
-            "line": 106,
+            "line": 117,
             "description": "Pick the answers according to the section type.",
             "itemtype": "method",
             "name": "answers",
@@ -618,7 +626,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 118,
+            "line": 129,
             "description": "Clear all answer attributes.",
             "itemtype": "method",
             "name": "clearAnswers",
@@ -627,7 +635,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 127,
+            "line": 138,
             "description": "Returns the route keys.",
             "itemtype": "method",
             "name": "answeredRoutes",
@@ -640,7 +648,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 162,
+            "line": 173,
             "itemtype": "method",
             "name": "fistPage",
             "return": {
@@ -652,7 +660,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 173,
+            "line": 184,
             "itemtype": "method",
             "name": "lastPage",
             "return": {
@@ -664,7 +672,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 184,
+            "line": 195,
             "itemtype": "method",
             "name": "prevPage",
             "params": [
@@ -683,7 +691,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 202,
+            "line": 213,
             "itemtype": "method",
             "name": "nextPage",
             "params": [
@@ -702,7 +710,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 228,
+            "line": 239,
             "itemtype": "property",
             "name": "sections",
             "type": "{Sections}",
@@ -711,7 +719,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 248,
+            "line": 259,
             "description": "Parser method for using `{ parse: true }` option.\n\n<pre><code>var survey = new BackboneSurvey.Survey({\n   survey: {\n     // Survey.attributes ....\n   }\n , sections: [\n     // An array of Section.attributes ....\n   ]\n}, { parse: true });\n</code></pre>",
             "itemtype": "method",
             "name": "parse",
@@ -736,7 +744,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 273,
+            "line": 284,
             "description": "Move to a first page, and reset all answers.",
             "itemtype": "method",
             "name": "startPage",
@@ -745,7 +753,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 288,
+            "line": 299,
             "description": "Move to a prev page.",
             "itemtype": "method",
             "name": "prevPage",
@@ -754,7 +762,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 300,
+            "line": 311,
             "description": "Move to a next page.",
             "itemtype": "method",
             "name": "nextPage",
@@ -763,7 +771,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 334,
+            "line": 345,
             "itemtype": "method",
             "name": "isFirstPage",
             "return": {
@@ -775,7 +783,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 342,
+            "line": 353,
             "itemtype": "method",
             "name": "isLastPage",
             "return": {
@@ -787,7 +795,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 350,
+            "line": 361,
             "description": "Returns an array of Section in a current page.",
             "itemtype": "method",
             "name": "currentSections",
@@ -800,7 +808,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 360,
+            "line": 371,
             "description": "Returns all answers.",
             "itemtype": "method",
             "name": "answers",
@@ -813,7 +821,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 383,
+            "line": 394,
             "description": "Add an answered section ID.",
             "itemtype": "method",
             "name": "addAnsweredSectionId",
@@ -829,7 +837,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 397,
+            "line": 408,
             "description": "Returns the route keys in the sections.",
             "itemtype": "method",
             "name": "answeredRoutes",
@@ -883,6 +891,16 @@
         {
             "file": "src/assets/js/templates.js",
             "line": 61,
+            "description": "See {{#crossLink \"MatrixAnswerView\"}}{{/crossLink}}",
+            "itemtype": "property",
+            "name": "MatrixAnswerView",
+            "type": "{String}",
+            "class": "Templates",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/templates.js",
+            "line": 81,
             "description": "See {{#crossLink \"TextCardAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "TextCardAnswerView",
@@ -892,7 +910,7 @@
         },
         {
             "file": "src/assets/js/templates.js",
-            "line": 81,
+            "line": 101,
             "description": "See {{#crossLink \"ImageCardAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "ImageCardAnswerView",
@@ -1112,7 +1130,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 276,
+            "line": 278,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1124,7 +1142,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 282,
+            "line": 284,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1136,7 +1154,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 302,
+            "line": 304,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1145,7 +1163,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 317,
+            "line": 319,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1157,7 +1175,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 326,
+            "line": 328,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1169,7 +1187,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 346,
+            "line": 348,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1178,7 +1196,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 361,
+            "line": 363,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1190,7 +1208,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 373,
+            "line": 375,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1202,16 +1220,16 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 394,
+            "line": 397,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
-            "class": "OptionAnswerViewProto",
+            "class": "OptionAnswerView",
             "module": "backbone-survey"
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 414,
+            "line": 417,
             "itemtype": "method",
             "name": "normalize",
             "params": [
@@ -1221,36 +1239,69 @@
                     "type": "Object"
                 }
             ],
-            "class": "OptionAnswerViewProto",
+            "class": "OptionAnswerView",
             "module": "backbone-survey"
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 439,
+            "line": 442,
             "itemtype": "method",
             "name": "answers",
             "return": {
                 "description": "",
                 "type": "Array"
             },
-            "class": "OptionAnswerViewProto",
+            "class": "OptionAnswerView",
             "module": "backbone-survey"
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 452,
+            "line": 455,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
                 "description": "",
                 "type": "Object"
             },
-            "class": "OptionAnswerViewProto",
+            "class": "OptionAnswerView",
             "module": "backbone-survey"
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 501,
+            "line": 486,
+            "itemtype": "method",
+            "name": "render",
+            "chainable": 1,
+            "class": "MatrixAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 504,
+            "itemtype": "method",
+            "name": "answers",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "MatrixAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 522,
+            "itemtype": "method",
+            "name": "subAnswer",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "MatrixAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 545,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1259,7 +1310,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 556,
+            "line": 600,
             "itemtype": "method",
             "name": "normalize",
             "params": [
@@ -1274,7 +1325,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 574,
+            "line": 618,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1286,7 +1337,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 587,
+            "line": 631,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1298,7 +1349,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 607,
+            "line": 651,
             "itemtype": "method",
             "name": "updateSubAnswer",
             "class": "TextCardAnswerView",
@@ -1306,7 +1357,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 637,
+            "line": 681,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1315,7 +1366,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 694,
+            "line": 738,
             "itemtype": "method",
             "name": "normalize",
             "params": [
@@ -1330,7 +1381,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 719,
+            "line": 763,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1342,7 +1393,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 734,
+            "line": 778,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1354,7 +1405,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 754,
+            "line": 798,
             "itemtype": "method",
             "name": "updateSubAnswer",
             "class": "ImageCardAnswerView",

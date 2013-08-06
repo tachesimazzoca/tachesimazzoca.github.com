@@ -43,23 +43,21 @@
             
                 <li><a href="../classes/AnswerType.html">AnswerType</a></li>
             
-                <li><a href="../classes/CheckboxAnswerView.html">CheckboxAnswerView</a></li>
-            
                 <li><a href="../classes/Extendable.html">Extendable</a></li>
             
                 <li><a href="../classes/ImageCardAnswerView.html">ImageCardAnswerView</a></li>
+            
+                <li><a href="../classes/MatrixAnswerView.html">MatrixAnswerView</a></li>
             
                 <li><a href="../classes/MultiAnswerView.html">MultiAnswerView</a></li>
             
                 <li><a href="../classes/NonAnswerView.html">NonAnswerView</a></li>
             
-                <li><a href="../classes/OptionAnswerViewProto.html">OptionAnswerViewProto</a></li>
+                <li><a href="../classes/OptionAnswerView.html">OptionAnswerView</a></li>
             
                 <li><a href="../classes/PatternValidator.html">PatternValidator</a></li>
             
                 <li><a href="../classes/QuestionType.html">QuestionType</a></li>
-            
-                <li><a href="../classes/RadioAnswerView.html">RadioAnswerView</a></li>
             
                 <li><a href="../classes/RangeLengthValidator.html">RangeLengthValidator</a></li>
             
@@ -379,10 +377,12 @@ var BackboneSurvey = BackboneSurvey || {};
           func = BackboneSurvey.MultiAnswerView;
           break;
         case BackboneSurvey.QuestionType.RADIO:
-          func = BackboneSurvey.RadioAnswerView;
-          break;
         case BackboneSurvey.QuestionType.CHECKBOX:
-          func = BackboneSurvey.CheckboxAnswerView;
+          func = BackboneSurvey.OptionAnswerView;
+          break;
+        case BackboneSurvey.QuestionType.MATRIX:
+        case BackboneSurvey.QuestionType.MATRIX_MULTI:
+          func = BackboneSurvey.MatrixAnswerView;
           break;
         default:
           func = BackboneSurvey.NoneAnswerView;
@@ -516,15 +516,16 @@ var BackboneSurvey = BackboneSurvey || {};
   });
 
   /**
-   * @class OptionAnswerViewProto
+   * @class OptionAnswerView
    */
-  var OptionAnswerViewProto = {
+  var OptionAnswerView = BackboneSurvey.OptionAnswerView = Backbone.View.extend({
     templateName: &quot;OptionAnswerView&quot;
 
   , multiple: false
 
   , initialize: function() {
       this.elPrefix = this.elPrefix || &quot;survey-&quot;;
+      this.multiple = this.model.get(&quot;type&quot;).multiple();
     }
 
     /**
@@ -600,25 +601,66 @@ var BackboneSurvey = BackboneSurvey || {};
       });
       return sub;
     }
-  };
+  });
 
   /**
-   * @class RadioAnswerView
+   * @class MatrixAnswerView
    * @extends {Backbone.View}
-   * @uses OptionAnswerViewProto
    */
-  var RadioAnswerView = BackboneSurvey.RadioAnswerView = Backbone.View.extend({
-  });
-  _.extend(RadioAnswerView.prototype, OptionAnswerViewProto, { multiple: false});
+  var MatrixAnswerView = BackboneSurvey.MatrixAnswerView = Backbone.View.extend({
+    templateName: &quot;MatrixAnswerView&quot;
 
-  /**
-   * @class CheckboxAnswerView
-   * @extends {Backbone.View}
-   * @uses OptionAnswerViewProto
-   */
-  var CheckboxAnswerView = BackboneSurvey.CheckboxAnswerView = Backbone.View.extend({
+  , multiple: false
+
+  , initialize: function() {
+      this.elPrefix = this.elPrefix || &quot;survey-&quot;;
+      this.multiple = this.model.get(&quot;type&quot;).multiple();
+    }
+
+    /**
+     * @method render
+     * @chainable
+     */
+  , render: function() {
+      this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({
+        elPrefix: this.elPrefix
+      , multiple: this.multiple
+      , model: this.model.toJSON()
+      }));
+
+      var me = this;
+      this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).on(&quot;change&quot;, function() {
+        me.trigger(&quot;answer&quot;);
+      });
+      return this;
+    }
+
+    /**
+     * @method answers
+     * @return {Array}
+     */
+  , answers: function() {
+      var vs = [];
+      var me = this;
+      var fields = this.model.get(&quot;fields&quot;);
+      _.each(fields, function(field, i) {
+        vs[i] = [];
+        this.$(&#x27;input[name^=&quot;answer-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;).each(function() {
+          var $this = $(this);
+          if ($this.prop(&quot;checked&quot;)) vs[i].push($this.val());
+        });
+      });
+      return vs;
+    }
+
+    /**
+     * @method subAnswer
+     * @return {Object}
+     */
+  , subAnswer: function() {
+      return {};
+    }
   });
-  _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto, { multiple: true});
 
   /**
    * @class TextCardAnswerView
@@ -630,7 +672,7 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , initialize: function() {
       this.elPrefix = this.elPrefix || &quot;survey-&quot;;
-      this.multiple = this.model.get(&quot;type&quot;) === BackboneSurvey.QuestionType.CHECKBOX;
+      this.multiple = this.model.get(&quot;type&quot;).multiple();
       this.$selected = null;
     }
 
@@ -766,7 +808,7 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , initialize: function() {
       this.elPrefix = this.elPrefix || &quot;survey-&quot;;
-      this.multiple = this.model.get(&quot;type&quot;) === BackboneSurvey.QuestionType.CHECKBOX;
+      this.multiple = this.model.get(&quot;type&quot;).multiple();
       this.$selected = null;
     }
 

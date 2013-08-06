@@ -35,6 +35,14 @@ var BackboneSurvey = BackboneSurvey || {};
   BackboneSurvey.AnswerType.OPTION = new AnswerType();
 
   /**
+   * @property MATRIX
+   * @type {AnswerType}
+   * @static
+   * @final
+   */
+  BackboneSurvey.AnswerType.MATRIX = new AnswerType();
+
+  /**
    * @class QuestionType
    */
   var QuestionType = function(answerType, multiple) {
@@ -95,4 +103,20 @@ var BackboneSurvey = BackboneSurvey || {};
    * @final
    */
   BackboneSurvey.QuestionType.CHECKBOX = new QuestionType(BackboneSurvey.AnswerType.OPTION, true);
+
+  /**
+   * @property MATRIX
+   * @type {QuestionType}
+   * @static
+   * @final
+   */
+  BackboneSurvey.QuestionType.MATRIX = new QuestionType(BackboneSurvey.AnswerType.MATRIX, false);
+
+  /**
+   * @property MATRIX_MULTI
+   * @type {QuestionType}
+   * @static
+   * @final
+   */
+  BackboneSurvey.QuestionType.MATRIX_MULTI = new QuestionType(BackboneSurvey.AnswerType.MATRIX, true);
 })();

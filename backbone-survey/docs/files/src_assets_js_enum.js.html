@@ -43,23 +43,21 @@
             
                 <li><a href="../classes/AnswerType.html">AnswerType</a></li>
             
-                <li><a href="../classes/CheckboxAnswerView.html">CheckboxAnswerView</a></li>
-            
                 <li><a href="../classes/Extendable.html">Extendable</a></li>
             
                 <li><a href="../classes/ImageCardAnswerView.html">ImageCardAnswerView</a></li>
+            
+                <li><a href="../classes/MatrixAnswerView.html">MatrixAnswerView</a></li>
             
                 <li><a href="../classes/MultiAnswerView.html">MultiAnswerView</a></li>
             
                 <li><a href="../classes/NonAnswerView.html">NonAnswerView</a></li>
             
-                <li><a href="../classes/OptionAnswerViewProto.html">OptionAnswerViewProto</a></li>
+                <li><a href="../classes/OptionAnswerView.html">OptionAnswerView</a></li>
             
                 <li><a href="../classes/PatternValidator.html">PatternValidator</a></li>
             
                 <li><a href="../classes/QuestionType.html">QuestionType</a></li>
-            
-                <li><a href="../classes/RadioAnswerView.html">RadioAnswerView</a></li>
             
                 <li><a href="../classes/RangeLengthValidator.html">RangeLengthValidator</a></li>
             
@@ -171,6 +169,14 @@ var BackboneSurvey = BackboneSurvey || {};
   BackboneSurvey.AnswerType.OPTION = new AnswerType();
 
   /**
+   * @property MATRIX
+   * @type {AnswerType}
+   * @static
+   * @final
+   */
+  BackboneSurvey.AnswerType.MATRIX = new AnswerType();
+
+  /**
    * @class QuestionType
    */
   var QuestionType = function(answerType, multiple) {
@@ -231,6 +237,22 @@ var BackboneSurvey = BackboneSurvey || {};
    * @final
    */
   BackboneSurvey.QuestionType.CHECKBOX = new QuestionType(BackboneSurvey.AnswerType.OPTION, true);
+
+  /**
+   * @property MATRIX
+   * @type {QuestionType}
+   * @static
+   * @final
+   */
+  BackboneSurvey.QuestionType.MATRIX = new QuestionType(BackboneSurvey.AnswerType.MATRIX, false);
+
+  /**
+   * @property MATRIX_MULTI
+   * @type {QuestionType}
+   * @static
+   * @final
+   */
+  BackboneSurvey.QuestionType.MATRIX_MULTI = new QuestionType(BackboneSurvey.AnswerType.MATRIX, true);
 })();
 
     </pre>

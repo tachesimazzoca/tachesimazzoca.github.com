@@ -43,23 +43,21 @@
             
                 <li><a href="../classes/AnswerType.html">AnswerType</a></li>
             
-                <li><a href="../classes/CheckboxAnswerView.html">CheckboxAnswerView</a></li>
-            
                 <li><a href="../classes/Extendable.html">Extendable</a></li>
             
                 <li><a href="../classes/ImageCardAnswerView.html">ImageCardAnswerView</a></li>
+            
+                <li><a href="../classes/MatrixAnswerView.html">MatrixAnswerView</a></li>
             
                 <li><a href="../classes/MultiAnswerView.html">MultiAnswerView</a></li>
             
                 <li><a href="../classes/NonAnswerView.html">NonAnswerView</a></li>
             
-                <li><a href="../classes/OptionAnswerViewProto.html">OptionAnswerViewProto</a></li>
+                <li><a href="../classes/OptionAnswerView.html">OptionAnswerView</a></li>
             
                 <li><a href="../classes/PatternValidator.html">PatternValidator</a></li>
             
                 <li><a href="../classes/QuestionType.html">QuestionType</a></li>
-            
-                <li><a href="../classes/RadioAnswerView.html">RadioAnswerView</a></li>
             
                 <li><a href="../classes/RangeLengthValidator.html">RangeLengthValidator</a></li>
             
@@ -217,14 +215,25 @@ var BackboneSurvey = BackboneSurvey || {};
       var errors = [];
       var answers = this.answers(attr);
       var me = this;
+      var fields = this.get(&quot;fields&quot;) || [];
       if (this.get(&quot;type&quot;) === BackboneSurvey.QuestionType.MULTI) {
-        var fields = this.get(&quot;fields&quot;) || [];
         _.each(fields, function(field, i) {
           var rules = field.rules || [];
           var err = [];
           _.each(rules, function(rule) {
             if (err.length &gt; 0) return;
             var result = rule.validate([answers[i]], me.attributes);
+            if (!result.valid) errors.push(result.message);
+          });
+          _.union(errors, err);
+        });
+      } else if (this.get(&quot;type&quot;).answerType() === BackboneSurvey.AnswerType.MATRIX) {
+        _.each(fields, function(field, i) {
+          var rules = field.rules || [];
+          var err = [];
+          _.each(rules, function(rule) {
+            if (err.length &gt; 0) return;
+            var result = rule.validate(answers[i], me.attributes);
             if (!result.valid) errors.push(result.message);
           });
           _.union(errors, err);

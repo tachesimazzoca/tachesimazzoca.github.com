@@ -81,14 +81,25 @@ var BackboneSurvey = BackboneSurvey || {};
       var errors = [];
       var answers = this.answers(attr);
       var me = this;
+      var fields = this.get("fields") || [];
       if (this.get("type") === BackboneSurvey.QuestionType.MULTI) {
-        var fields = this.get("fields") || [];
         _.each(fields, function(field, i) {
           var rules = field.rules || [];
           var err = [];
           _.each(rules, function(rule) {
             if (err.length > 0) return;
             var result = rule.validate([answers[i]], me.attributes);
+            if (!result.valid) errors.push(result.message);
+          });
+          _.union(errors, err);
+        });
+      } else if (this.get("type").answerType() === BackboneSurvey.AnswerType.MATRIX) {
+        _.each(fields, function(field, i) {
+          var rules = field.rules || [];
+          var err = [];
+          _.each(rules, function(rule) {
+            if (err.length > 0) return;
+            var result = rule.validate(answers[i], me.attributes);
             if (!result.valid) errors.push(result.message);
           });
           _.union(errors, err);

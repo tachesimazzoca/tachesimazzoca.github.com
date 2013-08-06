@@ -59,6 +59,26 @@ var BackboneSurvey = BackboneSurvey || {};
       '</li><% }); %></ul>'
 
     /**
+     * See {{#crossLink "MatrixAnswerView"}}{{/crossLink}}
+     *
+     * @property MatrixAnswerView
+     * @type {String}
+     */
+  , MatrixAnswerView: '<table><tr><td></td>' +
+      '<% _.each(model.options, function(option, i) { %>' +
+      '<td><%- option.label %></td>' +
+      '<% }); %></tr>' +
+      '<% _.each(model.fields, function(field, i) { %><tr>' +
+      '<td><%- field.label %></td>' +
+      '<% _.each(model.options, function(option) { %><td>' +
+      '<input type="<%- multiple? "checkbox" : "radio" %>"' +
+      ' name="answer-<%- model.id %>-<%- i %>" value="<%- option.value %>"' +
+      '<% if (_.contains(model.answers[i], option.value)) { %> checked="checked"<% } %>>' +
+      '</td><% }); %>' +
+      '</tr><% }); %>' +
+      '</table>'
+
+    /**
      * See {{#crossLink "TextCardAnswerView"}}{{/crossLink}}
      *
      * @property TextCardAnswerView

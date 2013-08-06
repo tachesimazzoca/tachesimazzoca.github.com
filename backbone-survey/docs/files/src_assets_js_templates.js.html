@@ -43,23 +43,21 @@
             
                 <li><a href="../classes/AnswerType.html">AnswerType</a></li>
             
-                <li><a href="../classes/CheckboxAnswerView.html">CheckboxAnswerView</a></li>
-            
                 <li><a href="../classes/Extendable.html">Extendable</a></li>
             
                 <li><a href="../classes/ImageCardAnswerView.html">ImageCardAnswerView</a></li>
+            
+                <li><a href="../classes/MatrixAnswerView.html">MatrixAnswerView</a></li>
             
                 <li><a href="../classes/MultiAnswerView.html">MultiAnswerView</a></li>
             
                 <li><a href="../classes/NonAnswerView.html">NonAnswerView</a></li>
             
-                <li><a href="../classes/OptionAnswerViewProto.html">OptionAnswerViewProto</a></li>
+                <li><a href="../classes/OptionAnswerView.html">OptionAnswerView</a></li>
             
                 <li><a href="../classes/PatternValidator.html">PatternValidator</a></li>
             
                 <li><a href="../classes/QuestionType.html">QuestionType</a></li>
-            
-                <li><a href="../classes/RadioAnswerView.html">RadioAnswerView</a></li>
             
                 <li><a href="../classes/RangeLengthValidator.html">RangeLengthValidator</a></li>
             
@@ -193,6 +191,26 @@ var BackboneSurvey = BackboneSurvey || {};
       &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
       &#x27;&lt;% } %&gt;&#x27; +
       &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
+
+    /**
+     * See {{#crossLink &quot;MatrixAnswerView&quot;}}{{/crossLink}}
+     *
+     * @property MatrixAnswerView
+     * @type {String}
+     */
+  , MatrixAnswerView: &#x27;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&#x27; +
+      &#x27;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
+      &#x27;&lt;td&gt;&lt;%- option.label %&gt;&lt;/td&gt;&#x27; +
+      &#x27;&lt;% }); %&gt;&lt;/tr&gt;&#x27; +
+      &#x27;&lt;% _.each(model.fields, function(field, i) { %&gt;&lt;tr&gt;&#x27; +
+      &#x27;&lt;td&gt;&lt;%- field.label %&gt;&lt;/td&gt;&#x27; +
+      &#x27;&lt;% _.each(model.options, function(option) { %&gt;&lt;td&gt;&#x27; +
+      &#x27;&lt;input type=&quot;&lt;%- multiple? &quot;checkbox&quot; : &quot;radio&quot; %&gt;&quot;&#x27; +
+      &#x27; name=&quot;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
+      &#x27;&lt;% if (_.contains(model.answers[i], option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;/td&gt;&lt;% }); %&gt;&#x27; +
+      &#x27;&lt;/tr&gt;&lt;% }); %&gt;&#x27; +
+      &#x27;&lt;/table&gt;&#x27;
 
     /**
      * See {{#crossLink &quot;TextCardAnswerView&quot;}}{{/crossLink}}

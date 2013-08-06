@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>RadioAnswerView</title>
+    <title>MatrixAnswerView</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -43,23 +43,21 @@
             
                 <li><a href="../classes/AnswerType.html">AnswerType</a></li>
             
-                <li><a href="../classes/CheckboxAnswerView.html">CheckboxAnswerView</a></li>
-            
                 <li><a href="../classes/Extendable.html">Extendable</a></li>
             
                 <li><a href="../classes/ImageCardAnswerView.html">ImageCardAnswerView</a></li>
+            
+                <li><a href="../classes/MatrixAnswerView.html">MatrixAnswerView</a></li>
             
                 <li><a href="../classes/MultiAnswerView.html">MultiAnswerView</a></li>
             
                 <li><a href="../classes/NonAnswerView.html">NonAnswerView</a></li>
             
-                <li><a href="../classes/OptionAnswerViewProto.html">OptionAnswerViewProto</a></li>
+                <li><a href="../classes/OptionAnswerView.html">OptionAnswerView</a></li>
             
                 <li><a href="../classes/PatternValidator.html">PatternValidator</a></li>
             
                 <li><a href="../classes/QuestionType.html">QuestionType</a></li>
-            
-                <li><a href="../classes/RadioAnswerView.html">RadioAnswerView</a></li>
             
                 <li><a href="../classes/RangeLengthValidator.html">RangeLengthValidator</a></li>
             
@@ -130,17 +128,8 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>RadioAnswerView Class</h1>
+                        <h1>MatrixAnswerView Class</h1>
 <div class="box meta">
-    
-        <div class="uses">
-            Uses
-            <ul class="inline commas">
-                
-                    <li><a href="OptionAnswerViewProto.html">OptionAnswerViewProto</a></li>
-                
-            </ul>
-        </div>
     
 
     
@@ -151,7 +140,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_assets_js_views.js.html#l469"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:469</code></a>
+            Defined in: <a href="../files/src_assets_js_views.js.html#l472"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:472</code></a>
         </div>
     
 
@@ -194,28 +183,21 @@
 
                     <ul class="index-list methods extends">
                         
-                            <li class="index-item method inherited">
+                            <li class="index-item method">
                                 <a href="#method_answers">answers</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method inherited">
-                                <a href="#method_normalize">normalize</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method inherited">
+                            <li class="index-item method">
                                 <a href="#method_render">render</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method inherited">
+                            <li class="index-item method">
                                 <a href="#method_subAnswer">subAnswer</a>
 
                                 
@@ -238,7 +220,7 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_answers" class="method item inherited">
+                    <div id="method_answers" class="method item">
     <h3 class="name"><code>answers</code></h3>
 
     
@@ -266,12 +248,15 @@
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/OptionAnswerViewProto.html#method_answers">OptionAnswerViewProto</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_assets_js_views.js.html#l439"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:439</code></a>
+        <a href="../files/src_assets_js_views.js.html#l504"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:504</code></a>
         
         </p>
 
@@ -305,91 +290,7 @@
 </div>
 
                 
-                    <div id="method_normalize" class="method item inherited">
-    <h3 class="name"><code>normalize</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>$changed</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/OptionAnswerViewProto.html#method_normalize">OptionAnswerViewProto</a>:
-            
-        
-        
-        <a href="../files/src_assets_js_views.js.html#l414"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:414</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">$changed</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>A last changed jQuery object.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_render" class="method item inherited">
+                    <div id="method_render" class="method item">
     <h3 class="name"><code>render</code></h3>
 
     
@@ -415,12 +316,15 @@
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/OptionAnswerViewProto.html#method_render">OptionAnswerViewProto</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_assets_js_views.js.html#l394"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:394</code></a>
+        <a href="../files/src_assets_js_views.js.html#l486"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:486</code></a>
         
         </p>
 
@@ -442,7 +346,7 @@
 </div>
 
                 
-                    <div id="method_subAnswer" class="method item inherited">
+                    <div id="method_subAnswer" class="method item">
     <h3 class="name"><code>subAnswer</code></h3>
 
     
@@ -470,12 +374,15 @@
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/OptionAnswerViewProto.html#method_subAnswer">OptionAnswerViewProto</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_assets_js_views.js.html#l452"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:452</code></a>
+        <a href="../files/src_assets_js_views.js.html#l522"><code>src&#x2F;assets&#x2F;js&#x2F;views.js:522</code></a>
         
         </p>
 

@@ -6,23 +6,23 @@
     var sectionView = new BackboneSurvey.SectionView({ model: section });
     var answerView;
     answerView = BackboneSurvey.AnswerViewFactory.create(sectionView);
-    ok(answerView instanceof BackboneSurvey.NoneAnswerView, "Create NoneAnswerView");
+    ok(answerView instanceof BackboneSurvey.NoneAnswerView, "default");
 
     section.set("type", BackboneSurvey.QuestionType.NONE);
     answerView = BackboneSurvey.AnswerViewFactory.create(sectionView);
-    ok(answerView instanceof BackboneSurvey.NoneAnswerView, "Create NoneAnswerView");
+    ok(answerView instanceof BackboneSurvey.NoneAnswerView, "NONE");
 
     section.set("type", BackboneSurvey.QuestionType.TEXT);
     answerView = BackboneSurvey.AnswerViewFactory.create(sectionView);
-    ok(answerView instanceof BackboneSurvey.TextAnswerView, "Create TextAnswerView");
+    ok(answerView instanceof BackboneSurvey.TextAnswerView, "TEXT");
 
     section.set("type", BackboneSurvey.QuestionType.RADIO);
     answerView = BackboneSurvey.AnswerViewFactory.create(sectionView);
-    ok(answerView instanceof BackboneSurvey.RadioAnswerView, "Create RadioAnswerView");
+    ok(answerView instanceof BackboneSurvey.OptionAnswerView, "RADIO");
 
     section.set("type", BackboneSurvey.QuestionType.CHECKBOX);
     answerView = BackboneSurvey.AnswerViewFactory.create(sectionView);
-    ok(answerView instanceof BackboneSurvey.CheckboxAnswerView, "Create CheckboxAnswerView");
+    ok(answerView instanceof BackboneSurvey.OptionAnswerView, "CHECKBOX");
   });
 
   test("TextAnswerView", function() {
@@ -46,11 +46,11 @@
     var ans = ["B"];
     var section = new BackboneSurvey.Section({
       id: "q2" 
-    , type: BackboneSurvey.QuestionType.Radio
+    , type: BackboneSurvey.QuestionType.RADIO
     , options: opts
     , answers: ans
     });
-    var view = new BackboneSurvey.RadioAnswerView({ model: section });
+    var view = new BackboneSurvey.OptionAnswerView({ model: section });
     view.render();
     deepEqual(view.$el.html(),
       '<ul>' +
@@ -72,12 +72,12 @@
     var ans = ["1", "3"];
     var section = new BackboneSurvey.Section({
       id: "q3"
-    , type: BackboneSurvey.QuestionType.Checkbox
+    , type: BackboneSurvey.QuestionType.CHECKBOX
     , options: opts
     , answers: _.union(ans, ["OTHER"]) // "OTHER" will be unchecked.
     , singleOptions: ["OTHER", "NONE"]
     });
-    var view = new BackboneSurvey.CheckboxAnswerView({ model: section });
+    var view = new BackboneSurvey.OptionAnswerView({ model: section });
     view.render();
     deepEqual(view.$el.html(),
       '<ul>' +
