@@ -761,29 +761,13 @@ var BackboneSurvey = BackboneSurvey || {};
       '<% }); %></dl>'
 
     /**
-     * See {{#crossLink "RadioAnswerView"}}{{/crossLink}}
+     * See {{#crossLink "OptionAnswerViewProto"}}{{/crossLink}}
      *
-     * @property RadioAnswerView
+     * @property OptionAnswerView
      * @type {String}
      */
-  , RadioAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
-      '<li><label><input type="radio" name="answer-<%- model.id %>" value="<%- option.value %>"' +
-      '<% if (_.contains(model.answers, option.value)) { %> checked="checked"<% } %>>' +
-      '<%= option.label %></label>' +
-      '<% if (option.sub) { %>' +
-      ' <input type="text" name="sub-<%- model.id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>"' +
-      '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
-      '<% } %>' +
-      '</li><% }); %></ul>'
-
-    /**
-     * See {{#crossLink "CheckboxAnswerView"}}{{/crossLink}}
-     *
-     * @property CheckboxAnswerView
-     * @type {String}
-     */
-  , CheckboxAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
-      '<li><label><input type="checkbox" name="answer-<%- model.id %>" value="<%- option.value %>"' +
+  , OptionAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
+      '<li><label><input type="<%- multiple ? "checkbox" :  "radio" %>" name="answer-<%- model.id %>" value="<%- option.value %>"' +
       '<% if (_.contains(model.answers, option.value)) { %> checked="checked"<% } %>>' +
       '<%= option.label %></label>' +
       '<% if (option.sub) { %>' +
@@ -809,24 +793,26 @@ var BackboneSurvey = BackboneSurvey || {};
       '<% } %>' +
       '<label for="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"><%= option.label %></label>' +
       '</li><% }); %></ul>' +
-      '<div class="<%= elPrefix %>sub-dialog"><div class="<%= elPrefix %>sub-dialog-inner">' +
+      '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>sub-dialog-inner">' +
       '<input type="text"><button>OK</button></div></div>'
 
     /**
+     * See {{#crossLink "ImageCardAnswerView"}}{{/crossLink}}
+     *
      * @property ImageCardAnswerView
      * @type {String}
      */
   , ImageCardAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
-      '<li><a onclick="return false;" href="javascript:void();"' +
-      ' <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
+      '<li>' +
       '<input type="hidden" name="answer-<%- model.id %>" value="<%- option.value %>">' +
       '<% if (option.sub) { %>' +
       '<input type="hidden" name="sub-<%- model.id %>-<%- i %>"' +
       '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
       '<% } %>' +
-      '<span><%= option.label %></span>' +
-      '</a></li><% }); %></ul>' +
-      '<div class="<%= elPrefix %>sub-dialog"><div class="<%= elPrefix %>sub-dialog-inner">' +
+      '<label <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
+      '<%= option.label %></label>' +
+      '</li><% }); %></ul>' +
+      '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>sub-dialog-inner">' +
       '<input type="text"><button>OK</button></div></div>'
   };
 })();
@@ -1215,7 +1201,11 @@ var BackboneSurvey = BackboneSurvey || {};
    * @class OptionAnswerViewProto
    */
   var OptionAnswerViewProto = {
-    initialize: function() {
+    templateName: "OptionAnswerView"
+
+  , multiple: false
+
+  , initialize: function() {
       this.elPrefix = this.elPrefix || "survey-";
     }
 
@@ -1224,7 +1214,11 @@ var BackboneSurvey = BackboneSurvey || {};
      * @chainable
      */
   , render: function() {
-      this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({ model: this.model.toJSON() }));
+      this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({
+        elPrefix: this.elPrefix
+      , multiple: this.multiple
+      , model: this.model.toJSON()
+      }));
       var me = this;
       this.$('input[name^="answer-"]') .each(function() {
         me.normalize($(this));
@@ -1296,9 +1290,8 @@ var BackboneSurvey = BackboneSurvey || {};
    * @uses OptionAnswerViewProto
    */
   var RadioAnswerView = BackboneSurvey.RadioAnswerView = Backbone.View.extend({
-    templateName: "RadioAnswerView"
   });
-  _.extend(RadioAnswerView.prototype, OptionAnswerViewProto);
+  _.extend(RadioAnswerView.prototype, OptionAnswerViewProto, { multiple: false});
 
   /**
    * @class CheckboxAnswerView
@@ -1306,15 +1299,16 @@ var BackboneSurvey = BackboneSurvey || {};
    * @uses OptionAnswerViewProto
    */
   var CheckboxAnswerView = BackboneSurvey.CheckboxAnswerView = Backbone.View.extend({
-    templateName: "CheckboxAnswerView"
   });
-  _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto);
+  _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto, { multiple: true});
 
   /**
    * @class TextCardAnswerView
    */
   var TextCardAnswerView = BackboneSurvey.TextCardAnswerView = Backbone.View.extend({
     templateName: "TextCardAnswerView"
+
+  , $dialog: null
 
   , initialize: function() {
       this.elPrefix = this.elPrefix || "survey-";
@@ -1337,7 +1331,10 @@ var BackboneSurvey = BackboneSurvey || {};
       var sel = this.elPrefix + "selected";
 
       // subDialog
-      var $subDialog = this.$('.' + this.elPrefix + 'sub-dialog');
+      var $subDialog = this.$dialog || this.$('.' + this.elPrefix + 'dialog');
+      if (_.isString($subDialog)) {
+        $subDialog = $($subDialog);
+      }
       $subDialog.hide();
       $subDialog.find('button').on("click", function() {
         me.updateSubAnswer(me.$selected, $subDialog.find('input').val());
@@ -1362,7 +1359,7 @@ var BackboneSurvey = BackboneSurvey || {};
             $subDialog.find('input')
               .val($sub.val())
               .attr("placeholder", $sub.attr("placeholder"));
-            me.$('.' + me.elPrefix + 'sub-dialog').show();
+            $subDialog.show();
           }
         }
         me.trigger("answer");
@@ -1442,6 +1439,8 @@ var BackboneSurvey = BackboneSurvey || {};
   var ImageCardAnswerView = BackboneSurvey.ImageCardAnswerView = Backbone.View.extend({
     templateName: "ImageCardAnswerView"
 
+  , $dialog: null
+
   , initialize: function() {
       this.elPrefix = this.elPrefix || "survey-";
       this.multiple = this.model.get("type") === BackboneSurvey.QuestionType.CHECKBOX;
@@ -1462,7 +1461,13 @@ var BackboneSurvey = BackboneSurvey || {};
       var sel = this.elPrefix + "selected";
 
       // subDialog
-      var $subDialog = this.$('.' + this.elPrefix + 'sub-dialog');
+      var $subDialog = this.$dialog || this.$('.' + this.elPrefix + 'dialog');
+      if (_.isString($subDialog)) {
+        $subDialog = $($subDialog);
+      }
+      if (!$subDialog.length) {
+        console.log("CardAnswerView.$dialog is not a valid DOM element.");
+      }
       $subDialog.hide();
       $subDialog.find('button').on("click", function() {
         me.updateSubAnswer(me.$selected, $subDialog.find('input').val());
@@ -1470,21 +1475,22 @@ var BackboneSurvey = BackboneSurvey || {};
         $subDialog.hide();
       });
       // options
-      this.$('a').on("click", function() {
+      this.$('label').on("click", function() {
         if (me.$selected) return;
         $this = $(this);
         if (me.multiple) {
           $this.toggleClass(sel);
         } else {
-          me.$('a').removeClass(sel);
+          me.$('label').removeClass(sel);
           $this.addClass(sel);
         }
         if ($this.hasClass(sel)) {
-          var $sub = $this.find('input[name^="sub-"]');
+          var $li = $this.parent();
+          var $sub = $li.find('input[name^="sub-"]');
           if ($sub.length) {
-            me.$selected = $this;
+            me.$selected = $li;
             $subDialog.find('input').val($sub.val());
-            me.$('.' + me.elPrefix + 'sub-dialog').show();
+            $subDialog.show();
           }
         }
         me.trigger("answer");
@@ -1498,8 +1504,11 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , answers: function() {
       var vs = [];
-      this.$('a[class="' + this.elPrefix + 'selected"] > input[name^="answer-"]').each(function() {
-        vs.push($(this).val());
+      this.$('label[class="' + this.elPrefix + 'selected"]').each(function() {
+        var $li = $(this).parent();
+        $li.find('input[name^="answer-"]').each(function() {
+          vs.push($(this).val());
+        });
       });
       return vs;
     }
@@ -1527,7 +1536,7 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , updateSubAnswer: function($selected, sub) {
       $selected.find('input[name^="sub-"]').val(sub);
-      $label = $selected.find('span');
+      $label = $selected.find('label');
       if (_.isEmpty(sub)) {
         var v = $selected.find('input[name^="answer-"]').val();
         var option = _.find(this.model.get("options"), function(o) { return o.value == v; });

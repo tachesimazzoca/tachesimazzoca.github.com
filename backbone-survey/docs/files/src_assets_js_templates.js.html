@@ -179,29 +179,13 @@ var BackboneSurvey = BackboneSurvey || {};
       &#x27;&lt;% }); %&gt;&lt;/dl&gt;&#x27;
 
     /**
-     * See {{#crossLink &quot;RadioAnswerView&quot;}}{{/crossLink}}
+     * See {{#crossLink &quot;OptionAnswerViewProto&quot;}}{{/crossLink}}
      *
-     * @property RadioAnswerView
+     * @property OptionAnswerView
      * @type {String}
      */
-  , RadioAnswerView: &#x27;&lt;ul&gt;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
-      &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (_.contains(model.answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;%= option.label %&gt;&lt;/label&gt;&#x27; +
-      &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
-      &#x27; &lt;input type=&quot;text&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;% } %&gt;&#x27; +
-      &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
-
-    /**
-     * See {{#crossLink &quot;CheckboxAnswerView&quot;}}{{/crossLink}}
-     *
-     * @property CheckboxAnswerView
-     * @type {String}
-     */
-  , CheckboxAnswerView: &#x27;&lt;ul&gt;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
-      &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
+  , OptionAnswerView: &#x27;&lt;ul&gt;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
+      &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;&lt;%- multiple ? &quot;checkbox&quot; :  &quot;radio&quot; %&gt;&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
       &#x27;&lt;% if (_.contains(model.answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
       &#x27;&lt;%= option.label %&gt;&lt;/label&gt;&#x27; +
       &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
@@ -227,24 +211,26 @@ var BackboneSurvey = BackboneSurvey || {};
       &#x27;&lt;% } %&gt;&#x27; +
       &#x27;&lt;label for=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&gt;&lt;%= option.label %&gt;&lt;/label&gt;&#x27; +
       &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27; +
-      &#x27;&lt;div class=&quot;&lt;%= elPrefix %&gt;sub-dialog&quot;&gt;&lt;div class=&quot;&lt;%= elPrefix %&gt;sub-dialog-inner&quot;&gt;&#x27; +
+      &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog&quot; style=&quot;display: none;&quot;&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;sub-dialog-inner&quot;&gt;&#x27; +
       &#x27;&lt;input type=&quot;text&quot;&gt;&lt;button&gt;OK&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&#x27;
 
     /**
+     * See {{#crossLink &quot;ImageCardAnswerView&quot;}}{{/crossLink}}
+     *
      * @property ImageCardAnswerView
      * @type {String}
      */
   , ImageCardAnswerView: &#x27;&lt;ul&gt;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
-      &#x27;&lt;li&gt;&lt;a onclick=&quot;return false;&quot; href=&quot;javascript:void();&quot;&#x27; +
-      &#x27; &lt;% if (_.contains(model.answers, option.value)) { %&gt; class=&quot;survey-selected&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;li&gt;&#x27; +
       &#x27;&lt;input type=&quot;hidden&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&gt;&#x27; +
       &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
       &#x27;&lt;input type=&quot;hidden&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&#x27; +
       &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
       &#x27;&lt;% } %&gt;&#x27; +
-      &#x27;&lt;span&gt;&lt;%= option.label %&gt;&lt;/span&gt;&#x27; +
-      &#x27;&lt;/a&gt;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27; +
-      &#x27;&lt;div class=&quot;&lt;%= elPrefix %&gt;sub-dialog&quot;&gt;&lt;div class=&quot;&lt;%= elPrefix %&gt;sub-dialog-inner&quot;&gt;&#x27; +
+      &#x27;&lt;label &lt;% if (_.contains(model.answers, option.value)) { %&gt; class=&quot;survey-selected&quot;&lt;% } %&gt;&gt;&#x27; +
+      &#x27;&lt;%= option.label %&gt;&lt;/label&gt;&#x27; +
+      &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27; +
+      &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog&quot; style=&quot;display: none;&quot;&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;sub-dialog-inner&quot;&gt;&#x27; +
       &#x27;&lt;input type=&quot;text&quot;&gt;&lt;button&gt;OK&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&#x27;
   };
 })();

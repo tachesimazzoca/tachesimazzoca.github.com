@@ -43,29 +43,13 @@ var BackboneSurvey = BackboneSurvey || {};
       '<% }); %></dl>'
 
     /**
-     * See {{#crossLink "RadioAnswerView"}}{{/crossLink}}
+     * See {{#crossLink "OptionAnswerViewProto"}}{{/crossLink}}
      *
-     * @property RadioAnswerView
+     * @property OptionAnswerView
      * @type {String}
      */
-  , RadioAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
-      '<li><label><input type="radio" name="answer-<%- model.id %>" value="<%- option.value %>"' +
-      '<% if (_.contains(model.answers, option.value)) { %> checked="checked"<% } %>>' +
-      '<%= option.label %></label>' +
-      '<% if (option.sub) { %>' +
-      ' <input type="text" name="sub-<%- model.id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>"' +
-      '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
-      '<% } %>' +
-      '</li><% }); %></ul>'
-
-    /**
-     * See {{#crossLink "CheckboxAnswerView"}}{{/crossLink}}
-     *
-     * @property CheckboxAnswerView
-     * @type {String}
-     */
-  , CheckboxAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
-      '<li><label><input type="checkbox" name="answer-<%- model.id %>" value="<%- option.value %>"' +
+  , OptionAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
+      '<li><label><input type="<%- multiple ? "checkbox" :  "radio" %>" name="answer-<%- model.id %>" value="<%- option.value %>"' +
       '<% if (_.contains(model.answers, option.value)) { %> checked="checked"<% } %>>' +
       '<%= option.label %></label>' +
       '<% if (option.sub) { %>' +
@@ -91,24 +75,26 @@ var BackboneSurvey = BackboneSurvey || {};
       '<% } %>' +
       '<label for="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"><%= option.label %></label>' +
       '</li><% }); %></ul>' +
-      '<div class="<%= elPrefix %>sub-dialog"><div class="<%= elPrefix %>sub-dialog-inner">' +
+      '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>sub-dialog-inner">' +
       '<input type="text"><button>OK</button></div></div>'
 
     /**
+     * See {{#crossLink "ImageCardAnswerView"}}{{/crossLink}}
+     *
      * @property ImageCardAnswerView
      * @type {String}
      */
   , ImageCardAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
-      '<li><a onclick="return false;" href="javascript:void();"' +
-      ' <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
+      '<li>' +
       '<input type="hidden" name="answer-<%- model.id %>" value="<%- option.value %>">' +
       '<% if (option.sub) { %>' +
       '<input type="hidden" name="sub-<%- model.id %>-<%- i %>"' +
       '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
       '<% } %>' +
-      '<span><%= option.label %></span>' +
-      '</a></li><% }); %></ul>' +
-      '<div class="<%= elPrefix %>sub-dialog"><div class="<%= elPrefix %>sub-dialog-inner">' +
+      '<label <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
+      '<%= option.label %></label>' +
+      '</li><% }); %></ul>' +
+      '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>sub-dialog-inner">' +
       '<input type="text"><button>OK</button></div></div>'
   };
 })();
