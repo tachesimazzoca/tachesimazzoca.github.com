@@ -796,7 +796,7 @@ var BackboneSurvey = BackboneSurvey || {};
       '<% }); %></dl>'
 
     /**
-     * See {{#crossLink "OptionAnswerViewProto"}}{{/crossLink}}
+     * See {{#crossLink "OptionAnswerView"}}{{/crossLink}}
      *
      * @property OptionAnswerView
      * @type {String}

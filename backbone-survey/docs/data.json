@@ -881,7 +881,7 @@
         {
             "file": "src/assets/js/templates.js",
             "line": 45,
-            "description": "See {{#crossLink \"OptionAnswerViewProto\"}}{{/crossLink}}",
+            "description": "See {{#crossLink \"OptionAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "OptionAnswerView",
             "type": "{String}",
