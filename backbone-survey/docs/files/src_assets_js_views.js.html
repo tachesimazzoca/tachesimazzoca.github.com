@@ -143,7 +143,17 @@ var BackboneSurvey = BackboneSurvey || {};
    * @extends {Backbone.View}
    */
   BackboneSurvey.SurveyView = Backbone.View.extend({
+    /**
+     * @property elPrefix
+     * @type {String} The prefix for DOM attr
+     */
     elPrefix: &quot;survey-&quot;
+
+    /**
+     * @property rendered
+     * @type {Boolean}
+     */
+  , rendered: false
 
   , templates: {
       error: &#x27;&lt;ul&gt;&lt;% _.each(errors, function(error) { %&gt;&lt;li&gt;&lt;%- error %&gt;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
@@ -151,6 +161,7 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , initialize: function() {
       this.$el.hide();
+      this.rendered = false;
 
       var ev = {};
       ev[&quot;click .&quot; + this.elPrefix + &quot;start&quot;] = &quot;startPage&quot;;
@@ -162,16 +173,31 @@ var BackboneSurvey = BackboneSurvey || {};
       this.$sections = this.$(&quot;#&quot; + this.elPrefix + &quot;sections&quot;);
       this.sectionView = {};
 
-      this.listenTo(this.model, &quot;change&quot;, this.render);
+      this.listenTo(this.model, &quot;change&quot;, this._render);
       this.listenTo(this.model, &quot;completed&quot;, this.complete);
     }
 
-  , show: function($el) {
-      $el.show();
+    /**
+     * @method beforeRender
+     * @param {Object} a jQuery object
+     */
+  , beforeRender: function($el) {
+      var me = this;
+      $el.hide(0, function() { me.render(); });
     }
 
-  , hide: function($el) {
-      $el.hide();
+    /**
+     * @method afterRender
+     * @param {Object} a jQuery object
+     */
+  , afterRender: function($el) {
+      var me = this;
+      $el.show(0, function() { me.rendered = true; });
+    }
+
+  , _render: function() {
+      this.rendered = false;
+      this.beforeRender(this.$el);
     }
 
     /**
@@ -179,10 +205,6 @@ var BackboneSurvey = BackboneSurvey || {};
      * @chainable
      */
   , render: function() {
-      if (BackboneSurvey.logger) {
-        BackboneSurvey.logger.debug([&quot;SurveyView#render&quot;, this.model]);
-      }
-      this.hide(this.$el);
       this.$title.html(this.model.get(&quot;title&quot;) || &quot;&quot;);
       this.$sections.html(&quot;&quot;);
       this.sectionViewMap = {};
@@ -203,7 +225,7 @@ var BackboneSurvey = BackboneSurvey || {};
         } else {
           this.$(&quot;.&quot; + this.elPrefix + &quot;prev&quot;).show();
         }
-        this.show(this.$el);
+        this.afterRender(this.$el);
       }
       return this;
     }
@@ -226,6 +248,7 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method nextPage
      */
   , nextPage: function() {
+      if (!this.rendered) return;
       var valid = true;
       var sectionIds = _.keys(this.sectionViewMap);
       var me = this;

@@ -9,7 +9,17 @@ var BackboneSurvey = BackboneSurvey || {};
    * @extends {Backbone.View}
    */
   BackboneSurvey.SurveyView = Backbone.View.extend({
+    /**
+     * @property elPrefix
+     * @type {String} The prefix for DOM attr
+     */
     elPrefix: "survey-"
+
+    /**
+     * @property rendered
+     * @type {Boolean}
+     */
+  , rendered: false
 
   , templates: {
       error: '<ul><% _.each(errors, function(error) { %><li><%- error %></li><% }); %></ul>'
@@ -17,6 +27,7 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , initialize: function() {
       this.$el.hide();
+      this.rendered = false;
 
       var ev = {};
       ev["click ." + this.elPrefix + "start"] = "startPage";
@@ -28,16 +39,31 @@ var BackboneSurvey = BackboneSurvey || {};
       this.$sections = this.$("#" + this.elPrefix + "sections");
       this.sectionView = {};
 
-      this.listenTo(this.model, "change", this.render);
+      this.listenTo(this.model, "change", this._render);
       this.listenTo(this.model, "completed", this.complete);
     }
 
-  , show: function($el) {
-      $el.show();
+    /**
+     * @method beforeRender
+     * @param {Object} a jQuery object
+     */
+  , beforeRender: function($el) {
+      var me = this;
+      $el.hide(0, function() { me.render(); });
     }
 
-  , hide: function($el) {
-      $el.hide();
+    /**
+     * @method afterRender
+     * @param {Object} a jQuery object
+     */
+  , afterRender: function($el) {
+      var me = this;
+      $el.show(0, function() { me.rendered = true; });
+    }
+
+  , _render: function() {
+      this.rendered = false;
+      this.beforeRender(this.$el);
     }
 
     /**
@@ -45,10 +71,6 @@ var BackboneSurvey = BackboneSurvey || {};
      * @chainable
      */
   , render: function() {
-      if (BackboneSurvey.logger) {
-        BackboneSurvey.logger.debug(["SurveyView#render", this.model]);
-      }
-      this.hide(this.$el);
       this.$title.html(this.model.get("title") || "");
       this.$sections.html("");
       this.sectionViewMap = {};
@@ -69,7 +91,7 @@ var BackboneSurvey = BackboneSurvey || {};
         } else {
           this.$("." + this.elPrefix + "prev").show();
         }
-        this.show(this.$el);
+        this.afterRender(this.$el);
       }
       return this;
     }
@@ -92,6 +114,7 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method nextPage
      */
   , nextPage: function() {
+      if (!this.rendered) return;
       var valid = true;
       var sectionIds = _.keys(this.sectionViewMap);
       var me = this;
