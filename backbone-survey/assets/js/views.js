@@ -478,10 +478,10 @@ var BackboneSurvey = BackboneSurvey || {};
   _.extend(CheckboxAnswerView.prototype, OptionAnswerViewProto);
 
   /**
-   * @class CardAnswerView
+   * @class ImageCardAnswerView
    */
-  var CardAnswerView = BackboneSurvey.CardAnswerView = Backbone.View.extend({
-    templateName: "CardAnswerView"
+  var ImageCardAnswerView = BackboneSurvey.ImageCardAnswerView = Backbone.View.extend({
+    templateName: "ImageCardAnswerView"
 
   , initialize: function() {
       this.elPrefix = this.elPrefix || "survey-";

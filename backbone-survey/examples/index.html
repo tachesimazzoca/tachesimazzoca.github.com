@@ -127,7 +127,6 @@
         , question: "Q4. 複数選択設問です。(選択必須)"
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , options: [ "赤", "緑", "青" ] // ラベルを省略して値のみ指定できます。
-        , view: "TextCardAnswerView"
         , rules: [
             new BackboneSurvey.RequiredValidator({ message: "選択してください" })
           ]
@@ -137,7 +136,7 @@
         , page: 6
         , question: "Q6. カード設問です"
         , type: BackboneSurvey.QuestionType.RADIO
-        , view: "CardAnswerView"
+        , view: "ImageCardAnswerView"
         , options: [
             { value: "1", label: "カード1" }
           , { value: "2", label: "カード2" }
@@ -152,24 +151,6 @@
         }
       ]
     }, { parse: true });
-
-    BackboneSurvey.TextCardAnswerView = BackboneSurvey.CardAnswerView.extend({
-      templateName: "TextCardAnswerView"
-    });
-    BackboneSurvey.Templates.TextCardAnswerView =
-      '<p>TextCardAnswerView extends CardAnswerView!</p>' +
-      '<ul><% _.each(model.options, function(option, i) { %>' +
-      '<li><a onclick="return false;" href="javascript:void();"' +
-      ' <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
-      '<span><%= option.label %></span>' +
-      '<input type="hidden" name="answer-<%- model.id %>" value="<%- option.value %>">' +
-      '<% if (option.sub) { %>' +
-      '<input type="hidden" name="sub-<%- model.id %>-<%- i %>"' +
-      '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
-      '<% } %>' +
-      '</a></li><% }); %></ul>' +
-      '<div class="<%= elPrefix %>sub-dialog"><div class="<%= elPrefix %>sub-dialog-inner">' +
-      '<input type="text"><button>OK</button></div></div>';
 
     var view = new BackboneSurvey.SurveyView({
       model: survey // BackboneSurvey.Survey

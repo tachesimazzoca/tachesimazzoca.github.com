@@ -2,9 +2,9 @@ YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
         "AnswerType",
-        "CardAnswerView",
         "CheckboxAnswerView",
         "Extendable",
+        "ImageCardAnswerView",
         "MultiAnswerView",
         "NonAnswerView",
         "OptionAnswerViewProto",

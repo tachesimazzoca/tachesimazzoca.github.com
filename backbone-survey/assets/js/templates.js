@@ -75,11 +75,12 @@ var BackboneSurvey = BackboneSurvey || {};
       '</li><% }); %></ul>'
 
     /**
-     * @property CardAnswerView
+     * @property ImageCardAnswerView
      * @type {String}
      */
-  , CardAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
-      '<li><a onclick="return false;" href="javascript:void();" <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
+  , ImageCardAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
+      '<li><a onclick="return false;" href="javascript:void();"' +
+      ' <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
       '<span><%= option.label %></span>' +
       '<input type="hidden" name="answer-<%- model.id %>" value="<%- option.value %>">' +
       '<% if (option.sub) { %>' +

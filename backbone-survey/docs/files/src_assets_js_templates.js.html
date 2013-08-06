@@ -43,11 +43,11 @@
             
                 <li><a href="../classes/AnswerType.html">AnswerType</a></li>
             
-                <li><a href="../classes/CardAnswerView.html">CardAnswerView</a></li>
-            
                 <li><a href="../classes/CheckboxAnswerView.html">CheckboxAnswerView</a></li>
             
                 <li><a href="../classes/Extendable.html">Extendable</a></li>
+            
+                <li><a href="../classes/ImageCardAnswerView.html">ImageCardAnswerView</a></li>
             
                 <li><a href="../classes/MultiAnswerView.html">MultiAnswerView</a></li>
             
@@ -209,11 +209,12 @@ var BackboneSurvey = BackboneSurvey || {};
       &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
 
     /**
-     * @property CardAnswerView
+     * @property ImageCardAnswerView
      * @type {String}
      */
-  , CardAnswerView: &#x27;&lt;ul&gt;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
-      &#x27;&lt;li&gt;&lt;a onclick=&quot;return false;&quot; href=&quot;javascript:void();&quot; &lt;% if (_.contains(model.answers, option.value)) { %&gt; class=&quot;survey-selected&quot;&lt;% } %&gt;&gt;&#x27; +
+  , ImageCardAnswerView: &#x27;&lt;ul&gt;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
+      &#x27;&lt;li&gt;&lt;a onclick=&quot;return false;&quot; href=&quot;javascript:void();&quot;&#x27; +
+      &#x27; &lt;% if (_.contains(model.answers, option.value)) { %&gt; class=&quot;survey-selected&quot;&lt;% } %&gt;&gt;&#x27; +
       &#x27;&lt;span&gt;&lt;%= option.label %&gt;&lt;/span&gt;&#x27; +
       &#x27;&lt;input type=&quot;hidden&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&gt;&#x27; +
       &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
