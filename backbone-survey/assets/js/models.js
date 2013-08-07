@@ -238,12 +238,6 @@ var BackboneSurvey = BackboneSurvey || {};
        * @type {Sections}
        */
       this.sections = new Sections();
-      this.routeResolver = {};
-      this.routeResolver.prototype = {
-        resolve: function(dependencies, routes) {
-          return dependencies;
-        }
-      };
       Backbone.Model.apply(this, arguments);
     }
 
@@ -419,7 +413,7 @@ var BackboneSurvey = BackboneSurvey || {};
       });
       // Add new sectionIds
       ids.push(id);
-      this.set("answeredSectionIds", _.uniq(ids));
+      this.set("answeredSectionIds", _.uniq(ids), { silent: true });
     }
 
     /**

@@ -719,7 +719,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 256,
+            "line": 250,
             "description": "Parser method for using `{ parse: true }` option.\n\n<pre><code>var survey = new BackboneSurvey.Survey({\n   survey: {\n     // Survey.attributes ....\n   }\n , sections: [\n     // An array of Section.attributes ....\n   ]\n}, { parse: true });\n</code></pre>",
             "itemtype": "method",
             "name": "parse",
@@ -744,7 +744,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 281,
+            "line": 275,
             "description": "Move to a first page, and reset all answers.",
             "itemtype": "method",
             "name": "startPage",
@@ -753,7 +753,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 296,
+            "line": 290,
             "description": "Move to the previous page.",
             "itemtype": "method",
             "name": "prevPage",
@@ -762,7 +762,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 318,
+            "line": 312,
             "description": "Move to the next page.",
             "itemtype": "method",
             "name": "nextPage",
@@ -771,7 +771,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 352,
+            "line": 346,
             "itemtype": "method",
             "name": "isFirstPage",
             "return": {
@@ -783,7 +783,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 360,
+            "line": 354,
             "itemtype": "method",
             "name": "isLastPage",
             "return": {
@@ -795,7 +795,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 368,
+            "line": 362,
             "description": "Returns an array of Section in a current page.",
             "itemtype": "method",
             "name": "currentSections",
@@ -808,7 +808,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 378,
+            "line": 372,
             "description": "Returns all answers.",
             "itemtype": "method",
             "name": "answers",
@@ -821,7 +821,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 401,
+            "line": 395,
             "description": "Add an answered section ID.",
             "itemtype": "method",
             "name": "addAnsweredSectionId",
@@ -837,7 +837,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 425,
+            "line": 419,
             "description": "Returns the route keys in the sections.",
             "itemtype": "method",
             "name": "answeredRoutes",
@@ -850,7 +850,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 442,
+            "line": 436,
             "description": "Returns available page numbers.",
             "itemtype": "method",
             "name": "availablePages",

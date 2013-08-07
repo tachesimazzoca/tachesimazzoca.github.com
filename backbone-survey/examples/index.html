@@ -213,8 +213,11 @@
         history.back();
       });
       view.on("next", function() {
+        var p = survey.get("page");
         survey.nextPage();
-        router.next();
+        if (p != survey.get("page")) {
+          router.next();
+        }
       });
       view.on("completed", function() {
         console.log(["completed", survey.answers()]);
