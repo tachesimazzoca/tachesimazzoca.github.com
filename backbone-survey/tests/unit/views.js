@@ -28,7 +28,7 @@
   test("TextAnswerView", function() {
     var ans = ["回答文<i>"];
     var section = new BackboneSurvey.Section({
-      id: "q1" 
+      id: "q1"
     , type: BackboneSurvey.QuestionType.TEXT
     , answers: ans
     });
@@ -45,7 +45,7 @@
     ];
     var ans = ["B"];
     var section = new BackboneSurvey.Section({
-      id: "q2" 
+      id: "q2"
     , type: BackboneSurvey.QuestionType.RADIO
     , options: opts
     , answers: ans
@@ -54,8 +54,10 @@
     view.render();
     deepEqual(view.$el.html(),
       '<ul>' +
-      '<li><label><input type="radio" name="answer-q2" value="A">回答A</label></li>' +
-      '<li><label><input type="radio" name="answer-q2" value="B" checked="checked">回答B</label></li>' +
+      '<li><input type="radio" id="survey-answer-q2-0" name="answer-q2" value="A">' +
+      '<label for="survey-answer-q2-0">回答A</label></li>' +
+      '<li><input type="radio" id="survey-answer-q2-1" name="answer-q2" value="B" checked="checked">' +
+      '<label for="survey-answer-q2-1">回答B</label></li>' +
       '</ul>'
     );
     deepEqual(view.answers(), ans);
@@ -81,11 +83,16 @@
     view.render();
     deepEqual(view.$el.html(),
       '<ul>' +
-      '<li><label><input type="checkbox" name="answer-q3" value="1" checked="checked">回答1</label></li>' +
-      '<li><label><input type="checkbox" name="answer-q3" value="2">回答2</label></li>' +
-      '<li><label><input type="checkbox" name="answer-q3" value="3" checked="checked">回答3</label></li>' +
-      '<li><label><input type="checkbox" name="answer-q3" value="OTHER">その他</label></li>' +
-      '<li><label><input type="checkbox" name="answer-q3" value="NONE">特になし</label></li>' +
+      '<li><input type="checkbox" id="survey-answer-q3-0" name="answer-q3" value="1" checked="checked">' +
+      '<label for="survey-answer-q3-0">回答1</label></li>' +
+      '<li><input type="checkbox" id="survey-answer-q3-1" name="answer-q3" value="2">' +
+      '<label for="survey-answer-q3-1">回答2</label></li>' +
+      '<li><input type="checkbox" id="survey-answer-q3-2" name="answer-q3" value="3" checked="checked">' +
+      '<label for="survey-answer-q3-2">回答3</label></li>' +
+      '<li><input type="checkbox" id="survey-answer-q3-3" name="answer-q3" value="OTHER">' +
+      '<label for="survey-answer-q3-3">その他</label></li>' +
+      '<li><input type="checkbox" id="survey-answer-q3-4" name="answer-q3" value="NONE">' +
+      '<label for="survey-answer-q3-4">特になし</label></li>' +
       '</ul>'
     );
     deepEqual(view.answers(), ans);

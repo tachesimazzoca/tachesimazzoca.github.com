@@ -431,46 +431,56 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * Move to a prev page.
+     * Move to the previous page.
      *
      * @method prevPage
      */
   , prevPage: function() {
-      var p = this.sections.prevPage(this.get(&quot;page&quot;));
+      // Select the previous page number
+      var cp = this.get(&quot;page&quot;);
+      var pages = _.sortBy(this.availablePages(), function(n) { return n; });
+      pages.reverse();
+      var p = cp;
+      for (var i = 0; i &lt; pages.length; i++) {
+        if (pages[i] &lt; p) {
+          p = pages[i];
+          break;
+        }
+      }
       if (p != this.get(&quot;page&quot;)) {
         this.set({ page: p });
       }
     }
 
     /**
-     * Move to a next page.
+     * Move to the next page.
      *
      * @method nextPage
      */
   , nextPage: function() {
-      var routes = this.answeredRoutes();
-      var np = 0;
-      var p = this.get(&quot;page&quot;);
-      do {
-        p = this.sections.nextPage(p);
-        if (p === this.get(&quot;page&quot;)) { np = p; break; } // Not changed
-        var sections = this.sections.where({ page: p });
-        var num = sections.length;
-        for (var i = 0; i &lt; sections.length; i++) {
-          var visible = true;
-          var keys = sections[i].get(&quot;routeDependencies&quot;) || [];
-          for (var j = 0; j &lt; keys.length; j++) {
-            var diff = _.difference(routes, _.flatten([keys[j]])); // Unmatched keys
-            visible = _.difference(routes, diff).length &gt; 0; // Not match any keys
-            if (!visible) break;
-          }
-          if (!visible) num--;
+      var me = this;
+      // Add answered sectionIds
+      var sectionIds = _.pluck(this.currentSections(), &quot;id&quot;);
+      _.each(sectionIds, function(sectionId) {
+        me.addAnsweredSectionId(sectionId);
+      });
+      // Fire &quot;completed&quot; if all set
+      if (this.isLastPage()) {
+        this.trigger(&quot;completed&quot;);
+        return;
+      }
+      // Select the next page number
+      var cp = this.get(&quot;page&quot;);
+      var pages = _.sortBy(this.availablePages(), function(n) { return n; });
+      var p = this.sections.firstPage();
+      for (var i = 0; i &lt; pages.length; i++) {
+        if (pages[i] &gt; cp) {
+          p = pages[i];
+          break;
         }
-        if (num &gt; 0) { np = p; break; } // Any sections exitsts
-      } while (p &lt; this.sections.lastPage());
-
-      if (np &gt; 0) {
-        this.set({ page: np });
+      }
+      if (p &gt; cp) {
+        this.set({ page: p });
       } else {
         this.trigger(&quot;completed&quot;);
       }
@@ -534,7 +544,17 @@ var BackboneSurvey = BackboneSurvey || {};
   , addAnsweredSectionId: function(id) {
       var section = this.sections.get(id);
       if (!section) return;
-      var ids = this.get(&quot;answeredSectionIds&quot;) || [];
+      var p = section.get(&quot;page&quot;);
+      var ids = [];
+      var answeredIds = this.get(&quot;answeredSectionIds&quot;) || [];
+      // Remove greater sectionIds
+      var me = this;
+      _.each(answeredIds, function(answeredId) {
+        var s = me.sections.get(answeredId);
+        if (!s) return;
+        if (s.get(&quot;page&quot;) &lt;= p) ids.push(answeredId);
+      });
+      // Add new sectionIds
       ids.push(id);
       this.set(&quot;answeredSectionIds&quot;, _.uniq(ids));
     }
@@ -554,6 +574,43 @@ var BackboneSurvey = BackboneSurvey || {};
         if (section) vs = _.union(vs, section.answeredRoutes());
       });
       return vs;
+    }
+
+    /**
+     * Returns available page numbers.
+     *
+     * @method availablePages
+     * @return {Array}
+     */
+  , availablePages: function() {
+      var routes = this.answeredRoutes();
+      var cp = this.get(&quot;page&quot;);
+      var p = this.sections.firstPage();
+      var pages = [p];
+
+      if (p &gt; cp) return pages;
+
+      do {
+        p = this.sections.nextPage(p);
+        var sections = this.sections.where({ page: p });
+        var num = sections.length;
+        for (var i = 0; i &lt; sections.length; i++) {
+          var visible = true;
+          var keys = sections[i].get(&quot;routeDependencies&quot;) || [];
+          for (var j = 0; j &lt; keys.length; j++) {
+            var diff = _.difference(routes, _.flatten([keys[j]])); // Unmatched keys
+            visible = _.difference(routes, diff).length &gt; 0; // Not match any keys
+            if (!visible) break;
+          }
+          if (!visible) num--;
+        }
+        if (num &gt; 0) {
+          pages.push(p);
+          if (p &gt; cp) break;
+        }
+      } while (p &lt; this.sections.lastPage());
+
+      return _.sortBy(pages, function(n) { return n; });
     }
   });
 })();

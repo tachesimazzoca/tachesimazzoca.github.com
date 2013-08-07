@@ -625,46 +625,56 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * Move to a prev page.
+     * Move to the previous page.
      *
      * @method prevPage
      */
   , prevPage: function() {
-      var p = this.sections.prevPage(this.get("page"));
+      // Select the previous page number
+      var cp = this.get("page");
+      var pages = _.sortBy(this.availablePages(), function(n) { return n; });
+      pages.reverse();
+      var p = cp;
+      for (var i = 0; i < pages.length; i++) {
+        if (pages[i] < p) {
+          p = pages[i];
+          break;
+        }
+      }
       if (p != this.get("page")) {
         this.set({ page: p });
       }
     }
 
     /**
-     * Move to a next page.
+     * Move to the next page.
      *
      * @method nextPage
      */
   , nextPage: function() {
-      var routes = this.answeredRoutes();
-      var np = 0;
-      var p = this.get("page");
-      do {
-        p = this.sections.nextPage(p);
-        if (p === this.get("page")) { np = p; break; } // Not changed
-        var sections = this.sections.where({ page: p });
-        var num = sections.length;
-        for (var i = 0; i < sections.length; i++) {
-          var visible = true;
-          var keys = sections[i].get("routeDependencies") || [];
-          for (var j = 0; j < keys.length; j++) {
-            var diff = _.difference(routes, _.flatten([keys[j]])); // Unmatched keys
-            visible = _.difference(routes, diff).length > 0; // Not match any keys
-            if (!visible) break;
-          }
-          if (!visible) num--;
+      var me = this;
+      // Add answered sectionIds
+      var sectionIds = _.pluck(this.currentSections(), "id");
+      _.each(sectionIds, function(sectionId) {
+        me.addAnsweredSectionId(sectionId);
+      });
+      // Fire "completed" if all set
+      if (this.isLastPage()) {
+        this.trigger("completed");
+        return;
+      }
+      // Select the next page number
+      var cp = this.get("page");
+      var pages = _.sortBy(this.availablePages(), function(n) { return n; });
+      var p = this.sections.firstPage();
+      for (var i = 0; i < pages.length; i++) {
+        if (pages[i] > cp) {
+          p = pages[i];
+          break;
         }
-        if (num > 0) { np = p; break; } // Any sections exitsts
-      } while (p < this.sections.lastPage());
-
-      if (np > 0) {
-        this.set({ page: np });
+      }
+      if (p > cp) {
+        this.set({ page: p });
       } else {
         this.trigger("completed");
       }
@@ -728,7 +738,17 @@ var BackboneSurvey = BackboneSurvey || {};
   , addAnsweredSectionId: function(id) {
       var section = this.sections.get(id);
       if (!section) return;
-      var ids = this.get("answeredSectionIds") || [];
+      var p = section.get("page");
+      var ids = [];
+      var answeredIds = this.get("answeredSectionIds") || [];
+      // Remove greater sectionIds
+      var me = this;
+      _.each(answeredIds, function(answeredId) {
+        var s = me.sections.get(answeredId);
+        if (!s) return;
+        if (s.get("page") <= p) ids.push(answeredId);
+      });
+      // Add new sectionIds
       ids.push(id);
       this.set("answeredSectionIds", _.uniq(ids));
     }
@@ -748,6 +768,43 @@ var BackboneSurvey = BackboneSurvey || {};
         if (section) vs = _.union(vs, section.answeredRoutes());
       });
       return vs;
+    }
+
+    /**
+     * Returns available page numbers.
+     *
+     * @method availablePages
+     * @return {Array}
+     */
+  , availablePages: function() {
+      var routes = this.answeredRoutes();
+      var cp = this.get("page");
+      var p = this.sections.firstPage();
+      var pages = [p];
+
+      if (p > cp) return pages;
+
+      do {
+        p = this.sections.nextPage(p);
+        var sections = this.sections.where({ page: p });
+        var num = sections.length;
+        for (var i = 0; i < sections.length; i++) {
+          var visible = true;
+          var keys = sections[i].get("routeDependencies") || [];
+          for (var j = 0; j < keys.length; j++) {
+            var diff = _.difference(routes, _.flatten([keys[j]])); // Unmatched keys
+            visible = _.difference(routes, diff).length > 0; // Not match any keys
+            if (!visible) break;
+          }
+          if (!visible) num--;
+        }
+        if (num > 0) {
+          pages.push(p);
+          if (p > cp) break;
+        }
+      } while (p < this.sections.lastPage());
+
+      return _.sortBy(pages, function(n) { return n; });
     }
   });
 })();
@@ -801,15 +858,23 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property OptionAnswerView
      * @type {String}
      */
-  , OptionAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
-      '<li><label><input type="<%- multiple ? "checkbox" :  "radio" %>" name="answer-<%- model.id %>" value="<%- option.value %>"' +
-      '<% if (_.contains(model.answers, option.value)) { %> checked="checked"<% } %>>' +
-      '<%= option.label %></label>' +
-      '<% if (option.sub) { %>' +
-      ' <input type="text" name="sub-<%- model.id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>"' +
-      '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
-      '<% } %>' +
-      '</li><% }); %></ul>'
+  , OptionAnswerView:
+      '<ul>' +
+      '<% _.each(model.options, function(option, i) { %>' +
+        '<li>' +
+        '<input type="<%- multiple ? "checkbox" :  "radio" %>"' +
+        ' id="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"' +
+        ' name="answer-<%- model.id %>" value="<%- option.value %>"' +
+        ' value="<%- option.value %>"' +
+        '<% if (_.contains(model.answers, option.value)) { %> checked="checked"<% } %>>' +
+        '<label for="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"><%= option.label %></label>' +
+        '<% if (option.sub) { %>' +
+        ' <input type="text" name="sub-<%- model.id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>"' +
+        '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
+        '<% } %>' +
+        '</li>' +
+      '<% }); %>' +
+      '</ul>'
 
     /**
      * See {{#crossLink "MatrixAnswerView"}}{{/crossLink}}
@@ -817,18 +882,25 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property MatrixAnswerView
      * @type {String}
      */
-  , MatrixAnswerView: '<table><tr><td></td>' +
+  , MatrixAnswerView:
+      '<table>' +
+      '<tr><td></td>' +
       '<% _.each(model.options, function(option, i) { %>' +
-      '<td><%- option.label %></td>' +
-      '<% }); %></tr>' +
-      '<% _.each(model.fields, function(field, i) { %><tr>' +
-      '<td><%- field.label %></td>' +
-      '<% _.each(model.options, function(option) { %><td>' +
-      '<input type="<%- multiple? "checkbox" : "radio" %>"' +
-      ' name="answer-<%- model.id %>-<%- i %>" value="<%- option.value %>"' +
-      '<% if (_.contains(model.answers[i], option.value)) { %> checked="checked"<% } %>>' +
-      '</td><% }); %>' +
-      '</tr><% }); %>' +
+        '<td><%- option.label %></td>' +
+      '<% }); %>' +
+      '</tr>' +
+      '<% _.each(model.fields, function(field, i) { %>' +
+        '<tr>' +
+        '<td><%- field.label %></td>' +
+        '<% _.each(model.options, function(option) { %>' +
+          '<td>' +
+          '<input type="<%- multiple? "checkbox" : "radio" %>"' +
+          ' name="answer-<%- model.id %>-<%- i %>" value="<%- option.value %>"' +
+          '<% if (_.contains(model.answers[i], option.value)) { %> checked="checked"<% } %>>' +
+          '</td>' +
+        '<% }); %>' +
+        '</tr>' +
+      '<% }); %>' +
       '</table>'
 
     /**
@@ -837,17 +909,29 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property TextCardAnswerView
      * @type {String}
      */
-  , TextCardAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
-      '<li><input type="<%- multiple ? "checkbox" :  "radio" %>"' +
-      ' name="answer-<%- model.id %>" value="<%- option.value %>"' +
-      ' id="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"' +
-      '<% if (_.contains(model.answers, option.value)) { %> checked="checked"<% } %>>' +
-      '<% if (option.sub) { %>' +
-      '<input type="hidden" name="sub-<%- model.id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>"' +
-      '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
-      '<% } %>' +
-      '<label for="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"><%= option.label %></label>' +
-      '</li><% }); %></ul>' +
+  , TextCardAnswerView:
+      '<ul>' +
+      '<% _.each(model.options, function(option, i) { %>' +
+        '<li>' +
+        '<input type="<%- multiple ? "checkbox" :  "radio" %>"' +
+        ' name="answer-<%- model.id %>" value="<%- option.value %>"' +
+        ' id="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"' +
+        '<% if (_.contains(model.answers, option.value)) { %> checked="checked"<% } %>>' +
+        '<% if (option.sub) { %>' +
+          '<input type="hidden" name="sub-<%- model.id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>"' +
+          '<% if (!_.isEmpty(model.subAnswer[option.value])) { %>' +
+            ' value="<%- model.subAnswer[option.value] %>"<% } %>>' +
+        '<% } %>' +
+        '<label for="<%- elPrefix %>answer-<%- model.id %>-<%- i %>">' +
+        '<% if (!_.isEmpty(model.subAnswer[option.value])) { %>' +
+          '<%- model.subAnswer[option.value] %>' +
+        '<% } else { %>' +
+          '<%= option.label %>' +
+        '<% } %>' +
+        '</label>' +
+        '</li>' +
+      '<% }); %>' +
+      '</ul>' +
       '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>sub-dialog-inner">' +
       '<input type="text"><button>OK</button></div></div>'
 
@@ -857,16 +941,26 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property ImageCardAnswerView
      * @type {String}
      */
-  , ImageCardAnswerView: '<ul><% _.each(model.options, function(option, i) { %>' +
-      '<li>' +
-      '<input type="hidden" name="answer-<%- model.id %>" value="<%- option.value %>">' +
-      '<% if (option.sub) { %>' +
-      '<input type="hidden" name="sub-<%- model.id %>-<%- i %>"' +
-      '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
-      '<% } %>' +
-      '<label <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
-      '<%= option.label %></label>' +
-      '</li><% }); %></ul>' +
+  , ImageCardAnswerView:
+      '<ul>' +
+      '<% _.each(model.options, function(option, i) { %>' +
+        '<li>' +
+        '<input type="hidden" name="answer-<%- model.id %>" value="<%- option.value %>">' +
+        '<% if (option.sub) { %>' +
+          '<input type="hidden" name="sub-<%- model.id %>-<%- i %>"' +
+              '<% if (!_.isEmpty(model.subAnswer[option.value])) { %>' +
+                ' value="<%- model.subAnswer[option.value] %>"<% } %>>' +
+        '<% } %>' +
+        '<label <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
+          '<% if (!_.isEmpty(model.subAnswer[option.value])) { %>' +
+            '<%- model.subAnswer[option.value] %>' +
+          '<% } else { %>' +
+            '<%= option.label %>' +
+          '<% } %>' +
+        '</label>' +
+        '</li>' +
+      '<% }); %>' +
+      '</ul>' +
       '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>sub-dialog-inner">' +
       '<input type="text"><button>OK</button></div></div>'
   };
@@ -894,6 +988,8 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , rendered: false
 
+  , _locked: false
+
   , _valid: false
 
   , templates: {
@@ -903,6 +999,8 @@ var BackboneSurvey = BackboneSurvey || {};
   , initialize: function() {
       this.$el.hide();
       this.rendered = false;
+
+      this._locked = false;
       this._valid = false;
 
       var ev = {};
@@ -916,7 +1014,15 @@ var BackboneSurvey = BackboneSurvey || {};
       this.sectionView = {};
 
       this.listenTo(this.model, "change", this._render);
-      this.listenTo(this.model, "completed", this.complete);
+      this.listenTo(this.model, "completed", this._complete);
+    }
+
+    /**
+     * @method isLocked
+     * @return {Boolean}
+     */
+  , isLocked: function() {
+      return this._locked;
     }
 
     /**
@@ -947,8 +1053,15 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , _render: function() {
       this.rendered = false;
+      this._locked = false;
       this._valid = false;
       this.beforeRender(this.$el);
+    }
+
+  , _complete: function() {
+      this.$el.html("");
+      this._locked = false;
+      this.trigger("completed", this);
     }
 
     /**
@@ -967,10 +1080,14 @@ var BackboneSurvey = BackboneSurvey || {};
             model: section
           , className: me.elPrefix + "section"
           });
-          view.on("answer", function() {
+
+          view.answerView.on("answer", function() {
             me.validate();
             me.trigger("answer");
           });
+          view.answerView.on("lock", function() { me._locked = true; });
+          view.answerView.on("unlock", function() { me._locked = false; });
+
           view.render();
           view.$("." + me.elPrefix + "error").html("").hide(); // Hide error
           me.$sections.append(view.el);
@@ -990,6 +1107,7 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method startPage
      */
   , startPage: function() {
+      if (this.isLocked()) return;
       this.trigger("start", this);
     }
 
@@ -997,6 +1115,7 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method prevPage
      */
   , prevPage: function() {
+      if (this.isLocked()) return;
       this.trigger("prev", this);
     }
 
@@ -1004,18 +1123,10 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method nextPage
      */
   , nextPage: function() {
+      if (this.isLocked()) return;
       if (!this.rendered) return;
       if (this.validate()) {
-        var me = this;
-        var sectionIds = _.keys(this.sectionViewMap);
-        _.each(sectionIds, function(sectionId) {
-          me.model.addAnsweredSectionId(sectionId);
-        });
-        if (this.model.isLastPage()) {
-          this.complete();
-        } else {
-          this.trigger("next", this);
-        }
+        this.trigger("next", this);
       }
     }
 
@@ -1051,11 +1162,6 @@ var BackboneSurvey = BackboneSurvey || {};
       this._valid = valid;
       return this._valid;
     }
-
-  , complete: function() {
-      this.$el.html("");
-      this.trigger("completed", this);
-    }
   });
 
   /**
@@ -1069,8 +1175,6 @@ var BackboneSurvey = BackboneSurvey || {};
       this.elPrefix = this.elPrefix || "survey-";
       this.answerView = AnswerViewFactory.create(this);
       this.answerView.elPrefix = this.elPrefix;
-      var me = this;
-      this.answerView.on("answer", function() { me.trigger("answer"); });
     }
 
     /**
@@ -1440,6 +1544,8 @@ var BackboneSurvey = BackboneSurvey || {};
         me.$selected = null;
         $subDialog.hide();
         me.$('input[name^="answer-"]').prop("disabled", false);
+        me.trigger("answer");
+        me.trigger("unlock");
       });
 
       var fn = function() { me.normalize($(this)); };
@@ -1456,6 +1562,7 @@ var BackboneSurvey = BackboneSurvey || {};
           var $li = $this.parent();
           var $sub = $li.find('input[name^="sub-"]');
           if ($sub.length) {
+            me.trigger("lock");
             me.$('input[name^="answer-"]').prop("disabled", true);
             me.$selected = $li;
             $subDialog.find('input')
@@ -1577,6 +1684,8 @@ var BackboneSurvey = BackboneSurvey || {};
         me.updateSubAnswer(me.$selected, $subDialog.find('input').val());
         me.$selected = null;
         $subDialog.hide();
+        me.trigger("answer");
+        me.trigger("unlock");
       });
       // options
       this.$('label').each(function () {
@@ -1598,6 +1707,7 @@ var BackboneSurvey = BackboneSurvey || {};
           var $li = $this.parent();
           var $sub = $li.find('input[name^="sub-"]');
           if ($sub.length) {
+            me.trigger("lock");
             me.$selected = $li;
             $subDialog.find('input').val($sub.val());
             $subDialog.show();
@@ -1615,7 +1725,6 @@ var BackboneSurvey = BackboneSurvey || {};
   , normalize: function($changed) {
       var so = this.model.get("singleOptions");
       var sel = this.elPrefix + "selected";
-      console.log($changed.hasClass(sel));
       if ($changed.hasClass(sel)) {
         var v = $changed.parent().find('input[name^="answer-"]').val();
         var f = _.contains(so, v) ?

@@ -155,6 +155,8 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , rendered: false
 
+  , _locked: false
+
   , _valid: false
 
   , templates: {
@@ -164,6 +166,8 @@ var BackboneSurvey = BackboneSurvey || {};
   , initialize: function() {
       this.$el.hide();
       this.rendered = false;
+
+      this._locked = false;
       this._valid = false;
 
       var ev = {};
@@ -177,7 +181,15 @@ var BackboneSurvey = BackboneSurvey || {};
       this.sectionView = {};
 
       this.listenTo(this.model, &quot;change&quot;, this._render);
-      this.listenTo(this.model, &quot;completed&quot;, this.complete);
+      this.listenTo(this.model, &quot;completed&quot;, this._complete);
+    }
+
+    /**
+     * @method isLocked
+     * @return {Boolean}
+     */
+  , isLocked: function() {
+      return this._locked;
     }
 
     /**
@@ -208,8 +220,15 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , _render: function() {
       this.rendered = false;
+      this._locked = false;
       this._valid = false;
       this.beforeRender(this.$el);
+    }
+
+  , _complete: function() {
+      this.$el.html(&quot;&quot;);
+      this._locked = false;
+      this.trigger(&quot;completed&quot;, this);
     }
 
     /**
@@ -228,10 +247,14 @@ var BackboneSurvey = BackboneSurvey || {};
             model: section
           , className: me.elPrefix + &quot;section&quot;
           });
-          view.on(&quot;answer&quot;, function() {
+
+          view.answerView.on(&quot;answer&quot;, function() {
             me.validate();
             me.trigger(&quot;answer&quot;);
           });
+          view.answerView.on(&quot;lock&quot;, function() { me._locked = true; });
+          view.answerView.on(&quot;unlock&quot;, function() { me._locked = false; });
+
           view.render();
           view.$(&quot;.&quot; + me.elPrefix + &quot;error&quot;).html(&quot;&quot;).hide(); // Hide error
           me.$sections.append(view.el);
@@ -251,6 +274,7 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method startPage
      */
   , startPage: function() {
+      if (this.isLocked()) return;
       this.trigger(&quot;start&quot;, this);
     }
 
@@ -258,6 +282,7 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method prevPage
      */
   , prevPage: function() {
+      if (this.isLocked()) return;
       this.trigger(&quot;prev&quot;, this);
     }
 
@@ -265,18 +290,10 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method nextPage
      */
   , nextPage: function() {
+      if (this.isLocked()) return;
       if (!this.rendered) return;
       if (this.validate()) {
-        var me = this;
-        var sectionIds = _.keys(this.sectionViewMap);
-        _.each(sectionIds, function(sectionId) {
-          me.model.addAnsweredSectionId(sectionId);
-        });
-        if (this.model.isLastPage()) {
-          this.complete();
-        } else {
-          this.trigger(&quot;next&quot;, this);
-        }
+        this.trigger(&quot;next&quot;, this);
       }
     }
 
@@ -312,11 +329,6 @@ var BackboneSurvey = BackboneSurvey || {};
       this._valid = valid;
       return this._valid;
     }
-
-  , complete: function() {
-      this.$el.html(&quot;&quot;);
-      this.trigger(&quot;completed&quot;, this);
-    }
   });
 
   /**
@@ -330,8 +342,6 @@ var BackboneSurvey = BackboneSurvey || {};
       this.elPrefix = this.elPrefix || &quot;survey-&quot;;
       this.answerView = AnswerViewFactory.create(this);
       this.answerView.elPrefix = this.elPrefix;
-      var me = this;
-      this.answerView.on(&quot;answer&quot;, function() { me.trigger(&quot;answer&quot;); });
     }
 
     /**
@@ -701,6 +711,8 @@ var BackboneSurvey = BackboneSurvey || {};
         me.$selected = null;
         $subDialog.hide();
         me.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).prop(&quot;disabled&quot;, false);
+        me.trigger(&quot;answer&quot;);
+        me.trigger(&quot;unlock&quot;);
       });
 
       var fn = function() { me.normalize($(this)); };
@@ -717,6 +729,7 @@ var BackboneSurvey = BackboneSurvey || {};
           var $li = $this.parent();
           var $sub = $li.find(&#x27;input[name^=&quot;sub-&quot;]&#x27;);
           if ($sub.length) {
+            me.trigger(&quot;lock&quot;);
             me.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).prop(&quot;disabled&quot;, true);
             me.$selected = $li;
             $subDialog.find(&#x27;input&#x27;)
@@ -838,6 +851,8 @@ var BackboneSurvey = BackboneSurvey || {};
         me.updateSubAnswer(me.$selected, $subDialog.find(&#x27;input&#x27;).val());
         me.$selected = null;
         $subDialog.hide();
+        me.trigger(&quot;answer&quot;);
+        me.trigger(&quot;unlock&quot;);
       });
       // options
       this.$(&#x27;label&#x27;).each(function () {
@@ -859,6 +874,7 @@ var BackboneSurvey = BackboneSurvey || {};
           var $li = $this.parent();
           var $sub = $li.find(&#x27;input[name^=&quot;sub-&quot;]&#x27;);
           if ($sub.length) {
+            me.trigger(&quot;lock&quot;);
             me.$selected = $li;
             $subDialog.find(&#x27;input&#x27;).val($sub.val());
             $subDialog.show();
@@ -876,7 +892,6 @@ var BackboneSurvey = BackboneSurvey || {};
   , normalize: function($changed) {
       var so = this.model.get(&quot;singleOptions&quot;);
       var sel = this.elPrefix + &quot;selected&quot;;
-      console.log($changed.hasClass(sel));
       if ($changed.hasClass(sel)) {
         var v = $changed.parent().find(&#x27;input[name^=&quot;answer-&quot;]&#x27;).val();
         var f = _.contains(so, v) ?

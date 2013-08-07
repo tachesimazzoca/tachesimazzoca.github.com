@@ -297,46 +297,56 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * Move to a prev page.
+     * Move to the previous page.
      *
      * @method prevPage
      */
   , prevPage: function() {
-      var p = this.sections.prevPage(this.get("page"));
+      // Select the previous page number
+      var cp = this.get("page");
+      var pages = _.sortBy(this.availablePages(), function(n) { return n; });
+      pages.reverse();
+      var p = cp;
+      for (var i = 0; i < pages.length; i++) {
+        if (pages[i] < p) {
+          p = pages[i];
+          break;
+        }
+      }
       if (p != this.get("page")) {
         this.set({ page: p });
       }
     }
 
     /**
-     * Move to a next page.
+     * Move to the next page.
      *
      * @method nextPage
      */
   , nextPage: function() {
-      var routes = this.answeredRoutes();
-      var np = 0;
-      var p = this.get("page");
-      do {
-        p = this.sections.nextPage(p);
-        if (p === this.get("page")) { np = p; break; } // Not changed
-        var sections = this.sections.where({ page: p });
-        var num = sections.length;
-        for (var i = 0; i < sections.length; i++) {
-          var visible = true;
-          var keys = sections[i].get("routeDependencies") || [];
-          for (var j = 0; j < keys.length; j++) {
-            var diff = _.difference(routes, _.flatten([keys[j]])); // Unmatched keys
-            visible = _.difference(routes, diff).length > 0; // Not match any keys
-            if (!visible) break;
-          }
-          if (!visible) num--;
+      var me = this;
+      // Add answered sectionIds
+      var sectionIds = _.pluck(this.currentSections(), "id");
+      _.each(sectionIds, function(sectionId) {
+        me.addAnsweredSectionId(sectionId);
+      });
+      // Fire "completed" if all set
+      if (this.isLastPage()) {
+        this.trigger("completed");
+        return;
+      }
+      // Select the next page number
+      var cp = this.get("page");
+      var pages = _.sortBy(this.availablePages(), function(n) { return n; });
+      var p = this.sections.firstPage();
+      for (var i = 0; i < pages.length; i++) {
+        if (pages[i] > cp) {
+          p = pages[i];
+          break;
         }
-        if (num > 0) { np = p; break; } // Any sections exitsts
-      } while (p < this.sections.lastPage());
-
-      if (np > 0) {
-        this.set({ page: np });
+      }
+      if (p > cp) {
+        this.set({ page: p });
       } else {
         this.trigger("completed");
       }
@@ -400,7 +410,17 @@ var BackboneSurvey = BackboneSurvey || {};
   , addAnsweredSectionId: function(id) {
       var section = this.sections.get(id);
       if (!section) return;
-      var ids = this.get("answeredSectionIds") || [];
+      var p = section.get("page");
+      var ids = [];
+      var answeredIds = this.get("answeredSectionIds") || [];
+      // Remove greater sectionIds
+      var me = this;
+      _.each(answeredIds, function(answeredId) {
+        var s = me.sections.get(answeredId);
+        if (!s) return;
+        if (s.get("page") <= p) ids.push(answeredId);
+      });
+      // Add new sectionIds
       ids.push(id);
       this.set("answeredSectionIds", _.uniq(ids));
     }
@@ -420,6 +440,43 @@ var BackboneSurvey = BackboneSurvey || {};
         if (section) vs = _.union(vs, section.answeredRoutes());
       });
       return vs;
+    }
+
+    /**
+     * Returns available page numbers.
+     *
+     * @method availablePages
+     * @return {Array}
+     */
+  , availablePages: function() {
+      var routes = this.answeredRoutes();
+      var cp = this.get("page");
+      var p = this.sections.firstPage();
+      var pages = [p];
+
+      if (p > cp) return pages;
+
+      do {
+        p = this.sections.nextPage(p);
+        var sections = this.sections.where({ page: p });
+        var num = sections.length;
+        for (var i = 0; i < sections.length; i++) {
+          var visible = true;
+          var keys = sections[i].get("routeDependencies") || [];
+          for (var j = 0; j < keys.length; j++) {
+            var diff = _.difference(routes, _.flatten([keys[j]])); // Unmatched keys
+            visible = _.difference(routes, diff).length > 0; // Not match any keys
+            if (!visible) break;
+          }
+          if (!visible) num--;
+        }
+        if (num > 0) {
+          pages.push(p);
+          if (p > cp) break;
+        }
+      } while (p < this.sections.lastPage());
+
+      return _.sortBy(pages, function(n) { return n; });
     }
   });
 })();

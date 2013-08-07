@@ -84,6 +84,23 @@
     survey.addAnsweredSectionId("q1");
     deepEqual(survey.get("answeredSectionIds"), ["q1"],
         ":answeredSectionIds should be a unique set.");
+
+    survey = new BackboneSurvey.Survey({
+      sections: [
+        { id: "q1", page: 1 }
+      , { id: "q2", page: 2 }
+      , { id: "q3", page: 3 }
+      ]
+    }, { parse: true });
+    survey.addAnsweredSectionId("q1");
+    deepEqual(survey.get("answeredSectionIds"), ["q1"]);
+    survey.addAnsweredSectionId("q2");
+    deepEqual(survey.get("answeredSectionIds"), ["q1", "q2"]);
+    survey.addAnsweredSectionId("q3");
+    deepEqual(survey.get("answeredSectionIds"), ["q1", "q2", "q3"]);
+    survey.addAnsweredSectionId("q2");
+    deepEqual(survey.get("answeredSectionIds"), ["q1", "q2"],
+        "answeredSectionIds should not have any greater IDs");
   });
 
   test("Survey#nextPage", function() {
@@ -197,5 +214,77 @@
     survey.addAnsweredSectionId("q2");
     survey.nextPage();
     deepEqual(survey.get("page"), 3, "The route is A && C");
+  });
+
+  test("Survey#availablePages", function() {
+    var survey, section;
+    survey = new BackboneSurvey.Survey({
+      sections: [
+        { id: "q1" , page: 1
+        , type: BackboneSurvey.QuestionType.RADIO
+        , options: [
+            { value: "1", route: "Y" }
+          , { value: "0", route: "N" }
+          ]
+        }
+      , { id: "q2", page: 2
+        , routeDependencies: ["Y"]
+        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , options: [
+            { value: "A", route: "A" }
+          , { value: "B", route: "B" }
+          , { value: "C", route: "C" }
+          ]
+        }
+      , { id: "q3", page: 3
+        , routeDependencies: ["A", ["B", "C"]] // A and (B or C)
+        }
+      ]
+    }, { parse: true });
+
+    // page 0
+    deepEqual(survey.availablePages(), [1]);
+
+    // page 1
+    survey.set("page", 1);
+    section = survey.sections.get("q1");
+    section.set("answers", []);
+    survey.addAnsweredSectionId("q1");
+    deepEqual(survey.availablePages(), [1]);
+    section.set("answers", ["0"]);
+    survey.addAnsweredSectionId("q1");
+    deepEqual(survey.availablePages(), [1]);
+    section.set("answers", ["1"]);
+    survey.addAnsweredSectionId("q1");
+    deepEqual(survey.availablePages(), [1,2]);
+
+    // page 2
+    survey.set("page", 2);
+    section = survey.sections.get("q2");
+    section.set("answers", []);
+    survey.addAnsweredSectionId("q2");
+    deepEqual(survey.availablePages(), [1,2]);
+    section.set("answers", ["A"]);
+    survey.addAnsweredSectionId("q2");
+    deepEqual(survey.availablePages(), [1,2]);
+    section.set("answers", ["B"]);
+    survey.addAnsweredSectionId("q2");
+    deepEqual(survey.availablePages(), [1,2]);
+    section.set("answers", ["C"]);
+    survey.addAnsweredSectionId("q2");
+    deepEqual(survey.availablePages(), [1,2]);
+    section.set("answers", ["A", "B"]);
+    survey.addAnsweredSectionId("q2");
+    deepEqual(survey.availablePages(), [1,2,3]);
+    section.set("answers", ["A", "C"]);
+    survey.addAnsweredSectionId("q2");
+    deepEqual(survey.availablePages(), [1,2,3]);
+    section.set("answers", ["A", "B", "C"]);
+    survey.addAnsweredSectionId("q2");
+    deepEqual(survey.availablePages(), [1,2,3]);
+
+    // Back to page 1
+    survey.set("page", 1);
+    deepEqual(survey.availablePages(), [1,2]);
   });
 })(jQuery);

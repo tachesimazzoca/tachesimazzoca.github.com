@@ -182,15 +182,23 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property OptionAnswerView
      * @type {String}
      */
-  , OptionAnswerView: &#x27;&lt;ul&gt;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
-      &#x27;&lt;li&gt;&lt;label&gt;&lt;input type=&quot;&lt;%- multiple ? &quot;checkbox&quot; :  &quot;radio&quot; %&gt;&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (_.contains(model.answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;%= option.label %&gt;&lt;/label&gt;&#x27; +
-      &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
-      &#x27; &lt;input type=&quot;text&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;% } %&gt;&#x27; +
-      &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27;
+  , OptionAnswerView:
+      &#x27;&lt;ul&gt;&#x27; +
+      &#x27;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
+        &#x27;&lt;li&gt;&#x27; +
+        &#x27;&lt;input type=&quot;&lt;%- multiple ? &quot;checkbox&quot; :  &quot;radio&quot; %&gt;&quot;&#x27; +
+        &#x27; id=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&#x27; +
+        &#x27; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
+        &#x27; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
+        &#x27;&lt;% if (_.contains(model.answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
+        &#x27;&lt;label for=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&gt;&lt;%= option.label %&gt;&lt;/label&gt;&#x27; +
+        &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
+        &#x27; &lt;input type=&quot;text&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
+        &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
+        &#x27;&lt;% } %&gt;&#x27; +
+        &#x27;&lt;/li&gt;&#x27; +
+      &#x27;&lt;% }); %&gt;&#x27; +
+      &#x27;&lt;/ul&gt;&#x27;
 
     /**
      * See {{#crossLink &quot;MatrixAnswerView&quot;}}{{/crossLink}}
@@ -198,18 +206,25 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property MatrixAnswerView
      * @type {String}
      */
-  , MatrixAnswerView: &#x27;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&#x27; +
+  , MatrixAnswerView:
+      &#x27;&lt;table&gt;&#x27; +
+      &#x27;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&#x27; +
       &#x27;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
-      &#x27;&lt;td&gt;&lt;%- option.label %&gt;&lt;/td&gt;&#x27; +
-      &#x27;&lt;% }); %&gt;&lt;/tr&gt;&#x27; +
-      &#x27;&lt;% _.each(model.fields, function(field, i) { %&gt;&lt;tr&gt;&#x27; +
-      &#x27;&lt;td&gt;&lt;%- field.label %&gt;&lt;/td&gt;&#x27; +
-      &#x27;&lt;% _.each(model.options, function(option) { %&gt;&lt;td&gt;&#x27; +
-      &#x27;&lt;input type=&quot;&lt;%- multiple? &quot;checkbox&quot; : &quot;radio&quot; %&gt;&quot;&#x27; +
-      &#x27; name=&quot;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (_.contains(model.answers[i], option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;/td&gt;&lt;% }); %&gt;&#x27; +
-      &#x27;&lt;/tr&gt;&lt;% }); %&gt;&#x27; +
+        &#x27;&lt;td&gt;&lt;%- option.label %&gt;&lt;/td&gt;&#x27; +
+      &#x27;&lt;% }); %&gt;&#x27; +
+      &#x27;&lt;/tr&gt;&#x27; +
+      &#x27;&lt;% _.each(model.fields, function(field, i) { %&gt;&#x27; +
+        &#x27;&lt;tr&gt;&#x27; +
+        &#x27;&lt;td&gt;&lt;%- field.label %&gt;&lt;/td&gt;&#x27; +
+        &#x27;&lt;% _.each(model.options, function(option) { %&gt;&#x27; +
+          &#x27;&lt;td&gt;&#x27; +
+          &#x27;&lt;input type=&quot;&lt;%- multiple? &quot;checkbox&quot; : &quot;radio&quot; %&gt;&quot;&#x27; +
+          &#x27; name=&quot;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
+          &#x27;&lt;% if (_.contains(model.answers[i], option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
+          &#x27;&lt;/td&gt;&#x27; +
+        &#x27;&lt;% }); %&gt;&#x27; +
+        &#x27;&lt;/tr&gt;&#x27; +
+      &#x27;&lt;% }); %&gt;&#x27; +
       &#x27;&lt;/table&gt;&#x27;
 
     /**
@@ -218,17 +233,29 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property TextCardAnswerView
      * @type {String}
      */
-  , TextCardAnswerView: &#x27;&lt;ul&gt;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
-      &#x27;&lt;li&gt;&lt;input type=&quot;&lt;%- multiple ? &quot;checkbox&quot; :  &quot;radio&quot; %&gt;&quot;&#x27; +
-      &#x27; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
-      &#x27; id=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (_.contains(model.answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
-      &#x27;&lt;input type=&quot;hidden&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;% } %&gt;&#x27; +
-      &#x27;&lt;label for=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&gt;&lt;%= option.label %&gt;&lt;/label&gt;&#x27; +
-      &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27; +
+  , TextCardAnswerView:
+      &#x27;&lt;ul&gt;&#x27; +
+      &#x27;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
+        &#x27;&lt;li&gt;&#x27; +
+        &#x27;&lt;input type=&quot;&lt;%- multiple ? &quot;checkbox&quot; :  &quot;radio&quot; %&gt;&quot;&#x27; +
+        &#x27; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
+        &#x27; id=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&#x27; +
+        &#x27;&lt;% if (_.contains(model.answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
+        &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
+          &#x27;&lt;input type=&quot;hidden&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
+          &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt;&#x27; +
+            &#x27; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
+        &#x27;&lt;% } %&gt;&#x27; +
+        &#x27;&lt;label for=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&gt;&#x27; +
+        &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt;&#x27; +
+          &#x27;&lt;%- model.subAnswer[option.value] %&gt;&#x27; +
+        &#x27;&lt;% } else { %&gt;&#x27; +
+          &#x27;&lt;%= option.label %&gt;&#x27; +
+        &#x27;&lt;% } %&gt;&#x27; +
+        &#x27;&lt;/label&gt;&#x27; +
+        &#x27;&lt;/li&gt;&#x27; +
+      &#x27;&lt;% }); %&gt;&#x27; +
+      &#x27;&lt;/ul&gt;&#x27; +
       &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog&quot; style=&quot;display: none;&quot;&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;sub-dialog-inner&quot;&gt;&#x27; +
       &#x27;&lt;input type=&quot;text&quot;&gt;&lt;button&gt;OK&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&#x27;
 
@@ -238,16 +265,26 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property ImageCardAnswerView
      * @type {String}
      */
-  , ImageCardAnswerView: &#x27;&lt;ul&gt;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
-      &#x27;&lt;li&gt;&#x27; +
-      &#x27;&lt;input type=&quot;hidden&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&gt;&#x27; +
-      &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
-      &#x27;&lt;input type=&quot;hidden&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&#x27; +
-      &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;% } %&gt;&#x27; +
-      &#x27;&lt;label &lt;% if (_.contains(model.answers, option.value)) { %&gt; class=&quot;survey-selected&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;%= option.label %&gt;&lt;/label&gt;&#x27; +
-      &#x27;&lt;/li&gt;&lt;% }); %&gt;&lt;/ul&gt;&#x27; +
+  , ImageCardAnswerView:
+      &#x27;&lt;ul&gt;&#x27; +
+      &#x27;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
+        &#x27;&lt;li&gt;&#x27; +
+        &#x27;&lt;input type=&quot;hidden&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&gt;&#x27; +
+        &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
+          &#x27;&lt;input type=&quot;hidden&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&#x27; +
+              &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt;&#x27; +
+                &#x27; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
+        &#x27;&lt;% } %&gt;&#x27; +
+        &#x27;&lt;label &lt;% if (_.contains(model.answers, option.value)) { %&gt; class=&quot;survey-selected&quot;&lt;% } %&gt;&gt;&#x27; +
+          &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt;&#x27; +
+            &#x27;&lt;%- model.subAnswer[option.value] %&gt;&#x27; +
+          &#x27;&lt;% } else { %&gt;&#x27; +
+            &#x27;&lt;%= option.label %&gt;&#x27; +
+          &#x27;&lt;% } %&gt;&#x27; +
+        &#x27;&lt;/label&gt;&#x27; +
+        &#x27;&lt;/li&gt;&#x27; +
+      &#x27;&lt;% }); %&gt;&#x27; +
+      &#x27;&lt;/ul&gt;&#x27; +
       &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog&quot; style=&quot;display: none;&quot;&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;sub-dialog-inner&quot;&gt;&#x27; +
       &#x27;&lt;input type=&quot;text&quot;&gt;&lt;button&gt;OK&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&#x27;
   };
