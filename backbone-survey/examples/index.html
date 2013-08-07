@@ -20,33 +20,38 @@
         {
           id: "startup"
         , page: 1
-        , question: "回答なしのセクションです。案内文を表示することができます。"
+        , contents: {
+            question: "回答なしのセクションです。案内文を表示することができます。"
+          }
         }
       , {
           id: 'Invalid ID!!(^^;)'
         , page: 1
-        , question: "IDに利用可能な文字は [-_0-9a-zA-Z]+ です。不正IDの設問は読み込まれません"
+        , contents: {
+            question: "IDに利用可能な文字は [-_0-9a-zA-Z]+ です。不正IDの設問は読み込まれません"
+          }
         }
       , {
           id: "q1"
         , page: 2
-        , question: "Q1. 単一テキスト入力設問です。<strong><em>HTMLタグはエスケープされません</em></strong>"
-        , contents: {
-            // タイトル直下
-            main: '<p>任意のHTMLコンテンツを表示できます。</p>' +
-            '<div class="survey-question-image"><img src="images/red.gif"></div>' +
-            '<div class="survey-question-image"><img src="images/green.gif"></div>' +
-            '<div class="survey-question-image"><img src="images/blue.gif"></div>'
-            // 回答直前
-          , caption: '<em>回答直前のHTMLを表示できます。</em>'
-            // 回答直後
-          , note: '<ul><li>回答直後のHTMLを表示できます。</li><li>HTMLタグが使えます</li></ul>'
-            // これらのキーはデフォルトテンプレートで利用されているだけです。
-            // テンプレートをカスタマイズすれば任意のキーであらゆるコンテンツを渡せます。
-          }
         , type: BackboneSurvey.QuestionType.TEXT
-        , label: "<strong>ラベル：</strong>"
-        , guide: "<em>(2..10文字以内)</em>"
+        , contents: {
+            // ビュー要素は :contents 内にセットします。
+            // テンプレートをカスタマイズすれば任意のキーであらゆるビュー要素を渡せます。
+            //----------------------------------------------
+            // SectionView
+            //----------------------------------------------
+            // title - 設問タイトル
+            question: "Q1. 単一テキスト入力設問です。<strong><em>HTMLタグはエスケープされません</em></strong>"
+            //----------------------------------------------
+            // TextAnswerView
+            //----------------------------------------------
+            // prefix - 前テキスト
+          , prefix: "<strong>ラベル：</strong>"
+            // suffix - 後テキスト
+          , suffix: "<em>(2..10文字以内)</em>"
+            //----------------------------------------------
+          }
         , rules: [
             new BackboneSurvey.RequiredValidator({ message: "入力してください" })
           , new BackboneSurvey.RangeLengthValidator(
@@ -56,8 +61,10 @@
       , {
           id: "q2"
         , page: 2
-        , question: "Q2. 単一選択設問です。page 値を合わせることで、複数設問を表示できます。"
         , type: BackboneSurvey.QuestionType.RADIO
+        , contents: {
+            question: "Q2. 単一選択設問です。page 値を合わせることで、複数設問を表示できます。"
+          }
         , options: [
             { value: "1", label: "はい", route: "Y" }
           , { value: "2", label: "いいえ", route: "N" }
@@ -70,8 +77,10 @@
       , {
           id: "q3"
         , page: 3
-        , question: "Q3. 複数テキスト設問です。"
         , type: BackboneSurvey.QuestionType.MULTI
+        , contents: {
+            question: "Q3. 複数テキスト設問です。"
+          }
         , fields: [
             {
               label: "サブ設問1 <em>(HTMLタグはエスケープされません)</em>"
@@ -106,8 +115,10 @@
           id: "q4"
         , page: 4
         , routeDependencies: [["Y", "N"]] // Y or N いずれかを選択した場合に表示されます。
-        , question: "Q4. 複数選択設問です。(未選択可)"
         , type: BackboneSurvey.QuestionType.CHECKBOX
+        , contents: {
+            question: "Q4. 複数選択設問です。(未選択可)"
+          }
         , options: [
             { value: "A", label: '<img src="images/yellow.gif"> スポーツ', route: "ANY", sub: { placeholder: "好きなスポーツ" } }
           , { value: "B", label: '<img src="images/cyan.gif"> 読書', route: "ANY", sub: { placeholder: "好きな本" } }
@@ -124,28 +135,11 @@
           id: "q5"
         , page: 5
         , routeDependencies: ["Y", ["ANY", "OTHER"]] // Y && (ANY || OTHER) を選択した場合に表示されます。
-        , question: "Q4. 複数選択設問です。(選択必須)"
         , type: BackboneSurvey.QuestionType.CHECKBOX
+        , contents: {
+            question: "Q5. 複数選択設問です。(選択必須)"
+          }
         , options: [ "赤", "緑", "青" ] // ラベルを省略して値のみ指定できます。
-        , rules: [
-            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
-          ]
-        }
-      , {
-          id: "q6"
-        , page: 6
-        , question: "Q6. テキストカード設問です"
-        , type: BackboneSurvey.QuestionType.CHECKBOX
-        , view: "TextCardAnswerView"
-        , options: [
-            { value: "1", label: "カード1" }
-          , { value: "2", label: "カード2" }
-          , { value: "3", label: "カード3" }
-          , { value: "4", label: "カード4" }
-          , { value: "5", label: "カード5" }
-          , { value: "0", label: "その他", sub: {} }
-          ]
-        , singleOptions: ["0"]
         , rules: [
             new BackboneSurvey.RequiredValidator({ message: "選択してください" })
           ]
@@ -155,10 +149,10 @@
 
     var view = new BackboneSurvey.SurveyView({
       model: survey // BackboneSurvey.Survey
-    , el: $("#survey-app") // アンケートを表示する jQuery オブジェクト
+    , el: $("#survey-app") // ビュー構築先の jQuery オブジェクト
     });
 
-    // 現在ページ
+    // ページ移動時に Survey の :change イベントが呼ばれます。
     var lastPage = survey.sections.lastPage();
     survey.on("change", function() {
       console.log(survey.get("page") + " of " + lastPage);
@@ -238,9 +232,13 @@
 
     // アニメーション
     view.beforeRender = function($el) {
+      // 次の設問の描画前に呼ばれます。
+      // SurveyView#render(); で次設問の描画を開始させる必要があります。
       $el.fadeOut("slow", function() { view.render(); });
     };
     view.afterRender = function($el) {
+      // 次の設問の描画後に呼ばれます。
+      // Survey#rendered == true で描画完了とみなされ、回答が可能になります。
       console.log(["afterRender", view.isValid()]);
       $el.fadeIn("slow", function() { view.rendered = true; });
     };

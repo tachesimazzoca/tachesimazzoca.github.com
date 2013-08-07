@@ -20,9 +20,11 @@
        {
           id: "q1"
         , page: 1
-        , question: "Q1. テキストカード設問です"
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , view: "CustomTextCardAnswerView"
+        , contents: {
+            question: "<strong>Q1.</strong> テキストカード設問です"
+          }
         , options: [
             { value: "1", label: "カード1" }
           , { value: "2", label: "カード2" }
@@ -39,9 +41,11 @@
       , {
           id: "q2"
         , page: 2
-        , question: "Q2. 画像カード設問です"
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , view: "CustomImageCardAnswerView"
+        , contents: {
+            question: "<strong>Q2.</strong> 画像カード設問です"
+          }
         , options: [
             { value: "1", label: '<img src="images/red.gif">' }
           , { value: "2", label: '<img src="images/green.gif">' }
@@ -67,14 +71,8 @@
     });
 
     var view = new BackboneSurvey.SurveyView({
-      model: survey // BackboneSurvey.Survey
-    , el: $("#survey-app") // アンケートを表示する jQuery オブジェクト
-    });
-
-    // 現在ページ
-    var lastPage = survey.sections.lastPage();
-    survey.on("change", function() {
-      console.log(survey.get("page") + " of " + lastPage);
+      model: survey
+    , el: $("#survey-app")
     });
 
     view.on("start", function() { survey.startPage() } );
@@ -84,13 +82,10 @@
       console.log(["completed", survey.answers()]);
     });
 
-    // 回答時に SurveyView から answer フックが呼ばれます。
     view.on("answer", function() {
-      // SurveyView#isValid で正常回答の判定ができます
       console.log(["answer", view.isValid()]);
     });
 
-    // SurveyView#startPage() でアンケート開始します。
     view.startPage();
   });
 })(jQuery);
@@ -98,10 +93,10 @@
 </head>
 <body>
   <div id="survey-app">
-    <h1 class="survey-title"></h1><!-- アンケートタイトル -->
-    <div id="survey-sections"></div><!-- アンケート設問(必須) -->
-    <input type="button" class="survey-next" value="Next"><!-- 次ページに進みます(必須) -->
-    <input type="button" class="survey-prev" value="Prev"><!-- 前ページに戻ります -->
+    <h1 class="survey-title"></h1>
+    <div id="survey-sections"></div>
+    <input type="button" class="survey-next" value="Next">
+    <input type="button" class="survey-prev" value="Prev">
     <p><a class="survey-start" href="javascript:void(0);">はじめからやり直す</a></p>
   </div>
   <div id="survey-dialog" style="display: none; position: absolute; left: 0; top: 0; background: #fff;">

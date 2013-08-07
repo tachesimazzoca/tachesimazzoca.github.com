@@ -14,12 +14,9 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property SectionView
      * @type {String}
      */
-    SectionView: '<div class="<%- elPrefix %>question"><%= model.question %></div>' +
-      '<% if (model.contents.main) { %><div class="<%- elPrefix %>contents-main"><%= model.contents.main %></div><% } %>' +
+    SectionView: '<div class="<%- elPrefix %>question"><%= model.contents.question %></div>' +
       '<div id="<%- elPrefix %>error-<%- model.id %>" class="<%- elPrefix %>error"></div>' +
-      '<% if (model.contents.caption) { %><div class="<%- elPrefix %>contents-caption"><%= model.contents.caption %></div><% } %>' +
-      '<div id="<%- elPrefix %>answer-<%- model.id %>" class="<%- elPrefix %>answer"></div>' +
-      '<% if (model.contents.note) { %><div class="<%- elPrefix %>contents-note"><%= model.contents.note %></div><% } %>'
+      '<div id="<%- elPrefix %>answer-<%- model.id %>" class="<%- elPrefix %>answer"></div>'
 
     /**
      * See {{#crossLink "TextAnswerView"}}{{/crossLink}}
@@ -27,9 +24,9 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property TextAnswerView
      * @type {String}
      */
-  , TextAnswerView: '<%= model.label %><input type="text" name="answer-<%- model.id %>"' +
+  , TextAnswerView: '<%= model.contents.prefix %><input type="text" name="answer-<%- model.id %>"' +
       '<% if (model.answers.length !== 0) { %> value="<%- model.answers[0] %>"<% } %>>' +
-      '<%= model.guide %>'
+      '<%= model.contents.suffix %>'
 
     /**
      * See {{#crossLink "MultiAnswerView"}}{{/crossLink}}

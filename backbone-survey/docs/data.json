@@ -180,7 +180,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/models.js",
-            "line": 166,
+            "line": 163,
             "extends": "{Backbone.Collection}"
         },
         "Survey": {
@@ -194,7 +194,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/models.js",
-            "line": 233,
+            "line": 230,
             "extends": "{Backbone.Model}"
         },
         "Templates": {
@@ -605,7 +605,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 117,
+            "line": 114,
             "description": "Pick the answers according to the section type.",
             "itemtype": "method",
             "name": "answers",
@@ -626,7 +626,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 129,
+            "line": 126,
             "description": "Clear all answer attributes.",
             "itemtype": "method",
             "name": "clearAnswers",
@@ -635,7 +635,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 138,
+            "line": 135,
             "description": "Returns the route keys.",
             "itemtype": "method",
             "name": "answeredRoutes",
@@ -648,7 +648,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 173,
+            "line": 170,
             "itemtype": "method",
             "name": "fistPage",
             "return": {
@@ -660,7 +660,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 184,
+            "line": 181,
             "itemtype": "method",
             "name": "lastPage",
             "return": {
@@ -672,7 +672,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 195,
+            "line": 192,
             "itemtype": "method",
             "name": "prevPage",
             "params": [
@@ -691,7 +691,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 213,
+            "line": 210,
             "itemtype": "method",
             "name": "nextPage",
             "params": [
@@ -710,7 +710,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 239,
+            "line": 236,
             "itemtype": "property",
             "name": "sections",
             "type": "{Sections}",
@@ -719,7 +719,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 259,
+            "line": 256,
             "description": "Parser method for using `{ parse: true }` option.\n\n<pre><code>var survey = new BackboneSurvey.Survey({\n   survey: {\n     // Survey.attributes ....\n   }\n , sections: [\n     // An array of Section.attributes ....\n   ]\n}, { parse: true });\n</code></pre>",
             "itemtype": "method",
             "name": "parse",
@@ -744,7 +744,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 284,
+            "line": 281,
             "description": "Move to a first page, and reset all answers.",
             "itemtype": "method",
             "name": "startPage",
@@ -753,7 +753,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 299,
+            "line": 296,
             "description": "Move to the previous page.",
             "itemtype": "method",
             "name": "prevPage",
@@ -762,7 +762,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 321,
+            "line": 318,
             "description": "Move to the next page.",
             "itemtype": "method",
             "name": "nextPage",
@@ -771,7 +771,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 355,
+            "line": 352,
             "itemtype": "method",
             "name": "isFirstPage",
             "return": {
@@ -783,7 +783,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 363,
+            "line": 360,
             "itemtype": "method",
             "name": "isLastPage",
             "return": {
@@ -795,7 +795,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 371,
+            "line": 368,
             "description": "Returns an array of Section in a current page.",
             "itemtype": "method",
             "name": "currentSections",
@@ -808,7 +808,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 381,
+            "line": 378,
             "description": "Returns all answers.",
             "itemtype": "method",
             "name": "answers",
@@ -821,7 +821,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 404,
+            "line": 401,
             "description": "Add an answered section ID.",
             "itemtype": "method",
             "name": "addAnsweredSectionId",
@@ -837,7 +837,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 428,
+            "line": 425,
             "description": "Returns the route keys in the sections.",
             "itemtype": "method",
             "name": "answeredRoutes",
@@ -850,7 +850,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 445,
+            "line": 442,
             "description": "Returns available page numbers.",
             "itemtype": "method",
             "name": "availablePages",
@@ -873,7 +873,7 @@
         },
         {
             "file": "src/assets/js/templates.js",
-            "line": 24,
+            "line": 21,
             "description": "See {{#crossLink \"TextAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "TextAnswerView",
@@ -883,7 +883,7 @@
         },
         {
             "file": "src/assets/js/templates.js",
-            "line": 34,
+            "line": 31,
             "description": "See {{#crossLink \"MultiAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "MultiAnswerView",
@@ -893,7 +893,7 @@
         },
         {
             "file": "src/assets/js/templates.js",
-            "line": 45,
+            "line": 42,
             "description": "See {{#crossLink \"OptionAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "OptionAnswerView",
@@ -903,7 +903,7 @@
         },
         {
             "file": "src/assets/js/templates.js",
-            "line": 69,
+            "line": 66,
             "description": "See {{#crossLink \"MatrixAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "MatrixAnswerView",
@@ -913,7 +913,7 @@
         },
         {
             "file": "src/assets/js/templates.js",
-            "line": 96,
+            "line": 93,
             "description": "See {{#crossLink \"TextCardAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "TextCardAnswerView",
@@ -923,7 +923,7 @@
         },
         {
             "file": "src/assets/js/templates.js",
-            "line": 128,
+            "line": 125,
             "description": "See {{#crossLink \"ImageCardAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "ImageCardAnswerView",

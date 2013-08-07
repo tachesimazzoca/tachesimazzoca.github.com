@@ -148,12 +148,9 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property SectionView
      * @type {String}
      */
-    SectionView: &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;question&quot;&gt;&lt;%= model.question %&gt;&lt;/div&gt;&#x27; +
-      &#x27;&lt;% if (model.contents.main) { %&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;contents-main&quot;&gt;&lt;%= model.contents.main %&gt;&lt;/div&gt;&lt;% } %&gt;&#x27; +
+    SectionView: &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;question&quot;&gt;&lt;%= model.contents.question %&gt;&lt;/div&gt;&#x27; +
       &#x27;&lt;div id=&quot;&lt;%- elPrefix %&gt;error-&lt;%- model.id %&gt;&quot; class=&quot;&lt;%- elPrefix %&gt;error&quot;&gt;&lt;/div&gt;&#x27; +
-      &#x27;&lt;% if (model.contents.caption) { %&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;contents-caption&quot;&gt;&lt;%= model.contents.caption %&gt;&lt;/div&gt;&lt;% } %&gt;&#x27; +
-      &#x27;&lt;div id=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;&quot; class=&quot;&lt;%- elPrefix %&gt;answer&quot;&gt;&lt;/div&gt;&#x27; +
-      &#x27;&lt;% if (model.contents.note) { %&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;contents-note&quot;&gt;&lt;%= model.contents.note %&gt;&lt;/div&gt;&lt;% } %&gt;&#x27;
+      &#x27;&lt;div id=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;&quot; class=&quot;&lt;%- elPrefix %&gt;answer&quot;&gt;&lt;/div&gt;&#x27;
 
     /**
      * See {{#crossLink &quot;TextAnswerView&quot;}}{{/crossLink}}
@@ -161,9 +158,9 @@ var BackboneSurvey = BackboneSurvey || {};
      * @property TextAnswerView
      * @type {String}
      */
-  , TextAnswerView: &#x27;&lt;%= model.label %&gt;&lt;input type=&quot;text&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot;&#x27; +
+  , TextAnswerView: &#x27;&lt;%= model.contents.prefix %&gt;&lt;input type=&quot;text&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot;&#x27; +
       &#x27;&lt;% if (model.answers.length !== 0) { %&gt; value=&quot;&lt;%- model.answers[0] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
-      &#x27;&lt;%= model.guide %&gt;&#x27;
+      &#x27;&lt;%= model.contents.suffix %&gt;&#x27;
 
     /**
      * See {{#crossLink &quot;MultiAnswerView&quot;}}{{/crossLink}}

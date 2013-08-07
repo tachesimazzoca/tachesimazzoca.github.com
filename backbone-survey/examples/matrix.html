@@ -20,8 +20,10 @@
         {
           id: "q1"
         , page: 1
-        , question: "Q1. 単一マトリクス設問です。"
         , type: BackboneSurvey.QuestionType.MATRIX
+        , contents: {
+            question: "<strong>Q1.</strong> 単一マトリクス設問です。"
+          }
         , fields: [
             {
               label: "サブ設問1"
@@ -59,8 +61,10 @@
       , {
           id: "q2"
         , page: 2
-        , question: "Q2. 複数マトリクス設問です。"
         , type: BackboneSurvey.QuestionType.MATRIX_MULTI
+        , contents: {
+            question: "<strong>Q2.</strong> 複数マトリクス設問です。"
+          }
         , fields: [
             {
               label: "サブ設問1"
@@ -95,12 +99,6 @@
     , el: $("#survey-app") // アンケートを表示する jQuery オブジェクト
     });
 
-    // 現在ページ
-    var lastPage = survey.sections.lastPage();
-    survey.on("change", function() {
-      console.log(survey.get("page") + " of " + lastPage);
-    });
-
     view.on("start", function() { survey.startPage() } );
     view.on("prev", function() { survey.prevPage() } );
     view.on("next", function() { survey.nextPage() } );
@@ -108,13 +106,10 @@
       console.log(["completed", survey.answers()]);
     });
 
-    // 回答時に SurveyView から answer フックが呼ばれます。
     view.on("answer", function() {
-      // SurveyView#isValid で正常回答の判定ができます
       console.log(["answer", view.isValid()]);
     });
 
-    // SurveyView#startPage() でアンケート開始します。
     view.startPage();
   });
 })(jQuery);
@@ -122,10 +117,10 @@
 </head>
 <body>
   <div id="survey-app">
-    <h1 class="survey-title"></h1><!-- アンケートタイトル -->
-    <div id="survey-sections"></div><!-- アンケート設問(必須) -->
-    <input type="button" class="survey-next" value="Next"><!-- 次ページに進みます(必須) -->
-    <input type="button" class="survey-prev" value="Prev"><!-- 前ページに戻ります -->
+    <h1 class="survey-title"></h1>
+    <div id="survey-sections"></div>
+    <input type="button" class="survey-next" value="Next">
+    <input type="button" class="survey-prev" value="Prev">
     <p><a class="survey-start" href="javascript:void(0);">はじめからやり直す</a></p>
   </div>
 </body>
