@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>backbone-survey/examples/slider</title>
+<script type="text/javascript" src="../lib/json2/json2.js"></script>
+<script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="../lib/backbone/backbone-min.js"></script>
+<script type="text/javascript" src="../assets/js/backbone-survey.js"></script>
+<!--jQuery UI Slider-->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!--/jQuery UI Slider-->
+<script type="text/javascript">
+(function($) {
+  $(function() {
+    // Survey
+    var survey = new BackboneSurvey.Survey({
+      survey: {
+        title: "SliderAnswerView Example"
+      , page: 0
+      }
+    , sections: [
+        {
+          id: "q1"
+        , page: 1
+        , question: "Q1. How many times a year do you go to the theater?"
+        , type: BackboneSurvey.QuestionType.TEXT
+        , view: "SliderAnswerView"
+        , contents: {
+            range: [0, 10]
+          , prefix: "About"
+          , suffix: "time(s) a year"
+          }
+        , rules: [
+            new BackboneSurvey.PatternValidator({
+              message: "The answer must be between 0 and 10."
+            , pattern: "^([0-9]|10)$"
+            })
+          ]
+        }
+      ]
+    }, { parse: true });
+
+    // SliderAnswerView
+    BackboneSurvey.Templates.SliderAnswerView = '<div id="<%- elPrefix%>slider"></div>' +
+      '<%- model.contents.prefix %>' +
+      '<input type="text" name="answer-<%- model.id %>" disabled="disabled">' +
+      '<%- model.contents.suffix %>';
+    BackboneSurvey.SliderAnswerView = Backbone.View.extend({
+      templateName: "SliderAnswerView"
+
+    , initialize: function() {
+        this.elPrefix = this.elPrefix || "survey-";
+      }
+
+    , render: function() {
+        this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({
+          elPrefix: this.elPrefix
+        , model: this.model.toJSON()
+        }));
+        var me = this;
+        var contents = this.model.get("contents") || {};
+        var initValue = contents.range[0];
+        var $input = this.$('input[name="answer-' + this.model.id + '"]');
+        $input.val(initValue);
+        this.$('#' + this.elPrefix + 'slider').slider({
+          value: initValue
+        , min: contents.range[0]
+        , max: contents.range[1]
+        , step: 1
+        , slide: function(e, ui) {
+            $input.val(ui.value);
+            me.trigger("answer");
+          }
+        });
+        return this;
+      }
+
+    , answers: function() {
+        var v = this.$('[name="answer-' + this.model.id + '"]').val();
+        return (_.isEmpty(v)) ? [""] : [v];
+      }
+
+    , subAnswer: function() {
+        return {};
+      }
+    });
+
+    // SurveyView
+    var view = new BackboneSurvey.SurveyView({
+      model: survey
+    , el: $("#survey-app")
+    });
+
+    view.on("start", function() { survey.startPage() } );
+    view.on("prev", function() { survey.prevPage() } );
+    view.on("next", function() { survey.nextPage() } );
+    view.on("completed", function() {
+      console.log(["completed", survey.answers()]);
+    });
+
+    view.on("answer", function() {
+      console.log(["answer", view.isValid()]);
+    });
+
+    // Kick things off by calling SurveyView#startPage
+    view.startPage();
+  });
+})(jQuery);
+</script>
+</head>
+<body>
+  <div id="survey-app">
+    <h1 class="survey-title"></h1>
+    <div id="survey-sections"></div>
+    <input type="button" class="survey-next" value="Next">
+    <input type="button" class="survey-prev" value="Prev">
+    <p><a class="survey-start" href="javascript:void(0);">Retry</a></p>
+  </div>
+</body>
+</html>
