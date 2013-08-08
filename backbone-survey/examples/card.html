@@ -21,7 +21,7 @@
           id: "q1"
         , page: 1
         , type: BackboneSurvey.QuestionType.CHECKBOX
-        , view: "CustomTextCardAnswerView"
+        , view: "TextCardAnswerView"
         , contents: {
             question: "<strong>Q1.</strong> テキストカード設問です"
           }
@@ -42,7 +42,7 @@
           id: "q2"
         , page: 2
         , type: BackboneSurvey.QuestionType.CHECKBOX
-        , view: "CustomImageCardAnswerView"
+        , view: "ImageCardAnswerView"
         , contents: {
             question: "<strong>Q2.</strong> 画像カード設問です"
           }
@@ -60,15 +60,111 @@
             new BackboneSurvey.RequiredValidator({ message: "選択してください" })
           ]
         }
+      , {
+          id: "q3"
+        , page: 3
+        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , view: "TextCardAnswerView"
+        , contents: {
+            question: "<strong>Q3.</strong> テキストカード設問です"
+          }
+        , options: [
+            { value: "1", label: "カード1" }
+          , { value: "2", label: "カード2" }
+          , { value: "3", label: "カード3" }
+          , { value: "0", label: "その他", sub: { placeholder: "Q3. その他" } }
+          ]
+        , singleOptions: ["0"]
+        , rules: [
+            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
+          ]
+        }
+      , {
+          id: "q4"
+        , page: 3
+        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , view: "ImageCardAnswerView"
+        , contents: {
+            question: "<strong>Q4.</strong> 画像カード設問です"
+          }
+        , options: [
+            { value: "1", label: '<img src="images/red.gif">' }
+          , { value: "2", label: '<img src="images/green.gif">' }
+          , { value: "3", label: '<img src="images/blue.gif">' }
+          , { value: "0", label: "その他", sub: { placeholder: "Q4. その他" } }
+          ]
+        , singleOptions: ["0"]
+        , rules: [
+            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
+          ]
+        }
+      , {
+          id: "q5"
+        , page: 4
+        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , view: "CustomTextCardAnswerView"
+        , contents: {
+            question: "<strong>Q5.</strong> テキストカード設問 + 独自ダイアログです"
+          }
+        , options: [
+            { value: "1", label: "カード1" }
+          , { value: "2", label: "カード2" }
+          , { value: "3", label: "カード3" }
+          , { value: "0", label: "その他", sub: { placeholder: "Q5. その他" } }
+          ]
+        , singleOptions: ["0"]
+        , rules: [
+            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
+          ]
+        }
+      , {
+          id: "q6"
+        , page: 4
+        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , view: "CustomImageCardAnswerView"
+        , contents: {
+            question: "<strong>Q4.</strong> 画像カード設問 + 独自ダイアログです"
+          }
+        , options: [
+            { value: "1", label: '<img src="images/red.gif">' }
+          , { value: "2", label: '<img src="images/green.gif">' }
+          , { value: "3", label: '<img src="images/blue.gif">' }
+          , { value: "0", label: "その他", sub: { placeholder: "Q6. その他" } }
+          ]
+        , singleOptions: ["0"]
+        , rules: [
+            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
+          ]
+        }
       ]
     }, { parse: true });
 
+    // 独自テキストカードUI
     BackboneSurvey.CustomTextCardAnswerView = BackboneSurvey.TextCardAnswerView.extend({
-      $dialog: '#survey-dialog'
+      $dialog: '#survey-dialog' // ダイアログ描画先 jQuery セレクタ
+    , dialogName: "CustomTextDialogView" // 独自ダイアログ ビュー名
     });
+    // 独自画像カードUI
     BackboneSurvey.CustomImageCardAnswerView = BackboneSurvey.ImageCardAnswerView.extend({
       $dialog: '#survey-dialog'
+    , dialogName: "CustomTextDialogView"
     });
+    // 独自ダイアログ
+    BackboneSurvey.CustomTextDialogView = BackboneSurvey.TextDialogView.extend({
+      templateName: "CustomTextDialogView"
+    });
+    BackboneSurvey.Templates.CustomTextDialogView =
+      '<div style="position: fixed; top: 0; left: 0; right: 0: bottom: 0; width: 100%; height: 100%;' +
+        ' background: #000; opacity: 0.8;"></div>' +
+      '<div class="<%- elPrefix %>dialog-container" style="position: absolute; top: 0; left: 0;">' +
+        '<div class="<%- elPrefix %>dialog-inner" style="background: #eee; padding: 20px">' +
+          '<p>CustomTextDialogView!</p>' +
+          '<input class="<%- elPrefix %>dialog-input" type="text"' +
+            ' value="<%- value %>" placeholder="<%- placeholder %>">' +
+          '<button class="<%- elPrefix %>dialog-submit">OK</button>' +
+          '<button class="<%- elPrefix %>dialog-cancel">Cancel</button>' +
+        '</div>' +
+      '</div>';
 
     var view = new BackboneSurvey.SurveyView({
       model: survey
@@ -99,9 +195,6 @@
     <input type="button" class="survey-prev" value="Prev">
     <p><a class="survey-start" href="javascript:void(0);">はじめからやり直す</a></p>
   </div>
-  <div id="survey-dialog" style="display: none; position: absolute; left: 0; top: 0; background: #fff;">
-    <p>Customized dialog!</p>
-    <input type="text"><button>OK</button>
-  </div>
+  <div id="survey-dialog"></div>
 </body>
 </html>

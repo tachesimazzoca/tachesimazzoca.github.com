@@ -79,6 +79,8 @@
             
                 <li><a href="../classes/TextCardAnswerView.html">TextCardAnswerView</a></li>
             
+                <li><a href="../classes/TextDialogView.html">TextDialogView</a></li>
+            
                 <li><a href="../classes/ValidationResult.html">ValidationResult</a></li>
             
                 <li><a href="../classes/ValidationResult.Error.html">ValidationResult.Error</a></li>
@@ -232,6 +234,32 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
+     * @method lock
+     */
+  , lock: function() {
+      this._locked = true;
+      var sections = this.model.currentSections();
+      var me = this;
+      _.each(sections, function(section) {
+        var view = me.sectionViewMap[section.id];
+        if (view) view.answerView.lock();
+      });
+    }
+
+    /**
+     * @method unlock
+     */
+  , unlock: function() {
+      this._locked = false;
+      var sections = this.model.currentSections();
+      var me = this;
+      _.each(sections, function(section) {
+        var view = me.sectionViewMap[section.id];
+        if (view) view.answerView.unlock();
+      });
+    }
+
+    /**
      * @method render
      * @chainable
      */
@@ -252,8 +280,8 @@ var BackboneSurvey = BackboneSurvey || {};
             me.validate();
             me.trigger(&quot;answer&quot;);
           });
-          view.answerView.on(&quot;lock&quot;, function() { me._locked = true; });
-          view.answerView.on(&quot;unlock&quot;, function() { me._locked = false; });
+          view.answerView.on(&quot;lock&quot;, function() { me.lock(); });
+          view.answerView.on(&quot;unlock&quot;, function() { me.unlock(); });
 
           view.render();
           view.$(&quot;.&quot; + me.elPrefix + &quot;error&quot;).html(&quot;&quot;).hide(); // Hide error
@@ -345,6 +373,18 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
+     * @method lock
+     */
+  , lock: function() {
+    }
+
+    /**
+     * @method unlock
+     */
+  , unlock: function() {
+    }
+
+    /**
      * @method render
      * @chainable
      */
@@ -415,6 +455,22 @@ var BackboneSurvey = BackboneSurvey || {};
       this.elPrefix = this.elPrefix || &quot;survey-&quot;;
     }
 
+    /**
+     * @method lock
+     */
+  , lock: function() {
+    }
+
+    /**
+     * @method unlock
+     */
+  , unlock: function() {
+    }
+
+    /**
+     * @method render
+     * @chainable
+     */
   , render: function() {
       return this;
     }
@@ -443,6 +499,18 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , initialize: function() {
       this.elPrefix = this.elPrefix || &quot;survey-&quot;;
+    }
+
+    /**
+     * @method lock
+     */
+  , lock: function() {
+    }
+
+    /**
+     * @method unlock
+     */
+  , unlock: function() {
     }
 
     /**
@@ -487,6 +555,18 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , initialize: function() {
       this.elPrefix = this.elPrefix || &quot;survey-&quot;;
+    }
+
+    /**
+     * @method lock
+     */
+  , lock: function() {
+    }
+
+    /**
+     * @method unlock
+     */
+  , unlock: function() {
     }
 
     /**
@@ -557,6 +637,18 @@ var BackboneSurvey = BackboneSurvey || {};
         me.$(&#x27;input[name^=&quot;sub-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;)
             .prop(&quot;disabled&quot;, !_.contains(ans, ov));
       });
+    }
+
+    /**
+     * @method lock
+     */
+  , lock: function() {
+    }
+
+    /**
+     * @method unlock
+     */
+  , unlock: function() {
     }
 
     /**
@@ -638,6 +730,18 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
+     * @method lock
+     */
+  , lock: function() {
+    }
+
+    /**
+     * @method unlock
+     */
+  , unlock: function() {
+    }
+
+    /**
      * @method render
      * @chainable
      */
@@ -684,17 +788,50 @@ var BackboneSurvey = BackboneSurvey || {};
   });
 
   /**
+   * @class TextDialogView
+   */
+  var TextDialogView = BackboneSurvey.TextDialogView = Backbone.View.extend({
+    templateName: &quot;TextDialogView&quot;
+
+  , elPrefix : &quot;survey-&quot;
+
+  , render: function(params) {
+      params = _.extend({ elPrefix: this.elPrefix }, params || {});
+      this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])(params));
+
+      var me = this;
+      this.$(&#x27;.&#x27; + this.elPrefix + &#x27;dialog-submit&#x27;).on(&quot;click&quot;, function() {
+        me.trigger(&quot;submit&quot;);
+      });
+      this.$(&#x27;.&#x27; + this.elPrefix + &#x27;dialog-cancel&#x27;).on(&quot;click&quot;, function() {
+        me.trigger(&quot;cancel&quot;);
+      });
+
+      return this;
+    }
+
+  , answers: function() {
+      var v = this.$(&#x27;.&#x27; + this.elPrefix + &#x27;dialog-input&#x27;).val();
+      return _.isEmpty(v) ? [&quot;&quot;] : [v];
+    }
+  });
+
+  /**
    * @class TextCardAnswerView
    */
   var TextCardAnswerView = BackboneSurvey.TextCardAnswerView = Backbone.View.extend({
     templateName: &quot;TextCardAnswerView&quot;
 
+  , dialogName: &quot;TextDialogView&quot;
+
   , $dialog: null
 
+  , elPrefix: &quot;survey-&quot;
+
   , initialize: function() {
-      this.elPrefix = this.elPrefix || &quot;survey-&quot;;
       this.multiple = this.model.get(&quot;type&quot;).multiple();
       this.$selected = null;
+      this._locked = false;
     }
 
   , _normalize: function($changed) {
@@ -723,6 +860,16 @@ var BackboneSurvey = BackboneSurvey || {};
       }
     }
 
+  , lock: function() {
+      this._locked = true;
+      this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).prop(&quot;disabled&quot;, true);
+    }
+
+  , unlock: function() {
+      this._locked = false;
+      this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).prop(&quot;disabled&quot;, false);
+    }
+
     /**
      * @method render
      * @chainable
@@ -738,27 +885,19 @@ var BackboneSurvey = BackboneSurvey || {};
       var sel = this.elPrefix + &quot;selected&quot;;
 
       // subDialog
-      var $subDialog = this.$dialog || this.$(&#x27;.&#x27; + this.elPrefix + &#x27;dialog&#x27;);
+      var $subDialog = this.$dialog || this.$(&#x27;#&#x27; + this.elPrefix + &#x27;dialog-&#x27; + this.model.id);
       if (_.isString($subDialog)) {
         $subDialog = $($subDialog);
       }
       $subDialog.hide();
-      $subDialog.find(&#x27;button&#x27;).off(&quot;click&quot;).on(&quot;click&quot;, function() {
-        me._updateSubAnswer(me.$selected, $subDialog.find(&#x27;input&#x27;).val());
-        me.$selected = null;
-        $subDialog.hide();
-        me.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).prop(&quot;disabled&quot;, false);
-        me.trigger(&quot;answer&quot;);
-        me.trigger(&quot;unlock&quot;);
-      });
 
       this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).each(function() {
         me._normalize($(this));
 
       }).on(&quot;change&quot;, function() {
-        if (me.$selected) return;
-        var $this = $(this);
+        if (me._locked) return;
 
+        var $this = $(this);
         me._normalize($this);
 
         if ($this.prop(&quot;checked&quot;)) {
@@ -766,11 +905,29 @@ var BackboneSurvey = BackboneSurvey || {};
           var $sub = $li.find(&#x27;input[name^=&quot;sub-&quot;]&#x27;);
           if ($sub.length) {
             me.trigger(&quot;lock&quot;);
-            me.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).prop(&quot;disabled&quot;, true);
             me.$selected = $li;
-            $subDialog.find(&#x27;input&#x27;)
-              .val($sub.val())
-              .attr(&quot;placeholder&quot;, $sub.attr(&quot;placeholder&quot;));
+
+            // dialogView
+            var dialogView = new BackboneSurvey[me.dialogName]({ className: me.elPrefix + &#x27;dialog&#x27; });
+            dialogView.elPrefix = me.elPrefix;
+            dialogView.on(&quot;submit&quot;, function() {
+              var answers = dialogView.answers() || [&quot;&quot;];
+              me._updateSubAnswer(me.$selected, answers[0]);
+              $subDialog.hide();
+              me.$selected = null;
+              me.trigger(&quot;unlock&quot;);
+              me.trigger(&quot;answer&quot;);
+            });
+            dialogView.on(&quot;cancel&quot;, function() {
+              $subDialog.hide();
+              me.$selected = null;
+              me.trigger(&quot;unlock&quot;);
+            });
+            var params = {
+              value: $sub.val()
+            , placeholder: $sub.attr(&quot;placeholder&quot;)
+            };
+            $subDialog.html(dialogView.render(params).el);
             $subDialog.show();
           }
         }
@@ -820,12 +977,16 @@ var BackboneSurvey = BackboneSurvey || {};
   var ImageCardAnswerView = BackboneSurvey.ImageCardAnswerView = Backbone.View.extend({
     templateName: &quot;ImageCardAnswerView&quot;
 
+  , dialogName: &quot;TextDialogView&quot;
+
   , $dialog: null
 
+  , elPrefix: &quot;survey-&quot;
+
   , initialize: function() {
-      this.elPrefix = this.elPrefix || &quot;survey-&quot;;
       this.multiple = this.model.get(&quot;type&quot;).multiple();
       this.$selected = null;
+      this._locked = false;
     }
 
   , _normalize: function($changed) {
@@ -860,6 +1021,16 @@ var BackboneSurvey = BackboneSurvey || {};
       }
     }
 
+  , lock: function() {
+      this._locked = true;
+      this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).prop(&quot;disabled&quot;, true);
+    }
+
+  , unlock: function() {
+      this._locked = false;
+      this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).prop(&quot;disabled&quot;, false);
+    }
+
     /**
      * @method render
      * @chainable
@@ -874,27 +1045,19 @@ var BackboneSurvey = BackboneSurvey || {};
       var sel = this.elPrefix + &quot;selected&quot;;
 
       // subDialog
-      var $subDialog = this.$dialog || this.$(&#x27;.&#x27; + this.elPrefix + &#x27;dialog&#x27;);
+      var $subDialog = this.$dialog || this.$(&#x27;#&#x27; + this.elPrefix + &#x27;dialog-&#x27; + this.model.id);
       if (_.isString($subDialog)) {
         $subDialog = $($subDialog);
       }
-      if (!$subDialog.length) {
-        console.log(&quot;CardAnswerView.$dialog is not a valid DOM element.&quot;);
-      }
       $subDialog.hide();
-      $subDialog.find(&#x27;button&#x27;).off(&quot;click&quot;).on(&quot;click&quot;, function() {
-        me._updateSubAnswer(me.$selected, $subDialog.find(&#x27;input&#x27;).val());
-        me.$selected = null;
-        $subDialog.hide();
-        me.trigger(&quot;answer&quot;);
-        me.trigger(&quot;unlock&quot;);
-      });
+
       // options
       this.$(&#x27;label&#x27;).each(function () {
         me._normalize($(this));
 
       }).on(&quot;click&quot;, function() {
-        if (me.$selected) return;
+        if (me._locked) return;
+
         var $this = $(this);
         if (me.multiple) {
           $this.toggleClass(sel);
@@ -902,7 +1065,6 @@ var BackboneSurvey = BackboneSurvey || {};
           me.$(&#x27;label&#x27;).removeClass(sel);
           $this.addClass(sel);
         }
-
         me._normalize($this);
 
         if ($this.hasClass(sel)) {
@@ -911,7 +1073,28 @@ var BackboneSurvey = BackboneSurvey || {};
           if ($sub.length) {
             me.trigger(&quot;lock&quot;);
             me.$selected = $li;
-            $subDialog.find(&#x27;input&#x27;).val($sub.val());
+
+            // dialogView
+            var dialogView = new BackboneSurvey[me.dialogName]({ className: me.elPrefix + &#x27;dialog&#x27; });
+            dialogView.elPrefix = me.elPrefix;
+            dialogView.on(&quot;submit&quot;, function() {
+              var answers = dialogView.answers() || [&quot;&quot;];
+              me._updateSubAnswer(me.$selected, answers[0]);
+              $subDialog.hide();
+              me.$selected = null;
+              me.trigger(&quot;unlock&quot;);
+              me.trigger(&quot;answer&quot;);
+            });
+            dialogView.on(&quot;cancel&quot;, function() {
+              $subDialog.hide();
+              me.$selected = null;
+              me.trigger(&quot;unlock&quot;);
+            });
+            var params = {
+              value: $sub.val()
+            , placeholder: $sub.attr(&quot;placeholder&quot;)
+            };
+            $subDialog.html(dialogView.render(params).el);
             $subDialog.show();
           }
         }

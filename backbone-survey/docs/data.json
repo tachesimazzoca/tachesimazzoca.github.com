@@ -68,6 +68,7 @@
                 "MultiAnswerView": 1,
                 "OptionAnswerView": 1,
                 "MatrixAnswerView": 1,
+                "TextDialogView": 1,
                 "TextCardAnswerView": 1,
                 "ImageCardAnswerView": 1
             },
@@ -101,6 +102,7 @@
                 "MultiAnswerView": 1,
                 "OptionAnswerView": 1,
                 "MatrixAnswerView": 1,
+                "TextDialogView": 1,
                 "TextCardAnswerView": 1,
                 "ImageCardAnswerView": 1
             },
@@ -108,7 +110,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/assets/js/views.js",
-            "line": 683
+            "line": 838
         }
     },
     "classes": {
@@ -358,7 +360,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 200,
+            "line": 226,
             "extends": "{Backbone.View}"
         },
         "NonAnswerView": {
@@ -372,7 +374,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 275,
+            "line": 313,
             "extends": "{Backbone.View}"
         },
         "TextAnswerView": {
@@ -386,7 +388,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 303,
+            "line": 357,
             "extends": "{Backbone.View}"
         },
         "MultiAnswerView": {
@@ -400,7 +402,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 347,
+            "line": 413,
             "extends": "{Backbone.View}"
         },
         "OptionAnswerView": {
@@ -414,7 +416,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 394
+            "line": 472
         },
         "MatrixAnswerView": {
             "name": "MatrixAnswerView",
@@ -427,8 +429,21 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 478,
+            "line": 568,
             "extends": "{Backbone.View}"
+        },
+        "TextDialogView": {
+            "name": "TextDialogView",
+            "shortname": "TextDialogView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "backbone-survey",
+            "namespace": "",
+            "file": "src/assets/js/views.js",
+            "line": 654
         },
         "TextCardAnswerView": {
             "name": "TextCardAnswerView",
@@ -441,7 +456,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 552
+            "line": 683
         },
         "ImageCardAnswerView": {
             "name": "ImageCardAnswerView",
@@ -454,7 +469,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 683
+            "line": 838
         }
     },
     "classitems": [
@@ -914,6 +929,15 @@
         {
             "file": "src/assets/js/templates.js",
             "line": 93,
+            "itemtype": "property",
+            "name": "TextDialogView",
+            "type": "{String}",
+            "class": "Templates",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/templates.js",
+            "line": 107,
             "description": "See {{#crossLink \"TextCardAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "TextCardAnswerView",
@@ -923,7 +947,7 @@
         },
         {
             "file": "src/assets/js/templates.js",
-            "line": 127,
+            "line": 140,
             "description": "See {{#crossLink \"ImageCardAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "ImageCardAnswerView",
@@ -1072,6 +1096,22 @@
             "file": "src/assets/js/views.js",
             "line": 100,
             "itemtype": "method",
+            "name": "lock",
+            "class": "SurveyView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 113,
+            "itemtype": "method",
+            "name": "unlock",
+            "class": "SurveyView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 126,
+            "itemtype": "method",
             "name": "render",
             "chainable": 1,
             "class": "SurveyView",
@@ -1079,7 +1119,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 139,
+            "line": 165,
             "itemtype": "method",
             "name": "startPage",
             "class": "SurveyView",
@@ -1087,7 +1127,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 147,
+            "line": 173,
             "itemtype": "method",
             "name": "prevPage",
             "class": "SurveyView",
@@ -1095,7 +1135,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 155,
+            "line": 181,
             "itemtype": "method",
             "name": "nextPage",
             "class": "SurveyView",
@@ -1103,7 +1143,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 166,
+            "line": 192,
             "itemtype": "method",
             "name": "validate",
             "params": [
@@ -1122,7 +1162,23 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 213,
+            "line": 239,
+            "itemtype": "method",
+            "name": "lock",
+            "class": "SectionView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 245,
+            "itemtype": "method",
+            "name": "unlock",
+            "class": "SectionView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 251,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1131,7 +1187,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 227,
+            "line": 265,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1143,7 +1199,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 235,
+            "line": 273,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1155,7 +1211,32 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 288,
+            "line": 322,
+            "itemtype": "method",
+            "name": "lock",
+            "class": "NonAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 328,
+            "itemtype": "method",
+            "name": "unlock",
+            "class": "NonAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 334,
+            "itemtype": "method",
+            "name": "render",
+            "chainable": 1,
+            "class": "NonAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 342,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1167,7 +1248,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 294,
+            "line": 348,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1179,7 +1260,23 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 314,
+            "line": 368,
+            "itemtype": "method",
+            "name": "lock",
+            "class": "TextAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 374,
+            "itemtype": "method",
+            "name": "unlock",
+            "class": "TextAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 380,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1188,7 +1285,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 329,
+            "line": 395,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1200,7 +1297,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 338,
+            "line": 404,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1212,7 +1309,23 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 358,
+            "line": 424,
+            "itemtype": "method",
+            "name": "lock",
+            "class": "MultiAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 430,
+            "itemtype": "method",
+            "name": "unlock",
+            "class": "MultiAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 436,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1221,7 +1334,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 373,
+            "line": 451,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1233,7 +1346,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 385,
+            "line": 463,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1241,45 +1354,77 @@
                 "type": "Object"
             },
             "class": "MultiAnswerView",
-            "module": "backbone-survey"
-        },
-        {
-            "file": "src/assets/js/views.js",
-            "line": 428,
-            "itemtype": "method",
-            "name": "render",
-            "chainable": 1,
-            "class": "OptionAnswerView",
-            "module": "backbone-survey"
-        },
-        {
-            "file": "src/assets/js/views.js",
-            "line": 448,
-            "itemtype": "method",
-            "name": "answers",
-            "return": {
-                "description": "",
-                "type": "Array"
-            },
-            "class": "OptionAnswerView",
-            "module": "backbone-survey"
-        },
-        {
-            "file": "src/assets/js/views.js",
-            "line": 461,
-            "itemtype": "method",
-            "name": "subAnswer",
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "OptionAnswerView",
             "module": "backbone-survey"
         },
         {
             "file": "src/assets/js/views.js",
             "line": 506,
             "itemtype": "method",
+            "name": "lock",
+            "class": "OptionAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 512,
+            "itemtype": "method",
+            "name": "unlock",
+            "class": "OptionAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 518,
+            "itemtype": "method",
+            "name": "render",
+            "chainable": 1,
+            "class": "OptionAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 538,
+            "itemtype": "method",
+            "name": "answers",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "OptionAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 551,
+            "itemtype": "method",
+            "name": "subAnswer",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "OptionAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 596,
+            "itemtype": "method",
+            "name": "lock",
+            "class": "MatrixAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 602,
+            "itemtype": "method",
+            "name": "unlock",
+            "class": "MatrixAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 608,
+            "itemtype": "method",
             "name": "render",
             "chainable": 1,
             "class": "MatrixAnswerView",
@@ -1287,7 +1432,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 525,
+            "line": 627,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1299,7 +1444,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 543,
+            "line": 645,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1311,61 +1456,61 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 592,
+            "line": 737,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
             "class": "TextCardAnswerView",
-            "module": "backbone-survey"
-        },
-        {
-            "file": "src/assets/js/views.js",
-            "line": 649,
-            "itemtype": "method",
-            "name": "answers",
-            "return": {
-                "description": "",
-                "type": "Array"
-            },
-            "class": "TextCardAnswerView",
-            "module": "backbone-survey"
-        },
-        {
-            "file": "src/assets/js/views.js",
-            "line": 662,
-            "itemtype": "method",
-            "name": "subAnswer",
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "TextCardAnswerView",
-            "module": "backbone-survey"
-        },
-        {
-            "file": "src/assets/js/views.js",
-            "line": 729,
-            "itemtype": "method",
-            "name": "render",
-            "chainable": 1,
-            "class": "ImageCardAnswerView",
-            "module": "backbone-survey"
-        },
-        {
-            "file": "src/assets/js/views.js",
-            "line": 789,
-            "itemtype": "method",
-            "name": "answers",
-            "return": {
-                "description": "",
-                "type": "Array"
-            },
-            "class": "ImageCardAnswerView",
             "module": "backbone-survey"
         },
         {
             "file": "src/assets/js/views.js",
             "line": 804,
+            "itemtype": "method",
+            "name": "answers",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "TextCardAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 817,
+            "itemtype": "method",
+            "name": "subAnswer",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "TextCardAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 898,
+            "itemtype": "method",
+            "name": "render",
+            "chainable": 1,
+            "class": "ImageCardAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 970,
+            "itemtype": "method",
+            "name": "answers",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "ImageCardAnswerView",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/views.js",
+            "line": 985,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {

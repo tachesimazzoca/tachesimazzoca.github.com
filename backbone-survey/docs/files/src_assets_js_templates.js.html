@@ -79,6 +79,8 @@
             
                 <li><a href="../classes/TextCardAnswerView.html">TextCardAnswerView</a></li>
             
+                <li><a href="../classes/TextDialogView.html">TextDialogView</a></li>
+            
                 <li><a href="../classes/ValidationResult.html">ValidationResult</a></li>
             
                 <li><a href="../classes/ValidationResult.Error.html">ValidationResult.Error</a></li>
@@ -225,6 +227,20 @@ var BackboneSurvey = BackboneSurvey || {};
       &#x27;&lt;/table&gt;&#x27;
 
     /**
+     * @property TextDialogView
+     * @type {String}
+     */
+  , TextDialogView:
+      &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog-container&quot;&gt;&#x27; +
+        &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog-inner&quot;&gt;&#x27; +
+          &#x27;&lt;input class=&quot;&lt;%- elPrefix %&gt;dialog-input&quot; type=&quot;text&quot;&#x27; +
+            &#x27; value=&quot;&lt;%- value %&gt;&quot; placeholder=&quot;&lt;%- placeholder %&gt;&quot;&gt;&#x27; +
+          &#x27;&lt;button class=&quot;&lt;%- elPrefix %&gt;dialog-submit&quot;&gt;OK&lt;/button&gt;&#x27; +
+          &#x27;&lt;button class=&quot;&lt;%- elPrefix %&gt;dialog-cancel&quot;&gt;Cancel&lt;/button&gt;&#x27; +
+        &#x27;&lt;/div&gt;&#x27; +
+      &#x27;&lt;/div&gt;&#x27;
+
+    /**
      * See {{#crossLink &quot;TextCardAnswerView&quot;}}{{/crossLink}}
      *
      * @property TextCardAnswerView
@@ -255,8 +271,7 @@ var BackboneSurvey = BackboneSurvey || {};
         &#x27;&lt;/li&gt;&#x27; +
       &#x27;&lt;% }); %&gt;&#x27; +
       &#x27;&lt;/ul&gt;&#x27; +
-      &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog&quot; style=&quot;display: none;&quot;&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog-inner&quot;&gt;&#x27; +
-      &#x27;&lt;input type=&quot;text&quot;&gt;&lt;button&gt;OK&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&#x27;
+      &#x27;&lt;div id=&quot;&lt;%- elPrefix %&gt;dialog-&lt;%- model.id %&gt;&quot;&gt;&lt;/div&gt;&#x27;
 
     /**
      * See {{#crossLink &quot;ImageCardAnswerView&quot;}}{{/crossLink}}
@@ -270,7 +285,7 @@ var BackboneSurvey = BackboneSurvey || {};
         &#x27;&lt;li&gt;&#x27; +
         &#x27;&lt;input type=&quot;hidden&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&gt;&#x27; +
         &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
-          &#x27;&lt;input type=&quot;hidden&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&#x27; +
+          &#x27;&lt;input type=&quot;hidden&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
               &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt;&#x27; +
                 &#x27; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
         &#x27;&lt;% } %&gt;&#x27; +
@@ -286,8 +301,7 @@ var BackboneSurvey = BackboneSurvey || {};
         &#x27;&lt;/li&gt;&#x27; +
       &#x27;&lt;% }); %&gt;&#x27; +
       &#x27;&lt;/ul&gt;&#x27; +
-      &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog&quot; style=&quot;display: none;&quot;&gt;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog-inner&quot;&gt;&#x27; +
-      &#x27;&lt;input type=&quot;text&quot;&gt;&lt;button&gt;OK&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&#x27;
+      &#x27;&lt;div id=&quot;&lt;%- elPrefix %&gt;dialog-&lt;%- model.id %&gt;&quot;&gt;&lt;/div&gt;&#x27;
   };
 })();
 

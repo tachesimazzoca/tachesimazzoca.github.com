@@ -91,6 +91,20 @@ var BackboneSurvey = BackboneSurvey || {};
       '</table>'
 
     /**
+     * @property TextDialogView
+     * @type {String}
+     */
+  , TextDialogView:
+      '<div class="<%- elPrefix %>dialog-container">' +
+        '<div class="<%- elPrefix %>dialog-inner">' +
+          '<input class="<%- elPrefix %>dialog-input" type="text"' +
+            ' value="<%- value %>" placeholder="<%- placeholder %>">' +
+          '<button class="<%- elPrefix %>dialog-submit">OK</button>' +
+          '<button class="<%- elPrefix %>dialog-cancel">Cancel</button>' +
+        '</div>' +
+      '</div>'
+
+    /**
      * See {{#crossLink "TextCardAnswerView"}}{{/crossLink}}
      *
      * @property TextCardAnswerView
@@ -121,8 +135,7 @@ var BackboneSurvey = BackboneSurvey || {};
         '</li>' +
       '<% }); %>' +
       '</ul>' +
-      '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>dialog-inner">' +
-      '<input type="text"><button>OK</button></div></div>'
+      '<div id="<%- elPrefix %>dialog-<%- model.id %>"></div>'
 
     /**
      * See {{#crossLink "ImageCardAnswerView"}}{{/crossLink}}
@@ -136,7 +149,7 @@ var BackboneSurvey = BackboneSurvey || {};
         '<li>' +
         '<input type="hidden" name="answer-<%- model.id %>" value="<%- option.value %>">' +
         '<% if (option.sub) { %>' +
-          '<input type="hidden" name="sub-<%- model.id %>-<%- i %>"' +
+          '<input type="hidden" name="sub-<%- model.id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>"' +
               '<% if (!_.isEmpty(model.subAnswer[option.value])) { %>' +
                 ' value="<%- model.subAnswer[option.value] %>"<% } %>>' +
         '<% } %>' +
@@ -152,7 +165,6 @@ var BackboneSurvey = BackboneSurvey || {};
         '</li>' +
       '<% }); %>' +
       '</ul>' +
-      '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>dialog-inner">' +
-      '<input type="text"><button>OK</button></div></div>'
+      '<div id="<%- elPrefix %>dialog-<%- model.id %>"></div>'
   };
 })();
