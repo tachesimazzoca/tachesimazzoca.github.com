@@ -110,16 +110,18 @@ var BackboneSurvey = BackboneSurvey || {};
             ' value="<%- model.subAnswer[option.value] %>"<% } %>>' +
         '<% } %>' +
         '<label for="<%- elPrefix %>answer-<%- model.id %>-<%- i %>">' +
+        '<span class="<%- elPrefix %>label">' +
         '<% if (!_.isEmpty(model.subAnswer[option.value])) { %>' +
           '<%- model.subAnswer[option.value] %>' +
         '<% } else { %>' +
           '<%= option.label %>' +
         '<% } %>' +
+        '</span>' +
         '</label>' +
         '</li>' +
       '<% }); %>' +
       '</ul>' +
-      '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>sub-dialog-inner">' +
+      '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>dialog-inner">' +
       '<input type="text"><button>OK</button></div></div>'
 
     /**
@@ -139,16 +141,18 @@ var BackboneSurvey = BackboneSurvey || {};
                 ' value="<%- model.subAnswer[option.value] %>"<% } %>>' +
         '<% } %>' +
         '<label <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
+        '<span class="<%- elPrefix %>label">' +
           '<% if (!_.isEmpty(model.subAnswer[option.value])) { %>' +
             '<%- model.subAnswer[option.value] %>' +
           '<% } else { %>' +
             '<%= option.label %>' +
           '<% } %>' +
+        '</span>' +
         '</label>' +
         '</li>' +
       '<% }); %>' +
       '</ul>' +
-      '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>sub-dialog-inner">' +
+      '<div class="<%- elPrefix %>dialog" style="display: none;"><div class="<%- elPrefix %>dialog-inner">' +
       '<input type="text"><button>OK</button></div></div>'
   };
 })();
