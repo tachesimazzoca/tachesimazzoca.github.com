@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>Notations | Haskell</title>
+<link href="/wiki/assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/wiki/assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/wiki/assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="/wiki/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/wiki/assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="pull-left">
+          <a class="btn btn-inverse" href="/wiki"><i class="icon-home icon-white"></i></a>
+        </div>
+        <ul class="nav">
+          <li><a href="/wiki/haskell/index.html">Haskell</a></li>
+        </ul>
+        <form class="navbar-search pull-right" action="/wiki/search.html">
+          <input type="text" class="search-query" name="q" placeholder="Search">
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="/wiki/haskell/index.html">Haskell</a> <span class="divider">/</span></li><li>Notations</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div id="navigation">
+            <div class="toctree well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Table of Contents</li>
+              </ul>
+              <ul class="nav nav-list"><li><a href="/wiki/haskell/install.html">Install</a></li><li><a href="/wiki/haskell/ghc.html">GHC</a></li><li><a href="/wiki/haskell/cabal.html">Cabal</a></li><li><a href="/wiki/haskell/links.html">Links</a></li><li class="active"><a href="/wiki/haskell/notations.html">Notations</a></li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="span9">
+          
+          <div class="btn-group pull-right">
+            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/haskell/notations.md">Raw</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/haskell/notations.md">Blame</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/haskell/notations.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Notations</h1>
+          <div id="toc">
+          </div>
+          <table class="table table-bordered">
+<tr>
+  <th>English</th>
+  <th>日本語</th>
+  <th></th>
+</tr>
+<tr>
+  <td>type constructor</td>
+  <td>
+    <ul>
+      <li>型コンストラクタ</li>
+      <li>型構築子</li>
+    </ul>
+  </td>
+  <td><pre><code>data Maybe a = Nothing | Just a</code></pre></td>
+</tr>
+<tr>
+  <td>data constructor</td>
+  <td>
+    <ul>
+      <li>値コンストラクタ</li>
+      <li>データ構築子</li>
+    </ul>
+  </td>
+  <td><pre><code>a = Just 123
+b = Nothing</code></pre></td>
+</tr>
+<tr>
+  <td>algebraic data type</td>
+  <td>
+    <ul>
+      <li>代数データ型</li>
+      <li>代数的データ型</li>
+    </ul>
+  </td>
+  <td><pre><code>data Tree a
+  = EmptyTree
+  | Leaf a
+  | Node (Tree a) (Tree a)</code></pre></td>
+</tr>
+<tr>
+  <td>type class</td>
+  <td>
+    <ul>
+      <li>型クラス</li>
+    </ul>
+  </td>
+  <td><pre><code>class Monad m where
+  (>>=)  :: m a -> (a -> m b) -> m b
+  (>>) :: m a -> m b -> m b
+  return :: a -> m a
+  fail :: String -> m a</code></pre></td>
+</tr>
+<tr>
+  <td>type (parameter|variable)</td>
+  <td>
+    <ul>
+      <li>型パラメータ</li>
+      <li>型変数</li>
+    </ul>
+  </td>
+  <td><pre><code>head :: [a] -> a</code></pre></td>
+</tr>
+<tr>
+  <td>curried function</td>
+  <td>
+    <ul>
+      <li>カリー化関数</li>
+    </ul>
+  </td>
+  <td><pre><code>min :: Ord a => a -> a -> a</code></pre></td>
+</tr>
+<tr>
+  <td>partial application</td>
+  <td>
+    <ul>
+      <li>部分適用</li>
+    </ul>
+  </td>
+  <td><pre><code>&gt;&gt;&gt; let limitPoint = min 100
+&gt;&gt;&gt; limitPoint 101
+100</code></pre></td>
+</tr>
+<tr>
+  <td>higher-order function</td>
+  <td>
+    <ul>
+      <li>高階関数</li>
+    </ul>
+  </td>
+  <td><pre><code>map :: (a -> b) -> [a] -> [b]
+map _ [] = []
+map f (x:xs) = f x : map f xs</code></pre></td>
+</tr>
+</table>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
