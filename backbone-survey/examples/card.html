@@ -13,51 +13,49 @@
   $(function() {
     var survey = new BackboneSurvey.Survey({
       survey: {
-        title: "カード回答サンプル"
+        title: "CardAnswerView Example"
       , page: 0
       }
     , sections: [
        {
           id: "q1"
         , page: 1
-        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , type: BackboneSurvey.QuestionType.RADIO
         , view: "TextCardAnswerView"
         , contents: {
-            question: "<strong>Q1.</strong> テキストカード設問です"
+            question: "<strong>Q1.</strong> Please select your favorite food."
           }
         , options: [
-            { value: "1", label: "カード1" }
-          , { value: "2", label: "カード2" }
-          , { value: "3", label: "カード3" }
-          , { value: "4", label: "カード4" }
-          , { value: "5", label: "カード5" }
-          , { value: "0", label: "その他", sub: {} }
+            { value: "1", label: "Beef" }
+          , { value: "2", label: "Pork" }
+          , { value: "3", label: "Chiken" }
+          , { value: "0", label: "Other", sub: {} }
           ]
         , singleOptions: ["0"]
         , rules: [
-            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
+            new BackboneSurvey.RequiredValidator({ message: "Please select at least one." })
           ]
         }
       , {
           id: "q2"
         , page: 2
-        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , type: BackboneSurvey.QuestionType.RADIO
         , view: "ImageCardAnswerView"
         , contents: {
-            question: "<strong>Q2.</strong> 画像カード設問です"
+            question: "<strong>Q2.</strong> Please select your favorite color."
           }
         , options: [
-            { value: "1", label: '<img src="images/red.gif">' }
-          , { value: "2", label: '<img src="images/green.gif">' }
-          , { value: "3", label: '<img src="images/blue.gif">' }
-          , { value: "4", label: '<img src="images/yellow.gif">' }
-          , { value: "5", label: '<img src="images/cyan.gif">' }
-          , { value: "6", label: '<img src="images/magenta.gif">' }
-          , { value: "0", label: "その他", sub: {} }
+            { value: "red", label: '<img src="images/red.gif">' }
+          , { value: "green", label: '<img src="images/green.gif">' }
+          , { value: "blue", label: '<img src="images/blue.gif">' }
+          , { value: "yellow", label: '<img src="images/yellow.gif">' }
+          , { value: "cyan", label: '<img src="images/cyan.gif">' }
+          , { value: "magenta", label: '<img src="images/magenta.gif">' }
+          , { value: "0", label: "Other", sub: {} }
           ]
         , singleOptions: ["0"]
         , rules: [
-            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
+            new BackboneSurvey.RequiredValidator({ message: "Please select at least one." })
           ]
         }
       , {
@@ -66,17 +64,15 @@
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , view: "TextCardAnswerView"
         , contents: {
-            question: "<strong>Q3.</strong> テキストカード設問です"
+            question: "<strong>Q3.</strong> The example for one or more questions in a page."
           }
         , options: [
-            { value: "1", label: "カード1" }
-          , { value: "2", label: "カード2" }
-          , { value: "3", label: "カード3" }
-          , { value: "0", label: "その他", sub: { placeholder: "Q3. その他" } }
+            { value: "1", label: "iOS (iPhone/iPad/iPod)" }
+          , { value: "2", label: "Andriod" }
+          , { value: "0", label: "Other", sub: { placeholder: "Q3. Other" } }
           ]
-        , singleOptions: ["0"]
         , rules: [
-            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
+            new BackboneSurvey.RequiredValidator({ message: "Q3. Please select at least one." })
           ]
         }
       , {
@@ -85,17 +81,16 @@
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , view: "ImageCardAnswerView"
         , contents: {
-            question: "<strong>Q4.</strong> 画像カード設問です"
+            question: "<strong>Q4.</strong> The page should lock any other operations while opening the text input."
           }
         , options: [
             { value: "1", label: '<img src="images/red.gif">' }
           , { value: "2", label: '<img src="images/green.gif">' }
           , { value: "3", label: '<img src="images/blue.gif">' }
-          , { value: "0", label: "その他", sub: { placeholder: "Q4. その他" } }
+          , { value: "0", label: "Other", sub: { placeholder: "Q4. Other" } }
           ]
-        , singleOptions: ["0"]
         , rules: [
-            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
+            new BackboneSurvey.RequiredValidator({ message: "Q4. Please select at least one." })
           ]
         }
       , {
@@ -104,17 +99,17 @@
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , view: "CustomTextCardAnswerView"
         , contents: {
-            question: "<strong>Q5.</strong> テキストカード設問 + 独自ダイアログです"
+            question: "<strong>Q5.</strong> CustomTextCardAnswerView with CustumTextDialogView"
           }
         , options: [
-            { value: "1", label: "カード1" }
-          , { value: "2", label: "カード2" }
-          , { value: "3", label: "カード3" }
-          , { value: "0", label: "その他", sub: { placeholder: "Q5. その他" } }
+            { value: "1", label: "Card 1" }
+          , { value: "2", label: "Card 2" }
+          , { value: "3", label: "Card 3" }
+          , { value: "0", label: "Other", sub: { placeholder: "Q5. Other" } }
           ]
         , singleOptions: ["0"]
         , rules: [
-            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
+            new BackboneSurvey.RequiredValidator({ message: "Q5. Please select at least one." })
           ]
         }
       , {
@@ -123,36 +118,35 @@
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , view: "CustomImageCardAnswerView"
         , contents: {
-            question: "<strong>Q4.</strong> 画像カード設問 + 独自ダイアログです"
+            question: "<strong>Q5.</strong> CustomImageCardAnswerView with CustumTextDialogView"
           }
         , options: [
             { value: "1", label: '<img src="images/red.gif">' }
           , { value: "2", label: '<img src="images/green.gif">' }
           , { value: "3", label: '<img src="images/blue.gif">' }
-          , { value: "0", label: "その他", sub: { placeholder: "Q6. その他" } }
+          , { value: "0", label: "Other", sub: { placeholder: "Q6. Other" } }
           ]
         , singleOptions: ["0"]
         , rules: [
-            new BackboneSurvey.RequiredValidator({ message: "選択してください" })
+            new BackboneSurvey.RequiredValidator({ message: "Q6. Please select at least one." })
           ]
         }
       ]
     }, { parse: true });
 
-    // 独自テキストカードUI
     BackboneSurvey.CustomTextCardAnswerView = BackboneSurvey.TextCardAnswerView.extend({
-      $dialog: '#survey-dialog' // ダイアログ描画先 jQuery セレクタ
-    , dialogName: "CustomTextDialogView" // 独自ダイアログ ビュー名
+      $dialog: '#survey-dialog' // jQuery selector for the dialog elements
+    , dialogName: "CustomTextDialogView" // The name of DialogView
     });
-    // 独自画像カードUI
     BackboneSurvey.CustomImageCardAnswerView = BackboneSurvey.ImageCardAnswerView.extend({
       $dialog: '#survey-dialog'
     , dialogName: "CustomTextDialogView"
     });
-    // 独自ダイアログ
+    // See BackboneSurvey.TextDialogView for more details.
     BackboneSurvey.CustomTextDialogView = BackboneSurvey.TextDialogView.extend({
       templateName: "CustomTextDialogView"
     });
+    // See BackboneSurvey.Templates.TextDialogView for more details.
     BackboneSurvey.Templates.CustomTextDialogView =
       '<div style="position: fixed; top: 0; left: 0; right: 0: bottom: 0; width: 100%; height: 100%;' +
         ' background: #000; opacity: 0.8;"></div>' +
@@ -182,6 +176,7 @@
       console.log(["answer", view.isValid()]);
     });
 
+    // Kick things off by calling SurveyView#startPage
     view.startPage();
   });
 })(jQuery);
@@ -193,7 +188,7 @@
     <div id="survey-sections"></div>
     <input type="button" class="survey-next" value="Next">
     <input type="button" class="survey-prev" value="Prev">
-    <p><a class="survey-start" href="javascript:void(0);">はじめからやり直す</a></p>
+    <p><a class="survey-start" href="javascript:void(0);">Retry</a></p>
   </div>
   <div id="survey-dialog"></div>
 </body>

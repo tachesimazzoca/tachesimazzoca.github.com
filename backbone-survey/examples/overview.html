@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>backbone-survey/examples/overview</title>
+<script type="text/javascript" src="../lib/json2/json2.js"></script>
+<script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="../lib/backbone/backbone-min.js"></script>
+<script type="text/javascript" src="../assets/js/backbone-survey.js"></script>
+<script type="text/javascript">
+(function($) {
+  $(function() {
+    var survey = new BackboneSurvey.Survey({
+      survey: {
+        title: "Test Survey"
+      , page: 0
+      }
+    , sections: [
+        {
+          id: "startup"
+        , page: 1
+        , contents: {
+            question: "The example of NoneAnswerView. You can display any contents like a guide page."
+          }
+        }
+      , {
+          id: 'Invalid ID!!(^^;)'
+        , page: 1
+        , contents: {
+            question: "Section:id pattern is [-_0-9a-zA-Z]. Survey#parse should skip loading an invalid section."
+          }
+        }
+      , {
+          id: "q1"
+        , page: 2
+        , type: BackboneSurvey.QuestionType.TEXT
+        , contents: {
+            // Use :contents attribute for any view paramters.
+            // You can refer these values as model.contents.* in Survey.Templates.
+            // Do NOT append your own attributes to :sections root.
+
+            //----------------------------------------------
+            // SectionView
+            //----------------------------------------------
+            // question - The title HTML for the section
+            question: "Q1. The example of TextAnswerView <strong><em>(using HTML tags)</em></strong>"
+
+            //----------------------------------------------
+            // TextAnswerView
+            //----------------------------------------------
+            // prefix - The prefix of the text field
+          , prefix: "<strong>Label：</strong>"
+            // suffix - The suffix of the text field
+          , suffix: "<em>(2..10 characters)</em>"
+            //----------------------------------------------
+          }
+        , rules: [
+            new BackboneSurvey.RequiredValidator({ message: "An answer is required" })
+          , new BackboneSurvey.RangeLengthValidator(
+              { message: "The answer must be between 2..10 characters" , min: 2 , max: 10 })
+          ]
+        }
+      , {
+          id: "q2"
+        , page: 2
+        , type: BackboneSurvey.QuestionType.RADIO
+        , contents: {
+            question: "Q2. The example of RadioAnswerView. To display two or more sections in a page, set a same number for Section :page attr."
+          }
+        , options: [
+            { value: "1", label: "Yes", route: "Y" }
+          , { value: "2", label: "No", route: "N" }
+          , { value: "0", label: "Maybe<em>(using HTML tags)</em>", sub: { placeholder: "Why maybe?" } }
+          ]
+        , rules: [
+            new BackboneSurvey.RequiredValidator({ message: "Please select one" })
+          ]
+        }
+      , {
+          id: "q3"
+        , page: 3
+        , type: BackboneSurvey.QuestionType.MULTI
+        , contents: {
+            question: "Q3. The example of MultiAnswerView."
+          }
+        , fields: [
+            {
+              label: "Sub-Q1. <em>(required)</em>"
+            , rules: [
+                new BackboneSurvey.RequiredValidator({
+                  message: "Sub-Q1. is required"
+                })
+              ]
+            }
+          , {
+              label: "Sub-Q2. (less than 10 characters)"
+            , rules: [
+                new BackboneSurvey.RangeLengthValidator({
+                  message: "Sub-Q2. must be less than 10 characters"
+                , max: 9
+                })
+              ]
+            }
+          , {
+              label: "Sub-Q3. <em>(alphabets only)</em>"
+            , rules: [
+                new BackboneSurvey.PatternValidator({
+                  message: "Sub-Q3. must be [a-zA-Z] characters only"
+                , pattern: "^(?:|[a-zA-Z]+)$"
+                })
+              ]
+            }
+          , { label: "Sub-Q4. <em>(optional)</em>" }
+          ]
+        }
+      , {
+          id: "q4"
+        , page: 4
+        , routeDependencies: [["Y", "N"]] // The section depends "Y" or "N" route in the past answers.
+        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , contents: {
+            question: "Q4. The example of CheckboxAnswerView. (optional)"
+          }
+        , options: [
+            { value: "A", label: 'Sports', route: "ANY", sub: { placeholder: "Your favorite sport ?" } }
+          , { value: "B", label: 'Reading', route: "ANY", sub: { placeholder: "Your favorite book ?" } }
+          , { value: "C", label: 'Movies', route: "ANY", sub: { placeholder: "Your favorite movie ?" } }
+          , { value: "NONE", label: 'None' }
+          , { value: "OTHER", label: "Other", route: "OTHER", sub: {} }
+          ]
+        // The single answers. The other options should be unchecked automatically when these selected.
+        , singleOptions: ["NONE", "OTHER"]
+        // Initial answers. The "NONE" should be unchecked because it conflict the singleOptions.
+        , defaultAnswers: ["B", "C", "NONE"]
+        }
+      , {
+          id: "q5"
+        , page: 5
+        , routeDependencies: ["Y", ["ANY", "OTHER"]] // The section depends Y && (ANY || OTHER) route.
+        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , contents: {
+            question: "Q5. The more example of CheckboxAnswerView. Simply, you can use an array of label strings"
+          }
+        , options: [ "Red", "Green", "Blue" ]
+        , rules: [
+            new BackboneSurvey.RequiredValidator({ message: "Please select one or more" })
+          ]
+        }
+      ]
+    }, { parse: true });
+
+    var view = new BackboneSurvey.SurveyView({
+      model: survey // BackboneSurvey.Survey
+    , el: $("#survey-app") // jQuery object for the Survey App
+    });
+
+    var lastPage = survey.sections.lastPage();
+    survey.on("change", function() {
+      console.log(survey.get("page") + " of " + lastPage);
+    });
+
+    if (false) {
+      view.on("start", function() { survey.startPage() } );
+      view.on("prev", function() { survey.prevPage() } );
+      view.on("next", function() { survey.nextPage() } );
+
+    } else {
+      // Use browser history
+      var Workspace = Backbone.Router.extend({
+        routes: {
+          "page/:n": "page"
+        }
+
+      , prevPages: []
+      , nextPages: []
+
+      , start: function() {
+        this.prevPages = [survey.get("page")];
+        this.nextPages = [];
+        this.navigate("page/" + survey.get("page"));
+      }
+
+      , next: function() {
+        this.prevPages.push(survey.get("page"));
+        this.nextPages = [];
+        this.navigate("page/" + survey.get("page"));
+      }
+
+      , completed: function() {
+        this.prevPages = [];
+        this.nextPages = [];
+        this.navigate("completed");
+      }
+
+      , page: function(n) {
+          if (this.prevPages.length > 1 && this.prevPages[this.prevPages.length - 2] == n) {
+            this.nextPages.push(this.prevPages.pop());
+            survey.prevPage();
+          } else if (this.nextPages.length > 0 && this.nextPages[this.nextPages.length - 1] == n) {
+            this.prevPages.push(this.nextPages.pop());
+            survey.nextPage();
+          }
+          console.log([n, this.prevPages, this.nextPages]);
+        }
+      });
+
+      var router = new Workspace();
+      view.on("start", function() {
+        survey.startPage();
+        router.start();
+      });
+      view.on("prev", function() {
+        history.back();
+      });
+      view.on("next", function() {
+        var p = survey.get("page");
+        survey.nextPage();
+        if (p != survey.get("page")) {
+          router.next();
+        }
+      });
+      view.on("completed", function() {
+        console.log(["completed", survey.answers()]);
+        router.completed();
+      });
+
+      Backbone.history.start();
+    }
+
+    // SurveyView fires the "answer" events for each operation.
+    view.on("answer", function() {
+      console.log(["answer", view.isValid()]);
+    });
+
+    // Animation Setting (optional)
+    view.beforeRender = function($el) {
+      // This function is called before rendering the next page.
+      // To render the next page, you should call SurveyView#render() manually.
+      $el.fadeOut("slow", function() { view.render(); });
+    };
+    view.afterRender = function($el) {
+      // This function is called after rendering the next page.
+      // To start any operation, you should set Survey#rendered = true.
+      console.log(["afterRender", view.isValid()]);
+      $el.fadeIn("slow", function() { view.rendered = true; });
+    };
+
+    // Kick things off by calling SurveyView#startPage
+    view.startPage();
+  });
+})(jQuery);
+</script>
+</head>
+<body>
+  <div id="survey-app">
+    <h1 class="survey-title"></h1><!-- The element of Survey:title -->
+    <div id="survey-sections"></div><!-- The element of the sections (required) -->
+    <input type="button" class="survey-next" value="Next"><!-- Move to next page (required) -->
+    <input type="button" class="survey-prev" value="Prev"><!-- Move to prev page (optional) -->
+    <p><a class="survey-start" href="javascript:void(0);">Retry</a></p><!-- Move to first page (optional) -->
+  </div>
+</body>
+</html>

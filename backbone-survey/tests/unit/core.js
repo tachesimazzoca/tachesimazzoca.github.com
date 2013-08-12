@@ -2,6 +2,6 @@
   module("backbone-survey core");
 
   test("VERSION", function() {
-    deepEqual(app.VERSION, "0.1.2");
+    deepEqual(app.VERSION, "0.1.3");
   });
 })(jQuery, BackboneSurvey);

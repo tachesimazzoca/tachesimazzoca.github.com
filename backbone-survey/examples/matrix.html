@@ -13,7 +13,7 @@
   $(function() {
     var survey = new BackboneSurvey.Survey({
       survey: {
-        title: "マトリクス回答サンプル"
+        title: "MatrixAnswerView Example"
       , page: 0
       }
     , sections: [
@@ -22,40 +22,40 @@
         , page: 1
         , type: BackboneSurvey.QuestionType.MATRIX
         , contents: {
-            question: "<strong>Q1.</strong> 単一マトリクス設問です。"
+            question: "<strong>Q1.</strong> Please rate your satisfaction with each product."
           }
         , fields: [
             {
-              label: "サブ設問1"
+              label: "TV"
             , rules: [
                 new BackboneSurvey.RequiredValidator({
-                  message: "サブ設問1を入力してください"
+                  message: "TV is Required"
                 })
               ]
             }
           , {
-              label: "サブ設問2"
+              label: "Desktop Computer"
             , rules: [
                 new BackboneSurvey.RequiredValidator({
-                  message: "サブ設問2を入力してください"
+                  message: "Desktop Computer is Required"
                 })
               ]
             }
           , {
-              label: "サブ設問3"
+              label: "Mobile Device"
             , rules: [
                 new BackboneSurvey.RequiredValidator({
-                  message: "サブ設問3を入力してください"
+                  message: "Mobile Device is Required"
                 })
               ]
             }
           ]
         , options: [
-            { value: "2", label: "好き" }
-          , { value: "1", label: "やや好き" }
-          , { value: "0", label: "普通" }
-          , { value: "-1", label: "やや嫌い" }
-          , { value: "-2", label: "嫌い" }
+            { value: "1", label: "Not at all satisfied" }
+          , { value: "2", label: "Slightly satisfied" }
+          , { value: "3", label: "Moderately satisfied" }
+          , { value: "4", label: "Very satisfied" }
+          , { value: "5", label: "Completely satisfied" }
           ]
         }
       , {
@@ -63,41 +63,43 @@
         , page: 2
         , type: BackboneSurvey.QuestionType.MATRIX_MULTI
         , contents: {
-            question: "<strong>Q2.</strong> 複数マトリクス設問です。"
+            question: "<strong>Q2.</strong> Please select your weekly schedule for the following."
           }
         , fields: [
             {
-              label: "サブ設問1"
+              label: "Eating out"
             , rules: []
             }
           , {
-              label: "サブ設問2"
+              label: "Drinking (Alcohol)"
             , rules: []
             }
           , {
-              label: "サブ設問3"
+              label: "Training"
             , rules: [
                 new BackboneSurvey.RequiredValidator({
-                  message: "サブ設問3を入力してください"
+                  message: "Training is required"
                 })
               ]
             }
           ]
         , options: [
-            { value: "1", label: "選択肢1" }
-          , { value: "2", label: "選択肢2" }
-          , { value: "3", label: "選択肢3" }
-          , { value: "4", label: "選択肢4" }
-          , { value: "0", label: "特になし" }
+            { value: "MON", label: "Monday" }
+          , { value: "TUE", label: "Tuesday" }
+          , { value: "WED", label: "Wednesday" }
+          , { value: "THU", label: "Thursday" }
+          , { value: "FRI", label: "Friday" }
+          , { value: "NONE", label: "None" }
           ]
-        , singleOptions: ["0"]
+        , singleOptions: ["NONE"]
         }
       ]
     }, { parse: true });
 
+    // SurveyView
     var view = new BackboneSurvey.SurveyView({
-      model: survey // BackboneSurvey.Survey
-    , el: $("#survey-app") // アンケートを表示する jQuery オブジェクト
+      model: survey
+    , el: $("#survey-app")
     });
 
     view.on("start", function() { survey.startPage() } );
@@ -111,6 +113,7 @@
       console.log(["answer", view.isValid()]);
     });
 
+    // Kick things off by calling SurveyView#startPage
     view.startPage();
   });
 })(jQuery);
@@ -122,7 +125,7 @@
     <div id="survey-sections"></div>
     <input type="button" class="survey-next" value="Next">
     <input type="button" class="survey-prev" value="Prev">
-    <p><a class="survey-start" href="javascript:void(0);">はじめからやり直す</a></p>
+    <p><a class="survey-start" href="javascript:void(0);">Retry</a></p>
   </div>
 </body>
 </html>

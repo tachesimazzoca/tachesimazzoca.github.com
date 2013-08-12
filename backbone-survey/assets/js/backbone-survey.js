@@ -4,7 +4,7 @@
 var BackboneSurvey = BackboneSurvey || {};
 
 (function() {
-  BackboneSurvey.VERSION = "0.1.2";
+  BackboneSurvey.VERSION = "0.1.3";
 
   /**
    * Functions to set up the prototype chain by saving
