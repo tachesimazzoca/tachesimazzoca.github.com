@@ -45,8 +45,6 @@
             
                 <li><a href="../classes/Extendable.html">Extendable</a></li>
             
-                <li><a href="../classes/ImageCardAnswerView.html">ImageCardAnswerView</a></li>
-            
                 <li><a href="../classes/MatrixAnswerView.html">MatrixAnswerView</a></li>
             
                 <li><a href="../classes/MultiAnswerView.html">MultiAnswerView</a></li>
@@ -76,10 +74,6 @@
                 <li><a href="../classes/Templates.html">Templates</a></li>
             
                 <li><a href="../classes/TextAnswerView.html">TextAnswerView</a></li>
-            
-                <li><a href="../classes/TextCardAnswerView.html">TextCardAnswerView</a></li>
-            
-                <li><a href="../classes/TextDialogView.html">TextDialogView</a></li>
             
                 <li><a href="../classes/ValidationResult.html">ValidationResult</a></li>
             
@@ -225,83 +219,6 @@ var BackboneSurvey = BackboneSurvey || {};
         &#x27;&lt;/tr&gt;&#x27; +
       &#x27;&lt;% }); %&gt;&#x27; +
       &#x27;&lt;/table&gt;&#x27;
-
-    /**
-     * @property TextDialogView
-     * @type {String}
-     */
-  , TextDialogView:
-      &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog-container&quot;&gt;&#x27; +
-        &#x27;&lt;div class=&quot;&lt;%- elPrefix %&gt;dialog-inner&quot;&gt;&#x27; +
-          &#x27;&lt;input class=&quot;&lt;%- elPrefix %&gt;dialog-input&quot; type=&quot;text&quot;&#x27; +
-            &#x27; value=&quot;&lt;%- value %&gt;&quot; placeholder=&quot;&lt;%- placeholder %&gt;&quot;&gt;&#x27; +
-          &#x27;&lt;button class=&quot;&lt;%- elPrefix %&gt;dialog-submit&quot;&gt;OK&lt;/button&gt;&#x27; +
-          &#x27;&lt;button class=&quot;&lt;%- elPrefix %&gt;dialog-cancel&quot;&gt;Cancel&lt;/button&gt;&#x27; +
-        &#x27;&lt;/div&gt;&#x27; +
-      &#x27;&lt;/div&gt;&#x27;
-
-    /**
-     * See {{#crossLink &quot;TextCardAnswerView&quot;}}{{/crossLink}}
-     *
-     * @property TextCardAnswerView
-     * @type {String}
-     */
-  , TextCardAnswerView:
-      &#x27;&lt;ul&gt;&#x27; +
-      &#x27;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
-        &#x27;&lt;li&gt;&#x27; +
-        &#x27;&lt;input type=&quot;&lt;%- multiple ? &quot;checkbox&quot; :  &quot;radio&quot; %&gt;&quot;&#x27; +
-        &#x27; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&#x27; +
-        &#x27; id=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&#x27; +
-        &#x27;&lt;% if (_.contains(model.answers, option.value)) { %&gt; checked=&quot;checked&quot;&lt;% } %&gt;&gt;&#x27; +
-        &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
-          &#x27;&lt;input type=&quot;hidden&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
-          &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt;&#x27; +
-            &#x27; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
-        &#x27;&lt;% } %&gt;&#x27; +
-        &#x27;&lt;label for=&quot;&lt;%- elPrefix %&gt;answer-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot;&gt;&#x27; +
-        &#x27;&lt;span class=&quot;&lt;%- elPrefix %&gt;label&quot;&gt;&#x27; +
-        &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt;&#x27; +
-          &#x27;&lt;%- model.subAnswer[option.value] %&gt;&#x27; +
-        &#x27;&lt;% } else { %&gt;&#x27; +
-          &#x27;&lt;%= option.label %&gt;&#x27; +
-        &#x27;&lt;% } %&gt;&#x27; +
-        &#x27;&lt;/span&gt;&#x27; +
-        &#x27;&lt;/label&gt;&#x27; +
-        &#x27;&lt;/li&gt;&#x27; +
-      &#x27;&lt;% }); %&gt;&#x27; +
-      &#x27;&lt;/ul&gt;&#x27; +
-      &#x27;&lt;div id=&quot;&lt;%- elPrefix %&gt;dialog-&lt;%- model.id %&gt;&quot;&gt;&lt;/div&gt;&#x27;
-
-    /**
-     * See {{#crossLink &quot;ImageCardAnswerView&quot;}}{{/crossLink}}
-     *
-     * @property ImageCardAnswerView
-     * @type {String}
-     */
-  , ImageCardAnswerView:
-      &#x27;&lt;ul&gt;&#x27; +
-      &#x27;&lt;% _.each(model.options, function(option, i) { %&gt;&#x27; +
-        &#x27;&lt;li&gt;&#x27; +
-        &#x27;&lt;input type=&quot;hidden&quot; name=&quot;answer-&lt;%- model.id %&gt;&quot; value=&quot;&lt;%- option.value %&gt;&quot;&gt;&#x27; +
-        &#x27;&lt;% if (option.sub) { %&gt;&#x27; +
-          &#x27;&lt;input type=&quot;hidden&quot; name=&quot;sub-&lt;%- model.id %&gt;-&lt;%- i %&gt;&quot; placeholder=&quot;&lt;%- option.sub.placeholder %&gt;&quot;&#x27; +
-              &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt;&#x27; +
-                &#x27; value=&quot;&lt;%- model.subAnswer[option.value] %&gt;&quot;&lt;% } %&gt;&gt;&#x27; +
-        &#x27;&lt;% } %&gt;&#x27; +
-        &#x27;&lt;label &lt;% if (_.contains(model.answers, option.value)) { %&gt; class=&quot;survey-selected&quot;&lt;% } %&gt;&gt;&#x27; +
-        &#x27;&lt;span class=&quot;&lt;%- elPrefix %&gt;label&quot;&gt;&#x27; +
-          &#x27;&lt;% if (!_.isEmpty(model.subAnswer[option.value])) { %&gt;&#x27; +
-            &#x27;&lt;%- model.subAnswer[option.value] %&gt;&#x27; +
-          &#x27;&lt;% } else { %&gt;&#x27; +
-            &#x27;&lt;%= option.label %&gt;&#x27; +
-          &#x27;&lt;% } %&gt;&#x27; +
-        &#x27;&lt;/span&gt;&#x27; +
-        &#x27;&lt;/label&gt;&#x27; +
-        &#x27;&lt;/li&gt;&#x27; +
-      &#x27;&lt;% }); %&gt;&#x27; +
-      &#x27;&lt;/ul&gt;&#x27; +
-      &#x27;&lt;div id=&quot;&lt;%- elPrefix %&gt;dialog-&lt;%- model.id %&gt;&quot;&gt;&lt;/div&gt;&#x27;
   };
 })();
 

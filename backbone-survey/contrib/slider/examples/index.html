@@ -2,16 +2,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>backbone-survey/examples/slider</title>
-<script type="text/javascript" src="../lib/json2/json2.js"></script>
-<script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="../lib/underscore/underscore-min.js"></script>
-<script type="text/javascript" src="../lib/backbone/backbone-min.js"></script>
-<script type="text/javascript" src="../assets/js/backbone-survey.js"></script>
+<title>backbone-survey/contrib/slider</title>
+<script type="text/javascript" src="../../../lib/json2/json2.js"></script>
+<script type="text/javascript" src="../../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../../lib/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="../../../lib/backbone/backbone-min.js"></script>
+<script type="text/javascript" src="../../../assets/js/backbone-survey.js"></script>
 <!--jQuery UI Slider-->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <!--/jQuery UI Slider-->
+<script type="text/javascript" src="../js/backbone-survey-slider.js"></script>
 <script type="text/javascript">
 (function($) {
   $(function() {
@@ -42,51 +43,6 @@
         }
       ]
     }, { parse: true });
-
-    // SliderAnswerView
-    BackboneSurvey.Templates.SliderAnswerView = '<div id="<%- elPrefix %>slider"></div>' +
-      '<%- model.contents.prefix %>' +
-      '<input type="text" name="answer-<%- model.id %>" disabled="disabled">' +
-      '<%- model.contents.suffix %>';
-    BackboneSurvey.SliderAnswerView = Backbone.View.extend({
-      templateName: "SliderAnswerView"
-
-    , initialize: function() {
-        this.elPrefix = this.elPrefix || "survey-";
-      }
-
-    , render: function() {
-        this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])({
-          elPrefix: this.elPrefix
-        , model: this.model.toJSON()
-        }));
-        var me = this;
-        var contents = this.model.get("contents") || {};
-        var initValue = contents.range[0];
-        var $input = this.$('input[name="answer-' + this.model.id + '"]');
-        $input.val(initValue);
-        this.$('#' + this.elPrefix + 'slider').slider({
-          value: initValue
-        , min: contents.range[0]
-        , max: contents.range[1]
-        , step: 1
-        , slide: function(e, ui) {
-            $input.val(ui.value);
-            me.trigger("answer");
-          }
-        });
-        return this;
-      }
-
-    , answers: function() {
-        var v = this.$('[name="answer-' + this.model.id + '"]').val();
-        return (_.isEmpty(v)) ? [""] : [v];
-      }
-
-    , subAnswer: function() {
-        return {};
-      }
-    });
 
     // SurveyView
     var view = new BackboneSurvey.SurveyView({

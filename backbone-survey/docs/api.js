@@ -3,7 +3,6 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "AnswerType",
         "Extendable",
-        "ImageCardAnswerView",
         "MatrixAnswerView",
         "MultiAnswerView",
         "NonAnswerView",
@@ -19,8 +18,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "SurveyView",
         "Templates",
         "TextAnswerView",
-        "TextCardAnswerView",
-        "TextDialogView",
         "ValidationResult",
         "ValidationResult.Error",
         "ValidationResult.OK",
