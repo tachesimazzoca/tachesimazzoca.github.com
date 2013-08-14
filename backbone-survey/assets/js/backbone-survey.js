@@ -1685,7 +1685,7 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , _updateSubAnswer: function($selected, sub) {
       $selected.find('input[name^="sub-"]').val(sub);
-      $label = $selected.find('label > .' + this.elPrefix + 'label');
+      $label = $selected.find('.' + this.elPrefix + 'label');
       if (_.isEmpty(sub)) {
         var v = $selected.find('input[name^="answer-"]').val();
         var option = _.find(this.model.get("options"), function(o) { return o.value == v; });
@@ -1846,7 +1846,7 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , _updateSubAnswer: function($selected, sub) {
       $selected.find('input[name^="sub-"]').val(sub);
-      $label = $selected.find('label > .' + this.elPrefix + 'label');
+      $label = $selected.find('.' + this.elPrefix + 'label');
       if (_.isEmpty(sub)) {
         var v = $selected.find('input[name^="answer-"]').val();
         var option = _.find(this.model.get("options"), function(o) { return o.value == v; });
