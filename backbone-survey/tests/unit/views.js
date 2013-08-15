@@ -54,9 +54,9 @@
     view.render();
     deepEqual(view.$el.html(),
       '<ul>' +
-      '<li><input type="radio" id="survey-answer-q2-0" name="answer-q2" value="A">' +
+      '<li><input type="radio" id="survey-answer-q2-0" name="answer-q2" data-answer-index="0">' +
       '<label for="survey-answer-q2-0">回答A</label></li>' +
-      '<li><input type="radio" id="survey-answer-q2-1" name="answer-q2" value="B" checked="checked">' +
+      '<li><input type="radio" id="survey-answer-q2-1" name="answer-q2" data-answer-index="1" checked="checked">' +
       '<label for="survey-answer-q2-1">回答B</label></li>' +
       '</ul>'
     );
@@ -83,15 +83,15 @@
     view.render();
     deepEqual(view.$el.html(),
       '<ul>' +
-      '<li><input type="checkbox" id="survey-answer-q3-0" name="answer-q3" value="1" checked="checked">' +
+      '<li><input type="checkbox" id="survey-answer-q3-0" name="answer-q3" data-answer-index="0" checked="checked">' +
       '<label for="survey-answer-q3-0">回答1</label></li>' +
-      '<li><input type="checkbox" id="survey-answer-q3-1" name="answer-q3" value="2">' +
+      '<li><input type="checkbox" id="survey-answer-q3-1" name="answer-q3" data-answer-index="1">' +
       '<label for="survey-answer-q3-1">回答2</label></li>' +
-      '<li><input type="checkbox" id="survey-answer-q3-2" name="answer-q3" value="3" checked="checked">' +
+      '<li><input type="checkbox" id="survey-answer-q3-2" name="answer-q3" data-answer-index="2" checked="checked">' +
       '<label for="survey-answer-q3-2">回答3</label></li>' +
-      '<li><input type="checkbox" id="survey-answer-q3-3" name="answer-q3" value="OTHER">' +
+      '<li><input type="checkbox" id="survey-answer-q3-3" name="answer-q3" data-answer-index="3">' +
       '<label for="survey-answer-q3-3">その他</label></li>' +
-      '<li><input type="checkbox" id="survey-answer-q3-4" name="answer-q3" value="NONE">' +
+      '<li><input type="checkbox" id="survey-answer-q3-4" name="answer-q3" data-answer-index="4">' +
       '<label for="survey-answer-q3-4">特になし</label></li>' +
       '</ul>'
     );

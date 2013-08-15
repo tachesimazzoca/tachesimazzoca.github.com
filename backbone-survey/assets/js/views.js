@@ -483,23 +483,29 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
   , _normalize: function($changed) {
-      var so = this.model.get("singleOptions");
+      var me = this;
+      var singleOptions = this.model.get("singleOptions");
+      var options = this.model.get("options");
       if ($changed.prop("checked")) {
-        var v = $changed.val();
-        var f = _.contains(so, v) ?
-          // uncheck other options
-          function() { return this.value != v; } :
-          // uncheck single options
-          function() { return _.contains(so, this.value); };
-        this.$('input[name^="answer-"]').filter(f)
+        var idx = parseInt($changed.attr("data-answer-index"), 10);
+        var f = _.contains(singleOptions, options[idx].value) ?
+          function() {
+            // Uncheck other options.
+            var i = parseInt($(this).attr("data-answer-index"), 10);
+            return idx != i;
+          } :
+          function() {
+            // Uncheck single options.
+            var i = parseInt($(this).attr("data-answer-index"), 10);
+            return _.contains(singleOptions, options[i].value);
+          };
+        this.$('[data-answer-index]').filter(f)
             .prop("checked", false).removeAttr("checked");
       }
-      var ans = this.answers();
-      var ovs = _.pluck(this.model.get("options"), "value");
-      var me = this;
-      _.each(ovs, function(ov, i) {
+      var answers = this.answers();
+      _.each(options, function(opt, i) {
         me.$('input[name^="sub-' + me.model.id + '-' + i + '"]')
-            .prop("disabled", !_.contains(ans, ov));
+            .prop("disabled", !_.contains(answers, opt.value));
       });
     }
 
@@ -525,8 +531,26 @@ var BackboneSurvey = BackboneSurvey || {};
       , multiple: this.multiple
       , model: this.model.toJSON()
       }));
+
       var me = this;
-      this.$('input[name^="answer-"]') .each(function() {
+
+      var answers = this.model.get("answers") || [];
+      var options = this.model.get("options") || [];
+      var subAnswer = this.model.get("subAnswer") || {};
+      _.each(options, function(opt, i) {
+        var $selected = me.$('[data-answer-index="' + i + '"]');
+        if (_.contains(answers, opt.value)) {
+          $selected.prop("checked", true).attr("checked", "checked");
+        } else {
+          $selected.prop("checked", false).removeAttr("checked");
+        }
+        if (opt.sub) {
+          var $subInput = me.$('input[name="sub-' + me.model.id + '-' + i + '"]');
+          $subInput.attr("value", subAnswer[opt.value] || "");
+        }
+      });
+
+      this.$('input[name^="answer-"]').each(function() {
         me._normalize($(this));
       }).on("change", function() {
         me._normalize($(this));
@@ -541,9 +565,12 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , answers: function() {
       var vs = [];
-      this.$('[name="answer-' + this.model.id + '"]').each(function() {
+      var options = this.model.get("options") || [];
+      this.$('input[name="answer-' + this.model.id + '"]').each(function() {
         var $this = $(this);
-        if ($this.prop("checked")) vs.push($this.val());
+        if (!$this.prop("checked")) return;
+        var idx = parseInt($this.attr("data-answer-index"), 10);
+        vs.push(options[idx].value);
       });
       return vs;
     }
@@ -554,12 +581,16 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , subAnswer: function() {
       var sub = {};
-      var opts = this.model.get("options");
+      var options = this.model.get("options");
+      var answers = this.answers();
       var me = this;
-      _.each(opts, function(opt, i) {
+      _.each(options, function(opt, i) {
         if (!opt.sub) return;
-        var $ov = me.$('input[name^="sub-' + me.model.id + '-' + i + '"]');
-        if (!$ov.prop("disabled")) sub[opt.value] = $ov.val();
+        if (!_.contains(answers, opt.value)) return;
+        var $ov = me.$('input[name="sub-' + me.model.id + '-' + i + '"]');
+        if (!_.isEmpty($ov.val())) {
+          sub[opt.value] = $ov.val();
+        }
       });
       return sub;
     }
@@ -580,15 +611,22 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
   , _normalize: function($changed) {
-      var so = this.model.get("singleOptions");
+      var singleOptions = this.model.get("singleOptions");
+      var options = this.model.get("options");
       if ($changed.prop("checked")) {
-        var v = $changed.val();
-        var f = _.contains(so, v) ?
-          // uncheck other options
-          function() { return this.value != v; } :
-          // uncheck single options
-          function() { return _.contains(so, this.value); };
-        this.$('input[name^="' + $changed.attr("name") + '"]').filter(f)
+        var idx = parseInt($changed.attr("data-answer-index"), 10);
+        var f = _.contains(singleOptions, options[idx].value) ?
+          function() {
+            // Uncheck other options.
+            var i = parseInt($(this).attr("data-answer-index"), 10);
+            return idx != i;
+          } :
+          function() {
+            // Uncheck single options.
+            var i = parseInt($(this).attr("data-answer-index"), 10);
+            return _.contains(singleOptions, options[i].value);
+          };
+        this.$('input[name="' + $changed.attr("name") + '"]').filter(f)
             .prop("checked", false).removeAttr("checked");
       }
     }
@@ -617,6 +655,23 @@ var BackboneSurvey = BackboneSurvey || {};
       }));
 
       var me = this;
+      var fields = this.model.get("fields");
+      var answers = this.model.get("answers") || [];
+      var options = this.model.get("options") || [];
+      _.each(fields, function(fld, j) {
+        answers[j] = answers[j] || [];
+        _.each(options, function(opt, i) {
+          var $selected = me.$(
+            '[name="answer-' + me.model.id + '-' + j + '"]' +
+            '[data-answer-index="' + i + '"]');
+          if (_.contains(answers[j], opt.value)) {
+            $selected.prop("checked", true).attr("checked", "checked");
+          } else {
+            $selected.prop("checked", false).removeAttr("checked");
+          }
+        });
+      });
+
       this.$('input[name^="answer-"]').on("change", function() {
         me._normalize($(this));
         me.trigger("answer");
@@ -632,11 +687,14 @@ var BackboneSurvey = BackboneSurvey || {};
       var vs = [];
       var me = this;
       var fields = this.model.get("fields");
+      var options = this.model.get("options") || [];
       _.each(fields, function(field, i) {
         vs[i] = [];
-        this.$('input[name^="answer-' + me.model.id + '-' + i + '"]').each(function() {
+        this.$('input[name="answer-' + me.model.id + '-' + i + '"]').each(function() {
           var $this = $(this);
-          if ($this.prop("checked")) vs[i].push($this.val());
+          if (!$this.prop("checked")) return;
+          var idx = parseInt($this.attr("data-answer-index"), 10);
+          vs[i].push(options[idx].value);
         });
       });
       return vs;

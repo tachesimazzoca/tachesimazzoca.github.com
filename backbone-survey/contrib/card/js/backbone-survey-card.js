@@ -375,9 +375,9 @@ var BackboneSurvey = BackboneSurvey || {};
       _.each(options, function(opt, i) {
         var $selected = me.$('[data-answer-index="' + i + '"]');
         if (_.contains(answers, opt.value)) {
-          $selected.prop("checked", true);
+          $selected.prop("checked", true).attr("checked", "checked");
         } else {
-          $selected.prop("checked", false).removeAttr("chekced");
+          $selected.prop("checked", false).removeAttr("checked");
         }
         var $label = me.$('label[for="' + $selected.attr("id") + '"] .' + me.elPrefix + 'label');
         if (me.useDialog() && !_.isEmpty(subAnswer[opt.value])) {

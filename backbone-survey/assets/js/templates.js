@@ -49,15 +49,13 @@ var BackboneSurvey = BackboneSurvey || {};
       '<ul>' +
       '<% _.each(model.options, function(option, i) { %>' +
         '<li>' +
-        '<input type="<%- multiple ? "checkbox" :  "radio" %>"' +
+        '<input type="<%- multiple ? "checkbox" : "radio" %>"' +
         ' id="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"' +
-        ' name="answer-<%- model.id %>" value="<%- option.value %>"' +
-        ' value="<%- option.value %>"' +
-        '<% if (_.contains(model.answers, option.value)) { %> checked="checked"<% } %>>' +
+        ' name="answer-<%- model.id %>"' +
+        ' data-answer-index="<%- i %>">' +
         '<label for="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"><%= option.label %></label>' +
         '<% if (option.sub) { %>' +
-        ' <input type="text" name="sub-<%- model.id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>"' +
-        '<% if (!_.isEmpty(model.subAnswer[option.value])) { %> value="<%- model.subAnswer[option.value] %>"<% } %>>' +
+        ' <input type="text" name="sub-<%- model.id %>-<%- i %>" placeholder="<%- option.sub.placeholder %>">' +
         '<% } %>' +
         '</li>' +
       '<% }); %>' +
@@ -76,14 +74,14 @@ var BackboneSurvey = BackboneSurvey || {};
         '<td><%- option.label %></td>' +
       '<% }); %>' +
       '</tr>' +
-      '<% _.each(model.fields, function(field, i) { %>' +
+      '<% _.each(model.fields, function(field, j) { %>' +
         '<tr>' +
         '<td><%- field.label %></td>' +
-        '<% _.each(model.options, function(option) { %>' +
+        '<% _.each(model.options, function(option, i) { %>' +
           '<td>' +
           '<input type="<%- multiple? "checkbox" : "radio" %>"' +
-          ' name="answer-<%- model.id %>-<%- i %>" value="<%- option.value %>"' +
-          '<% if (_.contains(model.answers[i], option.value)) { %> checked="checked"<% } %>>' +
+          ' name="answer-<%- model.id %>-<%- j %>"' +
+          ' data-answer-index="<%- i %>">' +
           '</td>' +
         '<% }); %>' +
         '</tr>' +

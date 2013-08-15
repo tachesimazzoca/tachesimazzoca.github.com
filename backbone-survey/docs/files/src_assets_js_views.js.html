@@ -613,23 +613,29 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
   , _normalize: function($changed) {
-      var so = this.model.get(&quot;singleOptions&quot;);
+      var me = this;
+      var singleOptions = this.model.get(&quot;singleOptions&quot;);
+      var options = this.model.get(&quot;options&quot;);
       if ($changed.prop(&quot;checked&quot;)) {
-        var v = $changed.val();
-        var f = _.contains(so, v) ?
-          // uncheck other options
-          function() { return this.value != v; } :
-          // uncheck single options
-          function() { return _.contains(so, this.value); };
-        this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).filter(f)
+        var idx = parseInt($changed.attr(&quot;data-answer-index&quot;), 10);
+        var f = _.contains(singleOptions, options[idx].value) ?
+          function() {
+            // Uncheck other options.
+            var i = parseInt($(this).attr(&quot;data-answer-index&quot;), 10);
+            return idx != i;
+          } :
+          function() {
+            // Uncheck single options.
+            var i = parseInt($(this).attr(&quot;data-answer-index&quot;), 10);
+            return _.contains(singleOptions, options[i].value);
+          };
+        this.$(&#x27;[data-answer-index]&#x27;).filter(f)
             .prop(&quot;checked&quot;, false).removeAttr(&quot;checked&quot;);
       }
-      var ans = this.answers();
-      var ovs = _.pluck(this.model.get(&quot;options&quot;), &quot;value&quot;);
-      var me = this;
-      _.each(ovs, function(ov, i) {
+      var answers = this.answers();
+      _.each(options, function(opt, i) {
         me.$(&#x27;input[name^=&quot;sub-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;)
-            .prop(&quot;disabled&quot;, !_.contains(ans, ov));
+            .prop(&quot;disabled&quot;, !_.contains(answers, opt.value));
       });
     }
 
@@ -655,8 +661,26 @@ var BackboneSurvey = BackboneSurvey || {};
       , multiple: this.multiple
       , model: this.model.toJSON()
       }));
+
       var me = this;
-      this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;) .each(function() {
+
+      var answers = this.model.get(&quot;answers&quot;) || [];
+      var options = this.model.get(&quot;options&quot;) || [];
+      var subAnswer = this.model.get(&quot;subAnswer&quot;) || {};
+      _.each(options, function(opt, i) {
+        var $selected = me.$(&#x27;[data-answer-index=&quot;&#x27; + i + &#x27;&quot;]&#x27;);
+        if (_.contains(answers, opt.value)) {
+          $selected.prop(&quot;checked&quot;, true).attr(&quot;checked&quot;, &quot;checked&quot;);
+        } else {
+          $selected.prop(&quot;checked&quot;, false).removeAttr(&quot;checked&quot;);
+        }
+        if (opt.sub) {
+          var $subInput = me.$(&#x27;input[name=&quot;sub-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;);
+          $subInput.attr(&quot;value&quot;, subAnswer[opt.value] || &quot;&quot;);
+        }
+      });
+
+      this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).each(function() {
         me._normalize($(this));
       }).on(&quot;change&quot;, function() {
         me._normalize($(this));
@@ -671,9 +695,12 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , answers: function() {
       var vs = [];
-      this.$(&#x27;[name=&quot;answer-&#x27; + this.model.id + &#x27;&quot;]&#x27;).each(function() {
+      var options = this.model.get(&quot;options&quot;) || [];
+      this.$(&#x27;input[name=&quot;answer-&#x27; + this.model.id + &#x27;&quot;]&#x27;).each(function() {
         var $this = $(this);
-        if ($this.prop(&quot;checked&quot;)) vs.push($this.val());
+        if (!$this.prop(&quot;checked&quot;)) return;
+        var idx = parseInt($this.attr(&quot;data-answer-index&quot;), 10);
+        vs.push(options[idx].value);
       });
       return vs;
     }
@@ -684,12 +711,16 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , subAnswer: function() {
       var sub = {};
-      var opts = this.model.get(&quot;options&quot;);
+      var options = this.model.get(&quot;options&quot;);
+      var answers = this.answers();
       var me = this;
-      _.each(opts, function(opt, i) {
+      _.each(options, function(opt, i) {
         if (!opt.sub) return;
-        var $ov = me.$(&#x27;input[name^=&quot;sub-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;);
-        if (!$ov.prop(&quot;disabled&quot;)) sub[opt.value] = $ov.val();
+        if (!_.contains(answers, opt.value)) return;
+        var $ov = me.$(&#x27;input[name=&quot;sub-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;);
+        if (!_.isEmpty($ov.val())) {
+          sub[opt.value] = $ov.val();
+        }
       });
       return sub;
     }
@@ -710,15 +741,22 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
   , _normalize: function($changed) {
-      var so = this.model.get(&quot;singleOptions&quot;);
+      var singleOptions = this.model.get(&quot;singleOptions&quot;);
+      var options = this.model.get(&quot;options&quot;);
       if ($changed.prop(&quot;checked&quot;)) {
-        var v = $changed.val();
-        var f = _.contains(so, v) ?
-          // uncheck other options
-          function() { return this.value != v; } :
-          // uncheck single options
-          function() { return _.contains(so, this.value); };
-        this.$(&#x27;input[name^=&quot;&#x27; + $changed.attr(&quot;name&quot;) + &#x27;&quot;]&#x27;).filter(f)
+        var idx = parseInt($changed.attr(&quot;data-answer-index&quot;), 10);
+        var f = _.contains(singleOptions, options[idx].value) ?
+          function() {
+            // Uncheck other options.
+            var i = parseInt($(this).attr(&quot;data-answer-index&quot;), 10);
+            return idx != i;
+          } :
+          function() {
+            // Uncheck single options.
+            var i = parseInt($(this).attr(&quot;data-answer-index&quot;), 10);
+            return _.contains(singleOptions, options[i].value);
+          };
+        this.$(&#x27;input[name=&quot;&#x27; + $changed.attr(&quot;name&quot;) + &#x27;&quot;]&#x27;).filter(f)
             .prop(&quot;checked&quot;, false).removeAttr(&quot;checked&quot;);
       }
     }
@@ -747,6 +785,23 @@ var BackboneSurvey = BackboneSurvey || {};
       }));
 
       var me = this;
+      var fields = this.model.get(&quot;fields&quot;);
+      var answers = this.model.get(&quot;answers&quot;) || [];
+      var options = this.model.get(&quot;options&quot;) || [];
+      _.each(fields, function(fld, j) {
+        answers[j] = answers[j] || [];
+        _.each(options, function(opt, i) {
+          var $selected = me.$(
+            &#x27;[name=&quot;answer-&#x27; + me.model.id + &#x27;-&#x27; + j + &#x27;&quot;]&#x27; +
+            &#x27;[data-answer-index=&quot;&#x27; + i + &#x27;&quot;]&#x27;);
+          if (_.contains(answers[j], opt.value)) {
+            $selected.prop(&quot;checked&quot;, true).attr(&quot;checked&quot;, &quot;checked&quot;);
+          } else {
+            $selected.prop(&quot;checked&quot;, false).removeAttr(&quot;checked&quot;);
+          }
+        });
+      });
+
       this.$(&#x27;input[name^=&quot;answer-&quot;]&#x27;).on(&quot;change&quot;, function() {
         me._normalize($(this));
         me.trigger(&quot;answer&quot;);
@@ -762,11 +817,14 @@ var BackboneSurvey = BackboneSurvey || {};
       var vs = [];
       var me = this;
       var fields = this.model.get(&quot;fields&quot;);
+      var options = this.model.get(&quot;options&quot;) || [];
       _.each(fields, function(field, i) {
         vs[i] = [];
-        this.$(&#x27;input[name^=&quot;answer-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;).each(function() {
+        this.$(&#x27;input[name=&quot;answer-&#x27; + me.model.id + &#x27;-&#x27; + i + &#x27;&quot;]&#x27;).each(function() {
           var $this = $(this);
-          if ($this.prop(&quot;checked&quot;)) vs[i].push($this.val());
+          if (!$this.prop(&quot;checked&quot;)) return;
+          var idx = parseInt($this.attr(&quot;data-answer-index&quot;), 10);
+          vs[i].push(options[idx].value);
         });
       });
       return vs;

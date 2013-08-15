@@ -104,7 +104,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/assets/js/views.js",
-            "line": 568
+            "line": 599
         }
     },
     "classes": {
@@ -423,7 +423,7 @@
             "module": "backbone-survey",
             "namespace": "",
             "file": "src/assets/js/views.js",
-            "line": 568,
+            "line": 599,
             "extends": "{Backbone.View}"
         }
     },
@@ -873,7 +873,7 @@
         },
         {
             "file": "src/assets/js/templates.js",
-            "line": 66,
+            "line": 64,
             "description": "See {{#crossLink \"MatrixAnswerView\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "MatrixAnswerView",
@@ -1284,7 +1284,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 506,
+            "line": 512,
             "itemtype": "method",
             "name": "lock",
             "class": "OptionAnswerView",
@@ -1292,7 +1292,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 512,
+            "line": 518,
             "itemtype": "method",
             "name": "unlock",
             "class": "OptionAnswerView",
@@ -1300,7 +1300,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 518,
+            "line": 524,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1309,7 +1309,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 538,
+            "line": 562,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1321,7 +1321,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 551,
+            "line": 578,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
@@ -1333,7 +1333,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 596,
+            "line": 634,
             "itemtype": "method",
             "name": "lock",
             "class": "MatrixAnswerView",
@@ -1341,7 +1341,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 602,
+            "line": 640,
             "itemtype": "method",
             "name": "unlock",
             "class": "MatrixAnswerView",
@@ -1349,7 +1349,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 608,
+            "line": 646,
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
@@ -1358,7 +1358,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 627,
+            "line": 682,
             "itemtype": "method",
             "name": "answers",
             "return": {
@@ -1370,7 +1370,7 @@
         },
         {
             "file": "src/assets/js/views.js",
-            "line": 645,
+            "line": 703,
             "itemtype": "method",
             "name": "subAnswer",
             "return": {
