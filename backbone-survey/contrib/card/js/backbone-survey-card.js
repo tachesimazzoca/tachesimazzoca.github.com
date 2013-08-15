@@ -1,4 +1,6 @@
-// Backbone Survey | CardAnswerView
+/**
+ * @module backbone-survey-card
+ */
 
 var BackboneSurvey = BackboneSurvey || {};
 
@@ -10,90 +12,73 @@ var BackboneSurvey = BackboneSurvey || {};
   BackboneSurvey.Templates.TextDialogView =
     '<div class="<%- elPrefix %>dialog-container">' +
       '<div class="<%- elPrefix %>dialog-inner">' +
-        '<div><span class="<%- elPrefix %>dialog-note"><%- note %></div>' +
+        '<div><span class="<%- elPrefix %>dialog-note"><%- sub.note %></div>' +
         '<input class="<%- elPrefix %>dialog-input" type="text"' +
-          ' value="<%- value %>" placeholder="<%- placeholder %>">' +
+          ' placeholder="<%- sub.placeholder %>">' +
         '<button class="<%- elPrefix %>dialog-submit">OK</button>' +
         '<button class="<%- elPrefix %>dialog-cancel">Cancel</button>' +
       '</div>' +
     '</div>';
 
-  BackboneSurvey.Templates.SubDialogView =
-    '<div class="<%- elPrefix %>dialog-inner">' +
-    '<span class="<%- elPrefix %>dialog-note"><%- note %></span> ' +
-    '<input class="<%- elPrefix %>dialog-input" type="text"' +
-      ' value="<%- value %>" placeholder="<%- placeholder %>">' +
-    '</div>';
-
-  BackboneSurvey.Templates.CardAnswerView =
+  BackboneSurvey.Templates.ImageCardAnswerView =
     '<ul>' +
     '<% _.each(model.options, function(option, i) { %>' +
       '<li>' +
-      '<input type="hidden" name="answer-<%- model.id %>" value="<%- option.value %>">' +
-      '<% if (option.sub) { %>' +
-        '<input type="hidden" name="sub-<%- model.id %>-<%- i %>"' +
-          ' data-placeholder="<%- option.sub.placeholder %>"' +
-          ' data-note="<%- option.sub.note %>"' +
-          '<% if (!_.isEmpty(model.subAnswer[option.value])) { %>' +
-            ' value="<%- model.subAnswer[option.value] %>"<% } %>>' +
-      '<% } %>' +
-      '<label <% if (_.contains(model.answers, option.value)) { %> class="survey-selected"<% } %>>' +
-      '<span class="<%- elPrefix %>label">' +
-        '<% if (!_.isEmpty(model.subAnswer[option.value])) { %>' +
-          '<%- model.subAnswer[option.value] %>' +
-        '<% } else { %>' +
-          '<%= option.label %>' +
-        '<% } %>' +
-      '</span>' +
+      '<label data-answer-index="<%- i %>">' +
+      '<span class="<%- elPrefix %>label"></span>' +
       '</label>' +
       '</li>' +
     '<% }); %>' +
     '</ul>' +
-    '<div id="<%- elPrefix %>dialog-<%- model.id %>"></div>';
-
-/// {{{ Deprecated
+    '<% _.each(model.options, function(option, i) { %>' +
+      '<% if (option.sub) { %>' +
+        '<div id="<%- elPrefix %>sub-<%- model.id %>-<%- i %>">' +
+        '<di>' +
+          '<dt><%= option.sub.note %></dt>' +
+          '<dd><input name="sub-<%- model.id %>-<%- i %>" type="text"' +
+            ' placeholder="<%- option.sub.placeholder %>"></dd>' +
+        '</di>' +
+        '</div>' +
+      '<% } %>' +
+    '<% }); %>';
 
   BackboneSurvey.Templates.TextCardAnswerView =
     '<ul>' +
     '<% _.each(model.options, function(option, i) { %>' +
       '<li>' +
       '<input type="<%- multiple ? "checkbox" : "radio" %>"' +
-      ' name="answer-<%- model.id %>" value="<%- option.value %>"' +
       ' id="<%- elPrefix %>answer-<%- model.id %>-<%- i %>"' +
-      '<% if (_.contains(model.answers, option.value)) { %> checked="checked"<% } %>>' +
-      '<% if (option.sub) { %>' +
-        '<input type="hidden" name="sub-<%- model.id %>-<%- i %>"' +
-          ' data-placeholder="<%- option.sub.placeholder %>"' +
-          ' data-note="<%- option.sub.note %>"' +
-          '<% if (!_.isEmpty(model.subAnswer[option.value])) { %>' +
-          ' value="<%- model.subAnswer[option.value] %>"<% } %>>' +
-      '<% } %>' +
+      ' name="answer-<%- model.id %>"' +
+      ' data-answer-index="<%- i %>">' +
       '<label for="<%- elPrefix %>answer-<%- model.id %>-<%- i %>">' +
-      '<span class="<%- elPrefix %>label">' +
-      '<% if (!_.isEmpty(model.subAnswer[option.value])) { %>' +
-        '<%- model.subAnswer[option.value] %>' +
-      '<% } else { %>' +
-        '<%= option.label %>' +
-      '<% } %>' +
-      '</span>' +
+        '<span class="<%- elPrefix %>label"></span>' +
       '</label>' +
       '</li>' +
     '<% }); %>' +
     '</ul>' +
-    '<div id="<%- elPrefix %>dialog-<%- model.id %>"></div>';
-
-/// }}}
+    '<% _.each(model.options, function(option, i) { %>' +
+      '<% if (option.sub) { %>' +
+        '<div id="<%- elPrefix %>sub-<%- model.id %>-<%- i %>">' +
+        '<di>' +
+          '<dt><%= option.sub.note %></dt>' +
+          '<dd><input name="sub-<%- model.id %>-<%- i %>" type="text"' +
+            ' placeholder="<%- option.sub.placeholder %>"></dd>' +
+        '</di>' +
+        '</div>' +
+      '<% } %>' +
+    '<% }); %>';
 })();
 
 // Views
 // -----
 (function() {
+  /**
+   * @class TextDialogView
+   */
   BackboneSurvey.TextDialogView = Backbone.View.extend({
     templateName: "TextDialogView"
 
   , elPrefix : "survey-"
-
-  , modal: function() { return true; }
 
   , render: function(params) {
       params = _.extend({ elPrefix: this.elPrefix }, params || {});
@@ -116,35 +101,13 @@ var BackboneSurvey = BackboneSurvey || {};
     }
   });
 
-  BackboneSurvey.SubDialogView = Backbone.View.extend({
-    templateName: "SubDialogView"
+  /**
+   * @class ImageCardAnswerView
+   */
+  BackboneSurvey.ImageCardAnswerView = Backbone.View.extend({
+    templateName: "ImageCardAnswerView"
 
-  , elPrefix : "survey-"
-
-  , modal: function() { return false; }
-
-  , render: function(params) {
-      params = _.extend({ elPrefix: this.elPrefix }, params || {});
-      this.$el.html(_.template(BackboneSurvey.Templates[this.templateName])(params));
-
-      var me = this;
-      this.$('.' + this.elPrefix + 'dialog-input').on("blur", function() {
-        me.trigger("change");
-      });
-
-      return this;
-    }
-
-  , answers: function() {
-      var v = this.$('.' + this.elPrefix + 'dialog-input').val();
-      return _.isEmpty(v) ? [""] : [v];
-    }
-  });
-
-  BackboneSurvey.CardAnswerView = Backbone.View.extend({
-    templateName: "CardAnswerView"
-
-  , dialogName: "SubDialogView"
+  , dialogName: "TextDialogView"
 
   , $dialog: null
 
@@ -153,48 +116,52 @@ var BackboneSurvey = BackboneSurvey || {};
   , initialize: function() {
       this.multiple = this.model.get("type").multiple();
       this._locked = false;
+      if (_.isString(this.$dialog)) {
+        this.$dialog = $(this.$dialog);
+      }
     }
 
   , _normalize: function($changed) {
-      var so = this.model.get("singleOptions");
+      var me = this;
+      var singleOptions = this.model.get("singleOptions");
+      var options = this.model.get("options");
       var sel = this.elPrefix + "selected";
       if ($changed.hasClass(sel)) {
-        var v = $changed.parent().find('input[name^="answer-"]').val();
-        var f = _.contains(so, v) ?
-          // uncheck other options
+        var idx = parseInt($changed.attr("data-answer-index"), 10);
+        var f = _.contains(singleOptions, options[idx].value) ?
           function() {
-            var x = $(this).parent().find('input[name^="answer-"]').val();
-            return x != v;
+            // Uncheck other options.
+            var i = parseInt($(this).attr("data-answer-index"), 10);
+            return idx != i;
           } :
-          // uncheck single options
           function() {
-            var x = $(this).parent().find('input[name^="answer-"]').val();
-            return _.contains(so, x);
+            // Uncheck single options.
+            var i = parseInt($(this).attr("data-answer-index"), 10);
+            return _.contains(singleOptions, options[i].value);
           };
-        this.$('label').filter(f).removeClass(sel);
+        this.$('[data-answer-index]').filter(f).removeClass(sel);
       }
+      var answers = this.answers();
+      _.each(options, function(opt, i) {
+        var $sub = me.$('#' + me.elPrefix + 'sub-' + me.model.id + '-' + i);
+        if (!me.useDialog() && _.contains(answers, opt.value)) {
+          $sub.show();
+        } else {
+          $sub.hide();
+        }
+      });
     }
 
-  , _updateSubAnswer: function($selected, sub) {
-      $selected.find('input[name^="sub-"]').val(sub);
-      $label = $selected.find('.' + this.elPrefix + 'label');
-      if (_.isEmpty(sub)) {
-        var v = $selected.find('input[name^="answer-"]').val();
-        var option = _.find(this.model.get("options"), function(o) { return o.value == v; });
-        if (option) $label.html(option.label);
-      } else {
-        $label.text(sub);
-      }
+  , useDialog: function() {
+      return (this.$dialog !== null);
     }
 
   , lock: function() {
       this._locked = true;
-      this.$('input[name^="answer-"]').prop("disabled", true);
     }
 
   , unlock: function() {
       this._locked = false;
-      this.$('input[name^="answer-"]').prop("disabled", false);
     }
 
   , render: function() {
@@ -206,12 +173,36 @@ var BackboneSurvey = BackboneSurvey || {};
       var me = this;
       var sel = this.elPrefix + "selected";
 
-      // subDialog
-      var $subDialog = this.$dialog || this.$('#' + this.elPrefix + 'dialog-' + this.model.id);
-      if (_.isString($subDialog)) {
-        $subDialog = $($subDialog);
-      }
-      $subDialog.hide();
+      // Prepare initial answers.
+      var answers = this.model.get("answers") || [];
+      var options = this.model.get("options") || [];
+      var subAnswer = this.model.get("subAnswer") || {};
+      _.each(options, function(opt, i) {
+        var $selected = me.$('[data-answer-index="' + i + '"]');
+        if (_.contains(answers, opt.value)) {
+          $selected.addClass(sel);
+        } else {
+          $selected.removeClass(sel);
+        }
+        var $label = $selected.find('.' + me.elPrefix + 'label');
+        if (me.useDialog() && !_.isEmpty(subAnswer[opt.value])) {
+          $label.text(subAnswer[opt.value]);
+        } else {
+          $label.html(opt.label);
+        }
+
+        // Show|Hide each answer.
+        if (opt.sub) {
+          var $subInput = me.$('input[name="sub-' + me.model.id + '-' + i + '"]');
+          $subInput.attr("value", subAnswer[opt.value] || "");
+        }
+        var $sub = me.$('#' + me.elPrefix + 'sub-' + me.model.id + '-' + i);
+        if (_.contains(answers, opt.value)) {
+          $sub.show();
+        } else {
+          $sub.hide();
+        }
+      });
 
       // options
       this.$('label').each(function () {
@@ -221,51 +212,52 @@ var BackboneSurvey = BackboneSurvey || {};
         if (me._locked) return;
 
         var $this = $(this);
+        var idx = parseInt($this.attr("data-answer-index"), 10);
         if (me.multiple) {
           $this.toggleClass(sel);
         } else {
-          me.$('label').removeClass(sel);
+          // Remove all, then add to it.
+          me.$('[data-answer-index]').removeClass(sel);
           $this.addClass(sel);
         }
         me._normalize($this);
 
-        if ($this.hasClass(sel)) {
-          var $li = $this.parent();
-          var $sub = $li.find('input[name^="sub-"]');
-          if ($sub.length) {
-            var $selected = $li;
-            var dialogView = new BackboneSurvey[me.dialogName]({ className: me.elPrefix + 'dialog' });
-            dialogView.elPrefix = me.elPrefix;
-            if (dialogView.modal()) {
+        var sub = options[idx].sub;
+        if (sub) {
+          var $subInput = me.$('input[name="sub-' + me.model.id + '-' + idx + '"]');
+          if ($this.hasClass(sel)) {
+            if (me.useDialog()) {
+              // Use the dialog view for a sub answer text.
+              var dialogView = new BackboneSurvey[me.dialogName]({
+                className: me.elPrefix + 'dialog' });
+              dialogView.elPrefix = me.elPrefix;
+              // Fire the "lock" event while opening the dialog.
               me.trigger("lock");
               dialogView.on("submit", function() {
                 var answers = dialogView.answers() || [""];
-                me._updateSubAnswer($selected, answers[0]);
-                $subDialog.hide();
+                // Fill the sub answer text.
+                $subInput.attr("value", answers[0]);
+                // Replace the label content.
+                var $label = $this.find('.' + me.elPrefix + 'label');
+                if (_.isEmpty(answers[0])) {
+                  $label.html(options[idx].label);
+                } else {
+                  $label.text(answers[0]);
+                }
+                // Close the dialog
+                me.$dialog.hide();
                 me.trigger("unlock");
                 me.trigger("answer");
               });
               dialogView.on("cancel", function() {
-                $subDialog.hide();
+                me.$dialog.hide();
                 me.trigger("unlock");
               });
-            } else {
-              dialogView.on("change", function() {
-                var answers = dialogView.answers() || [""];
-                me._updateSubAnswer($selected, answers[0]);
-                $subDialog.hide();
-                me.trigger("answer");
-              });
+              var params = { sub: sub };
+              me.$dialog.html(dialogView.render(params).el);
+              me.$dialog.find('input[class="' + me.elPrefix + 'dialog-input"]').val($subInput.val());
+              me.$dialog.show();
             }
-            var params = {
-              value: $sub.val()
-            , note: $sub.attr("data-note")
-            , placeholder: $sub.attr("data-placeholder")
-            };
-            $subDialog.html(dialogView.render(params).el);
-            $subDialog.show();
-          } else {
-            $subDialog.hide();
           }
         }
         me.trigger("answer");
@@ -275,23 +267,23 @@ var BackboneSurvey = BackboneSurvey || {};
 
   , answers: function() {
       var vs = [];
-      this.$('label[class="' + this.elPrefix + 'selected"]').each(function() {
-        var $li = $(this).parent();
-        $li.find('input[name^="answer-"]').each(function() {
-          vs.push($(this).val());
-        });
+      var options = this.model.get("options") || [];
+      this.$('[class="' + this.elPrefix + 'selected"]').each(function() {
+        var $this = $(this);
+        var idx = parseInt($this.attr("data-answer-index"), 10);
+        vs.push(options[idx].value);
       });
       return vs;
     }
 
   , subAnswer: function() {
       var sub = {};
-      var opts = this.model.get("options");
-      var ans = this.answers();
+      var options = this.model.get("options");
+      var answers = this.answers();
       var me = this;
-      _.each(opts, function(opt, i) {
+      _.each(options, function(opt, i) {
         if (!opt.sub) return;
-        if (!_.contains(ans, opt.value)) return;
+        if (!_.contains(answers, opt.value)) return;
         var $ov = me.$('input[name^="sub-' + me.model.id + '-' + i + '"]');
         if (!_.isEmpty($ov.val())) {
           sub[opt.value] = $ov.val();
@@ -301,55 +293,59 @@ var BackboneSurvey = BackboneSurvey || {};
     }
   });
 
-/// {{{ Deprecated
   /**
-   * Deprecated. Use CardAnswerView instead.
-   * Simply, You just replace Section :view attr with "CardAnswerView".
-   */
-  BackboneSurvey.ImageCardAnswerView = BackboneSurvey.CardAnswerView;
-
-  /**
-   * Deprecated. Use CardAnswerView instead.
-   * You need to refactor input (radio|checkbox) markups.
+   * @class TextCardAnswerView
    */
   BackboneSurvey.TextCardAnswerView = Backbone.View.extend({
     templateName: "TextCardAnswerView"
 
   , $dialog: null
 
-  , dialogName: "SubDialogView"
+  , dialogName: "TextDialogView"
 
   , elPrefix: "survey-"
 
   , initialize: function() {
       this.multiple = this.model.get("type").multiple();
       this._locked = false;
+      if (_.isString(this.$dialog)) {
+        this.$dialog = $(this.$dialog);
+      }
     }
 
   , _normalize: function($changed) {
-      var so = this.model.get("singleOptions");
+      var me = this;
+      var singleOptions = this.model.get("singleOptions");
+      var options = this.model.get("options");
       if ($changed.prop("checked")) {
-        var v = $changed.val();
-        var f = _.contains(so, v) ?
-          // uncheck other options
-          function() { return this.value != v; } :
-          // uncheck single options
-          function() { return _.contains(so, this.value); };
-        this.$('input[name^="answer-"]').filter(f)
+        var idx = parseInt($changed.attr("data-answer-index"), 10);
+        var f = _.contains(singleOptions, options[idx].value) ?
+          function() {
+            // Uncheck other options.
+            var i = parseInt($(this).attr("data-answer-index"), 10);
+            return idx != i;
+          } :
+          function() {
+            // Uncheck single options.
+            var i = parseInt($(this).attr("data-answer-index"), 10);
+            return _.contains(singleOptions, options[i].value);
+          };
+        this.$('[data-answer-index]').filter(f)
             .prop("checked", false).removeAttr("checked");
       }
+      var answers = this.answers();
+      _.each(options, function(opt, i) {
+        var $sub = me.$('#' + me.elPrefix + 'sub-' + me.model.id + '-' + i);
+        if (!me.useDialog() && _.contains(answers, opt.value)) {
+          $sub.show();
+        } else {
+          $sub.hide();
+        }
+      });
     }
 
-  , _updateSubAnswer: function($selected, sub) {
-      $selected.find('input[name^="sub-"]').val(sub);
-      $label = $selected.find('.' + this.elPrefix + 'label');
-      if (_.isEmpty(sub)) {
-        var v = $selected.find('input[name^="answer-"]').val();
-        var option = _.find(this.model.get("options"), function(o) { return o.value == v; });
-        if (option) $label.html(option.label);
-      } else {
-        $label.text(sub);
-      }
+  , useDialog: function() {
+      return (this.$dialog !== null);
     }
 
   , lock: function() {
@@ -372,12 +368,36 @@ var BackboneSurvey = BackboneSurvey || {};
       var me = this;
       var sel = this.elPrefix + "selected";
 
-      // subDialog
-      var $subDialog = this.$dialog || this.$('#' + this.elPrefix + 'dialog-' + this.model.id);
-      if (_.isString($subDialog)) {
-        $subDialog = $($subDialog);
-      }
-      $subDialog.hide();
+      // Prepare initial answers.
+      var answers = this.model.get("answers") || [];
+      var options = this.model.get("options") || [];
+      var subAnswer = this.model.get("subAnswer") || {};
+      _.each(options, function(opt, i) {
+        var $selected = me.$('[data-answer-index="' + i + '"]');
+        if (_.contains(answers, opt.value)) {
+          $selected.prop("checked", true);
+        } else {
+          $selected.prop("checked", false).removeAttr("chekced");
+        }
+        var $label = me.$('label[for="' + $selected.attr("id") + '"] .' + me.elPrefix + 'label');
+        if (me.useDialog() && !_.isEmpty(subAnswer[opt.value])) {
+          $label.text(subAnswer[opt.value]);
+        } else {
+          $label.html(opt.label);
+        }
+
+        // Show|Hide each answer.
+        if (opt.sub) {
+          var $subInput = me.$('input[name="sub-' + me.model.id + '-' + i + '"]');
+          $subInput.attr("value", subAnswer[opt.value] || "");
+        }
+        var $sub = me.$('#' + me.elPrefix + 'sub-' + me.model.id + '-' + i);
+        if (_.contains(answers, opt.value)) {
+          $sub.show();
+        } else {
+          $sub.hide();
+        }
+      });
 
       this.$('input[name^="answer-"]').each(function() {
         me._normalize($(this));
@@ -386,71 +406,72 @@ var BackboneSurvey = BackboneSurvey || {};
         if (me._locked) return;
 
         var $this = $(this);
+        var idx = parseInt($this.attr("data-answer-index"), 10);
         me._normalize($this);
 
-        if ($this.prop("checked")) {
-          var $li = $this.parent();
-          var $sub = $li.find('input[name^="sub-"]');
-          if ($sub.length) {
-            var $selected = $li;
-            var dialogView = new BackboneSurvey[me.dialogName]({ className: me.elPrefix + 'dialog' });
-            dialogView.elPrefix = me.elPrefix;
-            if (dialogView.modal()) {
+        var sub = options[idx].sub;
+        if (sub) {
+          var $subInput = me.$('input[name="sub-' + me.model.id + '-' + idx + '"]');
+          if ($this.prop("checked")) {
+            if (me.useDialog()) {
+              // Use the dialog view for a sub answer text.
+              var dialogView = new BackboneSurvey[me.dialogName]({
+                className: me.elPrefix + 'dialog' });
+              dialogView.elPrefix = me.elPrefix;
+              // Fire the "lock" event while opening the dialog.
               me.trigger("lock");
               dialogView.on("submit", function() {
                 var answers = dialogView.answers() || [""];
-                me._updateSubAnswer($selected, answers[0]);
-                $subDialog.hide();
+                // Fill the sub answer text.
+                $subInput.attr("value", answers[0]);
+                // Replace the label content.
+                var $label = me.$('label[for="' + $this.attr("id") + '"] .' + me.elPrefix + 'label');
+                if (_.isEmpty(answers[0])) {
+                  $label.html(options[idx].label);
+                } else {
+                  $label.text(answers[0]);
+                }
+                // Close the dialog
+                me.$dialog.hide();
                 me.trigger("unlock");
                 me.trigger("answer");
               });
               dialogView.on("cancel", function() {
-                $subDialog.hide();
+                me.$dialog.hide();
                 me.trigger("unlock");
               });
-            } else {
-              dialogView.on("change", function() {
-                var answers = dialogView.answers() || [""];
-                me._updateSubAnswer($selected, answers[0]);
-                $subDialog.hide();
-                me.trigger("answer");
-              });
+              var params = { sub: sub };
+              me.$dialog.html(dialogView.render(params).el);
+              me.$dialog.find('input[class="' + me.elPrefix + 'dialog-input"]').val($subInput.val());
+              me.$dialog.show();
             }
-            var params = {
-              value: $sub.val()
-            , note: $sub.attr("data-note")
-            , placeholder: $sub.attr("data-placeholder")
-            };
-            $subDialog.html(dialogView.render(params).el);
-            $subDialog.show();
-
-          } else {
-            $subDialog.hide();
           }
         }
         me.trigger("answer");
       });
-
       return this;
     }
 
   , answers: function() {
       var vs = [];
+      var options = this.model.get("options") || [];
       this.$('input[name="answer-' + this.model.id + '"]').each(function() {
         var $this = $(this);
-        if ($this.prop("checked")) vs.push($this.val());
+        if (!$this.prop("checked")) return;
+        var idx = parseInt($this.attr("data-answer-index"), 10);
+        vs.push(options[idx].value);
       });
       return vs;
     }
 
   , subAnswer: function() {
       var sub = {};
-      var opts = this.model.get("options");
-      var ans = this.answers();
+      var options = this.model.get("options");
+      var answers = this.answers();
       var me = this;
-      _.each(opts, function(opt, i) {
+      _.each(options, function(opt, i) {
         if (!opt.sub) return;
-        if (!_.contains(ans, opt.value)) return;
+        if (!_.contains(answers, opt.value)) return;
         var $ov = me.$('input[name="sub-' + me.model.id + '-' + i + '"]');
         if (!_.isEmpty($ov.val())) {
           sub[opt.value] = $ov.val();
@@ -459,6 +480,4 @@ var BackboneSurvey = BackboneSurvey || {};
       return sub;
     }
   });
-
-/// }}}
 })();

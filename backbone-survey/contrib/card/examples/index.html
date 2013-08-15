@@ -41,7 +41,7 @@
           id: "q2"
         , page: 2
         , type: BackboneSurvey.QuestionType.RADIO
-        , view: "CardAnswerView"
+        , view: "ImageCardAnswerView"
         , contents: {
             question: "<strong>Q2.</strong> Please select your favorite color."
           }
@@ -81,7 +81,7 @@
           id: "q4"
         , page: 3
         , type: BackboneSurvey.QuestionType.CHECKBOX
-        , view: "CardAnswerView"
+        , view: "ImageCardAnswerView"
         , contents: {
             question: "<strong>Q4.</strong> The page should lock any other operations while opening the text input."
           }
@@ -140,7 +140,7 @@
       $dialog: '#survey-dialog' // jQuery selector for the dialog elements
     , dialogName: "CustomTextDialogView" // The name of DialogView
     });
-    BackboneSurvey.CustomImageCardAnswerView = BackboneSurvey.CardAnswerView.extend({
+    BackboneSurvey.CustomImageCardAnswerView = BackboneSurvey.ImageCardAnswerView.extend({
       $dialog: '#survey-dialog'
     , dialogName: "CustomTextDialogView"
     });
@@ -155,9 +155,9 @@
       '<div class="<%- elPrefix %>dialog-container" style="position: absolute; top: 0; left: 0;">' +
         '<div class="<%- elPrefix %>dialog-inner" style="background: #eee; padding: 20px">' +
           '<p>CustomTextDialogView!</p>' +
-          '<div><span class="<%- elPrefix %>dialog-note"><%- note %></span></div>' +
+          '<div><span class="<%- elPrefix %>dialog-note"><%- sub.note %></span></div>' +
           '<input class="<%- elPrefix %>dialog-input" type="text"' +
-            ' value="<%- value %>" placeholder="<%- placeholder %>">' +
+            ' placeholder="<%- sub.placeholder %>">' +
           '<button class="<%- elPrefix %>dialog-submit">OK</button>' +
           '<button class="<%- elPrefix %>dialog-cancel">Cancel</button>' +
         '</div>' +
