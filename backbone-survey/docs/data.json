@@ -832,6 +832,40 @@
             "module": "backbone-survey"
         },
         {
+            "file": "src/assets/js/models.js",
+            "line": 473,
+            "description": "Serialize the survey status.",
+            "itemtype": "method",
+            "name": "serializeStatus",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Survey",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/models.js",
+            "line": 494,
+            "description": "Unserialize the survey status.",
+            "itemtype": "method",
+            "name": "unserializeStatus",
+            "params": [
+                {
+                    "name": "serialized",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "option",
+                    "description": "Survey#set option",
+                    "type": "Object"
+                }
+            ],
+            "class": "Survey",
+            "module": "backbone-survey"
+        },
+        {
             "file": "src/assets/js/templates.js",
             "line": 11,
             "description": "See {{#crossLink \"SectionView\"}}{{/crossLink}}",

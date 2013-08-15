@@ -287,4 +287,113 @@
     survey.set("page", 1);
     deepEqual(survey.availablePages(), [1,2]);
   });
+
+  test("Survey#serializeStatus", function() {
+    var survey, section;
+    var surveyData = {
+      sections: [
+        { id: "q1" , page: 1
+        , type: BackboneSurvey.QuestionType.RADIO
+        , options: [
+            { value: "1" }
+          , { value: "0" }
+          ]
+        }
+      , { id: "q2", page: 2
+        , type: BackboneSurvey.QuestionType.CHECKBOX
+        , options: [
+            { value: "A" }
+          , { value: "B" }
+          , { value: "C" }
+          ]
+        }
+      , { id: "q3", page: 3
+        , type: BackboneSurvey.QuestionType.TEXT
+        }
+      , { id: "q4", page: 4
+        , type: BackboneSurvey.QuestionType.MULTI
+        , fields: [
+            { }
+          , { }
+          ]
+        }
+      ]
+    };
+    survey = new BackboneSurvey.Survey(surveyData, { parse: true });
+
+    deepEqual(survey.serializeStatus(),
+      '{"page":0,"answeredSectionIds":[],"answers":[' +
+        '{"id":"q1","answers":[],"subAnswer":{}},' +
+        '{"id":"q2","answers":[],"subAnswer":{}},' +
+        '{"id":"q3","answers":[],"subAnswer":{}},' +
+        '{"id":"q4","answers":[],"subAnswer":{}}' +
+      ']}'
+    );
+
+    survey.nextPage();
+    deepEqual(survey.serializeStatus(),
+      '{"page":1,"answeredSectionIds":[],"answers":[' +
+        '{"id":"q1","answers":[],"subAnswer":{}},' +
+        '{"id":"q2","answers":[],"subAnswer":{}},' +
+        '{"id":"q3","answers":[],"subAnswer":{}},' +
+        '{"id":"q4","answers":[],"subAnswer":{}}' +
+      ']}'
+    );
+
+    section = survey.sections.get("q1");
+    section.set("answers", []);
+    deepEqual(survey.serializeStatus(),
+      '{"page":1,"answeredSectionIds":[],"answers":[' +
+        '{"id":"q1","answers":[],"subAnswer":{}},' +
+        '{"id":"q2","answers":[],"subAnswer":{}},' +
+        '{"id":"q3","answers":[],"subAnswer":{}},' +
+        '{"id":"q4","answers":[],"subAnswer":{}}' +
+      ']}'
+    );
+    section.set("answers", ["1"]);
+    deepEqual(survey.serializeStatus(),
+      '{"page":1,"answeredSectionIds":[],"answers":[' +
+        '{"id":"q1","answers":["1"],"subAnswer":{}},' +
+        '{"id":"q2","answers":[],"subAnswer":{}},' +
+        '{"id":"q3","answers":[],"subAnswer":{}},' +
+        '{"id":"q4","answers":[],"subAnswer":{}}' +
+      ']}'
+    );
+
+    survey.nextPage();
+    section = survey.sections.get("q2");
+    section.set("answers", ["A", "C"]);
+    deepEqual(survey.serializeStatus(),
+      '{"page":2,"answeredSectionIds":["q1"],"answers":[' +
+        '{"id":"q1","answers":["1"],"subAnswer":{}},' +
+        '{"id":"q2","answers":["A","C"],"subAnswer":{}},' +
+        '{"id":"q3","answers":[],"subAnswer":{}},' +
+        '{"id":"q4","answers":[],"subAnswer":{}}' +
+      ']}'
+    );
+
+    survey.nextPage();
+    section = survey.sections.get("q3");
+    section.set("answers", ["設問3 回答テキスト"]);
+    var serialized =
+      '{"page":3,"answeredSectionIds":["q1","q2"],"answers":[' +
+        '{"id":"q1","answers":["1"],"subAnswer":{}},' +
+        '{"id":"q2","answers":["A","C"],"subAnswer":{}},' +
+        '{"id":"q3","answers":["設問3 回答テキスト"],"subAnswer":{}},' +
+        '{"id":"q4","answers":[],"subAnswer":{}}' +
+      ']}';
+    deepEqual(survey.serializeStatus(), serialized);
+
+    survey = new BackboneSurvey.Survey(surveyData, { parse: true });
+    deepEqual(survey.serializeStatus(),
+      '{"page":0,"answeredSectionIds":[],"answers":[' +
+        '{"id":"q1","answers":[],"subAnswer":{}},' +
+        '{"id":"q2","answers":[],"subAnswer":{}},' +
+        '{"id":"q3","answers":[],"subAnswer":{}},' +
+        '{"id":"q4","answers":[],"subAnswer":{}}' +
+      ']}'
+    );
+    survey.unserializeStatus(serialized);
+    deepEqual(survey.serializeStatus(), serialized);
+  });
 })(jQuery);

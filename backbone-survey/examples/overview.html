@@ -246,6 +246,14 @@
       $el.fadeIn("slow", function() { view.rendered = true; });
     };
 
+    var $status = $("#survey-status");
+    $("#survey-serialize-status").on("click", function() {
+      $status.val(survey.serializeStatus());
+    });
+    $("#survey-unserialize-status").on("click", function() {
+      survey.unserializeStatus($status.val());
+    });
+
     // Kick things off by calling SurveyView#startPage
     view.startPage();
   });
@@ -259,6 +267,14 @@
     <input type="button" class="survey-next" value="Next"><!-- Move to next page (required) -->
     <input type="button" class="survey-prev" value="Prev"><!-- Move to prev page (optional) -->
     <p><a class="survey-start" href="javascript:void(0);">Retry</a></p><!-- Move to first page (optional) -->
+  </div>
+  <div>
+    <h2>Survey Status</h2>
+    <textarea id="survey-status"></textarea>
+    <div>
+      <input type="button" id="survey-serialize-status" value="Serialize">
+      <input type="button" id="survey-unserialize-status" value="Unserialize">
+    </div>
   </div>
 </body>
 </html>

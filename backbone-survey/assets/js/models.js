@@ -469,5 +469,52 @@ var BackboneSurvey = BackboneSurvey || {};
 
       return _.sortBy(pages, function(n) { return n; });
     }
+
+    /**
+     * Serialize the survey status.
+     *
+     * @method serializeStatus
+     * @return {String}
+     */
+  , serializeStatus: function() {
+      var data = {};
+      data.page = this.get("page") || 0;
+      data.answeredSectionIds = this.get("answeredSectionIds") || [];
+      data.answers = [];
+      this.sections.each(function(section) {
+        data.answers.push({
+          id: section.id
+        , answers: section.get("answers")
+        , subAnswer: section.get("subAnswer")
+        });
+      });
+      return JSON.stringify(data);
+    }
+
+    /**
+     * Unserialize the survey status.
+     *
+     * @method unserializeStatus
+     * @param {String} serialized
+     * @param {Object} option Survey#set option
+     */
+  , unserializeStatus: function(serialized, option) {
+      option = option || {};
+      var me = this;
+      var data = JSON.parse(serialized);
+      _.each(data.answers, function(a) {
+        var section = me.sections.get(a.id);
+        if (section) {
+          section.set({
+            answers: a.answers
+          , subAnswer: a.subAnswer
+          }, { silent: true });
+        }
+      });
+      this.set({
+        page: data.page || 0
+      , answeredSectionIds: data.answeredSectionIds || []
+      }, option);
+    }
   });
 })();
