@@ -166,12 +166,12 @@
       case 1:
         // This router block to move page by using the browser history.
         var HistoryBlocker = Backbone.Router.extend({
-          routes: {
-            ":hash": "block"
+          initialize: function(options) {
+            this.route(/^.+$/, "block");
           }
 
-        , block: function(hash) {
-            alert(hash);
+        , block: function() {
+            alert("In this application, you can not move page by using the browser history.");
           }
         });
         router = new HistoryBlocker();
