@@ -160,71 +160,114 @@
       console.log(survey.get("page") + " of " + lastPage);
     });
 
-    if (false) {
-      view.on("start", function() { survey.startPage() } );
-      view.on("prev", function() { survey.prevPage() } );
-      view.on("next", function() { survey.nextPage() } );
-
-    } else {
-      // Use browser history
-      var Workspace = Backbone.Router.extend({
-        routes: {
-          "page/:n": "page"
-        }
-
-      , prevPages: []
-      , nextPages: []
-
-      , start: function() {
-        this.prevPages = [survey.get("page")];
-        this.nextPages = [];
-        this.navigate("page/" + survey.get("page"));
-      }
-
-      , next: function() {
-        this.prevPages.push(survey.get("page"));
-        this.nextPages = [];
-        this.navigate("page/" + survey.get("page"));
-      }
-
-      , completed: function() {
-        this.prevPages = [];
-        this.nextPages = [];
-        this.navigate("completed");
-      }
-
-      , page: function(n) {
-          if (this.prevPages.length > 1 && this.prevPages[this.prevPages.length - 2] == n) {
-            this.nextPages.push(this.prevPages.pop());
-            survey.prevPage();
-          } else if (this.nextPages.length > 0 && this.nextPages[this.nextPages.length - 1] == n) {
-            this.prevPages.push(this.nextPages.pop());
-            survey.nextPage();
+    var router;
+    var navigationMode = 1;
+    switch (navigationMode) {
+      case 1:
+        // This router block to move page by using the browser history.
+        var HistoryBlocker = Backbone.Router.extend({
+          routes: {
+            ":hash": "block"
           }
-          console.log([n, this.prevPages, this.nextPages]);
-        }
-      });
 
-      var router = new Workspace();
-      view.on("start", function() {
-        survey.startPage();
-        router.start();
-      });
-      view.on("prev", function() {
-        history.back();
-      });
-      view.on("next", function() {
-        var p = survey.get("page");
-        survey.nextPage();
-        if (p != survey.get("page")) {
-          router.next();
-        }
-      });
-      view.on("completed", function() {
-        console.log(["completed", survey.answers()]);
-        router.completed();
-      });
+        , block: function(hash) {
+            alert(hash);
+          }
+        });
+        router = new HistoryBlocker();
+        view.on("start", function() {
+          survey.startPage();
+          router.navigate("page/" + survey.get("page"));
+        });
+        view.on("prev", function() {
+          survey.prevPage();
+          router.navigate("page/" + survey.get("page"));
+        });
+        view.on("next", function() {
+          var p = survey.get("page");
+          survey.nextPage();
+          if (p != survey.get("page")) {
+            router.navigate("page/" + survey.get("page"));
+          }
+        });
+        view.on("completed", function() {
+          console.log(["completed", survey.answers()]);
+          router.navigate("completed");
+        });
+        break;
 
+      case 2:
+        // This router allow to move page by using the browser history.
+        // But it will not work well when using Survey#unserializeStatus.
+        var HistoryRouter = Backbone.Router.extend({
+          routes: {
+            "page/:n": "page"
+          }
+
+        , prevPages: []
+        , nextPages: []
+
+        , start: function() {
+          this.prevPages = [survey.get("page")];
+          this.nextPages = [];
+          this.navigate("page/" + survey.get("page"));
+        }
+
+        , next: function() {
+          this.prevPages.push(survey.get("page"));
+          this.nextPages = [];
+          this.navigate("page/" + survey.get("page"));
+        }
+
+        , completed: function() {
+          this.prevPages = [];
+          this.nextPages = [];
+          this.navigate("completed");
+        }
+
+        , page: function(n) {
+            if (this.prevPages.length > 1 && this.prevPages[this.prevPages.length - 2] == n) {
+              this.nextPages.push(this.prevPages.pop());
+              survey.prevPage();
+            } else if (this.nextPages.length > 0 && this.nextPages[this.nextPages.length - 1] == n) {
+              this.prevPages.push(this.nextPages.pop());
+              survey.nextPage();
+            }
+            console.log([n, this.prevPages, this.nextPages]);
+          }
+        });
+        router = new HistoryRouter();
+        view.on("start", function() {
+          survey.startPage();
+          router.start();
+        });
+        view.on("prev", function() {
+          history.back();
+        });
+        view.on("next", function() {
+          var p = survey.get("page");
+          survey.nextPage();
+          if (p != survey.get("page")) {
+            router.next();
+          }
+        });
+        view.on("completed", function() {
+          console.log(["completed", survey.answers()]);
+          router.completed();
+        });
+        break;
+
+      default:
+        view.on("start", function() { survey.startPage() });
+        view.on("prev", function() { survey.prevPage() });
+        view.on("next", function() { survey.nextPage() });
+        view.on("complete", function() {
+          console.log(["completed", survey.answers()]);
+        });
+        break;
+    }
+    if (router) {
+      // Activate the router.
       Backbone.history.start();
     }
 
