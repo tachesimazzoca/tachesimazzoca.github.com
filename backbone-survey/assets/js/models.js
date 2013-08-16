@@ -273,16 +273,26 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * Move to a first page, and reset all answers.
+     * Initialize all the answers and the status.
      *
-     * @method startPage
+     * @method initAnswers
      */
-  , startPage: function() {
+  , initAnswers: function() {
       this.set("answeredSectionIds", []);
       this.sections.each(function(section) {
         section.clearAnswers();
         section.set({ answers: section.get("defaultAnswers") });
       });
+      this.set({ page: 0 }, { silent: true });
+    }
+
+    /**
+     * Move to a first page, and reset all answers.
+     *
+     * @method startPage
+     */
+  , startPage: function() {
+      this.initAnswers();
       var p = this.sections.firstPage();
       this.set({ page: p });
     }
@@ -492,29 +502,60 @@ var BackboneSurvey = BackboneSurvey || {};
     }
 
     /**
-     * Unserialize the survey status.
+     * Unserialize a survey status.
      *
      * @method unserializeStatus
-     * @param {String} serialized
+     * @param {String} serialized A serialized string Survey#serializeStatus returns
      * @param {Object} option Survey#set option
+     * @return {Boolean}
      */
   , unserializeStatus: function(serialized, option) {
+      var i;
+
       option = option || {};
-      var me = this;
-      var data = JSON.parse(serialized);
-      _.each(data.answers, function(a) {
-        var section = me.sections.get(a.id);
-        if (section) {
-          section.set({
-            answers: a.answers
-          , subAnswer: a.subAnswer
-          }, { silent: true });
+      this.initAnswers();
+
+      var data;
+      try {
+        data = JSON.parse(serialized);
+      } catch (e) {
+        console.log(e);
+        return false;
+      }
+      if (typeof data !== "object" || !data) return false;
+
+      data.page = data.page || 0;
+      if (this.sections.lastPage() < data.page) return false;
+
+      data.answeredSectionIds = data.answeredSectionIds || [];
+      for (i = 0; i < data.answeredSectionIds.length; i++) {
+        if (!this.sections.get(data.answeredSectionIds[i])) return false;
+      }
+
+      data.answers = data.answers || [];
+      for (i = 0; i < data.answers.length; i++) {
+        var section = this.sections.get(data.answers[i].id);
+        if (!section) return false;
+        var attr = {
+          answers: data.answers[i].answers
+        , subAnswer: data.answers[i].subAnswer
+        };
+        if (_.contains(data.answeredSectionIds, section.id)) {
+          var errors = section.validate(attr);
+          if (errors) {
+            this.initAnswers();
+            return false;
+          }
         }
-      });
+        section.set(attr, { silent: true });
+      }
+
       this.set({
-        page: data.page || 0
-      , answeredSectionIds: data.answeredSectionIds || []
+        page: data.page
+      , answeredSectionIds: data.answeredSectionIds
       }, option);
+
+      return true;
     }
   });
 })();

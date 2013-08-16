@@ -715,6 +715,15 @@
         {
             "file": "src/assets/js/models.js",
             "line": 275,
+            "description": "Initialize all the answers and the status.",
+            "itemtype": "method",
+            "name": "initAnswers",
+            "class": "Survey",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/models.js",
+            "line": 289,
             "description": "Move to a first page, and reset all answers.",
             "itemtype": "method",
             "name": "startPage",
@@ -723,7 +732,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 290,
+            "line": 300,
             "description": "Move to the previous page.",
             "itemtype": "method",
             "name": "prevPage",
@@ -732,7 +741,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 312,
+            "line": 322,
             "description": "Move to the next page.",
             "itemtype": "method",
             "name": "nextPage",
@@ -741,7 +750,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 346,
+            "line": 356,
             "itemtype": "method",
             "name": "isFirstPage",
             "return": {
@@ -753,7 +762,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 354,
+            "line": 364,
             "itemtype": "method",
             "name": "isLastPage",
             "return": {
@@ -765,7 +774,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 362,
+            "line": 372,
             "description": "Returns an array of Section in a current page.",
             "itemtype": "method",
             "name": "currentSections",
@@ -778,7 +787,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 372,
+            "line": 382,
             "description": "Returns all answers.",
             "itemtype": "method",
             "name": "answers",
@@ -791,7 +800,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 395,
+            "line": 405,
             "description": "Add an answered section ID.",
             "itemtype": "method",
             "name": "addAnsweredSectionId",
@@ -807,7 +816,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 419,
+            "line": 429,
             "description": "Returns the route keys in the sections.",
             "itemtype": "method",
             "name": "answeredRoutes",
@@ -820,7 +829,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 436,
+            "line": 446,
             "description": "Returns available page numbers.",
             "itemtype": "method",
             "name": "availablePages",
@@ -833,7 +842,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 473,
+            "line": 483,
             "description": "Serialize the survey status.",
             "itemtype": "method",
             "name": "serializeStatus",
@@ -846,14 +855,14 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 494,
-            "description": "Unserialize the survey status.",
+            "line": 504,
+            "description": "Unserialize a survey status.",
             "itemtype": "method",
             "name": "unserializeStatus",
             "params": [
                 {
                     "name": "serialized",
-                    "description": "",
+                    "description": "A serialized string Survey#serializeStatus returns",
                     "type": "String"
                 },
                 {
@@ -862,6 +871,10 @@
                     "type": "Object"
                 }
             ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
             "class": "Survey",
             "module": "backbone-survey"
         },

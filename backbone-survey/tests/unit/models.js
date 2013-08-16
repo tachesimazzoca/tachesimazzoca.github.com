@@ -309,6 +309,7 @@
         }
       , { id: "q3", page: 3
         , type: BackboneSurvey.QuestionType.TEXT
+        , rules: [ new BackboneSurvey.RequiredValidator({ message: "required" }) ]
         }
       , { id: "q4", page: 4
         , type: BackboneSurvey.QuestionType.MULTI
@@ -320,15 +321,14 @@
       ]
     };
     survey = new BackboneSurvey.Survey(surveyData, { parse: true });
-
-    deepEqual(survey.serializeStatus(),
+    var initStatus =
       '{"page":0,"answeredSectionIds":[],"answers":[' +
         '{"id":"q1","answers":[],"subAnswer":{}},' +
         '{"id":"q2","answers":[],"subAnswer":{}},' +
         '{"id":"q3","answers":[],"subAnswer":{}},' +
         '{"id":"q4","answers":[],"subAnswer":{}}' +
-      ']}'
-    );
+      ']}';
+    deepEqual(survey.serializeStatus(), initStatus);
 
     survey.nextPage();
     deepEqual(survey.serializeStatus(),
@@ -393,7 +393,43 @@
         '{"id":"q4","answers":[],"subAnswer":{}}' +
       ']}'
     );
-    survey.unserializeStatus(serialized);
+    deepEqual(true, survey.unserializeStatus(serialized));
     deepEqual(survey.serializeStatus(), serialized);
+
+    survey = new BackboneSurvey.Survey(surveyData, { parse: true });
+    _.each([0, false, null, [], {}, "", "{"], function (v) {
+      deepEqual(false, survey.unserializeStatus(v),
+        "Invalid JSON string." + v);
+    });
+
+    survey = new BackboneSurvey.Survey(surveyData, { parse: true });
+    deepEqual(false, survey.unserializeStatus(
+      '{"page":5,"answeredSectionIds":[],"answers":[' +
+        '{"id":"q1","answers":[],"subAnswer":{}},' +
+        '{"id":"q2","answers":[],"subAnswer":{}},' +
+        '{"id":"q3","answers":[],"subAnswer":{}},' +
+        '{"id":"q4","answers":[],"subAnswer":{}}' +
+      ']}'
+    ), "It should return false if a number of :page is invalid.");
+    deepEqual(survey.serializeStatus(), initStatus,
+      "It should initialize all answers on error.");
+
+    survey = new BackboneSurvey.Survey(surveyData, { parse: true });
+    deepEqual(true, survey.unserializeStatus(
+      '{"page":3,"answeredSectionIds":["q1","q2"],"answers":[' +
+        '{"id":"q1","answers":["1"],"subAnswer":{}},' +
+        '{"id":"q2","answers":["Y"],"subAnswer":{}},' +
+        '{"id":"q3","answers":[],"subAnswer":{}},' +
+        '{"id":"q4","answers":[],"subAnswer":{}}' +
+      ']}'
+    ));
+    deepEqual(false, survey.unserializeStatus(
+      '{"page":4,"answeredSectionIds":["q1","q2","q3"],"answers":[' +
+        '{"id":"q1","answers":["1"],"subAnswer":{}},' +
+        '{"id":"q2","answers":["Y"],"subAnswer":{}},' +
+        '{"id":"q3","answers":[""],"subAnswer":{}},' +
+        '{"id":"q4","answers":[],"subAnswer":{}}' +
+      ']}'
+    ), "It should return false because an answer of the q3 is required.");
   });
 })(jQuery);
