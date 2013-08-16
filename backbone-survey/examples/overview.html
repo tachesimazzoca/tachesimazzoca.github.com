@@ -294,7 +294,10 @@
       $status.val(survey.serializeStatus());
     });
     $("#survey-unserialize-status").on("click", function() {
-      survey.unserializeStatus($status.val());
+      if (!survey.unserializeStatus($status.val())) {
+        alert("The status data is invalid. Force move to the start page.");
+        view.startPage();
+      }
     });
 
     // Kick things off by calling SurveyView#startPage
