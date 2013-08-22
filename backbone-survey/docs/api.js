@@ -12,6 +12,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "RangeLengthValidator",
         "RequiredValidator",
         "Section",
+        "SectionResolver",
         "SectionView",
         "Sections",
         "Survey",

@@ -460,7 +460,10 @@ var BackboneSurvey = BackboneSurvey || {};
       var me = this;
       _.each(ids, function(id) {
         var section = me.sections.get(id);
-        if (section) vs = _.union(vs, section.answeredRoutes());
+        if (section) vs.push({
+          id: id
+        , routes: section.answeredRoutes()
+        });
       });
       return vs;
     }
@@ -484,14 +487,10 @@ var BackboneSurvey = BackboneSurvey || {};
         var sections = this.sections.where({ page: p });
         var num = sections.length;
         for (var i = 0; i < sections.length; i++) {
-          var visible = true;
-          var keys = sections[i].get("routeDependencies") || [];
-          for (var j = 0; j < keys.length; j++) {
-            var diff = _.difference(routes, _.flatten([keys[j]])); // Unmatched keys
-            visible = _.difference(routes, diff).length > 0; // Not match any keys
-            if (!visible) break;
-          }
-          if (!visible) num--;
+          var resolver =
+            sections[i].get("resolver") ||
+            new BackboneSurvey.SectionResolver(sections[i].get("routeDependencies") || []);
+          if (!resolver.resolve(routes)) num--;
         }
         if (num > 0) {
           pages.push(p);

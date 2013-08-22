@@ -33,6 +33,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "src/assets/js/resolvers.js": {
+            "name": "src/assets/js/resolvers.js",
+            "modules": {},
+            "classes": {
+                "SectionResolver": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/assets/js/templates.js": {
             "name": "src/assets/js/templates.js",
             "modules": {},
@@ -84,6 +93,7 @@
                 "Section": 1,
                 "Sections": 1,
                 "Survey": 1,
+                "SectionResolver": 1,
                 "Templates": 1,
                 "ValidationResult": 1,
                 "ValidationResult.OK": 1,
@@ -192,6 +202,32 @@
             "file": "src/assets/js/models.js",
             "line": 230,
             "extends": "{Backbone.Model}"
+        },
+        "SectionResolver": {
+            "name": "SectionResolver",
+            "shortname": "SectionResolver",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "backbone-survey",
+            "namespace": "",
+            "file": "src/assets/js/resolvers.js",
+            "line": 7,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "dependencies",
+                    "description": "Any route dependencies.",
+                    "type": "Array"
+                },
+                {
+                    "name": "strict",
+                    "description": "Use strict mode. It denies any other routes.",
+                    "type": "Boolean"
+                }
+            ]
         },
         "Templates": {
             "name": "Templates",
@@ -841,7 +877,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 468,
+            "line": 471,
             "description": "Returns available page numbers.",
             "itemtype": "method",
             "name": "availablePages",
@@ -854,7 +890,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 505,
+            "line": 504,
             "description": "Serialize the survey status.",
             "itemtype": "method",
             "name": "serializeStatus",
@@ -867,7 +903,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 526,
+            "line": 525,
             "description": "Unserialize a survey status.",
             "itemtype": "method",
             "name": "unserializeStatus",
@@ -888,6 +924,25 @@
                 "type": "Boolean"
             },
             "class": "Survey",
+            "module": "backbone-survey"
+        },
+        {
+            "file": "src/assets/js/resolvers.js",
+            "line": 19,
+            "itemtype": "method",
+            "name": "resolve",
+            "params": [
+                {
+                    "name": "routes",
+                    "description": "",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "SectionResolver",
             "module": "backbone-survey"
         },
         {

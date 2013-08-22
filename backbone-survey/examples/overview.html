@@ -129,21 +129,27 @@
             question: "Q4. The example of CheckboxAnswerView. (optional)"
           }
         , options: [
-            { value: "A", label: 'Sports', route: "ANY", sub: { placeholder: "Your favorite sport ?" } }
+            { value: "A", label: 'Sports', route: "SPORTS", sub: { placeholder: "Your favorite sport ?" } }
           , { value: "B", label: 'Reading', route: "ANY", sub: { placeholder: "Your favorite book ?" } }
-          , { value: "C", label: 'Movies', route: "ANY", sub: { placeholder: "Your favorite movie ?" } }
-          , { value: "NONE", label: 'None' }
+          , { value: "C", label: 'Movies', route: "ANY", sub: { placeholder: "Your favorite country ?" } }
           , { value: "OTHER", label: "Other", route: "OTHER", sub: {} }
+          , { value: "NONE", label: 'None' }
           ]
         // The single answers. The other options should be unchecked automatically when these selected.
-        , singleOptions: ["NONE", "OTHER"]
-        // Initial answers. The "NONE" should be unchecked because it conflict the singleOptions.
-        , defaultAnswers: ["B", "C", "NONE"]
+        , singleOptions: ["NONE"]
+        // Initial answers. The "OTHER" should be unchecked because it conflict the singleOptions.
+        , defaultAnswers: ["B", "C"]
         }
       , {
           id: "q5"
         , page: 5
-        , routeDependencies: ["Y", ["ANY", "OTHER"]] // The section depends Y && (ANY || OTHER) route.
+        // The section depends only Y && (ANY || OTHER) routes.
+        // We can set manually "SectionResolver" instance as :resolver attribute.
+        // The 1st argment of the constructor is same as :rooteDependencies attr.
+        // If the 2nd argment is TRUE, the resolver denies any other routes.
+        // For example, it allows ["Y", "ANY"] or ["Y", "OTHER"],
+        // but denies ["Y", "SPORTS", "ANY"] or ["Y", "SPORTS", "OTHER"]
+        , resolver: new BackboneSurvey.SectionResolver(["Y", ["ANY", "OTHER"]], true)
         , type: BackboneSurvey.QuestionType.CHECKBOX
         , contents: {
             question: "Q5. The more example of CheckboxAnswerView. Simply, you can use an array of label strings"

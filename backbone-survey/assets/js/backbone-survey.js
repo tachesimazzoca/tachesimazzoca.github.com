@@ -333,6 +333,55 @@ var BackboneSurvey = BackboneSurvey || {};
 
 (function() {
   /**
+   * @class SectionResolver
+   * @constructor
+   * @param {Array} dependencies Any route dependencies.
+   * @param {Boolean} strict Use strict mode. It denies any other routes.
+   */
+  var SectionResolver = BackboneSurvey.SectionResolver = function(dependencies, strict) {
+    this.dependencies = dependencies || [];
+    this.strict = strict ? true : false;
+  };
+
+  SectionResolver.prototype = {
+    /**
+     * @method resolve
+     * @param {Array} routes
+     * @param {Boolean}
+     */
+    resolve: function(routes) {
+      var keys = this.dependencies;
+      var vs = [];
+      _.each(routes, function(r) {
+        vs = _.union(vs, r.routes);
+      });
+      var allowed = true;
+      for (var i = 0; i < keys.length; i++) {
+        var diff = _.difference(vs, _.flatten([keys[i]])); // Unmatched keys
+        allowed = _.difference(vs, diff).length > 0;
+        if (!allowed) break; // Not match any keys
+      }
+      if (allowed && this.strict) {
+        // Use strict mode
+        _.each(keys, function(key) {
+          var ks = _.flatten([key]);
+          _.each(ks, function(k) {
+            vs = _.without(vs, k); // Remove matched key
+          });
+        });
+        allowed = (vs.length === 0); // Not have any other routes.
+      }
+      return allowed;
+    }
+  };
+})();
+/**
+ * @module backbone-survey
+ */
+var BackboneSurvey = BackboneSurvey || {};
+
+(function() {
+  /**
    * @class Section
    * @extends {Backbone.Model}
    */
@@ -788,7 +837,10 @@ var BackboneSurvey = BackboneSurvey || {};
       var me = this;
       _.each(ids, function(id) {
         var section = me.sections.get(id);
-        if (section) vs = _.union(vs, section.answeredRoutes());
+        if (section) vs.push({
+          id: id
+        , routes: section.answeredRoutes()
+        });
       });
       return vs;
     }
@@ -812,14 +864,10 @@ var BackboneSurvey = BackboneSurvey || {};
         var sections = this.sections.where({ page: p });
         var num = sections.length;
         for (var i = 0; i < sections.length; i++) {
-          var visible = true;
-          var keys = sections[i].get("routeDependencies") || [];
-          for (var j = 0; j < keys.length; j++) {
-            var diff = _.difference(routes, _.flatten([keys[j]])); // Unmatched keys
-            visible = _.difference(routes, diff).length > 0; // Not match any keys
-            if (!visible) break;
-          }
-          if (!visible) num--;
+          var resolver =
+            sections[i].get("resolver") ||
+            new BackboneSurvey.SectionResolver(sections[i].get("routeDependencies") || []);
+          if (!resolver.resolve(routes)) num--;
         }
         if (num > 0) {
           pages.push(p);

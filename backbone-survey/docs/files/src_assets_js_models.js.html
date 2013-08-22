@@ -63,6 +63,8 @@
             
                 <li><a href="../classes/Section.html">Section</a></li>
             
+                <li><a href="../classes/SectionResolver.html">SectionResolver</a></li>
+            
                 <li><a href="../classes/Sections.html">Sections</a></li>
             
                 <li><a href="../classes/SectionView.html">SectionView</a></li>
@@ -590,7 +592,10 @@ var BackboneSurvey = BackboneSurvey || {};
       var me = this;
       _.each(ids, function(id) {
         var section = me.sections.get(id);
-        if (section) vs = _.union(vs, section.answeredRoutes());
+        if (section) vs.push({
+          id: id
+        , routes: section.answeredRoutes()
+        });
       });
       return vs;
     }
@@ -614,14 +619,10 @@ var BackboneSurvey = BackboneSurvey || {};
         var sections = this.sections.where({ page: p });
         var num = sections.length;
         for (var i = 0; i &lt; sections.length; i++) {
-          var visible = true;
-          var keys = sections[i].get(&quot;routeDependencies&quot;) || [];
-          for (var j = 0; j &lt; keys.length; j++) {
-            var diff = _.difference(routes, _.flatten([keys[j]])); // Unmatched keys
-            visible = _.difference(routes, diff).length &gt; 0; // Not match any keys
-            if (!visible) break;
-          }
-          if (!visible) num--;
+          var resolver =
+            sections[i].get(&quot;resolver&quot;) ||
+            new BackboneSurvey.SectionResolver(sections[i].get(&quot;routeDependencies&quot;) || []);
+          if (!resolver.resolve(routes)) num--;
         }
         if (num &gt; 0) {
           pages.push(p);
