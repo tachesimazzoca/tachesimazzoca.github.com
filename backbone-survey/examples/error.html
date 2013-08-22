@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>backbone-survey/examples/overview</title>
+<script type="text/javascript" src="../lib/json2/json2.js"></script>
+<script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="../lib/backbone/backbone-min.js"></script>
+<script type="text/javascript" src="../assets/js/backbone-survey.js"></script>
+<script type="text/javascript">
+(function($) {
+  $(function() {
+    var survey = new BackboneSurvey.Survey({
+      survey: {
+        title: "Errors on Alert Dialog"
+      , page: 0
+      }
+    , sections: [
+      , {
+          id: "q1"
+        , page: 1
+        , type: BackboneSurvey.QuestionType.TEXT
+        , contents: {
+            question: "Q1. Required / 2..10 characters"
+          , suffix: "<em>(2..10 characters)</em>"
+          }
+        , rules: [
+            new BackboneSurvey.RequiredValidator({ message: "An answer is required" })
+          , new BackboneSurvey.RangeLengthValidator(
+              { message: "The answer must be between 2..10 characters" , min: 2 , max: 10 })
+          ]
+        }
+      , {
+          id: "q2"
+        , page: 2
+        , type: BackboneSurvey.QuestionType.RADIO
+        , contents: {
+            question: "Q2. Required"
+          }
+        , options: [
+            { value: "1", label: "Yes" }
+          , { value: "2", label: "No" }
+          , { value: "0", label: "Maybe" }
+          ]
+        , rules: [
+            new BackboneSurvey.RequiredValidator({ message: "Please select one" })
+          ]
+        }
+      , {
+          id: "q3"
+        , page: 3
+        , type: BackboneSurvey.QuestionType.MULTI
+        , contents: {
+            question: "Q3. Any rules on MulitAnswerView"
+          }
+        , fields: [
+            {
+              label: "Sub-Q1. <em>(required)</em>"
+            , rules: [
+                new BackboneSurvey.RequiredValidator({
+                  message: "Sub-Q1. is required"
+                })
+              ]
+            }
+          , {
+              label: "Sub-Q2. (less than 10 characters)"
+            , rules: [
+                new BackboneSurvey.RangeLengthValidator({
+                  message: "Sub-Q2. must be less than 10 characters"
+                , max: 9
+                })
+              ]
+            }
+          , {
+              label: "Sub-Q3. <em>(alphabets only)</em>"
+            , rules: [
+                new BackboneSurvey.PatternValidator({
+                  message: "Sub-Q3. must be [a-zA-Z] characters only"
+                , pattern: "^(?:|[a-zA-Z]+)$"
+                })
+              ]
+            }
+          , { label: "Sub-Q4. <em>(optional)</em>" }
+          ]
+        }
+      ]
+    }, { parse: true });
+
+    // Hide the error message element.
+    BackboneSurvey.Templates.SectionView =
+      '<div class="<%- elPrefix %>question"><%= model.contents.question %></div>' +
+        '<!--<div id="<%- elPrefix %>error-<%- model.id %>" class="<%- elPrefix %>error"></div>-->' +
+        '<div id="<%- elPrefix %>answer-<%- model.id %>" class="<%- elPrefix %>answer"></div>'
+
+    var view = new BackboneSurvey.SurveyView({
+      model: survey // BackboneSurvey.Survey
+    , el: $("#survey-app") // jQuery object for the Survey App
+    });
+    view.on("invalid", function() {
+      // This function is called if the view has some errors when moving next page.
+      var msg = '';
+      _.each(_.keys(view.errors), function(k) {
+        msg += '[' + k + '] ' + view.errors[k].join("\n") + "\n";
+      });
+      alert(msg);
+    });
+
+    view.on("start", function() { survey.startPage() });
+    view.on("prev", function() { survey.prevPage() });
+    view.on("next", function() { survey.nextPage() });
+    view.on("complete", function() {
+      console.log(["completed", survey.answers()]);
+    });
+
+    // Kick things off by calling SurveyView#startPage
+    view.startPage();
+  });
+})(jQuery);
+</script>
+</head>
+<body>
+  <div id="survey-app">
+    <h1 class="survey-title"></h1><!-- The element of Survey:title -->
+    <div id="survey-sections"></div><!-- The element of the sections (required) -->
+    <input type="button" class="survey-next" value="Next"><!-- Move to next page (required) -->
+    <input type="button" class="survey-prev" value="Prev"><!-- Move to prev page (optional) -->
+    <p><a class="survey-start" href="javascript:void(0);">Retry</a></p><!-- Move to first page (optional) -->
+  </div>
+</body>
+</html>

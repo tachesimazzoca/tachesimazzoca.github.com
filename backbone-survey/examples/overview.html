@@ -273,7 +273,7 @@
 
     // SurveyView fires the "answer" events for each operation.
     view.on("answer", function() {
-      console.log(["answer", view.isValid()]);
+      console.log(["answer", view.isValid(), view.errors]);
     });
 
     // Animation Setting (optional)

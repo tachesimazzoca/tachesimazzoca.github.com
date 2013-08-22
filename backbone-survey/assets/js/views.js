@@ -10,8 +10,10 @@ var BackboneSurvey = BackboneSurvey || {};
    */
   BackboneSurvey.SurveyView = Backbone.View.extend({
     /**
-     * @property elPrefix
-     * @type {String} The prefix for DOM attr
+     * A prefix of the DOM attributes.
+     *
+      @property elPrefix
+     * @type {String}
      */
     elPrefix: "survey-"
 
@@ -20,6 +22,14 @@ var BackboneSurvey = BackboneSurvey || {};
      * @type {Boolean}
      */
   , rendered: false
+
+    /**
+     * Validation error messages of each section.
+     *
+     * @property errors
+     * @type {Object}
+     */
+  , errors: {}
 
   , _locked: false
 
@@ -32,6 +42,7 @@ var BackboneSurvey = BackboneSurvey || {};
   , initialize: function() {
       this.$el.hide();
       this.rendered = false;
+      this.errors = {};
 
       this._locked = false;
       this._valid = false;
@@ -186,6 +197,8 @@ var BackboneSurvey = BackboneSurvey || {};
       if (!this.rendered) return;
       if (this.validate()) {
         this.trigger("next", this);
+      } else {
+        this.trigger("invalid", this);
       }
     }
 
@@ -196,6 +209,7 @@ var BackboneSurvey = BackboneSurvey || {};
      */
   , validate: function(option) {
       option = option || {};
+      this.errors = {};
       var valid = true;
       var sectionIds = _.keys(this.sectionViewMap);
       var me = this;
@@ -213,8 +227,9 @@ var BackboneSurvey = BackboneSurvey || {};
         if (model.validationError) {
           valid = false;
           if (!option.silent) {
+            me.errors[model.id] = model.validationError;
             $error.html(_.template(me.templates.error)(
-                { errors: model.validationError })).show();
+                { errors: me.errors[model.id] })).show();
           }
         }
       });
