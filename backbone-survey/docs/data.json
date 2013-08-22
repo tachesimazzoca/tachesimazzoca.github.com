@@ -689,7 +689,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 250,
+            "line": 251,
             "description": "Parser method for using `{ parse: true }` option.\n\n<pre><code>var survey = new BackboneSurvey.Survey({\n   survey: {\n     // Survey.attributes ....\n   }\n , sections: [\n     // An array of Section.attributes ....\n   ]\n}, { parse: true });\n</code></pre>",
             "itemtype": "method",
             "name": "parse",
@@ -714,16 +714,28 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 275,
+            "line": 276,
             "description": "Initialize all the answers and the status.",
             "itemtype": "method",
             "name": "initAnswers",
+            "params": [
+                {
+                    "name": "p",
+                    "description": "A current page",
+                    "type": "Number"
+                },
+                {
+                    "name": "option",
+                    "description": "Survey#set option",
+                    "type": "Object"
+                }
+            ],
             "class": "Survey",
             "module": "backbone-survey"
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 289,
+            "line": 302,
             "description": "Move to a first page, and reset all answers.",
             "itemtype": "method",
             "name": "startPage",
@@ -732,7 +744,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 300,
+            "line": 313,
             "description": "Move to the previous page.",
             "itemtype": "method",
             "name": "prevPage",
@@ -741,7 +753,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 322,
+            "line": 340,
             "description": "Move to the next page.",
             "itemtype": "method",
             "name": "nextPage",
@@ -750,7 +762,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 356,
+            "line": 378,
             "itemtype": "method",
             "name": "isFirstPage",
             "return": {
@@ -762,7 +774,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 364,
+            "line": 386,
             "itemtype": "method",
             "name": "isLastPage",
             "return": {
@@ -774,7 +786,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 372,
+            "line": 394,
             "description": "Returns an array of Section in a current page.",
             "itemtype": "method",
             "name": "currentSections",
@@ -787,7 +799,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 382,
+            "line": 404,
             "description": "Returns all answers.",
             "itemtype": "method",
             "name": "answers",
@@ -800,7 +812,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 405,
+            "line": 427,
             "description": "Add an answered section ID.",
             "itemtype": "method",
             "name": "addAnsweredSectionId",
@@ -816,7 +828,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 429,
+            "line": 451,
             "description": "Returns the route keys in the sections.",
             "itemtype": "method",
             "name": "answeredRoutes",
@@ -829,7 +841,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 446,
+            "line": 468,
             "description": "Returns available page numbers.",
             "itemtype": "method",
             "name": "availablePages",
@@ -842,7 +854,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 483,
+            "line": 505,
             "description": "Serialize the survey status.",
             "itemtype": "method",
             "name": "serializeStatus",
@@ -855,7 +867,7 @@
         },
         {
             "file": "src/assets/js/models.js",
-            "line": 504,
+            "line": 526,
             "description": "Unserialize a survey status.",
             "itemtype": "method",
             "name": "unserializeStatus",

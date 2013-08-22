@@ -245,6 +245,7 @@ var BackboneSurvey = BackboneSurvey || {};
       title: ""
     , page: 0
     , answeredSectionIds : []
+    , options : {}
     }
 
     /**
@@ -276,14 +277,26 @@ var BackboneSurvey = BackboneSurvey || {};
      * Initialize all the answers and the status.
      *
      * @method initAnswers
+     * @param  {Number} p A current page
+     * @param  {Object} option Survey#set option
      */
-  , initAnswers: function() {
-      this.set("answeredSectionIds", []);
+  , initAnswers: function(p, option) {
+      p = p || 0;
+      option = option || {};
+      var sectionIds = this.get("answeredSectionIds");
       this.sections.each(function(section) {
-        section.clearAnswers();
-        section.set({ answers: section.get("defaultAnswers") });
+        if (section.get("page") > p) {
+          _.without(sectionIds, section.id);
+          section.clearAnswers();
+          section.set({
+            answers: section.get("defaultAnswers")
+          }, { silent: true });
+        }
       });
-      this.set({ page: 0 }, { silent: true });
+      this.set({
+        page: p
+      , answeredSectionIds: sectionIds
+      }, option);
     }
 
     /**
@@ -292,7 +305,7 @@ var BackboneSurvey = BackboneSurvey || {};
      * @method startPage
      */
   , startPage: function() {
-      this.initAnswers();
+      this.initAnswers(0, { silent: false });
       var p = this.sections.firstPage();
       this.set({ page: p });
     }
@@ -315,7 +328,12 @@ var BackboneSurvey = BackboneSurvey || {};
         }
       }
       if (p != this.get("page")) {
-        this.set({ page: p });
+        var resetOn =this.get("options").resetOn || [];
+        if (_.contains(resetOn, "prev")) {
+          this.initAnswers(p);
+        } else {
+          this.set({ page: p });
+        }
       }
     }
 
@@ -347,6 +365,10 @@ var BackboneSurvey = BackboneSurvey || {};
         }
       }
       if (p > cp) {
+        var resetOn =this.get("options").resetOn || [];
+        if (_.contains(resetOn, "next")) {
+          this.initAnswers(cp, { silent: true});
+        }
         this.set({ page: p });
       } else {
         this.trigger("completed");
@@ -513,7 +535,7 @@ var BackboneSurvey = BackboneSurvey || {};
       var i;
 
       option = option || {};
-      this.initAnswers();
+      this.initAnswers(0, { silent: true });
 
       var data;
       try {
@@ -543,7 +565,7 @@ var BackboneSurvey = BackboneSurvey || {};
         if (_.contains(data.answeredSectionIds, section.id)) {
           var errors = section.validate(attr);
           if (errors) {
-            this.initAnswers();
+            this.initAnswers(0, { silent: true });
             return false;
           }
         }
