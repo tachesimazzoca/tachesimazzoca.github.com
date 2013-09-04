@@ -183,7 +183,9 @@
           }
 
         , block: function() {
-            alert("In this application, you can not move page by using the browser history.");
+            if (survey.get("page") > 0) {
+              alert("In this application, you can not move page by using the browser history.");
+            }
           }
         });
         router = new HistoryBlocker();

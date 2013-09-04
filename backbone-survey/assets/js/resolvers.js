@@ -19,7 +19,7 @@ var BackboneSurvey = BackboneSurvey || {};
     /**
      * @method resolve
      * @param {Array} routes
-     * @param {Boolean}
+     * @return {Boolean}
      */
     resolve: function(routes) {
       var keys = this.dependencies;
