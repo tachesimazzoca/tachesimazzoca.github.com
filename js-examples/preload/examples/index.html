@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js-examples/preload</title>
+<script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../assets/js/preload.js"></script>
+<script type="text/javascript">
+(function($) {
+  $(function() {
+    $('#app').hide();
+    $('#btn-replace').on("click", function() {
+      $('img[data-src]').each(function() {
+        var $this = $(this);
+        $this.attr("src", $this.attr("data-src"));
+      });
+    });
+
+    var loader = new Preload.ImageLoader();
+    loader.on("complete", function() {
+      $('#app').show();
+    });
+    loader.load([
+      "images/black.gif"
+    , "images/red.gif"
+    , "images/green.gif"
+    , "images/blue.gif"
+    , "images/cyan.gif"
+    , "images/yellow.gif"
+    , "images/magenta.gif"
+    ]);
+  });
+})(window.jQuery);
+</script>
+</head>
+<body>
+  <div id="app">
+    <ul>
+     <li><img src="images/black.gif" data-src="images/red.gif"></li>
+     <li><img src="images/black.gif" data-src="images/green.gif"></li>
+     <li><img src="images/black.gif" data-src="images/blue.gif"></li>
+     <li><img src="images/black.gif" data-src="images/cyan.gif"></li>
+     <li><img src="images/black.gif" data-src="images/yellow.gif"></li>
+     <li><img src="images/black.gif" data-src="images/magenta.gif"></li>
+    </ul>
+    <button id="btn-replace">Replace</button>
+  </div>
+</body>
+</html>
