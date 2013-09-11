@@ -44,6 +44,14 @@
       return res;
     }
 
+  , getResources: function() {
+      return this._resources;
+    }
+
+  , clearResources: function() {
+      this._resources = [];
+    }
+
   , numOfLoading: function() {
       var i, n, len;
       n = 0;

@@ -11,6 +11,7 @@
 
   test("ImageLoader#getResource", function() {
     var loader = new Preload.ImageLoader();
+    deepEqual(loader.getResources(), []);
     var res = new Image(); 
     loader._resources = [
       { url: "./a.png", resource: null }
@@ -18,6 +19,12 @@
     ];
     ok(loader.getResource("./a.png") === null);
     ok(loader.getResource("./b.png") === res);
+    deepEqual(loader.getResources(), [
+      { url: "./a.png", resource: null }
+    , { url: "./b.png", resource: res }
+    ]);
+    loader.clearResources();
+    deepEqual(loader.getResources(), []);
   });
 
   test("ImageLoader#load", function() {

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>preload/examples/overview</title>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+// Define Preload as a dummy object
+var Preload = { foo: "bar" };
+
+</script>
+<script type="text/javascript" src="../assets/js/preload.js"></script>
+<script type="text/javascript">
+(function($) {
+  $(function() {
+    // Run in noConflict mode.
+    var preload = Preload.noConflict();
+    // The previous `Preload` variable is not changed.
+    console.log(Preload.foo);
+
+    // The `preload` is an alias to the `Preload` namespace.
+    var loader = new preload.ImageLoader(); 
+    loader.on("complete", function() {
+      var resources = loader.getResources();
+      for (var i = 0; i < resources.length; i++) {
+        $('#app').append(resources[i].resource);
+      }
+    });
+    loader.load([
+      "images/red.gif"
+    , "images/green.gif"
+    , "images/blue.gif"
+    ]);
+  });
+})(window.jQuery);
+</script>
+</head>
+<body>
+  <div id="app">
+  </div>
+</body>
+</html>
