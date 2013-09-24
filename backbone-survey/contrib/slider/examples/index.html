@@ -41,6 +41,27 @@
             })
           ]
         }
+      , {
+          id: "q2"
+        , page: 2
+        // The type is only supported QuestionType.RADIO
+        , type: BackboneSurvey.QuestionType.RADIO
+        , view: "OptionSliderAnswerView"
+        , contents: {
+            question: "<strong>Q1.</strong> Please rate your satisfaction with your own PC."
+          , note: "<em>with my own PC.</em>"
+          }
+        , options: [
+            { value: "1", label: "Not at all satisfied" }
+          , { value: "2", label: "Slightly satisfied" }
+          , { value: "3", label: "Moderately satisfied" }
+          , { value: "4", label: "Very satisfied" }
+          , { value: "5", label: "Completely satisfied" }
+          ]
+        , rules: [
+            new BackboneSurvey.RequiredValidator({ message: "Please select one" })
+          ]
+        }
       ]
     }, { parse: true });
 
