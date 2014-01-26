@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>Vagrant | </title>
+<link href="../assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/javascripts/jquery-1.7.1.min.js"></script>
+<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="pull-left">
+          <a class="btn btn-inverse" href="../index.html"><i class="icon-home icon-white"></i></a>
+        </div>
+        <ul class="nav">
+          <li></li>
+        </ul>
+        <form class="navbar-search pull-right" action="http://www.google.com/search">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <input type="text" class="search-query" name="as_q" placeholder="Search">
+</form>
+
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+  <div id="main">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        
+        <div class="btn-group pull-right">
+          <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/vagrant/index.md">Raw</a>
+          <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/vagrant/index.md">Blame</a>
+          <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/vagrant/index.md">History</a>
+        </div>
+        <div id="content">
+        <h1>Vagrant</h1>
+        <div id="toc">
+        </div>
+        <h2>Creating a Base Box</h2>
+
+<p>Publicly available base boxes usually use a root password of "vagrant".</p>
+
+<pre><code>% passwd
+Changing password for user root.
+New Unix password: vagrant
+...
+</code></pre>
+
+<p>Add <code>vagrant</code> user with the <a href="https://github.com/mitchellh/vagrant/tree/master/keys">insecure keypair</a>.</p>
+
+<pre><code>% useradd vagrant
+% su - vagrant
+$ mkdir .ssh
+$ chmod 700 .ssh
+$ cd .ssh
+$ curl "https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub" &gt; authorized_keys
+$ chmod 600 authorized_keys
+$ export HISTSIZE=0
+$ exit
+</code></pre>
+
+<p>Allow passwordless sudo for the <code>vagrant</code> user and remove <code>requiretty</code> if it exists.</p>
+
+<pre><code>% visudo
+...
+vagrant ALL=(ALL) NOPASSWD: ALL
+...
+#Default requiretty
+</code></pre>
+
+<p>Set <code>UseDNS no</code> in the SSH server configuration.</p>
+
+<pre><code>% vi /etc/ssh/sshd_config
+...
+UseDNS no
+...
+</code></pre>
+
+<p>Clear any working files, bash history and so on and then shutdown the VM.</p>
+
+<pre><code>% yum clean all
+% rm /tmp/*
+% umount /mnt/cdrom
+...
+% export HISTSIZE=0
+% shutdown -h now
+</code></pre>
+
+<p>Use the <code>package</code> sub-command to create.</p>
+
+<pre><code>% vagrant package --base "CentOS-6.4-x86_64-minimal" --output /path/to/package.box
+</code></pre>
+
+<h2>Links</h2>
+
+<ul>
+<li><a href="http://docs.vagrantup.com/v2/">Vagrant Documentation</a></li>
+</ul>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
