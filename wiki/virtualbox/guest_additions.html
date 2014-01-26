@@ -71,6 +71,18 @@
           </div>
           <h2>CentOS-5.8-x86_64</h2>
 
+<p>If you prefer to keep the 5.8 kernel, you might replace the CentOS base repository with <code>vault.centos.org/5.8</code>.</p>
+
+<pre><code>% vi /etc/yum.repos.d/CentOS-Base.repo 
+...
+[base]
+name=CentOS-5.8 - Base
+baseurl=http://vault.centos.org/5.8/os/$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+...
+</code></pre>
+
 <p>Install <code>kernel-devel</code> and remove the old (mismatch) <code>kernel</code> package:</p>
 
 <pre><code>% yum list installed | grep kernel
@@ -79,8 +91,8 @@ kernel.x86_64             2.6.18-308.el5
 % yum install kernel-devel
 % yum list installed | grep kernel
 kernel.x86_64             2.6.18-308.el5
-kernel.x86_64             2.6.18-371.3.1.el5
-kernel-devel.x86_64       2.6.18-371.3.1.el5
+kernel.x86_64             2.6.18-308.24.1.el5
+kernel-devel.x86_64       2.6.18-308.24.1.el5
 % yum remove kernel-2.6.18-308.el5
 </code></pre>
 
@@ -91,10 +103,10 @@ kernel-devel.x86_64       2.6.18-371.3.1.el5
 % shutdown -r now
 ...
 % uname -r
-2.6.18-371.3.1.el5
+2.6.18-308.24.1.el5
 </code></pre>
 
-<p>For versions prior to 6, add <code>divider=0 clocksource=acpi_pm</code> to the kernel boot options.</p>
+<p>For versions prior to 6, add <code>divider=10</code> to the kernel boot options.</p>
 
 <pre><code>% vi /etc/grub.conf
 ....
