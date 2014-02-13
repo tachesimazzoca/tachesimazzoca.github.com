@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>JAD Java Decompiler | Java</title>
+<title>Bookmarks | Java</title>
 <link href="../assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/javascripts/jquery-1.7.1.min.js"></script>
@@ -43,7 +43,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">Java</a> <span class="divider">/</span></li><li>JAD Java Decompiler</li>
+        <li><a href="./index.html">Java</a> <span class="divider">/</span></li><li>Bookmarks</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -54,61 +54,81 @@
               <ul class="nav nav-list">
                 <li class="nav-header">Table of Contents</li>
               </ul>
-              <ul class="nav nav-list"><li><a href="./cheatsheet.html">Cheat Sheet</a></li><li><a href="./junit.html">JUnit</a></li><li class="active"><a href="./jad.html">JAD Java Decompiler</a></li><li><a href="./bookmarks.html">Bookmarks</a></li></ul>
+              <ul class="nav nav-list"><li><a href="./cheatsheet.html">Cheat Sheet</a></li><li><a href="./junit.html">JUnit</a></li><li><a href="./jad.html">JAD Java Decompiler</a></li><li class="active"><a href="./bookmarks.html">Bookmarks</a></li></ul>
             </div>
           </div>
         </div>
         <div class="span9">
           
           <div class="btn-group pull-right">
-            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/java/jad.md">Raw</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/java/jad.md">Blame</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/java/jad.md">History</a>
+            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/java/bookmarks.md">Raw</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/java/bookmarks.md">Blame</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/java/bookmarks.md">History</a>
           </div>
           <div id="content">
-          <h1>JAD Java Decompiler</h1>
+          <h1>Bookmarks</h1>
           <div id="toc">
           </div>
-          <h2>Overview</h2>
+          <h2>Tutorials</h2>
 
 <ul>
-<li><a href="http://www.varaneckas.com/jad/">http://www.varaneckas.com/jad/</a></li>
+<li><a href="http://docs.oracle.com/javase/tutorial/getStarted/cupojava/unix.html">"Hello World!" for Solaris OS and Linux</a></li>
+<li><a href="http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html">Maven in 5 Minutes</a></li>
+<li><a href="http://checkstyle.sourceforge.net/cmdline.html">Checkstyle Command Line</a></li>
+<li><a href="https://github.com/junit-team/junit/wiki">JUnit Wiki</a></li>
 </ul>
 
 
-<h2>Unix</h2>
+<h2>References</h2>
 
-<pre><code>% jad A.class
-# .jad is decompiled source
-% ls A.*
-A.class A.jad
+<ul>
+<li><a href="http://docs.oracle.com/javase/specs/index.html">Java SE Technical Documentation</a></li>
+<li><a href="http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html">Java HotSpot VM Options</a></li>
+<li><a href="http://docs.oracle.com/javase/6/docs/api/">Java SE 6 API</a></li>
+<li><a href="http://docs.oracle.com/javaee/5/api/index.html">Java EE 5 API</a></li>
+<li><a href="http://hg.openjdk.java.net/jdk6/jdk6-gate/jdk/file/default/src/share/classes/">openjdk6 src</a></li>
+</ul>
 
-# To output STDOUT, use -p option 
-% jad -p B.class &gt; B.java
-% ls B.*
-B.class B.java
-</code></pre>
 
-<p>If you get the following error, you need to install the shared library <code>libstdc++-libc6.2-2.so.3</code>.</p>
+<h2>Projects</h2>
 
-<pre><code>jad: error while loading shared libraries: libstdc++-libc6.2-2.so.3: cannot open shared object file: No such file or directory
-</code></pre>
+<h3>Maven</h3>
 
-<p>Here is an example for yum package <code>libstdc++-libc6.2-2.so.3</code>:</p>
+<ul>
+<li><a href="http://maven.apache.org/guides/index.html">Maven - Documentation</a></li>
+<li><a href="http://search.maven.org">The Central Repository</a></li>
+<li><a href="http://maven.apache.org/plugins/index.html">Available Plugins</a></li>
+</ul>
 
-<pre><code>% yum provides libstdc++-libc6.2-2.so.3
 
-....
+<h3>JBoss</h3>
 
-compat-libstdc++-296-2.96-138.i386 : Compatibility 2.96-RH standard C++ libraries
-Repo        : base
-Matched from:
-Other       : libstdc++-libc6.2-2.so.3
+<ul>
+<li><a href="http://www.jboss.org/jdf/">JBoss Developer Framework</a></li>
+</ul>
 
-....
 
-% yum install compat-libstdc++-296
-</code></pre>
+<h3>Tomcat</h3>
+
+<ul>
+<li><a href="http://tomcat.apache.org/tomcat-6.0-doc/index.html">Apache Tomcat 6.0 - Documentation Index</a></li>
+</ul>
+
+
+<h3>Jetty</h3>
+
+<ul>
+<li><a href="http://www.eclipse.org/jetty/documentation/">Jetty - Documentation</a></li>
+<li><a href="http://jetty.codehaus.org/jetty/jetty-6/apidocs/index.html">Jetty 6 API</a></li>
+</ul>
+
+
+<h3>Tools</h3>
+
+<ul>
+<li><a href="http://www.tagtraum.com/gcviewer.html">GCViewer</a></li>
+</ul>
+
 
           </div>
         </div>

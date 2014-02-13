@@ -54,7 +54,7 @@
               <ul class="nav nav-list">
                 <li class="nav-header">Table of Contents</li>
               </ul>
-              <ul class="nav nav-list"><li class="active"><a href="./junit.html">JUnit</a></li><li><a href="./jad.html">JAD Java Decompiler</a></li><li><a href="basics/index.html">Basics</a></li></ul>
+              <ul class="nav nav-list"><li><a href="./cheatsheet.html">Cheat Sheet</a></li><li class="active"><a href="./junit.html">JUnit</a></li><li><a href="./jad.html">JAD Java Decompiler</a></li><li><a href="./bookmarks.html">Bookmarks</a></li></ul>
             </div>
           </div>
         </div>
@@ -69,13 +69,14 @@
           <h1>JUnit</h1>
           <div id="toc">
           </div>
-          <h2>概要</h2>
+          <h2>Overview</h2>
 
-<p><strong>JUnit</strong></p>
+<ul>
+<li><a href="http://www.junit.org/">http://www.junit.org/</a></li>
+</ul>
 
-<p><a href="http://www.junit.org/">http://www.junit.org/</a></p>
 
-<h2>Unix</h2>
+<h3>Unix</h3>
 
 <pre><code>% cd /path/to/project
 % mkdir test
@@ -89,43 +90,12 @@
 % java -classpath /path/to/junit.jar:/path/to/classes org.junit.runner.JUnitCore HelloWorldTest
 </code></pre>
 
-<h2>Eclipse</h2>
-
-<p>テストクラスを作成するソースフォルダを選択し</p>
-
-<pre><code>File &gt; New &gt; JUnit Test Case
-</code></pre>
-
-<p>でテストクラスの作成ウィザードが起動します。</p>
-
-<dl>
-<dt>SourceFolder</dt>
-<dd><code>(Eclipse プロジェクト)/test</code></dd>
-<dt>Package</dt>
-<dd>作成するテストクラスの `package</code> 名</dd>
-<dt>Name</dt>
-<dd>作成するテストクラス名</dd>
-<dt>Class under test</dt>
-<dd>テスト対象クラス名</dd>
-</dl>
-
-
-<p>作成したテストクラスのソースを選択し</p>
-
-<pre><code>Run &gt; Run As &gt; JUnit Test
-</code></pre>
-
-<p>でテスト実行されます。</p>
-
 <h2>JUnit4</h2>
-
-<p>テストメゾッドは <code>@Test</code> アノテーションをつけるだけです。</p>
 
 <pre><code>import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class PersonTest {
-
     @Test
     public void testGetName() {
         Person obj = new Person();
@@ -155,7 +125,6 @@ public class PersonTest {
 }
 
 public class Person {
-
     private String name;
     private int age;
 

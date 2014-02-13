@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>JAD Java Decompiler | Java</title>
+<title>Cheat Sheet | Java</title>
 <link href="../assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/javascripts/jquery-1.7.1.min.js"></script>
@@ -43,7 +43,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">Java</a> <span class="divider">/</span></li><li>JAD Java Decompiler</li>
+        <li><a href="./index.html">Java</a> <span class="divider">/</span></li><li>Cheat Sheet</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -54,60 +54,64 @@
               <ul class="nav nav-list">
                 <li class="nav-header">Table of Contents</li>
               </ul>
-              <ul class="nav nav-list"><li><a href="./cheatsheet.html">Cheat Sheet</a></li><li><a href="./junit.html">JUnit</a></li><li class="active"><a href="./jad.html">JAD Java Decompiler</a></li><li><a href="./bookmarks.html">Bookmarks</a></li></ul>
+              <ul class="nav nav-list"><li class="active"><a href="./cheatsheet.html">Cheat Sheet</a></li><li><a href="./junit.html">JUnit</a></li><li><a href="./jad.html">JAD Java Decompiler</a></li><li><a href="./bookmarks.html">Bookmarks</a></li></ul>
             </div>
           </div>
         </div>
         <div class="span9">
           
           <div class="btn-group pull-right">
-            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/java/jad.md">Raw</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/java/jad.md">Blame</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/java/jad.md">History</a>
+            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/java/cheatsheet.md">Raw</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/java/cheatsheet.md">Blame</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/java/cheatsheet.md">History</a>
           </div>
           <div id="content">
-          <h1>JAD Java Decompiler</h1>
+          <h1>Cheat Sheet</h1>
           <div id="toc">
           </div>
-          <h2>Overview</h2>
+          <h2>Reflection</h2>
 
-<ul>
-<li><a href="http://www.varaneckas.com/jad/">http://www.varaneckas.com/jad/</a></li>
-</ul>
+<h3>Instance method</h3>
 
+<pre><code>import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 
-<h2>Unix</h2>
+public class Calc {
+    public int sum(int a, int b) {
+        return a + b; 
+    }
 
-<pre><code>% jad A.class
-# .jad is decompiled source
-% ls A.*
-A.class A.jad
-
-# To output STDOUT, use -p option 
-% jad -p B.class &gt; B.java
-% ls B.*
-B.class B.java
+    public static void main(String[] args) throws Exception {
+        Calc obj = new Calc();
+        try {
+            Method m = obj.getClass().getMethod("sum", int.class, int.class);
+            System.out.println(m.invoke(obj, 2, 3));
+        } catch (InvocationTargetException e) {
+            throw (Exception) e.getCause();
+        } catch (NoSuchMethodException e) {
+            throw e;
+        }
+    }
+}
 </code></pre>
 
-<p>If you get the following error, you need to install the shared library <code>libstdc++-libc6.2-2.so.3</code>.</p>
+<h2>Tips</h2>
 
-<pre><code>jad: error while loading shared libraries: libstdc++-libc6.2-2.so.3: cannot open shared object file: No such file or directory
+<h3>Raising a number to a power</h3>
+
+<p>Use <code>Math.pow</code>. The operator <code>^</code> means XOR in Java.</p>
+
+<pre><code>System.out.println(Math.pow(10, 3)); // 1000.0 
+System.out.println(10 ^ 3); // 9 -&gt; 1010 XOR 0011 = 1001 
 </code></pre>
 
-<p>Here is an example for yum package <code>libstdc++-libc6.2-2.so.3</code>:</p>
+<p>Consider to use <code>x * x</code> instead of <code>Math.pow(x, 2)</code>.</p>
 
-<pre><code>% yum provides libstdc++-libc6.2-2.so.3
+<h3>Getting the current class name statically</h3>
 
-....
-
-compat-libstdc++-296-2.96-138.i386 : Compatibility 2.96-RH standard C++ libraries
-Repo        : base
-Matched from:
-Other       : libstdc++-libc6.2-2.so.3
-
-....
-
-% yum install compat-libstdc++-296
+<pre><code>public class MyClass {
+    private static final String TAG = (new Throwable()).getStackTrace()[0].getClassName();
+}
 </code></pre>
 
           </div>
