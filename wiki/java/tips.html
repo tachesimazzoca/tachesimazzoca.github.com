@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>Cheat Sheet | Java</title>
+<title>Tips | Java</title>
 <link href="../assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/javascripts/jquery-1.7.1.min.js"></script>
@@ -43,7 +43,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">Java</a> <span class="divider">/</span></li><li>Cheat Sheet</li>
+        <li><a href="./index.html">Java</a> <span class="divider">/</span></li><li>Tips</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -54,50 +54,22 @@
               <ul class="nav nav-list">
                 <li class="nav-header">Table of Contents</li>
               </ul>
-              <ul class="nav nav-list"><li class="active"><a href="./cheatsheet.html">Cheat Sheet</a></li><li><a href="./junit.html">JUnit</a></li><li><a href="./jad.html">JAD Java Decompiler</a></li><li><a href="./bookmarks.html">Bookmarks</a></li></ul>
+              <ul class="nav nav-list"><li><a href="./bookmarks.html">Bookmarks</a></li><li><a href="./jad.html">JAD Java Decompiler</a></li><li><a href="./junit.html">JUnit</a></li><li><a href="./reflection.html">Reflection</a></li><li><a href="./servlet.html">Servlet</a></li><li class="active"><a href="./tips.html">Tips</a></li></ul>
             </div>
           </div>
         </div>
         <div class="span9">
           
           <div class="btn-group pull-right">
-            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/java/cheatsheet.md">Raw</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/java/cheatsheet.md">Blame</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/java/cheatsheet.md">History</a>
+            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/java/tips.md">Raw</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/java/tips.md">Blame</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/java/tips.md">History</a>
           </div>
           <div id="content">
-          <h1>Cheat Sheet</h1>
+          <h1>Tips</h1>
           <div id="toc">
           </div>
-          <h2>Reflection</h2>
-
-<h3>Instance method</h3>
-
-<pre><code>import java.lang.reflect.Method;
-import java.lang.reflect.InvocationTargetException;
-
-public class Calc {
-    public int sum(int a, int b) {
-        return a + b; 
-    }
-
-    public static void main(String[] args) throws Exception {
-        Calc obj = new Calc();
-        try {
-            Method m = obj.getClass().getMethod("sum", int.class, int.class);
-            System.out.println(m.invoke(obj, 2, 3));
-        } catch (InvocationTargetException e) {
-            throw (Exception) e.getCause();
-        } catch (NoSuchMethodException e) {
-            throw e;
-        }
-    }
-}
-</code></pre>
-
-<h2>Tips</h2>
-
-<h3>Raising a number to a power</h3>
+          <h2>Raising a number to a power</h2>
 
 <p>Use <code>Math.pow</code>. The operator <code>^</code> means XOR in Java.</p>
 
@@ -107,7 +79,7 @@ System.out.println(10 ^ 3); // 9 -&gt; 1010 XOR 0011 = 1001
 
 <p>Consider to use <code>x * x</code> instead of <code>Math.pow(x, 2)</code>.</p>
 
-<h3>Getting the current class name statically</h3>
+<h2>Getting the current class name statically</h2>
 
 <pre><code>public class MyClass {
     private static final String TAG = (new Throwable()).getStackTrace()[0].getClassName();
