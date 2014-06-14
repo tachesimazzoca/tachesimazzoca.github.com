@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>Basic | Git</title>
+<title>Cheat Sheet | Git</title>
 <link href="../assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/javascripts/jquery-1.7.1.min.js"></script>
@@ -43,7 +43,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">Git</a> <span class="divider">/</span></li><li>Basic</li>
+        <li><a href="./index.html">Git</a> <span class="divider">/</span></li><li>Cheat Sheet</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -54,19 +54,19 @@
               <ul class="nav nav-list">
                 <li class="nav-header">Table of Contents</li>
               </ul>
-              <ul class="nav nav-list"><li><a href="./install.html">インストール</a></li><li><a href="./tutorial.html">チュートリアル</a></li><li class="active"><a href="./basic.html">Basic</a></li></ul>
+              <ul class="nav nav-list"><li><a href="./install.html">インストール</a></li><li><a href="./tutorial.html">チュートリアル</a></li><li class="active"><a href="./cheatsheet.html">Cheat Sheet</a></li></ul>
             </div>
           </div>
         </div>
         <div class="span9">
           
           <div class="btn-group pull-right">
-            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/git/basic.md">Raw</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/git/basic.md">Blame</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/git/basic.md">History</a>
+            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/git/cheatsheet.md">Raw</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/git/cheatsheet.md">Blame</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/git/cheatsheet.md">History</a>
           </div>
           <div id="content">
-          <h1>Basic</h1>
+          <h1>Cheat Sheet</h1>
           <div id="toc">
           </div>
           <h2>init</h2>
@@ -82,6 +82,50 @@
 
 <pre><code>% git config user.name "Foo Bar"
 % git config user.email "foo@example.net"
+</code></pre>
+
+<h2>add</h2>
+
+<pre><code>% touch a.txt
+% touch b.txt
+% git add .
+% git status -s
+A  a.txt
+A  b.txt
+
+% touch c.txt
+% rm a.txt
+% git status -s
+AD a.txt
+A  b.txt
+?? c.txt
+</code></pre>
+
+<p>The <code>-u</code> option removes as well as modifies index entries to match the working tree, but adds no new files.</p>
+
+<pre><code>% git add -u .
+% git status -s
+A  b.txt
+?? c.txt
+</code></pre>
+
+<p>To Add, modifiy and remove them, use the <code>-A</code> option.</p>
+
+<pre><code>% rm b.txt
+% git add -A .
+% git status -s
+A  c.txt
+</code></pre>
+
+<h2>rm</h2>
+
+<pre><code>% git rm /path/to/file
+% git rm -r /path/to/dir/
+</code></pre>
+
+<p>The following is an one-liner to remove index entries to match deleted files.</p>
+
+<pre><code>% git status -s | grep ^'.D' | awk '{print $2}' | xargs git rm
 </code></pre>
 
 <h2>commit</h2>
@@ -101,7 +145,7 @@
 # 全ての追跡対象ファイルを add したのち commit することと同義
 % git commit -a
 
-# reset author 
+# reset author
 % git config user.name "Foo Bar"
 % git config user.email "foo@example.net"
 % git commit --amend --reset-author
@@ -277,7 +321,7 @@ origin  git@github.com:foo/bar.git (push)
 
 <h2>History</h2>
 
-<p>To rewrite Git history, Use <code>filter-branch</code> like this.</p>
+<p>To rewrite Git history, use <code>filter-branch</code>. The following is an example:</p>
 
 <pre><code>% git filter-branch --commit-filter '
 GIT_AUTHOR_NAME="Foo Bar"
