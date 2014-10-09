@@ -98,7 +98,7 @@ NameVirtualHost :*:80
 &lt;/VirtualHost&gt;
 </code></pre>
 
-<h2>Basic認証</h2>
+<h2>Basic Authentication</h2>
 
 <p>htpasswd コマンドで、パスワードファイルを作成します。</p>
 
@@ -132,31 +132,13 @@ allow from 192.168.0
 &lt;/Files&gt;
 </code></pre>
 
-<h2>メンテナンスモード</h2>
+<h2>Maitenance Mode</h2>
 
 <p>Webサイトをメンテナンス状態とする場合、単にページ内容を変更したり、メンテナンスページへリダイレクトする方法ではSEO対策として問題があります。検索エンジンのクローラにとっては、メンテナンス状態であるかの判断はできないため、通常のページ更新があったものとみなされてメンテナンスページが収集されてしまうことになります。</p>
 
-<p>HTTPステータスコードを <code>503 Service Temporarily Unavailable</code> で応答することで、クローラに通常のページ応答ではないことを伝えることができます。mod_rewrite + PHP を使って、503 エラーで応答する例です。</p>
+<p>HTTPステータスコードを <code>503 Service Temporarily Unavailable</code> で応答することで、クローラに通常のページ応答ではないことを伝えることができます。</p>
 
-<pre><code># /maintenance/ ディレクトリ以外のURLの場合は /maintenance/index.php にリライト
-RewriteEngine on
-RewriteCond %{REQUEST_URI} !^/maintenance/
-RewriteRule ^.*$ /maintenance/index.php [L]
-/maintenance/index.php
-</code></pre>
-
-<p><code>/maintenance/index.php</code> の例です。</p>
-
-<pre><code>&lt;?php
-
-header('HTTP/1.1 503 Service Temporarily Unavailable');
-
-include '/path/to/maintenance.html';
-</code></pre>
-
-<p><code>/maintenance/</code> ディレクトリ内であればリライトされませんので、メンテナンスページで用いる画像/CSSファイルはこのディレクトリ内に置くようにします。</p>
-
-<p>Apache2.2系であれば、mod_rewrite だけで 503 のレスポンスコード指定ができます。</p>
+<p>2.2 系であれば、mod_rewrite だけで 503 のレスポンスコード指定ができます。以下の例では <code>/maintenance/</code> ディレクトリ内であればリライトされませんので、メンテナンスページで用いる画像/CSSファイルはこのディレクトリ内に置くようにします。</p>
 
 <pre><code># 503 エラー用の maintenance.html を用意します。
 ErrorDocument 503 /maintenance/index.html
@@ -165,7 +147,78 @@ RewriteCond %{REQUEST_URI} !^/maintenance/
 RewriteRule ^.*$ - [R=503,L]
 </code></pre>
 
-<p>この場合 <code>/maintenance/index.html</code> 自身へのリクエストは 503 となりません。<code>/maintenance/index.html</code> へのリンク/サイトマップが存在すればクロールされる可能性はあります。meta タグや <code>robot.txt</code> と併用してクロール対象外であることを伝えるようにします。</p>
+<p><code>/maintenance/index.html</code> 自身へのリクエストは 503 とならない点に注意してください。<code>/maintenance/index.html</code> へのリンクやサイトマップが存在すればクロールされる可能性はあります。meta タグや <code>robot.txt</code> と併用してクロール対象外であることを伝えるようにします。</p>
+
+<p>1.3 系ではこの方法がつかえません。代わりに、動的に 503 ステータスを送出する PHP クリプト等にリライトします。</p>
+
+<p>以下のような <code>/maintenance/index.php</code> を設置しておきます。</p>
+
+<pre><code>&lt;?php
+
+header('HTTP/1.1 503 Service Temporarily Unavailable');
+include '/path/to/maintenance.html';
+</code></pre>
+
+<p><code>/maintenance/</code> ディレクトリ以外のURLの場合は <code>/maintenance/index.php</code> にリライトします。</p>
+
+<pre><code>RewriteEngine on
+RewriteCond %{REQUEST_URI} !^/maintenance/
+RewriteRule ^.*$ /maintenance/index.php [L]
+</code></pre>
+
+<h2>Load Blancing</h2>
+
+<p><a href="http://httpd.apache.org/docs/2.2/en/mod/mod_proxy.html">mod_proxy</a> により、httpd 単体でロードバランサを実現できます。</p>
+
+<p>ダウンタイムなしで、更新を行なう運用例です。</p>
+
+<ul>
+<li>マスタ <code>http://localhost:8080</code></li>
+<li>スタンバイ <code>http://localhost:8081</code></li>
+</ul>
+
+
+<p>でバックエンドアプリケーションを起動させるとします。</p>
+
+<pre><code>&lt;VirtualHost *:80&gt;
+  ServerName lb.example.net
+  &lt;Proxy balancer://tomcat&gt;
+    BalancerMember http://localhost:8080
+    BalancerMember http://localhost:8081 status=+H
+  &lt;/Proxy&gt;
+  &lt;Proxy *&gt;
+    Order Allow,Deny
+    Allow From All
+  &lt;/Proxy&gt;
+  ProxyPreserveHost On
+  ProxyPass / balancer://tomcat/
+  ProxyPassReverse / balancer://tomcat/
+&lt;/VirtualHost&gt;
+</code></pre>
+
+<p><code>status=+H</code> は <em>hot-standby</em> の意味です。通常は使われずに、全てのメンバがダウンしている時にのみ利用されます。</p>
+
+<p>以下の手順で、ダウンタイムなしで切り替えることができます。</p>
+
+<ul>
+<li>スタンバイ <code>8081</code> へ更新アプリケーションをデプロイ＆起動; <em>バランサから切り離されているため影響なし</em></li>
+<li>マスタ <code>8080</code> を停止。スタンバイ <code>8081</code> に切り替わる</li>
+<li>マスタ <code>8080</code> へ更新アプリケーションをデプロイ後＆起動; <em>バランサから切り離されているため影響なし</em></li>
+<li>スタンバイ <code>8081</code> を停止。マスタ <code>8080</code> に切り替わる</li>
+</ul>
+
+
+<p>この設定では、スタンバイにいったん切り替わると、マスタが復旧してもスタンバイのままです。スタンバイを停止しない限り、マスタに切り替わりません。一見デメリットのように思えますが、マスタが起動しても自動的に切り替わらないことを生かして、起動後に受け入れテストを実施し、任意のタイミングでマスタに切り替えることができます。</p>
+
+<p>常にマスタ優先で切り替えたい場合は、<code>BalancerMember</code> ディレクティブに <code>retry</code> オプションを指定します。</p>
+
+<pre><code>  &lt;Proxy balancer://tomcat&gt;
+    BalancerMember http://localhost:8080 retry=30
+    BalancerMember http://localhost:8081 status=+H retry=0
+  &lt;/Proxy&gt;
+</code></pre>
+
+<p><code>retry</code> 秒毎に疎通がチェックされ、マスタの復旧と同時に切り替わります。</p>
 
           </div>
         </div>
