@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>JUnit | Java</title>
+<title>Quick Start | Java</title>
 <link href="../assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/javascripts/jquery-1.7.1.min.js"></script>
@@ -43,7 +43,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">Java</a> <span class="divider">/</span></li><li>JUnit</li>
+        <li><a href="./index.html">Java</a> <span class="divider">/</span></li><li>Quick Start</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -54,104 +54,29 @@
               <ul class="nav nav-list">
                 <li class="nav-header">Table of Contents</li>
               </ul>
-              <ul class="nav nav-list"><li><a href="./bookmarks.html">Bookmarks</a></li><li><a href="./jad.html">JAD Java Decompiler</a></li><li class="active"><a href="./junit.html">JUnit</a></li><li><a href="./reflection.html">Reflection</a></li><li><a href="./servlet.html">Servlet</a></li><li><a href="./tips.html">Tips</a></li></ul>
+              <ul class="nav nav-list"><li><a href="basics/index.html">Basics</a></li><li><a href="./bookmarks.html">Bookmarks</a></li><li><a href="./jad.html">JAD Java Decompiler</a></li></ul>
             </div>
           </div>
         </div>
         <div class="span9">
           
           <div class="btn-group pull-right">
-            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/java/junit.md">Raw</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/java/junit.md">Blame</a>
-            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/java/junit.md">History</a>
+            <a class="btn" href="https://raw.github.com/tachesimazzoca/wiki/master/src/java/start.md">Raw</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/blame/master/src/java/start.md">Blame</a>
+            <a class="btn" href="https://github.com/tachesimazzoca/wiki/commits/master/src/java/start.md">History</a>
           </div>
           <div id="content">
-          <h1>JUnit</h1>
+          <h1>Quick Start</h1>
           <div id="toc">
           </div>
-          <h2>Overview</h2>
+          <!--
+## JAVA\_HOME on Mac OS X
 
-<ul>
-<li><a href="http://www.junit.org/">http://www.junit.org/</a></li>
-</ul>
+    export JAVA_HOME=`/usr/libexec/java_home`
+-->
 
 
-<h3>Unix</h3>
-
-<pre><code>% cd /path/to/project
-% mkdir test
-% cd test
-% vi HellWorldTest.java
-
-% javac -classpath /path/to/junit.jar:/path/to/classes HelloWorldTest.java
-# JUnit3
-% java -classpath /path/to/junit.jar:/path/to/classes junit.textui.TestRunner HelloWorldTest
-# JUnit4
-% java -classpath /path/to/junit.jar:/path/to/classes org.junit.runner.JUnitCore HelloWorldTest
-</code></pre>
-
-<h2>JUnit4</h2>
-
-<pre><code>import static org.junit.Assert.*;
-import org.junit.Test;
-
-public class PersonTest {
-    @Test
-    public void testGetName() {
-        Person obj = new Person();
-        obj.setName("Foo Bar");
-        assertEquals(obj.getName(), "Foo Bar");
-        assertTrue(obj.getName().equals("Foo Bar"));
-    }
-
-    @Test
-    public void testGetAge() {
-        Person obj = new Person();
-        obj.setAge(28);
-        assertEquals(obj.getAge(), 28);
-    }
-
-    @Test
-    public void testCalcBirthYear() {
-        Person obj = new Person();
-        obj.setAge(28);
-        assertEquals(obj.calcBirthYear(2012), 1984);
-    }
-
-    @Test
-    public void testFail() {
-        fail("Faiure message");
-    }
-}
-
-public class Person {
-    private String name;
-    private int age;
-
-    public Person() {
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String str) {
-        this.name = str;
-    }
-
-    public int getAge() {
-        return this.age;
-    }
-
-    public void setAge(int n) {
-        this.age = n;
-    }
-
-    public int calcBirthYear(int year) {
-        return year - this.age;
-    }
-}
-</code></pre>
+<p></p>
 
           </div>
         </div>
