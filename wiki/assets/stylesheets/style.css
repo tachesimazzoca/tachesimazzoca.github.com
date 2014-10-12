@@ -31,7 +31,7 @@ h4, h5, h6 {
   font-size: 14px; }
 
 code {
-  font-family: Consolas, "Liberation Mono", Courier, monospace; }
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace; }
 
 #header {
   margin-bottom: 20px; }
