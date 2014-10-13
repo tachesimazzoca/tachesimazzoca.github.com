@@ -7,6 +7,7 @@
 <title>データベース操作 | Rails3</title>
 <link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../../assets/javascripts/jquery.toctree.js"></script>
@@ -95,8 +96,7 @@
 <p><code>config/database.yml</code> にデータベースの設定を記述します。</p>
 
 <p><code>mysql2</code> アダプタを用いた場合の記述例です。</p>
-
-<pre><code>development:
+<div class="highlight"><pre><code class="language-text" data-lang="text">development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
@@ -125,22 +125,19 @@ production:
   username: root
   password:
   socket: /var/lib/mysql/mysql.sock
-</code></pre>
-
+</code></pre></div>
 <p><a href="http://api.rubyonrails.org/classes/ActiveRecord/Base.html">ActiveRecord::Base</a> の <a href="http://api.rubyonrails.org/classes/ActiveRecord/Base.html#method-c-establish_connection">establish_connection</a> メゾッドを通じて、この設定ファイルが読み込まれます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#!/usr/bin/env ruby
 
-<pre><code>#!/usr/bin/env ruby
+require ::File.expand_path(&#39;../config/boot&#39;,  __FILE__)
+require &quot;active_record&quot;
 
-require ::File.expand_path('../config/boot',  __FILE__)
-require "active_record"
-
-ActiveRecord::Base.establish_connection(YAML.load_file('/path/to/rails/config/database.yml')['development'])
+ActiveRecord::Base.establish_connection(YAML.load_file(&#39;/path/to/rails/config/database.yml&#39;)[&#39;development&#39;])
 
 adapter = ActiveRecord::Base.connection
-result_set = adapter.exec_query("SELECT * FROM users")
+result_set = adapter.exec_query(&quot;SELECT * FROM users&quot;)
 ....
-</code></pre>
-
+</code></pre></div>
 <h2>Active Record Migraions</h2>
 
 <p><a href="http://api.rubyonrails.org/classes/ActiveRecord/Migration.html">ActiveRecord::Migration</a> の仕組みを用いてデータベース管理を容易にします。</p>
@@ -148,13 +145,11 @@ result_set = adapter.exec_query("SELECT * FROM users")
 <h3>データベース作成/削除</h3>
 
 <p>設定したユーザに、データベース作成権限があれば、<code>rake</code> コマンドで作成/削除ができます。</p>
-
-<pre><code># データベース作成
+<div class="highlight"><pre><code class="language-text" data-lang="text"># データベース作成
 % bundle exec rake db:create
 # データベース削除
 % bundle exec rake db:drop
-</code></pre>
-
+</code></pre></div>
 <h3>テーブル作成</h3>
 
 <p><code>db/migrate/(バージョン番号)_create_(テーブル名).rb</code> の命名規則でファイルを作成します。</p>
@@ -162,12 +157,11 @@ result_set = adapter.exec_query("SELECT * FROM users")
 <p><code>products</code> テーブルを例にします。</p>
 
 <p><code>db/migrate/1_create_products.rb</code></p>
-
-<pre><code>class CreateProducts &lt; ActiveRecord::Migration
+<div class="highlight"><pre><code class="language-text" data-lang="text">class CreateProducts &lt; ActiveRecord::Migration
   def change
-    create_table(:products, :primary_key =&gt; 'id') do |t|
-      t.string :code, :null =&gt; false, :default =&gt; ''
-      t.string :name, :null =&gt; false, :default =&gt; ''
+    create_table(:products, :primary_key =&gt; &#39;id&#39;) do |t|
+      t.string :code, :null =&gt; false, :default =&gt; &#39;&#39;
+      t.string :name, :null =&gt; false, :default =&gt; &#39;&#39;
       t.text :description
       t.integer :price, :null =&gt; false, :default =&gt; 0
       t.datetime :open_date
@@ -178,21 +172,16 @@ result_set = adapter.exec_query("SELECT * FROM users")
     end
   end
 end
-</code></pre>
-
+</code></pre></div>
 <p><code>db:migrate</code> でテーブルを作成します。</p>
-
-<pre><code>% bundle exec rake db:migrate
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% bundle exec rake db:migrate
+</code></pre></div>
 <p>間違えた場合は <code>db:rollback</code> でやり直すことができます。</p>
-
-<pre><code>% bundle exec rake db:rollback
+<div class="highlight"><pre><code class="language-text" data-lang="text">% bundle exec rake db:rollback
 % vim db/migrate/1_create_products.rb
 ....
 % bundle exec rake db:migrate
-</code></pre>
-
+</code></pre></div>
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@
 <title>インストール | sbt</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -97,22 +98,17 @@
 <h3>Unix</h3>
 
 <p>Universal package を <em>dotfiles</em> でインストールする例です。<code>~/.sbt</code> 以下にダウンロードし解凍します。</p>
-
-<pre><code>% mkdir ~/.sbt
+<div class="highlight"><pre><code class="language-text" data-lang="text">% mkdir ~/.sbt
 % cd .sbt
-% curl -LO "http://dl.bintray.com/sbt/native-packages/sbt/0.13.5/sbt-0.13.5.zip"
+% curl -LO &quot;http://dl.bintray.com/sbt/native-packages/sbt/0.13.5/sbt-0.13.5.zip&quot;
 % unzip sbt-0.13.5.zip
-</code></pre>
-
+</code></pre></div>
 <p><code>~/.sbt/sbt/bin/sbt</code> が <em>sbt</em> を起動する bash スクリプトになります。</p>
-
-<pre><code># -h オプションでヘルプを表示します
+<div class="highlight"><pre><code class="language-text" data-lang="text"># -h オプションでヘルプを表示します
 % ~/.sbt/sbt/bin/sbt -h
-</code></pre>
-
+</code></pre></div>
 <p><code>~/.bash_profile</code> で、この <code>sbt</code> コマンドへのパスを通しておきます。</p>
-
-<pre><code>% vi ~/.bash_profile
+<div class="highlight"><pre><code class="language-text" data-lang="text">% vi ~/.bash_profile
 ...
 export PATH=~/.sbt/sbt/bin:${PATH}
 ...
@@ -120,34 +116,26 @@ export PATH=~/.sbt/sbt/bin:${PATH}
 % source ~/.bash_profile
 % which sbt
 ~/.sbt/sbt/bin/sbt
-</code></pre>
-
+</code></pre></div>
 <h2>Manual Installation</h2>
 
 <p><code>sbt-launch.jar</code> を <a href="http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/">typesafe のリポジトリ</a> から取得します。</p>
-
-<pre><code>% curl -LO "http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.5/sbt-launch.jar"
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% curl -LO &quot;http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.5/sbt-launch.jar&quot;
+</code></pre></div>
 <p>同ディレクトリに、以下のシェルスクリプトで <code>sbt-launch.jar</code> を起動する <code>sbt</code> コマンドを作成します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/sh
 
-<pre><code>#!/bin/sh
-
-SBT_OPTS="java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
-java $SBT_OPS -jar `dirname $0`/sbt-launch.jar "$@"
-</code></pre>
-
+SBT_OPTS=&quot;java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M&quot;
+java $SBT_OPS -jar `dirname $0`/sbt-launch.jar &quot;$@&quot;
+</code></pre></div>
 <p>32bit OS で JavaVM のメモリ制限にかかる場合は -Xmx (ヒープの最大サイズ) を下げます。</p>
-
-<pre><code>SBT_OPS="-Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">SBT_OPS=&quot;-Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M&quot;
+</code></pre></div>
 <h2>Links</h2>
 
 <ul>
 <li><a href="http://www.scala-sbt.org/download.html">sbt - Download</a></li>
 </ul>
-
 
           </div>
         </div>

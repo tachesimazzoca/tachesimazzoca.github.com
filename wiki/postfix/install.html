@@ -7,6 +7,7 @@
 <title>Install | Postfix</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -93,17 +94,14 @@
           <h2>Linux</h2>
 
 <p>yum からインストールします。</p>
-
-<pre><code>% yum install postfix
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% yum install postfix
+</code></pre></div>
 <p>他MTAを利用中であれば postfix に変更します。</p>
-
-<pre><code>% /etc/init.d/sendmail stop
+<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/sendmail stop
 % chkconfig sendmail off
 
 % alternatives --config mta
-There are 2 programs which provide 'mta'.
+There are 2 programs which provide &#39;mta&#39;.
 
   Selection    Command
 -----------------------------------------------
@@ -111,11 +109,9 @@ There are 2 programs which provide 'mta'.
    2           /usr/sbin/sendmail.postfix
 
 Enter to keep the current selection[+], or type selection number: 2
-</code></pre>
-
+</code></pre></div>
 <p><code>/etc/alternatives/mta*</code> のリンク先が、postfix に切り替わっていることを確認します。</p>
-
-<pre><code>% ls -l /etc/alternatives/mta*
+<div class="highlight"><pre><code class="language-text" data-lang="text">% ls -l /etc/alternatives/mta*
 .... /etc/alternatives/mta -&gt; /usr/sbin/sendmail.postfix
 .... /etc/alternatives/mta-aliasesman -&gt; /usr/share/man/man5/aliases.postfix.5.gz
 .... /etc/alternatives/mta-mailq -&gt; /usr/bin/mailq.postfix
@@ -126,19 +122,14 @@ Enter to keep the current selection[+], or type selection number: 2
 .... /etc/alternatives/mta-rmail -&gt; /usr/bin/rmail.postfix
 .... /etc/alternatives/mta-sendmail -&gt; /usr/lib/sendmail.postfix
 .... /etc/alternatives/mta-sendmailman -&gt; /usr/share/man/man1/sendmail.postfix.1.gz
-</code></pre>
-
+</code></pre></div>
 <p>postfix を起動します。起動スクリプトにも加えておきます。</p>
-
-<pre><code>% /etc/init.d/postfix start
+<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/postfix start
 % chkconfig postfix on
-</code></pre>
-
+</code></pre></div>
 <p>ログから postfix が正しく起動できていることを確認します。</p>
-
-<pre><code>% less /var/log/mailog
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% less /var/log/mailog
+</code></pre></div>
           </div>
         </div>
       </div>

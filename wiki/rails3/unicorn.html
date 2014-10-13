@@ -7,6 +7,7 @@
 <title>Unicorn | Rails3</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -93,29 +94,25 @@
           <h2>インストール</h2>
 
 <p><code>rails server</code> で起動するデフォルトのサーバは WEBrick で実用レベルではありません。代わりに Unicorn を利用します。</p>
-
-<pre><code># gem パッケージに含まれていなければ追加します
+<div class="highlight"><pre><code class="language-text" data-lang="text"># gem パッケージに含まれていなければ追加します
 % vi Gemfile
 ...
-gem 'unicorn'
+gem &#39;unicorn&#39;
 
 % bundle update
-</code></pre>
-
+</code></pre></div>
 <h2>設定</h2>
 
 <p><code>config/unicorn.rb</code> として設定ファイルを作成します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">worker_processes 2
 
-<pre><code>worker_processes 2
+stderr_path File.expand_path(&#39;../../log/unicorn/stderr.log&#39;, __FILE__)
+stdout_path File.expand_path(&#39;../../log/unicorn/stdout.log&#39;, __FILE__)
 
-stderr_path File.expand_path('../../log/unicorn/stderr.log', __FILE__)
-stdout_path File.expand_path('../../log/unicorn/stdout.log', __FILE__)
-
-pid File.expand_path('../../log/unicorn/unicorn.pid', __FILE__)
+pid File.expand_path(&#39;../../log/unicorn/unicorn.pid&#39;, __FILE__)
 
 preload_app false
-</code></pre>
-
+</code></pre></div>
 <p>詳しくは <a href="http://unicorn.bogomips.org/Unicorn/Configurator.html">Unicorn::Configurator</a> を参照してください。</p>
 
 <ul>
@@ -123,56 +120,40 @@ preload_app false
 <li><a href="http://unicorn.bogomips.org/examples/unicorn.conf.minimal.rb">http://unicorn.bogomips.org/examples/unicorn.conf.minimal.rb</a></li>
 </ul>
 
-
 <h2>基本操作</h2>
 
 <h3>起動/停止/再起動</h3>
 
 <p>unicorn_rails コマンドで起動します。<code>http://(ホスト名):8080</code> で確認できます。</p>
-
-<pre><code># -c 設定ファイルへのパス
+<div class="highlight"><pre><code class="language-text" data-lang="text"># -c 設定ファイルへのパス
 # -p ポート番号
 # -D デーモン起動
 % bundle exec unicorn_rails -c config/unicorn.rb -p 8080 -D
-</code></pre>
-
+</code></pre></div>
 <p>unicorn を停止するには、親プロセスに <code>-QUIT</code> シグナルを送ります。</p>
-
-<pre><code>% kill -QUIT `cat /path/to/unicorn.pid`
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% kill -QUIT `cat /path/to/unicorn.pid`
+</code></pre></div>
 <p>unicorn を再起動するには、親プロセスに <code>-HUP</code> シグナルを送ります。</p>
-
-<pre><code>% kill -HUP `cat /path/to/unicorn.pid`
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% kill -HUP `cat /path/to/unicorn.pid`
+</code></pre></div>
 <h3>緩やかな再起動</h3>
 
 <p><code>-USR2</code> シグナルを用いることで、旧プロセスを保持したまま、新プロセスを起動できます。</p>
-
-<pre><code>% kill -USR2 `cat /path/to/unicorn.pid`
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% kill -USR2 `cat /path/to/unicorn.pid`
+</code></pre></div>
 <p>新プロセスで pid ファイルが更新されます。旧プロセスの pid は <code>.oldbin</code> が付与されたファイル名に保存されます。</p>
-
-<pre><code>% ls /path/to/pid/dir
+<div class="highlight"><pre><code class="language-text" data-lang="text">% ls /path/to/pid/dir
 unicorn.pid unicorn.pid.oldbin
-</code></pre>
-
+</code></pre></div>
 <p>このままでは旧プロセスが残ったままですので、旧 master プロセスに <code>WINCH</code> シグナルを送り、旧 worker プロセスを停止 (graceful stop) させます。</p>
-
-<pre><code>% kill -WINCH `cat /path/to/unicorn.pid.oldbin`
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% kill -WINCH `cat /path/to/unicorn.pid.oldbin`
+</code></pre></div>
 <p>旧 worker が全て停止したら、旧 master プロセスに <code>QUIT</code> シグナルを送り、旧プロセスを停止させます。</p>
-
-<pre><code>% kill -QUIT `cat /path/to/unicorn.pid.oldbin`
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% kill -QUIT `cat /path/to/unicorn.pid.oldbin`
+</code></pre></div>
 <p>Unicorn サイトの設定ファイル例 <a href="http://unicorn.bogomips.org/examples/unicorn.conf.rb">http://unicorn.bogomips.org/examples/unicorn.conf.rb</a> にあるように、<code>befor_fork</code> のフックを追加しておくことで、<code>USR2</code>シグナルの送信だけで旧プロセスを停止することもできます。</p>
-
-<pre><code>before_fork do |server, worker|
-  old_pid = "#{server.config[:pid]}.oldbin"
+<div class="highlight"><pre><code class="language-text" data-lang="text">before_fork do |server, worker|
+  old_pid = &quot;#{server.config[:pid]}.oldbin&quot;
   if old_pid != server.pid
     begin
       sig = (worker.nr + 1) &gt;= server.worker_processes ? :QUIT : :TTOU
@@ -181,26 +162,23 @@ unicorn.pid unicorn.pid.oldbin
     end
   end
 end
-</code></pre>
-
+</code></pre></div>
 <h2>make コマンドを使った運用</h2>
 
 <p>以下のような Makefile を作成し make コマンドで起動/停止できるようにしておくとよいでしょう。</p>
-
-<pre><code>PID = /path/to/unicorn.pid
+<div class="highlight"><pre><code class="language-text" data-lang="text">PID = /path/to/unicorn.pid
 
 all:
     @echo Usage: (start|stop|restart|graceful)
 start:
     @bundle exec unicorn_rails -c config/unicorn.rb -D
 stop:
-    @[[ -s "$(PID)" ]] &amp;&amp; kill -QUIT `cat $(PID)`
+    @[[ -s &quot;$(PID)&quot; ]] &amp;&amp; kill -QUIT `cat $(PID)`
 restart:
-    @[[ -s "$(PID)" ]] &amp;&amp; kill -HUP `cat $(PID)`
+    @[[ -s &quot;$(PID)&quot; ]] &amp;&amp; kill -HUP `cat $(PID)`
 graceful:
-    @[[ -s "$(PID)" ]] &amp;&amp; kill -USR2 `cat $(PID)`
-</code></pre>
-
+    @[[ -s &quot;$(PID)&quot; ]] &amp;&amp; kill -USR2 `cat $(PID)`
+</code></pre></div>
           </div>
         </div>
       </div>

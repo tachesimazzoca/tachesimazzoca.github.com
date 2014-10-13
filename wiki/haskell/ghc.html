@@ -7,6 +7,7 @@
 <title>GHC | Haskell</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -91,8 +92,7 @@
           <div id="toc">
           </div>
           <h2>GHCi</h2>
-
-<pre><code>% ghci
+<div class="highlight"><pre><code class="language-text" data-lang="text">% ghci
 ghci&gt; let a = 1
 ghci&gt; a
 1
@@ -103,8 +103,8 @@ ghci&gt; [ x | x &lt;- [1..10], x `mod` 2 == 0 ]
 ghci&gt; :l path/to/file.hs
 
 -- Show the type of &lt;expr&gt;
-ghci&gt; :t "Foo"
-"Foo" :: [Char]
+ghci&gt; :t &quot;Foo&quot;
+&quot;Foo&quot; :: [Char]
 ghci&gt; :t (+)
 (+) :: Num a =&gt; a -&gt; a -&gt; a
 
@@ -117,17 +117,16 @@ instance Eq a =&gt; Eq (Maybe a) -- Defined in Data.Maybe
 -- Import module(s)
 ghci&gt; :m + Data.Char
 ghci&gt; chr 65
-"A"
+&quot;A&quot;
 ghci&gt; :m - Data.Char
-&lt;interactive&gt;:1:1: Not in scope: `chr'
+&lt;interactive&gt;:1:1: Not in scope: `chr&#39;
 
 -- Load a package
 ghci&gt; :set -package yourpkg
 
 -- Quit GHCi
 ghci&gt; :q
-</code></pre>
-
+</code></pre></div>
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@
 <title>VirtualBox マネージャー | VirtualBox</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -95,10 +96,8 @@
 <p>デフォルトでは、1つのネットワークアダプタに NAT が割り当てられているだけです。このため、ゲストOSから外部ネットワークへ接続できますが、ホストOSからゲストOSへつないだり、複数ゲストOS間で通信ができません。</p>
 
 <p>VirtualBox では複数のネットワークアダプタを持てますので、VirtualBox マネージャーから仮想マシンを選択し</p>
-
-<pre><code>設定 &gt; ネットワーク
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">設定 &gt; ネットワーク
+</code></pre></div>
 <p>で設定します。</p>
 
 <h3>Host Only Network</h3>
@@ -116,7 +115,6 @@
   <td>アダプタ2(eth1)</td><td>Host Only Network</td><td>ホストOS内でLAN構築。同LAN内にゲストOSを接続</td>
 </tr>
 </table>
-
 
 <p>ホストOSからゲストOS間、複数ゲストOS間は <code>eth1</code> を介してアクセスするようにします。</p>
 

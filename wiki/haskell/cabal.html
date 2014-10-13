@@ -7,6 +7,7 @@
 <title>Cabal | Haskell</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -91,8 +92,7 @@
           <div id="toc">
           </div>
           <h2>Cabal</h2>
-
-<pre><code># Create $HOME/.cabal as user package directory.
+<div class="highlight"><pre><code class="language-text" data-lang="text"># Create $HOME/.cabal as user package directory.
 % cabal update
 % ls ~/.cabal
 config
@@ -112,24 +112,19 @@ The following packages are broken, ....
 ....
 % ghc-pkg unregister &lt;package, ....&gt;
 % cabal install &lt;package, ....&gt;
-</code></pre>
-
+</code></pre></div>
 <h2>HLint</h2>
-
-<pre><code>% cabal install hlint
+<div class="highlight"><pre><code class="language-text" data-lang="text">% cabal install hlint
 % hlint .
-</code></pre>
-
+</code></pre></div>
 <p><code>haskell-src-exts</code> depends <code>happy</code> installed at --global.</p>
-
-<pre><code>Configuring haskell-src-exts-1.13.5...
+<div class="highlight"><pre><code class="language-text" data-lang="text">Configuring haskell-src-exts-1.13.5...
 setup: The program happy version &gt;=1.17 is required but it could not be found.
 ...
 % yum install --enablerepo=epel happy
 # or
 % sudo cabal install happy --global
-</code></pre>
-
+</code></pre></div>
           </div>
         </div>
       </div>

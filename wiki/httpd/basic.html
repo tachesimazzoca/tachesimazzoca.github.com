@@ -7,6 +7,7 @@
 <title>基本操作 | httpd</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -105,59 +106,43 @@
 <p>を確認してみてください。</p>
 
 <p>起動前に <code>httpd.conf</code> の記述が正しいかをチェックします。エラーがある場合、httpd の起動ができませんので、必ずチェックします。</p>
-
-<pre><code>% /etc/init.d/httpd configtest
+<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/httpd configtest
 Syntax OK
-</code></pre>
-
+</code></pre></div>
 <p><code>CustomLog</code> <code>ErrorLog</code> で指定したログファイルのディレクトリが存在しないことがよくあります。この場合、起動ができてもサーバが応答しなくなりますので注意してください。</p>
 
 <h2>起動と停止</h2>
 
 <p><code>start</code> オプションで起動します。</p>
-
-<pre><code>% /etc/init.d/httpd start
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/httpd start
+</code></pre></div>
 <p>SSLを利用するには <code>startssl</code> オプションを指定します。</p>
-
-<pre><code>% /etc/init.d/httpd startssl
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/httpd startssl
+</code></pre></div>
 <p><code>ps</code> コマンドで、親プロセスと子プロセスが起動していることが確認できます。</p>
-
-<pre><code>% ps auxf | grep 'httpd' | grep -v grep
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% ps auxf | grep &#39;httpd&#39; | grep -v grep
+</code></pre></div>
 <p><code>stop</code> オプションで停止します。</p>
-
-<pre><code>% /etc/init.d/httpd stop
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/httpd stop
+</code></pre></div>
 <h2>再起動</h2>
 
 <p>緩やかな再起動方法として <code>graceful</code> オプションがあります。親プロセスに <code>USR1</code> シグナルを送ることで、処理中の子プロセスがある場合、処理終了後に新しいプロセスに置き換えます。</p>
-
-<pre><code>% /etc/init.d/httpd graceful
+<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/httpd graceful
 
 # 以下と同じことです
 % kill -USR1 (親プロセス番号)
-</code></pre>
-
+</code></pre></div>
 <p><code>restart</code> オプションでは、親プロセスに <code>HUP</code> シグナルを送ることで、子プロセスを即座に終了させ新しい設定で子プロセスを起動します。親プロセスは終了しません。</p>
-
-<pre><code>% /etc/init.d/httpd restart
+<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/httpd restart
 
 # 以下と同じことです
 % kill -HUP (親プロセス番号)
-</code></pre>
-
+</code></pre></div>
 <p><code>stop</code> での停止後に <code>(start|startssl)</code> で起動する方法です。 <code>restart</code> との違いは <code>stop</code> オプションで <code>TERM</code> シグナルが送られ、親プロセスが終了する点です。</p>
-
-<pre><code>% /etc/init.d/httpd stop
+<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/httpd stop
 % /etc/init.d/httpd start
-</code></pre>
-
+</code></pre></div>
 <p><code>graceful</code> <code>restart</code> オプションでは親プロセスは終了しないため、SSL証明書の変更やモジュール追加の場合に変更が正しく反映されない場合があります。プロセスが中断しますが、最も確実な再起動方法です。</p>
 
           </div>

@@ -7,6 +7,7 @@
 <title>インストール | Rails3</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -93,8 +94,7 @@
           <h2>rvm + ruby-1.9.x</h2>
 
 <p>Rails3 には Ruby 1.9 が必要です。rvm でインストールする手順です。</p>
-
-<pre><code>% curl -L "get.rvm.io" | bash -s stable
+<div class="highlight"><pre><code class="language-text" data-lang="text">% curl -L &quot;get.rvm.io&quot; | bash -s stable
 
 # rvm requirements:
 % yum install gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison
@@ -104,15 +104,13 @@
 
 % rvm install 1.9.3 -C --with-opt-dir=$HOME/.rvm/usr
 % rvm use 1.9.3
-</code></pre>
-
+</code></pre></div>
 <h2>bundler</h2>
 
 <p>bundler を使って Rails 環境を作る手順です。gem パッケージをプロジェクトディレクトリ内に持ちます。</p>
 
 <p>Rails プロジェクトのディレクトリ直下に <code>.rvmrc</code> を置いておきます。この方法で常に ruby-1.9.x に切り替わるようにしておきます。</p>
-
-<pre><code>% mkdir /path/to/rails/sandbox
+<div class="highlight"><pre><code class="language-text" data-lang="text">% mkdir /path/to/rails/sandbox
 % cd /path/to/rails/sandbox
 % vi .rvmrc
 rvm use 1.9.3
@@ -122,39 +120,36 @@ rvm use 1.9.3
 ...
 y[es], n[o], v[iew], c[ancel]&gt; y
 Using .../.rvm/gems/ruby-1.9.3-p286
-</code></pre>
-
+</code></pre></div>
 <p><code>Gemfile</code> を作成します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">source &#39;https://rubygems.org&#39;
 
-<pre><code>source 'https://rubygems.org'
+gem &#39;therubyracer&#39;, &#39;0.10.2&#39;
+gem &#39;unicorn&#39;, &#39;4.4.0&#39;
 
-gem 'therubyracer', '0.10.2'
-gem 'unicorn', '4.4.0'
+gem &#39;rails&#39;, &#39;3.2.8&#39;
 
-gem 'rails', '3.2.8'
-
-gem 'mysql2', '0.3.11'
+gem &#39;mysql2&#39;, &#39;0.3.11&#39;
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '3.2.5'
-  gem 'coffee-rails', '3.2.2'
-  gem 'uglifier', '1.2.3'
+  gem &#39;sass-rails&#39;, &#39;3.2.5&#39;
+  gem &#39;coffee-rails&#39;, &#39;3.2.2&#39;
+  gem &#39;uglifier&#39;, &#39;1.2.3&#39;
 end
 
-gem 'jquery-rails', '2.0.2'
+gem &#39;jquery-rails&#39;, &#39;2.0.2&#39;
 
 group :development, :test do
-  gem 'rspec-rails', '2.11.0'
-  gem 'spork', '0.9.2'
+  gem &#39;rspec-rails&#39;, &#39;2.11.0&#39;
+  gem &#39;spork&#39;, &#39;0.9.2&#39;
 end
 
 group :development do
-  gem 'pry-rails', '0.2.2'
+  gem &#39;pry-rails&#39;, &#39;0.2.2&#39;
 end
-</code></pre>
-
+</code></pre></div>
 <p>上記例は以下のパッケージ構成になります。</p>
 
 <ul>
@@ -165,10 +160,8 @@ end
 <li>コンソールに <code>pry-rails</code> を利用</li>
 </ul>
 
-
 <p><code>bundle install</code> で gem パッケージをインストールします。<code>--path</code> オプションで <code>vendor/bundle</code> 以下にインストールするようにします。</p>
-
-<pre><code>% ls -a
+<div class="highlight"><pre><code class="language-text" data-lang="text">% ls -a
 . .. .rvmrc Gemfile
 
 % cd /path/to/rails/sandbox
@@ -181,20 +174,16 @@ Your bundle is complete! It was installed into ./vendor/bundle
 
 % ls -a
 . .. .bundle/ .rvmrc Gemfile Gemfile.lock vendor/
-</code></pre>
-
+</code></pre></div>
 <p><code>rails</code> コマンドは <code>bundle exec</code> を付与して実行できます。</p>
-
-<pre><code>% rails --version
+<div class="highlight"><pre><code class="language-text" data-lang="text">% rails --version
 /usr/bin/which: no rails in ..
 # bundle exec 経由で rails コマンドが実行できます。
 % bundle exec rails --version
 Rails 3.2.8
-</code></pre>
-
+</code></pre></div>
 <p>カレントディレクトリに Rails プロジェクトを作成します。</p>
-
-<pre><code># -d 利用するデータベースを指定
+<div class="highlight"><pre><code class="language-text" data-lang="text"># -d 利用するデータベースを指定
 # --skip-test-unit テストツールに Test::Unit を利用しない
 % bundle exec rails new . -d mysql --skip-test-unit
        exist
@@ -202,19 +191,14 @@ Rails 3.2.8
       create  Rakefile
       create  config.ru
       create  .gitignore
-</code></pre>
-
+</code></pre></div>
 <p><code>Gemfile</code> の上書きが確認されますが <code>n - No</code> を選択します。</p>
-
-<pre><code>    conflict  Gemfile
-Overwrite /path/to/rails/sandbox/Gemfile? (enter "h" for help) [Ynaqdh]
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">    conflict  Gemfile
+Overwrite /path/to/rails/sandbox/Gemfile? (enter &quot;h&quot; for help) [Ynaqdh]
+</code></pre></div>
 <p><code>rails server</code> でサーバを起動します。<code>http://(ホスト名):3000</code> で確認できます。</p>
-
-<pre><code>% bundle exec rails server
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% bundle exec rails server
+</code></pre></div>
 <p><code>CTRL-C</code> でサーバを停止します。</p>
 
           </div>

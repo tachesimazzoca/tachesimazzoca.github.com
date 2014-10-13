@@ -7,6 +7,7 @@
 <title>TIPS | Ruby Version Manager</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -95,48 +96,36 @@
 <p><a href="https://rvm.io/workflow/screen/">Using RVM inside GNU Screen</a></p>
 
 <p><code>~/.screenrc</code> に以下のコマンドを設定する</p>
-
-<pre><code>shell -${SHELL}
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">shell -${SHELL}
+</code></pre></div>
 <h2>ruby-1.9.3 で yaml.rb の Warning</h2>
 
 <p>ruby-1.9.3 より YAML パーサに <a href="http://doc.ruby-lang.org/ja/1.9.3/library/psych.html">psych</a> が採用されています。libyaml がインストールされていないと、以下の警告が出力され、代わりに <a href="http://doc.ruby-lang.org/ja/1.9.3/library/syck.html">syck</a> が用いられます。</p>
-
-<pre><code>It seems your ruby installation is missing psych (for YAML output).
+<div class="highlight"><pre><code class="language-text" data-lang="text">It seems your ruby installation is missing psych (for YAML output).
 To eliminate this warning, please install libyaml and reinstall your ruby.
-</code></pre>
-
+</code></pre></div>
 <p>RVM は libyaml を <code>~/.rvm/usr</code> 以下にソースインストールしてくれるのですが、バージョンによってはコンパイルオプションが正常に渡らない場合があります。この場合は明示的にパス指定してインストールしなおします。</p>
-
-<pre><code>% rvm pkg install libyaml
+<div class="highlight"><pre><code class="language-text" data-lang="text">% rvm pkg install libyaml
 % rvm reinstall 1.9.3 -C --with-libyaml-dir=$HOME/.rvm/usr
-</code></pre>
-
-<h2>rubygems-bundler で "Error loading RubyGems plugin" エラー</h2>
+</code></pre></div>
+<h2>rubygems-bundler で &quot;Error loading RubyGems plugin&quot; エラー</h2>
 
 <p>プロジェクトごとに gem をインストールしている場合、<code>bundle</code> コマンドで以下のエラー発生する場合があります。</p>
-
-<pre><code>% bundle update
+<div class="highlight"><pre><code class="language-text" data-lang="text">% bundle update
 Error loading RubyGems plugin ....: Could not find rubygems-bundler (&gt;= 0) amongst [....] (Gem::LoadError)
-</code></pre>
-
+</code></pre></div>
 <p><code>rubygems-bundler</code> を有効にすると、<code>bundle</code> コマンドの shebang が <code>ruby_noexec_wrapper</code> に置き換わってしまうことが原因です。</p>
-
-<pre><code>% gem regenerate_binstubs
+<div class="highlight"><pre><code class="language-text" data-lang="text">% gem regenerate_binstubs
 ....
 % head -n 1 `which bundle`
 #!/usr/bin/env ruby_noexec_wrapper
-</code></pre>
-
+</code></pre></div>
 <p><code>rubygems-bundler-uninstaller</code> コマンドを実行し shebang を <code>ruby</code> に戻すことで解決します。</p>
-
-<pre><code>% rubygems-bundler-uninstaller
+<div class="highlight"><pre><code class="language-text" data-lang="text">% rubygems-bundler-uninstaller
 ....
 % head -n 1 `which bundle`
 #!/usr/bin/env ruby
-</code></pre>
-
+</code></pre></div>
           </div>
         </div>
       </div>

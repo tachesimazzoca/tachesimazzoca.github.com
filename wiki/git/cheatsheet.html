@@ -7,6 +7,7 @@
 <title>Cheat Sheet | Git</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -91,23 +92,18 @@
           <div id="toc">
           </div>
           <h2>init</h2>
-
-<pre><code>% cd /path/to/git/project
+<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /path/to/git/project
 % git init
 
 % ls -a
 . .. .git
-</code></pre>
-
+</code></pre></div>
 <h2>config</h2>
-
-<pre><code>% git config user.name "Foo Bar"
-% git config user.email "foo@example.net"
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% git config user.name &quot;Foo Bar&quot;
+% git config user.email &quot;foo@example.net&quot;
+</code></pre></div>
 <h2>add</h2>
-
-<pre><code>% touch a.txt
+<div class="highlight"><pre><code class="language-text" data-lang="text">% touch a.txt
 % touch b.txt
 % git add .
 % git status -s
@@ -120,38 +116,28 @@ A  b.txt
 AD a.txt
 A  b.txt
 ?? c.txt
-</code></pre>
-
+</code></pre></div>
 <p>The <code>-u</code> option removes as well as modifies index entries to match the working tree, but adds no new files.</p>
-
-<pre><code>% git add -u .
+<div class="highlight"><pre><code class="language-text" data-lang="text">% git add -u .
 % git status -s
 A  b.txt
 ?? c.txt
-</code></pre>
-
+</code></pre></div>
 <p>To Add, modifiy and remove them, use the <code>-A</code> option.</p>
-
-<pre><code>% rm b.txt
+<div class="highlight"><pre><code class="language-text" data-lang="text">% rm b.txt
 % git add -A .
 % git status -s
 A  c.txt
-</code></pre>
-
+</code></pre></div>
 <h2>rm</h2>
-
-<pre><code>% git rm /path/to/file
+<div class="highlight"><pre><code class="language-text" data-lang="text">% git rm /path/to/file
 % git rm -r /path/to/dir/
-</code></pre>
-
+</code></pre></div>
 <p>The following is an one-liner to remove index entries to match deleted files.</p>
-
-<pre><code>% git status -s | grep ^'.D' | awk '{print $2}' | xargs git rm
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% git status -s | grep ^&#39;.D&#39; | awk &#39;{print $2}&#39; | xargs git rm
+</code></pre></div>
 <h2>commit</h2>
-
-<pre><code># コミット候補を追加
+<div class="highlight"><pre><code class="language-text" data-lang="text"># コミット候補を追加
 % git add a.txt
 # add 時点の状態でコミットされる
 % git commit
@@ -167,68 +153,55 @@ A  c.txt
 % git commit -a
 
 # reset author
-% git config user.name "Foo Bar"
-% git config user.email "foo@example.net"
+% git config user.name &quot;Foo Bar&quot;
+% git config user.email &quot;foo@example.net&quot;
 % git commit --amend --reset-author
 
 # commit with empty message
-% git commit -a --allow-empty-message -m ''
-</code></pre>
-
+% git commit -a --allow-empty-message -m &#39;&#39;
+</code></pre></div>
 <h2>clean</h2>
 
 <p>カレントディレクトリ以下の追跡対象外のファイルを削除します。</p>
-
-<pre><code># 未追跡ファイル/ディレクトリを確認
+<div class="highlight"><pre><code class="language-text" data-lang="text"># 未追跡ファイル/ディレクトリを確認
 % git clean -nd
 # 未追跡ファイル/ディレクトリを削除
 % git clean -fd
 # x オプションで .gitignore 対象も含めることができます
 % git clean -ndx
 % git clean -fdx
-</code></pre>
-
+</code></pre></div>
 <h2>tag</h2>
 
 <p>バージョンのタグについては <code>-a</code> オプションで注釈つきでタグをつける方法を推奨します。</p>
-
-<pre><code> % git tag -a v1.0 -m "version 1.0"
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text"> % git tag -a v1.0 -m &quot;version 1.0&quot;
+</code></pre></div>
 <p>コミットへのポインタのみのタグを作成することもできます。作業時など単に特定リビジョンをマークしたい場合に便利です。</p>
-
-<pre><code>% git tag 20120123-01
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% git tag 20120123-01
+</code></pre></div>
 <p>リモートリポジトリにはタグは送信されません。タグを <code>push</code> する必要があります。</p>
-
-<pre><code># タグ v1.0 をリモート origin に送信
+<div class="highlight"><pre><code class="language-text" data-lang="text"># タグ v1.0 をリモート origin に送信
 % git push origin v1.0
 
 # ローカルリポジトリの全てのタグを origin に送信
 % git push origin --tags
-</code></pre>
-
+</code></pre></div>
 <h2>log</h2>
 
 <p>ログのフォーマットを指定することができます。</p>
-
-<pre><code>% git log --pretty="format:%h %s"
+<div class="highlight"><pre><code class="language-text" data-lang="text">% git log --pretty=&quot;format:%h %s&quot;
 
 # フォーマットについての詳細はマニュアルを参照
 % man git-log
-</code></pre>
-
+</code></pre></div>
 <h2>show</h2>
 
 <p><code>git show (リビジョン):(ファイル名)</code> で特定リビジョンのファイルを表示できます。</p>
-
-<pre><code># ひとつ前のコミットの ./README.md を表示
+<div class="highlight"><pre><code class="language-text" data-lang="text"># ひとつ前のコミットの ./README.md を表示
 % git show HEAD^:./README.md
 # コミット deadbeef.... の ./README.md を表示
 % git show deadbeef:./README.md
-</code></pre>
-
+</code></pre></div>
 <h2>diff</h2>
 
 <table class="table table-bordered table-striped">
@@ -246,10 +219,8 @@ A  c.txt
 </tr>
 </table>
 
-
 <h2>branch</h2>
-
-<pre><code># 現在のブランチを確認
+<div class="highlight"><pre><code class="language-text" data-lang="text"># 現在のブランチを確認
 % git branch
 * master
 
@@ -284,11 +255,9 @@ A  c.txt
 
 # current ブランチを削除
 % git branch -d current
-</code></pre>
-
+</code></pre></div>
 <h2>Working with Remotes</h2>
-
-<pre><code># リモートを確認
+<div class="highlight"><pre><code class="language-text" data-lang="text"># リモートを確認
 % git remove -v
 origin  git@github.com:foo/bar.git (fetch)
 origin  git@github.com:foo/bar.git (push)
@@ -338,13 +307,11 @@ origin  git@github.com:foo/bar.git (push)
 # リモートブランチ origin/development を削除
 # 空のローカルブランチでリモートブランチ development を更新と考えると覚えやすい
 % git push origin :development
-</code></pre>
-
+</code></pre></div>
 <h2>History</h2>
 
 <p>To reset author, use <code>git-rebase</code> with <code>-i</code> option. The following is an example to modify last 2 commits.</p>
-
-<pre><code>% git rebase -i HEAD~2
+<div class="highlight"><pre><code class="language-text" data-lang="text">% git rebase -i HEAD~2
 pick b234567  Do something
 pick a123456  Do something at last
 
@@ -355,11 +322,9 @@ pick a123456  Do something at last
 ...
 #  e, edit = use commit, but stop for amending
 ...
-</code></pre>
-
+</code></pre></div>
 <p>Replace the command <code>pick</code> at each line with <code>edit</code> and then quit the editor.</p>
-
-<pre><code>edit b234567  Do something
+<div class="highlight"><pre><code class="language-text" data-lang="text">edit b234567  Do something
 edit a123456  Do something at last
 ...
 :q
@@ -371,26 +336,21 @@ You can amend the commit now, with
 Once you are satisfied with your changes, run
 
         git rebase --continue
-</code></pre>
-
+</code></pre></div>
 <p>Repeat running <code>commit --amend --reset-author</code> and <code>rebase --continue</code>.</p>
-
-<pre><code>% git commit --amend --reset-author
+<div class="highlight"><pre><code class="language-text" data-lang="text">% git commit --amend --reset-author
 % git rebase --continue
 % git commit --amend --reset-author
 % git rebase --continue
 Successfully rebased and updated refs/heads/...
-</code></pre>
-
+</code></pre></div>
 <p>You can use <code>filter-branch</code> to reset all commits. The following is an example:</p>
-
-<pre><code>% git filter-branch --commit-filter '
-GIT_AUTHOR_NAME="Foo Bar"
-GIT_AUTHOR_EMAIL="foo@example.net"
-git commit-tree "$@"
-' HEAD
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% git filter-branch --commit-filter &#39;
+GIT_AUTHOR_NAME=&quot;Foo Bar&quot;
+GIT_AUTHOR_EMAIL=&quot;foo@example.net&quot;
+git commit-tree &quot;$@&quot;
+&#39; HEAD
+</code></pre></div>
           </div>
         </div>
       </div>

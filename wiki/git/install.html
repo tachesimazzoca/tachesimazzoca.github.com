@@ -7,6 +7,7 @@
 <title>インストール | Git</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -91,28 +92,22 @@
           <div id="toc">
           </div>
           <h2>yum</h2>
-
-<pre><code>% yum install git
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% yum install git
+</code></pre></div>
 <h2>CentOS5</h2>
 
 <p>公式リポジトリに含まれていないため、yum リポジトリを追加します。</p>
-
-<pre><code>% vi /etc/yum.repos.d/rpmforge.repo
+<div class="highlight"><pre><code class="language-text" data-lang="text">% vi /etc/yum.repos.d/rpmforge.repo
 
 [rpmforge]
 name = Red Hat Enterprise $releasever - RPMforge.net - dag
 mirrorlist = http://apt.sw.be/redhat/el5/en/mirrors-rpmforge
 enabled = 0
 gpgcheck = 0
-</code></pre>
-
+</code></pre></div>
 <p>上記設定例では、<code>enabled = 0</code> として、通常の yum コマンドでは参照しないようにしています。追加リポジトリに rpmforge を指定して <code>yum install</code> します。</p>
-
-<pre><code>% yum install git --enablerepo=rpmforge
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% yum install git --enablerepo=rpmforge
+</code></pre></div>
           </div>
         </div>
       </div>

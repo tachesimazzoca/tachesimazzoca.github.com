@@ -7,6 +7,7 @@
 <title>基本操作 | gitolite</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -95,25 +96,19 @@
 <p><code>gitolite-admin</code> という管理用のリポジトリで権限設定を行います。</p>
 
 <p>管理ユーザの SSH 秘密鍵を <code>~/.ssh/</code> 以下にコピーします。</p>
-
-<pre><code>% cp /path/to/gitolite-adimn/private/key ~/.ssh/gitolite_admin.pem
+<div class="highlight"><pre><code class="language-text" data-lang="text">% cp /path/to/gitolite-adimn/private/key ~/.ssh/gitolite_admin.pem
 % chmod 600 ~/.ssh/gitolite_admin.pem
-</code></pre>
-
+</code></pre></div>
 <p><code>~/.ssh/config</code> にて SSH のホスト設定を行っておきます。</p>
-
-<pre><code>host gitolite-admin
+<div class="highlight"><pre><code class="language-text" data-lang="text">host gitolite-admin
     user gitolite
     hostname gitolite.example.net
     port 22
     identityfile ~/.ssh/gitolite_admin.pem
-</code></pre>
-
+</code></pre></div>
 <p>設定した SSH ホストから <code>gitolite-admin</code> リポジトリを取得します。</p>
-
-<pre><code>% git clone ssh://gitolite-admin/gitolite-admin.git
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% git clone ssh://gitolite-admin/gitolite-admin.git
+</code></pre></div>
 <h2>ユーザ追加</h2>
 
 <p>ユーザごとに SSH 鍵を作成します。</p>
@@ -123,20 +118,16 @@
 <li>公開鍵 <code>staff.pub</code></li>
 </ul>
 
-
 <p>を例にします。</p>
 
 <p>公開鍵を <code>gitolite-admin/keydir/(ユーザ名).pub</code> として push することで追加されます。</p>
-
-<pre><code>% cd /path/to/gitolite-admin/keydir
+<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /path/to/gitolite-admin/keydir
 % cp /path/to/new/id_rsa.pub staff.pub
 % git add staff.pub
-% git commit -m 'Add user staff'
-</code></pre>
-
+% git commit -m &#39;Add user staff&#39;
+</code></pre></div>
 <p>ユーザ側は秘密鍵を使ってアクセスできるようになります。</p>
-
-<pre><code>% vim ~/.ssh/config
+<div class="highlight"><pre><code class="language-text" data-lang="text">% vim ~/.ssh/config
 ...
 
 host gitolite-staff
@@ -148,19 +139,16 @@ host gitolite-staff
 ...
 
 % git clone ssh://gitolite-staff/testing.git
-</code></pre>
-
+</code></pre></div>
 <h2>権限設定</h2>
 
 <p><code>gitolite-admin/conf/gitolite.conf</code> を編集し push することで反映されます。</p>
-
-<pre><code>repo    gitolite-admin
+<div class="highlight"><pre><code class="language-text" data-lang="text">repo    gitolite-admin
         RW+     = admin
 
 repo    testing
         RW+     = @all
-</code></pre>
-
+</code></pre></div>
           </div>
         </div>
       </div>

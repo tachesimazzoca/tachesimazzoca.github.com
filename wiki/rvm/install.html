@@ -7,6 +7,7 @@
 <title>インストール | Ruby Version Manager</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -93,47 +94,36 @@
           <p><a href="https://get.rvm.io">https://get.rvm.io</a> へアクセスすると、bash スクリプトにリダイレクトされることがわかります。</p>
 
 <p>このスクリプトを bash コマンドに渡すことで、ログインユーザの <code>~/.rvm</code> ディレクトリ以下に RVM がインストールされます。</p>
-
-<pre><code>% curl -L "get.rvm.io" | bash -s stable
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% curl -L &quot;get.rvm.io&quot; | bash -s stable
+</code></pre></div>
 <p><code>~/.bashrc</code> <code>~/.zshrc</code> に <code>~/.rvm/bin</code> へのコマンド検索パスが追加されています。</p>
-
-<pre><code>PATH=$PATH:$HOME/.rvm/bin
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">PATH=$PATH:$HOME/.rvm/bin
+</code></pre></div>
 <p><code>~/.bash_profile</code> <code>~/.zlogin</code> に RVM 用のスクリプトが追加されていることが分かります。シェルログイン時に必要な環境変数が設定されます。</p>
-
-<pre><code>[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; source "$HOME/.rvm/scripts/rvm"
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;&amp; source &quot;$HOME/.rvm/scripts/rvm&quot;
+</code></pre></div>
 <p>これによりユーザディレクトリ以下の <code>~/.rvm</code> を見るようになります。</p>
-
-<pre><code>% which rvm
+<div class="highlight"><pre><code class="language-text" data-lang="text">% which rvm
 ~/.rvm/bin/rvm
-</code></pre>
-
+</code></pre></div>
 <p><code>root</code> ユーザでインストールした場合には、<code>/root/.rvm</code> ではなく <code>/usr/local/rvm</code> 以下にインストールされます。<code>/etc/profile.d/rvm.sh</code> に、ユーザ共通のログインスクリプトが追加され <code>~/.rvm</code> のディレクトリが存在しないユーザは <code>/usr/local/rvm</code> を見るようになります。</p>
-
-<pre><code>% which rvm
+<div class="highlight"><pre><code class="language-text" data-lang="text">% which rvm
 /usr/local/rvm/bin/rvm
-</code></pre>
-
+</code></pre></div>
 <p><code>rvm requirements</code> で必要なパッケージを教えてくれます。以下は CentOS 5.8 の例です。</p>
-
-<pre><code>% rvm requirements
+<div class="highlight"><pre><code class="language-text" data-lang="text">% rvm requirements
 
 Requirements for Linux ( CentOS release 5.8 (Final) )
 
-NOTE: 'ruby' represents Matz's Ruby Interpreter (MRI) (1.8.X, 1.9.X)
+NOTE: &#39;ruby&#39; represents Matz&#39;s Ruby Interpreter (MRI) (1.8.X, 1.9.X)
              This is the *original* / standard Ruby Language Interpreter
-      'ree'  represents Ruby Enterprise Edition
-      'rbx'  represents Rubinius
+      &#39;ree&#39;  represents Ruby Enterprise Edition
+      &#39;rbx&#39;  represents Rubinius
 
 bash &gt;= 4.1 required
 curl is required
 git is required (&gt;= 1.7 for ruby-head)
-patch is required (for 1.8 rubies and some ruby-head's).
+patch is required (for 1.8 rubies and some ruby-head&#39;s).
 
 To install rbx and/or Ruby 1.9 head (MRI) (eg. 1.9.2-head),
 then you must install and use rvm 1.8.7 first.
@@ -144,15 +134,12 @@ Additional Dependencies:
 
 # For JRuby, install the following:
   jruby: yum install -y java
-</code></pre>
-
+</code></pre></div>
 <p><code>For Ruby / Ruby HEAD (MRI, Rubinius, &amp; REE), install the following:</code> にあるパッケージが必要になります。</p>
 
 <p><code>iconv-devel</code> は <code>NOTE: For centos &gt;= 5.4 iconv-devel is provided by glibc</code> とありますので除外してインストールします。</p>
-
-<pre><code>% yum install gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% yum install gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison
+</code></pre></div>
           </div>
         </div>
       </div>

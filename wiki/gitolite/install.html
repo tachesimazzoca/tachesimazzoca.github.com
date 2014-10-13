@@ -7,6 +7,7 @@
 <title>インストール | gitolite</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -93,30 +94,24 @@
           <h2>gitolite-2.3</h2>
 
 <p>github からソースを取得します。2.3.x 系のブランチは <code>g2</code> になります。</p>
-
-<pre><code>% cd /tmp
+<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /tmp
 % git https://github.com/sitaramc/gitolite.git
 % cd /tmp/gitolite
 % git checkout g2
-</code></pre>
-
+</code></pre></div>
 <p><code>gitolite</code> ユーザを作成し、<code>gl-system-install</code> コマンドを実行します。</p>
-
-<pre><code>% su -
+<div class="highlight"><pre><code class="language-text" data-lang="text">% su -
 % useradd gitolite
 % su - gitolite
 % /tmp/gitolite/src/gl-system-install
-</code></pre>
-
+</code></pre></div>
 <ul>
 <li><code>%HOME/bin</code></li>
 <li><code>%HOME/share</code></li>
 </ul>
 
-
 <p>にインストールされます。<code>$HOME/bin</code> にパスが通っていなければ追加します。</p>
-
-<pre><code>% su - gitolite
+<div class="highlight"><pre><code class="language-text" data-lang="text">% su - gitolite
 % vim ~/.bash_profile
 ...
 export PATH=$PATH:$HOME:/bin
@@ -125,24 +120,19 @@ export PATH=$PATH:$HOME:/bin
 
 % which gl-setup
 ~/bin/gl-setup
-</code></pre>
-
+</code></pre></div>
 <p>gitolite 管理ユーザ用の SSH 鍵を作成します。ファイル名はユーザ名と同じにします。</p>
-
-<pre><code># admin ユーザの SSH鍵を作成します
+<div class="highlight"><pre><code class="language-text" data-lang="text"># admin ユーザの SSH鍵を作成します
 % ssh-keygen -t rsa
 Enter file in which to save the key (/home/gitolite/.ssh/id_rsa): /home/gitolite/.ssh/admin
 Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
 Your identification has been saved in /home/gitolite/.ssh/admin.
 Your public key has been saved in /home/gitolite/.ssh/admin.pub.
-</code></pre>
-
+</code></pre></div>
 <p>公開鍵 <code>*.pub</code> へのファイルパスを指定して <code>gl-setup</code> を実行します。</p>
-
-<pre><code>% gl-setup ~/.ssh/admin.pub
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% gl-setup ~/.ssh/admin.pub
+</code></pre></div>
 <p>セットアップ間で <code>$HOME/.gitolite.rc</code> の編集画面が開きますが、特に変更せずそのまま保存します。以上でセットアップは完了です。</p>
 
 <ul>
@@ -151,16 +141,13 @@ Your public key has been saved in /home/gitolite/.ssh/admin.pub.
 <li><code>$HOME/projects.list</code></li>
 </ul>
 
-
 <p>が作成されています。</p>
 
 <p><code>$HOME/.ssh/authorized_keys</code> に <code>gl-setup</code> 時に指定した公開鍵が追加されています。通常の SSH 鍵でのログインとは異なり <code>gl-auth-command</code> が実行されます。</p>
-
-<pre><code># gitolite start
-command="/home/gitolite/bin/gl-auth-command admin",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ssh-rsa ...
+<div class="highlight"><pre><code class="language-text" data-lang="text"># gitolite start
+command=&quot;/home/gitolite/bin/gl-auth-command admin&quot;,no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ssh-rsa ...
 # gitolite end
-</code></pre>
-
+</code></pre></div>
 <p>公開鍵により gitolite ユーザを判別し、UNIX ユーザ <code>gitolite</code> が、実際に git リポジトリを操作することになります。</p>
 
           </div>

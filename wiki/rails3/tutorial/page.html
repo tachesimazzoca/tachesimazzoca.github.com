@@ -7,6 +7,7 @@
 <title>HTMLページ出力 | Rails3</title>
 <link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../../assets/javascripts/jquery.toctree.js"></script>
@@ -93,67 +94,51 @@
           <h2>ページ出力フロー</h2>
 
 <p><code>config/routes.rb</code> でURLマッピングを設定します。</p>
-
-<pre><code>Sandbox::Application.routes.draw do
-  match 'pages/home' =&gt; "pages#home", :as =&gt; pages_home
+<div class="highlight"><pre><code class="language-text" data-lang="text">Sandbox::Application.routes.draw do
+  match &#39;pages/home&#39; =&gt; &quot;pages#home&quot;, :as =&gt; pages_home
 end
-</code></pre>
-
+</code></pre></div>
 <p>上記例では URL <code>pages/home</code> に対し、<code>pages</code> コントローラの <code>home</code> アクションにマッピングし <code>pages_home</code> という設定名を付けています。<code>rake routes</code> コマンドで設定を確認できます。</p>
-
-<pre><code>% bundle exec rake routes
+<div class="highlight"><pre><code class="language-text" data-lang="text">% bundle exec rake routes
 pages_home GET /pages/home(.:format) pages#home
-</code></pre>
-
-<p><code>match ':controller/:action' =&gt; '(:controller)#(:action)'. :as =&gt; (:controller)_(:action)</code> のフォーマットであれば、以下のように省略できます。</p>
-
-<pre><code>Sandbox::Application.routes.draw do
-  match 'pages/home'
+</code></pre></div>
+<p><code>match &#39;:controller/:action&#39; =&gt; &#39;(:controller)#(:action)&#39;. :as =&gt; (:controller)_(:action)</code> のフォーマットであれば、以下のように省略できます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Sandbox::Application.routes.draw do
+  match &#39;pages/home&#39;
 end
-</code></pre>
-
+</code></pre></div>
 <p><code>app/controllers/pages_controller.rb</code> を作成し home メゾッドを定義します。</p>
-
-<pre><code>class PagesController &lt; ApplicationController
+<div class="highlight"><pre><code class="language-text" data-lang="text">class PagesController &lt; ApplicationController
   def home
   end
 end
-</code></pre>
-
+</code></pre></div>
 <p>テンプレート <code>app/views/pages/home.html.erb</code> を作成します。</p>
-
-<pre><code>&lt;h1&gt;Home&lt;/h1&gt;
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;h1&gt;Home&lt;/h1&gt;
 &lt;p&gt;Hello World!&lt;/p&gt;
-</code></pre>
-
+</code></pre></div>
 <p>レイアウトテンプレート <code>app/views/layouts/application.html.erb</code> を作成します。<code>yield</code> 文の箇所に <code>app/views/pages/home.html.erb</code> が差し込まれます。</p>
-
-<pre><code>&lt;!DOCTYPE html&gt;
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
-  &lt;meta charset="utf-8"&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
   &lt;title&gt;Sandbox&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
 &lt;%= yield %&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre>
-
+</code></pre></div>
 <p><code>/pages/home</code> または <code>/pages/home.html</code> で作成したページが表示されることがわかります。</p>
 
 <p>このページをルートURL <code>/</code> で表示させてみましょう。<code>public/index.html</code> が存在するとこのファイルが表示されますので削除しておきます。</p>
-
-<pre><code>% rm public/index.html
-</code></pre>
-
-<p><code>root :to =&gt; '(:controller)#(:action)'</code> と指定すると、URL <code>/</code> で表示されることが確認できます。</p>
-
-<pre><code>Sandbox::Application.routes.draw do
-  root :to =&gt; 'pages#home'
+<div class="highlight"><pre><code class="language-text" data-lang="text">% rm public/index.html
+</code></pre></div>
+<p><code>root :to =&gt; &#39;(:controller)#(:action)&#39;</code> と指定すると、URL <code>/</code> で表示されることが確認できます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Sandbox::Application.routes.draw do
+  root :to =&gt; &#39;pages#home&#39;
 end
-</code></pre>
-
+</code></pre></div>
           </div>
         </div>
       </div>

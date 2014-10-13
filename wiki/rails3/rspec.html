@@ -7,6 +7,7 @@
 <title>RSpec Rails + Spork | Rails3</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -97,22 +98,17 @@
 <li><a href="https://github.com/sporkrb/spork">Spork</a></li>
 </ul>
 
-
 <h2>Gemfile</h2>
-
-<pre><code>group :development, :test do
-  gem 'rspec-rails', '2.11.0'
-  gem 'spork', '0.9.2'
+<div class="highlight"><pre><code class="language-text" data-lang="text">group :development, :test do
+  gem &#39;rspec-rails&#39;, &#39;2.11.0&#39;
+  gem &#39;spork&#39;, &#39;0.9.2&#39;
 end
-</code></pre>
-
+</code></pre></div>
 <h2>初期設定</h2>
 
 <p>はじめに <code>rspec-rails</code> の初期設定を行います。</p>
-
-<pre><code>% bundle exec rails g rspec:install
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% bundle exec rails g rspec:install
+</code></pre></div>
 <p>これにより</p>
 
 <ul>
@@ -120,15 +116,11 @@ end
 <li><code>spec/spec_helper.rb</code> の追加</li>
 </ul>
 
-
 <p>が行われます。その後 <code>spork</code> の初期設定を行います。</p>
-
-<pre><code>% bundle exec spork --bootstrap
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% bundle exec spork --bootstrap
+</code></pre></div>
 <p><code>spec/spec_helper.rb</code> に以下のコードが追加されます。</p>
-
-<pre><code>require 'spork'
+<div class="highlight"><pre><code class="language-text" data-lang="text">require &#39;spork&#39;
 
 Spork.prefork do
   # Spork サーバ起動時の処理を記述
@@ -137,22 +129,17 @@ end
 Spork.each_run do
   # テスト毎に実行する処理を記述
 end
-</code></pre>
-
+</code></pre></div>
 <p>必要に応じて、<code>Spork.prefork</code> <code>Spork.each_run</code> のブロックに初期化処理を記述しておきます。</p>
 
 <h2>テストの実行</h2>
 
 <p>あらかじめ、テストサーバ Spork を起動しておきます。</p>
-
-<pre><code>% bundle exec spork
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% bundle exec spork
+</code></pre></div>
 <p><code>--drb</code> オプションを付けることで、テストサーバ経由で <code>rspec</code> を実行します。</p>
-
-<pre><code>% bundle exec rspec --drb /path/to/spec
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">% bundle exec rspec --drb /path/to/spec
+</code></pre></div>
           </div>
         </div>
       </div>

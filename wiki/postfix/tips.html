@@ -7,6 +7,7 @@
 <title>TIPS | Postfix</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -93,16 +94,13 @@
           <h2>設定更新</h2>
 
 <p><code>main.cf</code> を変更した場合、設定をすぐに反映させるには <code>reload</code> を行います。</p>
-
-<pre><code>% postfix reload
+<div class="highlight"><pre><code class="language-text" data-lang="text">% postfix reload
 postfix/postfix-script: refreshing the Postfix mail system
-</code></pre>
-
+</code></pre></div>
 <p><code>reload</code> を行わなくても、<code>main.cf</code> の変更は反映されるため、更新の際には注意してください。設定が不正な状態で保存されていると問題が起こります。</p>
 
 <p><code>reload</code> では更新されない設定項目があります。この場合は <code>stop/start</code> で更新を行います。</p>
-
-<pre><code>% postfix reload
+<div class="highlight"><pre><code class="language-text" data-lang="text">% postfix reload
 postfix/postfix-script: refreshing the Postfix mail system
 
 # /var/log/maillog を確認すると inet_interfaces を変更する場合は stop/start を行うように警告されている
@@ -119,8 +117,7 @@ postfix/postfix-script: refreshing the Postfix mail system
 .... postfix/master[xxxx]: terminating on signal 15
 .... postfix/postfix-script[xxxx]: starting the Postfix mail system
 .... postfix/master[xxxx]: daemon started -- version 2.6.6, configuration /etc/postfix
-</code></pre>
-
+</code></pre></div>
 <h2>バーチャルなメールアドレス</h2>
 
 <p>実ユーザを作成しなくても、<code>virtual_alias_maps</code> を用いて、バーチャルなメールアドレスでのメール受信ができます。</p>
@@ -130,32 +127,25 @@ postfix/postfix-script: refreshing the Postfix mail system
 <h4>hash</h4>
 
 <p>ハッシュテーブルを用いる方法です。<code>/etc/postfix/virtual</code> に作成する例です。</p>
-
-<pre><code>% cat /etc/postfix/virtual
+<div class="highlight"><pre><code class="language-text" data-lang="text">% cat /etc/postfix/virtual
 example.net anything
 support@example.net username
 info@example.net username
-</code></pre>
-
+</code></pre></div>
 <p><code>postmap</code> コマンドで、ハッシュテーブルを作成します。</p>
-
-<pre><code># /etc/postfix/virtual.db が作成されます。
+<div class="highlight"><pre><code class="language-text" data-lang="text"># /etc/postfix/virtual.db が作成されます。
 % postmap /etc/postfix/virtual
-</code></pre>
-
+</code></pre></div>
 <h4>regexp</h4>
 
 <p>正規表現で設定を記述します。<code>/etc/postfix/virtual_regexp</code> に作成する例です。</p>
-
-<pre><code>% cat /etc/postfix/virtual_regexp
+<div class="highlight"><pre><code class="language-text" data-lang="text">% cat /etc/postfix/virtual_regexp
 /^[0-9a-z]{16}@example\.net$/ username@example.net
-</code></pre>
-
+</code></pre></div>
 <h3>エイリアスマップの指定</h3>
 
 <p><code>main.cf</code> でエイリアスマップを指定します。</p>
-
-<pre><code>% cat /etc/postfix/main.cf
+<div class="highlight"><pre><code class="language-text" data-lang="text">% cat /etc/postfix/main.cf
 ....
 # 外部ホストからの配送を許可
 inet_interfaces = all
@@ -165,15 +155,12 @@ mydestination = $myhostname, localhost.$mydomain, localhost, example.net
 ....
 # エイリアスマップを指定
 virtual_alias_maps = hash:/etc/postfix/virtual, regexp:/etc/postfix/virtual_regexp
-</code></pre>
-
+</code></pre></div>
 <h2>ハイフンで始まるメールアドレス</h2>
 
 <p>ハイフンで始まるメールアドレスは、コマンドオプションと認識される危険性があるため送信されません。危険性を了承した上で送信を行う場合は、<code>main.cf</code> で <code>allow_min_user</code> の値を設定することで送信されるようになります。</p>
-
-<pre><code>allow_min_user = yes
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">allow_min_user = yes
+</code></pre></div>
           </div>
         </div>
       </div>

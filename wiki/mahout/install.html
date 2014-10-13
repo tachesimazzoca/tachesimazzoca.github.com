@@ -7,6 +7,7 @@
 <title>Install | Mahout</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -97,10 +98,9 @@
 <p>にリンクされているミラーサイトからダウンロードします。</p>
 
 <p>任意のディレクトリに展開し <code>bin/</code> ディレクトリにパスを通すだけです。</p>
-
-<pre><code>% mkdir ~/.mahout
+<div class="highlight"><pre><code class="language-text" data-lang="text">% mkdir ~/.mahout
 % cd ~/.mahout
-% curl -L "http://ftp.riken.jp/net/apache/mahout/0.7/mahout-distribution-0.7.tar.gz"
+% curl -L &quot;http://ftp.riken.jp/net/apache/mahout/0.7/mahout-distribution-0.7.tar.gz&quot;
 % tar xvfz mahout-distribution-0.7.tar.gz
 
 % vi ~/.bash_profile
@@ -108,8 +108,7 @@
 export PATH=$HOME/.mahout/mahout-distribution-0.7/bin:$PATH
 export MAHOUT_JAVA_HOME=/usr/local/java
 ...
-</code></pre>
-
+</code></pre></div>
           </div>
         </div>
       </div>

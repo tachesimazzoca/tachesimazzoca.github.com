@@ -7,6 +7,7 @@
 <title>基本操作 | PostgreSQL</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
 <script src="../assets/javascripts/jquery.toctree.js"></script>
@@ -93,27 +94,22 @@
           <h2>ユーザ作成</h2>
 
 <p>ユーザ作成は <code>postgres</code> ユーザで行い、データベースのみを作成できるユーザを作成しておくとよいでしょう。</p>
-
-<pre><code>% su - postgres
+<div class="highlight"><pre><code class="language-text" data-lang="text">% su - postgres
 % createuser dev
 Shall the new role be a superuser? (y/n) n
 Shall the new role be allowed to create databases? (y/n) y
 Shall the new role be allowed to create more new roles? (y/n) n
 CREATE ROLE
-</code></pre>
-
+</code></pre></div>
 <h2>データベース作成</h2>
-
-<pre><code>% su - postgres
+<div class="highlight"><pre><code class="language-text" data-lang="text">% su - postgres
 % createdb -U dev (データベース名)
 CREATE DATABASE
-</code></pre>
-
+</code></pre></div>
 <p><code>pg_hba.conf</code> での設定が <code>ident sameuser</code> となっていると、同名のOSユーザが存在しなければ作成できません。ポリシーに応じて <code>trust</code> や <code>password</code> 等に変更します。</p>
 
 <h2>ログイン</h2>
-
-<pre><code>#
+<div class="highlight"><pre><code class="language-text" data-lang="text">#
 # -W : パスワード認証を要求
 # -U : ユーザ名
 # -d : データベース名。オプションでなく最後の引数としても指定可
@@ -121,36 +117,29 @@ CREATE DATABASE
 % psql -W -U (ユーザ名) -d (データベース名)
 Password for user dev:
 ....
-</code></pre>
-
+</code></pre></div>
 <h2>SELECT 結果を CSV 形式で出力する</h2>
-
-<pre><code>#
+<div class="highlight"><pre><code class="language-text" data-lang="text">#
 # -A : 位置揃え無しの出力モード
 # -F : 区切り文字
 #
-% echo "SELECT * FROM emp LIMIT 5" | psql -A -F "," ...
-</code></pre>
-
+% echo &quot;SELECT * FROM emp LIMIT 5&quot; | psql -A -F &quot;,&quot; ...
+</code></pre></div>
 <h2>SQL ダンプ</h2>
-
-<pre><code>#
+<div class="highlight"><pre><code class="language-text" data-lang="text">#
 # -O : 所有権を元のデータベースに一致させるためのコマンドを出力しない
 # -x : アクセス権限のダンプを抑制
 # -s : テーブル定義のみをダンプ
 #
 % pg_dump -O -x -U dev (データベース名) &gt; dump.sql
-</code></pre>
-
+</code></pre></div>
 <p>SQL ダンプからのレストアは <code>psql</code> コマンド経由で行います。</p>
-
-<pre><code># シェルからの入力リダイレクトの場合は、手入力を行った場合と同等です。
+<div class="highlight"><pre><code class="language-text" data-lang="text"># シェルからの入力リダイレクトの場合は、手入力を行った場合と同等です。
 % psql .... -d (データベース名) &lt; dump.sql
 
 # -f オプションでのファイル名指定であれば、行番号付でエラーメッセージが確認できます。
 % psql .... -d (データベース名) -f dump.sql
-</code></pre>
-
+</code></pre></div>
           </div>
         </div>
       </div>
