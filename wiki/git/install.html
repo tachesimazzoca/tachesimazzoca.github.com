@@ -92,22 +92,28 @@
           <div id="toc">
           </div>
           <h2>yum</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% yum install git
-</code></pre></div>
+
+<pre><code>% yum install git
+</code></pre>
+
 <h2>CentOS5</h2>
 
 <p>公式リポジトリに含まれていないため、yum リポジトリを追加します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% vi /etc/yum.repos.d/rpmforge.repo
+
+<pre><code>% vi /etc/yum.repos.d/rpmforge.repo
 
 [rpmforge]
 name = Red Hat Enterprise $releasever - RPMforge.net - dag
 mirrorlist = http://apt.sw.be/redhat/el5/en/mirrors-rpmforge
 enabled = 0
 gpgcheck = 0
-</code></pre></div>
+</code></pre>
+
 <p>上記設定例では、<code>enabled = 0</code> として、通常の yum コマンドでは参照しないようにしています。追加リポジトリに rpmforge を指定して <code>yum install</code> します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% yum install git --enablerepo=rpmforge
-</code></pre></div>
+
+<pre><code>% yum install git --enablerepo=rpmforge
+</code></pre>
+
           </div>
         </div>
       </div>

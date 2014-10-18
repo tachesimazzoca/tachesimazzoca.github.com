@@ -94,16 +94,20 @@
           <h2>itemsimilarity</h2>
 
 <p>アイテムから類似アイテムを抽出します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% hadoop fs -rmr inputdir
+
+<pre><code>% hadoop fs -rmr inputdir
 % hadoop fs -rmr outputdir
 % hadoop fs -put /path/to/data/* inputdir/.
 
 % mahout itemsimilarity --input inputdir --output outputdir --similarityClassname SIMILARITY_LOGLIKEHOOD --maxSimilaritiesPerItem 5 --booleanData true
-</code></pre></div>
+</code></pre>
+
 <p>以下の形式で入力データを準備します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">ユーザID,アイテムID[,評価値]
+
+<pre><code>ユーザID,アイテムID[,評価値]
 ....
-</code></pre></div>
+</code></pre>
+
 <p><strong>Job-Secific Options:</strong></p>
 
 <table class="table table-bordered table-striped">
@@ -152,12 +156,14 @@
 </tr>
 </table>
 
+
 <p><strong>org.apache.mahout.cf.taste.hadoop.similarity.item.ItemSimilarityJob</strong></p>
 
 <ul>
 <li><a href="https://builds.apache.org/job/Mahout-Quality/javadoc/org/apache/mahout/cf/taste/hadoop/similarity/item/ItemSimilarityJob.html">JavaDoc</a></li>
 <li><a href="http://svn.apache.org/viewvc/mahout/trunk/core/src/main/java/org/apache/mahout/cf/taste/hadoop/similarity/item/ItemSimilarityJob.java?view=markup">View Source</a></li>
 </ul>
+
 
           </div>
         </div>

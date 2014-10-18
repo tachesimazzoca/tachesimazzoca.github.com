@@ -102,6 +102,7 @@
 <li><a href="http://grepcode.com/file/repo1.maven.org/maven2/commons-io/commons-io/2.4/org/apache/commons/io/FileUtils.java">org.apache.commons.io.FileUtils</a></li>
 </ul>
 
+
 <h2>InputStream / OutputStream</h2>
 
 <ul>
@@ -109,7 +110,9 @@
 <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/OutputStream.html">java.io.OutputStream</a></li>
 </ul>
 
+
 <p>により <code>byte</code> 単位での入出力を行うことができます。</p>
+
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">copy</span><span class="o">(</span>
         <span class="n">InputStream</span> <span class="n">input</span><span class="o">,</span> <span class="n">OutputStream</span> <span class="n">output</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
     <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">4096</span><span class="o">];</span>
@@ -117,12 +120,14 @@
     <span class="k">while</span> <span class="o">(-</span><span class="mi">1</span> <span class="o">!=</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">)))</span> <span class="o">{</span>
         <span class="n">output</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">n</span><span class="o">);</span>
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
+
+
 <ul>
 <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedInputStream.html">java.io.BufferedInputStream</a></li>
 <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedOutputStream.html">java.io.BufferedOutputStream</a></li>
 </ul>
+
 
 <p>は内部バッファを持ちます。都度、ストリームを介すのではなく、内部バッファにデータを溜め込んでおくことで、効率的にストリームにアクセスします。</p>
 
@@ -134,6 +139,7 @@
 <li><code>BufferedOutputStream#close</code> メゾッドにより、ストリームを閉じる際にバッファを出力</li>
 </ul>
 
+
 <h2>Reader / Writer</h2>
 
 <ul>
@@ -141,7 +147,9 @@
 <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/Writer.html">java.io.Writer</a></li>
 </ul>
 
+
 <p>により <code>char</code> 単位での入出力を行うことができます。</p>
+
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">copy</span><span class="o">(</span>
         <span class="n">Reader</span> <span class="n">input</span><span class="o">,</span> <span class="n">Writer</span> <span class="n">output</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
     <span class="kt">char</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="mi">4096</span><span class="o">];</span>
@@ -149,12 +157,14 @@
     <span class="k">while</span> <span class="o">(-</span><span class="mi">1</span> <span class="o">!=</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">)))</span> <span class="o">{</span>
         <span class="n">output</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">n</span><span class="o">);</span>
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
+
+
 <ul>
 <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedReader.html">java.io.BufferedReader</a></li>
 <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedWriter.html">java.io.BufferedWriter</a></li>
 </ul>
+
 
 <p>は、バイトストリーム同様、<code>char</code> 型の内部バッファを持ち、効率的にストリームにアクセスします。</p>
 

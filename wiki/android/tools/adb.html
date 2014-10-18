@@ -97,12 +97,14 @@
 <li><a href="http://developer.android.com/tools/help/adb.html">Android Debug Bridge</a></li>
 </ul>
 
+
 <h2>Tips</h2>
 
 <h3>Dumping system data</h3>
 
 <p>You can dump system data to the screen by the command <code>shell dumpsys</code>. The output shows lots of information, so you might redirect STDOUT to a text file.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% adb shell dumpsys &gt; dump.txt
+
+<pre><code>% adb shell dumpsys &gt; dump.txt
 % less dump.txt
 Currently running services:
   SurfaceFlinger
@@ -110,20 +112,24 @@ Currently running services:
   account
   activity
   ...
-</code></pre></div>
+</code></pre>
+
 <p>The first section tells about <em>Currently running services</em>. If a service name is specified after <code>dumpsys</code>, then the other sections are filtered out.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># Show only &quot;battery&quot;
+
+<pre><code># Show only "battery"
 % adb shell dumpsys battery
 Current Battery Service state:
   AC powered: true
   USB powered: false
   Wireless powered: false
   ...
-</code></pre></div>
+</code></pre>
+
 <h3>Investigating intent filters</h3>
 
 <p>Look up the <code>Activitiy Resolver Table</code> section in the output of the command <code>shell dumpsys package</code>.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% adb shell dumpsys package &gt; package.txt
+
+<pre><code>% adb shell dumpsys package &gt; package.txt
 % less package.txt
 ...
 Activity Resolver Table:
@@ -131,7 +137,8 @@ Activity Resolver Table:
       application/itunes:
         41adb878 com.android.music/.MediaPlaybackActivity filter 41adb9e0
         ...
-</code></pre></div>
+</code></pre>
+
           </div>
         </div>
       </div>

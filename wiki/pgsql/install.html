@@ -92,11 +92,14 @@
           <div id="toc">
           </div>
           <h2>yum</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% yum install postgresql-server postgresql-devel
+
+<pre><code>% yum install postgresql-server postgresql-devel
 % /etc/init.d/postgresql start
-</code></pre></div>
+</code></pre>
+
 <h2>postgresql-8.x</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># インストール / 実行用の postgres ユーザを作成 (rootは不可)
+
+<pre><code># インストール / 実行用の postgres ユーザを作成 (rootは不可)
 # /usr/local/pgsql をホームディレクトリとする
 % useradd -d /usr/local/pgsql postgres
 
@@ -115,42 +118,49 @@
 % ./configure --prefix=/usr/local/pgsql
 % make
 % make install
-</code></pre></div>
+</code></pre>
+
 <p>postgres ユーザの環境変数を設定し、データベースを初期化します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% vi ~/.bash_profile
+
+<pre><code>% vi ~/.bash_profile
 ....
 export PATH=$PATH:/usr/local/pgsql/bin
 export POSTGRES_HOME=/usr/local/pgsql
 export PGLIB=$POSTGRES_HOME/lib
-export LD_LIBRARY_PATH=&quot;$LD_LIBRARY_PATH&quot;:&quot;$PGLIB&quot;
-export MANPATH=&quot;$MANPATH&quot;:$POSTGRES_HOME/man
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$PGLIB"
+export MANPATH="$MANPATH":$POSTGRES_HOME/man
 export PGDATA=/usr/local/pgsql/data
 ....
 % source ~/.bash_profile
 
 % /usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
-</code></pre></div>
+</code></pre>
+
 <p>必要に応じて、アクセスポリシーを <code>ident sameuser</code> から <code>trust</code> や <code>password</code> に変更します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% vim /usr/local/pgsql/data/pg_hba.conf
+
+<pre><code>% vim /usr/local/pgsql/data/pg_hba.conf
 ....
-# &quot;local&quot; is for Unix domain socket connections only
+# "local" is for Unix domain socket connections only
 local   all         all                               trust
 # IPv4 local connections:
 host    all         all         127.0.0.1/32          trust
 # IPv6 local connections:
 host    all         all         ::1/128               trust
 ....
-</code></pre></div>
+</code></pre>
+
 <p><code>postgres</code> ユーザで PostgreSQL データベースサーバ <code>postmaster</code> を起動/停止します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% su - postgres
+
+<pre><code>% su - postgres
 
 # pg_ctl での起動/停止
-% /usr/local/pgsql/bin/pg_ctl -o &quot;-S -i&quot; start
+% /usr/local/pgsql/bin/pg_ctl -o "-S -i" start
 % /usr/local/pgsql/bin/pg_ctl stop
 
 # 手動で postmaster を起動する例
 % /usr/local/pgsql/bin/postmaster -D /usr/local/pgsql/data &amp; &gt;&gt; /usr/local/pgsql/pgstartuup.log 2&gt;&amp;1 &lt; /dev/null
-</code></pre></div>
+</code></pre>
+
           </div>
         </div>
       </div>

@@ -94,6 +94,7 @@
           <h2>ServletConfig</h2>
 
 <p><code>web.xml</code>:</p>
+
 <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;servlet&gt;</span>
   <span class="nt">&lt;servlet-name&gt;</span>Index<span class="nt">&lt;/servlet-name&gt;</span>
   <span class="nt">&lt;servlet-class&gt;</span>net.example.servlet.IndexServlet<span class="nt">&lt;/servlet-class&gt;</span>
@@ -101,17 +102,22 @@
     <span class="nt">&lt;param-name&gt;</span>foo<span class="nt">&lt;/param-name&gt;</span>
     <span class="nt">&lt;param-value&gt;</span>bar<span class="nt">&lt;/param-value&gt;</span>
   <span class="nt">&lt;/init-param&gt;</span>
-<span class="nt">&lt;/servlet&gt;</span>
-</code></pre></div>
+<span class="nt">&lt;/servlet&gt;</span></code></pre></div>
+
+
 <p><code>IndexServlet.java</code>:</p>
+
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IndexServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">ServletException</span> <span class="o">{</span>
         <span class="n">ServletConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">getServletConfig</span><span class="o">();</span>
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getInitParameter</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">));</span> <span class="c1">// &quot;bar&quot;</span>
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
+
+
+
+
           </div>
         </div>
       </div>

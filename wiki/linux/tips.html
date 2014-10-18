@@ -92,7 +92,8 @@
           <div id="toc">
           </div>
           <h2>IPアドレスの設定</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># eth0 - DHCP
+
+<pre><code># eth0 - DHCP
 % vim /etc/sysconfig/network-scripts/ifcfg-eth0
 DEVICE=eth0
 BOOTPROTO=dhcp
@@ -112,29 +113,37 @@ HWADDR=....
 
 # 設定を反映させます
 % /etc/init.d/network restart
-</code></pre></div>
+</code></pre>
+
 <h2>SELinux</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% vim /etc/sysconfig/selinux
+
+<pre><code>% vim /etc/sysconfig/selinux
 ...
 SELINUX=disabled
 ..
 % shutdown -r now
-</code></pre></div>
+</code></pre>
+
 <h2>内部ファイアーウォール</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># IPv4
+
+<pre><code># IPv4
 % /etc/init.d/iptables stop
 % chkconfig iptables off
 
 # IPv6
 % /etc/init.d/ip6tables stop
 % chkconfig ip6tables off
-</code></pre></div>
+</code></pre>
+
 <h2>タイムゾーンの設定</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cp /usr/share/zoneinfo/Japan /etc/localtime
+
+<pre><code>% cp /usr/share/zoneinfo/Japan /etc/localtime
 % date
-</code></pre></div>
+</code></pre>
+
 <h2>システム言語の設定</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># 利用可能な ja_JP ロケールを確認
+
+<pre><code># 利用可能な ja_JP ロケールを確認
 % locale -a | grep ja_JP
 % ja_JP
 % ja_JP.eucjp
@@ -143,52 +152,67 @@ SELINUX=disabled
 
 # ja_JP.utf8 を指定
 % vim /etc/sysconfig/i18n
-LANG=&quot;ja_JP.utf8&quot;
-LC_CTYPE=&quot;ja_JP.utf8&quot;
-</code></pre></div>
+LANG="ja_JP.utf8"
+LC_CTYPE="ja_JP.utf8"
+</code></pre>
+
 <h2>ネームサーバ指定</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% vim /etc/resolv.conf
+
+<pre><code>% vim /etc/resolv.conf
 nameserver 8.8.8.8
-</code></pre></div>
+</code></pre>
+
 <p>DHCPサーバを利用している場合、自動的に設定が書き換わってしまいます。<code>/etc/sysconfig/network-scripts/ifcfg-*</code> で <code>PEERDNS=no</code> と指定することで無効にできます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># eth0 で DHCP を利用しているとします。
+
+<pre><code># eth0 で DHCP を利用しているとします。
 % vim /etc/sysconfig/network-scripts/ifcfg-eth0
 ...
 BOOTPROTO=dhcp
 PEERDNS=no
 ...
-</code></pre></div>
+</code></pre>
+
 <h2>時刻合わせ</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% yum install ntp
+
+<pre><code>% yum install ntp
 % ntpdate 0.centos.pool.ntp.org
 % chkconfig ntpd on
 % /etc/init.d/ntpd start
 
 % hwclock --systohc
-</code></pre></div>
+</code></pre>
+
 <h2>yum 自動更新の停止</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/yum-updatesd stop
+
+<pre><code>% /etc/init.d/yum-updatesd stop
 % chkconfig yum-updatesd off
-</code></pre></div>
+</code></pre>
+
 <h2>EPEL リポジトリの追加</h2>
 
 <p><a href="http://dl.fedoraproject.org/pub/epel/">http://dl.fedoraproject.org/pub/epel/</a> より <code>epel-release</code> パッケージをインストールします。</p>
 
 <p>あらかじめ GPG キー <code>http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-*</code> をインポートしておきます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># CentOS6系の場合
+
+<pre><code># CentOS6系の場合
 % rpm --import http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
-</code></pre></div>
+</code></pre>
+
 <p><code>http://dl.fedoraproject.org/pub/epel/(バージョン番号)/(i386|x86_64)/epel-release.html</code> よりパッケージ名を確認して rpm インストールします。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># CentOS6 x86_64(64bit)
+
+<pre><code># CentOS6 x86_64(64bit)
 % rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-</code></pre></div>
+</code></pre>
+
 <ul>
 <li>/etc/yum.repos.d/epel.repo</li>
 <li>/etc/yum.repos.d/epel-testing.repo</li>
 </ul>
 
+
 <p>が追加されます。通常は EPEL は含めないように <code>enabled=0</code> としておくとよいでしょう。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">[epel]
+
+<pre><code>[epel]
 name=Extra Packages for Enterprise Linux 6 - $basearch
 #baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch
 mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&amp;arch=$basearch
@@ -198,10 +222,13 @@ gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 
 ....
-</code></pre></div>
+</code></pre>
+
 <p>epel リポジトリを使う場合は <code>--enablerepo=epel</code> を指定します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% yum --enablerepo=epel install ...
-</code></pre></div>
+
+<pre><code>% yum --enablerepo=epel install ...
+</code></pre>
+
           </div>
         </div>
       </div>

@@ -92,8 +92,10 @@
           <div id="toc">
           </div>
           <h2>yum</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% yum install httpd
-</code></pre></div>
+
+<pre><code>% yum install httpd
+</code></pre>
+
 <h2>Apache 2.2</h2>
 
 <p><strong>archive.apache.org</strong></p>
@@ -101,12 +103,15 @@
 <p><a href="http://archive.apache.org/dist/httpd/">http://archive.apache.org/dist/httpd/</a></p>
 
 <p>httpd-2.2.x.tar.gz のソースを取得し展開します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /usr/local/src/
-% wget &quot;http://archive.apache.org/dist/httpd/httpd-2.2.16.tar.gz&quot;
+
+<pre><code>% cd /usr/local/src/
+% wget "http://archive.apache.org/dist/httpd/httpd-2.2.16.tar.gz"
 % tar httpd-2.2.16.tar.gz
-</code></pre></div>
+</code></pre>
+
 <p><code>apr</code> <code>apr-util</code> をあらかじめインストールしておきます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /usr/local/src/httpd-2.2.16/srclib/apr
+
+<pre><code>% cd /usr/local/src/httpd-2.2.16/srclib/apr
 % ./configure --prefix=/usr/local/apr --enable-threads
 % make
 % make install
@@ -117,9 +122,11 @@
 --with-apr=/usr/local/apr
 % make
 % make install
-</code></pre></div>
+</code></pre>
+
 <p>その後 <code>httpd</code> をインストールします。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /usr/local/src/httpd-2.2.16
+
+<pre><code>% cd /usr/local/src/httpd-2.2.16
 % ./configure \
 --prefix=/usr/local/apache-2.2.16 \
 --enable-mods-shared=all \
@@ -127,11 +134,14 @@
 --with-apr-util=/usr/local/apr
 % make
 % make install
-</code></pre></div>
+</code></pre>
+
 <p>上記の例では <code>/usr/local/apache-2.2.16/</code> にインストールされます。<code>/usr/local/apache/</code> としてシンボリックリンクを作成しておくとよいでしょう。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /usr/local/
+
+<pre><code>% cd /usr/local/
 % ln -s apache-2-2.16/ apache
-</code></pre></div>
+</code></pre>
+
 <h2>Apache 1.3 + mod_ssl</h2>
 
 <p><strong>archive.apache.org</strong></p>
@@ -150,14 +160,16 @@
 <li><code>openssl-devel</code></li>
 </ul>
 
-<p><code>mod_ssl</code> のソース内から apache<em>1.3 を <code>configure</code> します。その後 `apache</em>1.3.x/<code>のディレクトリ下で</code>make` を行います。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /usr/local/src/
+
+<p><code>mod_ssl</code> のソース内から apache_1.3 を <code>configure</code> します。その後 <code>apache_1.3.x/</code> のディレクトリ下で <code>make</code> を行います。</p>
+
+<pre><code>% cd /usr/local/src/
 
 # あらかじめ apache-1.3 のソースを展開しておきます。
-% wget &quot;http://archive.apache.org/dist/httpd/apache_1.3.41.tar.gz&quot;
+% wget "http://archive.apache.org/dist/httpd/apache_1.3.41.tar.gz"
 % tar xvfz apache_1.3.41.tar.gz
 
-% wget &quot;http://www.modssl.org/source/mod_ssl-2.8.31-1.3.41.tar.gz&quot;
+% wget "http://www.modssl.org/source/mod_ssl-2.8.31-1.3.41.tar.gz"
 % tar xvfz mod_ssl-2.8.31-1.3.41.tar.gz
 % cd mod_ssl-2.8.31-1.3.41
 % ./configure \
@@ -169,41 +181,52 @@
 % cd /usr/local/src/apache_1.3.41
 % make
 % make install
-</code></pre></div>
+</code></pre>
+
 <p>上記の例では <code>/usr/local/apache_1.3.41+mod_ssl-2.8.31/</code> にインストールされます。<code>/usr/local/apache/</code> としてシンボリックリンクを作成しておくとよいでしょう。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /usr/local/
+
+<pre><code>% cd /usr/local/
 % ln -s apache_1.3.41+mod_ssl-2.8.31/ apache
-</code></pre></div>
+</code></pre>
+
 <h2>起動スクリプト</h2>
 
 <p>yum パッケージからのインストールを行った場合は <code>/etc/init.d/httpd</code> に起動スクリプトが作成されています。</p>
 
 <p>ソースからのインストールを行った場合は <code>/usr/local/apache/bin/apachectl</code> を起動スクリプトとして <code>/etc/init.d/httpd</code> にコピーします。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cp /usr/local/apache/bin/apachectl /etc/init.d/httpd
-</code></pre></div>
+
+<pre><code>% cp /usr/local/apache/bin/apachectl /etc/init.d/httpd
+</code></pre>
+
 <p>コピーしただけでは <code>chkconfig</code> でスクリプトとして認識してくれません。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% chkconfig --add httpd
+
+<pre><code>% chkconfig --add httpd
 service httpd does not support chkconfig
-</code></pre></div>
+</code></pre>
+
 <p><code>chkconfig</code> に認識させるために、<code>/etc/init.d/httpd</code> のコメントブロックに以下を追加します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/sh
+
+<pre><code>#!/bin/sh
 #
 # chkconfig: - 85 15
 # description: Apache is a World Wide Web server.  It is used to serve \
 #              HTML files and CGI.
 ....
-</code></pre></div>
+</code></pre>
+
 <p><code>chkconfig: (ランレベル) (起動時の優先順位) (停止時の優先順位)</code> で指定します。例ではランレベルに <code>-</code> を指定していますが、これは <code>2345</code> を指定したことと同義です。</p>
 
 <p><code>chkconfig --add</code> で起動スクリプトに追加します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% chkconfig --add httpd
+
+<pre><code>% chkconfig --add httpd
 % chkconfig --list httpd
 httpd           0:off   1:off   2:off   3:off   4:off   5:off   6:off
 
 % chkconfig httpd on
 % chkconfig --list httpd
 httpd           0:off   1:off   2:on    3:on    4:on    5:on    6:off
-</code></pre></div>
+</code></pre>
+
           </div>
         </div>
       </div>

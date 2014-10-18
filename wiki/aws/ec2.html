@@ -110,9 +110,12 @@
 <li><code>Actions &gt; Attach Volume</code> で作成した EBS Volume を対象の EC2 インスタンスに接続します。デバイス名には事前に確認しておいた <code>/dev/sda1</code> を指定します。</li>
 </ul>
 
+
 <p>対象の EC2 インスタンスを Start します。起動後、<code>resize2fs</code> コマンドで論理ボリュームをサイズアップします。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% resize2fs /dev/sda1
-</code></pre></div>
+
+<pre><code>% resize2fs /dev/sda1
+</code></pre>
+
           </div>
         </div>
       </div>

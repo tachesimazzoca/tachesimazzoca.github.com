@@ -97,18 +97,23 @@
 <li><a href="http://pryrepl.org/">Pry</a></li>
 </ul>
 
+
 <h2>Gemfile</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">group :development do
-  gem &#39;pry-rails&#39;, &#39;0.2.2&#39;
+
+<pre><code>group :development do
+  gem 'pry-rails', '0.2.2'
 end
-</code></pre></div>
+</code></pre>
+
 <h2>使い方</h2>
 
 <p><code>rails console</code> コマンドで <code>irb</code> の代わりに <code>pry</code> が起動します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% bundle exec rails c
+
+<pre><code>% bundle exec rails c
 Loading development environment (Rails 3.2.8)
 [1] pry(main)&gt;
-</code></pre></div>
+</code></pre>
+
           </div>
         </div>
       </div>

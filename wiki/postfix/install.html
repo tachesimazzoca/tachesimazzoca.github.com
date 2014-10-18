@@ -94,14 +94,17 @@
           <h2>Linux</h2>
 
 <p>yum からインストールします。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% yum install postfix
-</code></pre></div>
+
+<pre><code>% yum install postfix
+</code></pre>
+
 <p>他MTAを利用中であれば postfix に変更します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/sendmail stop
+
+<pre><code>% /etc/init.d/sendmail stop
 % chkconfig sendmail off
 
 % alternatives --config mta
-There are 2 programs which provide &#39;mta&#39;.
+There are 2 programs which provide 'mta'.
 
   Selection    Command
 -----------------------------------------------
@@ -109,9 +112,11 @@ There are 2 programs which provide &#39;mta&#39;.
    2           /usr/sbin/sendmail.postfix
 
 Enter to keep the current selection[+], or type selection number: 2
-</code></pre></div>
+</code></pre>
+
 <p><code>/etc/alternatives/mta*</code> のリンク先が、postfix に切り替わっていることを確認します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% ls -l /etc/alternatives/mta*
+
+<pre><code>% ls -l /etc/alternatives/mta*
 .... /etc/alternatives/mta -&gt; /usr/sbin/sendmail.postfix
 .... /etc/alternatives/mta-aliasesman -&gt; /usr/share/man/man5/aliases.postfix.5.gz
 .... /etc/alternatives/mta-mailq -&gt; /usr/bin/mailq.postfix
@@ -122,14 +127,19 @@ Enter to keep the current selection[+], or type selection number: 2
 .... /etc/alternatives/mta-rmail -&gt; /usr/bin/rmail.postfix
 .... /etc/alternatives/mta-sendmail -&gt; /usr/lib/sendmail.postfix
 .... /etc/alternatives/mta-sendmailman -&gt; /usr/share/man/man1/sendmail.postfix.1.gz
-</code></pre></div>
+</code></pre>
+
 <p>postfix を起動します。起動スクリプトにも加えておきます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% /etc/init.d/postfix start
+
+<pre><code>% /etc/init.d/postfix start
 % chkconfig postfix on
-</code></pre></div>
+</code></pre>
+
 <p>ログから postfix が正しく起動できていることを確認します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% less /var/log/mailog
-</code></pre></div>
+
+<pre><code>% less /var/log/mailog
+</code></pre>
+
           </div>
         </div>
       </div>

@@ -92,7 +92,8 @@
           <div id="toc">
           </div>
           <h2>Cabal</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># Create $HOME/.cabal as user package directory.
+
+<pre><code># Create $HOME/.cabal as user package directory.
 % cabal update
 % ls ~/.cabal
 config
@@ -112,19 +113,24 @@ The following packages are broken, ....
 ....
 % ghc-pkg unregister &lt;package, ....&gt;
 % cabal install &lt;package, ....&gt;
-</code></pre></div>
+</code></pre>
+
 <h2>HLint</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cabal install hlint
+
+<pre><code>% cabal install hlint
 % hlint .
-</code></pre></div>
+</code></pre>
+
 <p><code>haskell-src-exts</code> depends <code>happy</code> installed at --global.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">Configuring haskell-src-exts-1.13.5...
+
+<pre><code>Configuring haskell-src-exts-1.13.5...
 setup: The program happy version &gt;=1.17 is required but it could not be found.
 ...
 % yum install --enablerepo=epel happy
 # or
 % sudo cabal install happy --global
-</code></pre></div>
+</code></pre>
+
           </div>
         </div>
       </div>

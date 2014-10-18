@@ -98,10 +98,12 @@
 <li><a href="http://www.haskell.org/ghc/">The Glasgow Haskell Complier</a></li>
 </ul>
 
+
 <p>Download and install GHC.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% su -
+
+<pre><code>% su -
 % cd /usr/local/src
-% curl -LO &quot;http://www.haskell.org/ghc/dist/7.6.3/ghc-7.6.3-x86_64-unknown-linux.tar.bz2&quot;
+% curl -LO "http://www.haskell.org/ghc/dist/7.6.3/ghc-7.6.3-x86_64-unknown-linux.tar.bz2"
 % bzip2 -dc ghc-7.6.3-x86_64-unknown-linux.tar.bz2 | tar xvf -
 % cd ghc-7.6.3-x86_64-unknown-linux
 # Install at /usr/local/ghc/ghc-7.6.3
@@ -111,9 +113,11 @@
 % export PATH=/usr/local/ghc/ghc-7.6.3/bin:$PATH
 % which ghc
 % /usr/local/ghc/ghc-7.6.3/bin/ghc
-</code></pre></div>
+</code></pre>
+
 <p>The official page recommends installing <a href="http://www.haskell.org/platform/">Haskell Platform</a>. But we prefer to install <code>Cabal</code> directly from <a href="http://hackage.haskell.org/package/cabal-install">its hackage page</a>.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% curl -LO &quot;http://hackage.haskell.org/packages/archive/cabal-install/1.16.0.2/cabal-install-1.16.0.2.tar.gz&quot;
+
+<pre><code>% curl -LO "http://hackage.haskell.org/packages/archive/cabal-install/1.16.0.2/cabal-install-1.16.0.2.tar.gz"
 % tar xvfz cabal-install-1.16.0.2.tar.gz
 % cd cabal-install-0.16.0.2
 % sh ./bootstrap.sh
@@ -125,25 +129,32 @@
 % cabal --version
 cabal-install version 1.16.0.2
 using version 1.16.0 of the Cabal library
-</code></pre></div>
+</code></pre>
+
 <p>See <a href="http://hackage.haskell.org/trac/hackage/wiki/CabalInstall">http://hackage.haskell.org/trac/hackage/wiki/CabalInstall</a> more details.</p>
 
 <p>Use <code>cabal-dev</code> in favor of <code>cabal</code>. It supports sandboxed cabal-install repositories.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cabal install cabal-dev
+
+<pre><code>% cabal install cabal-dev
 % which cabal-dev
 % ~/.cabal/bin/cabal-dev
-</code></pre></div>
+</code></pre>
+
 <p>Just use <code>caba-dev</code> command instead of <code>cabal</code>. By default, it creates a <code>./cabal-dev</code> directory as the sandbox.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /path/to/project
+
+<pre><code>% cd /path/to/project
 % cabal-dev install doctest
 % ls cabal-dev
 bin/ lib/ logs/ packages-7.6.3.conf/ packages/ share/ cabal.config
 % cabal-dev/bin/doctest --help
 ...
-</code></pre></div>
+</code></pre>
+
 <p>Also specify a sandbox directory by using <code>--sandbox</code> option.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cabal-dev install --sandbox=~/.cabal-dev/yesod
-</code></pre></div>
+
+<pre><code>% cabal-dev install --sandbox=~/.cabal-dev/yesod
+</code></pre>
+
           </div>
         </div>
       </div>

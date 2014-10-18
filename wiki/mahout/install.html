@@ -98,9 +98,10 @@
 <p>にリンクされているミラーサイトからダウンロードします。</p>
 
 <p>任意のディレクトリに展開し <code>bin/</code> ディレクトリにパスを通すだけです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% mkdir ~/.mahout
+
+<pre><code>% mkdir ~/.mahout
 % cd ~/.mahout
-% curl -L &quot;http://ftp.riken.jp/net/apache/mahout/0.7/mahout-distribution-0.7.tar.gz&quot;
+% curl -L "http://ftp.riken.jp/net/apache/mahout/0.7/mahout-distribution-0.7.tar.gz"
 % tar xvfz mahout-distribution-0.7.tar.gz
 
 % vi ~/.bash_profile
@@ -108,7 +109,8 @@
 export PATH=$HOME/.mahout/mahout-distribution-0.7/bin:$PATH
 export MAHOUT_JAVA_HOME=/usr/local/java
 ...
-</code></pre></div>
+</code></pre>
+
           </div>
         </div>
       </div>

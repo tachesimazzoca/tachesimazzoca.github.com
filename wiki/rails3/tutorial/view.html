@@ -94,55 +94,64 @@
           <h2>ERB テンプレート</h2>
 
 <p>ビュー生成には ERB が用いられます。PHP のように Ruby 構文を含めることができます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;ul&gt;
+
+<pre><code>&lt;ul&gt;
   &lt;% 1.upto(10) do |n| %&gt;
-  &lt;li&gt;&lt;%= sprintf(&#39;Item %d&#39;, n) %&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;%= sprintf('Item %d', n) %&gt;&lt;/li&gt;
   &lt;% end %&gt;
 &lt;/ul&gt;
 
 &lt;% time = Time.new %&gt;
-Last updated at &lt;%= time.strftime(&#39;%Y/%m/%d&#39;) %&gt;
+Last updated at &lt;%= time.strftime('%Y/%m/%d') %&gt;
 
 &lt;%# これはコメントブロックです。出力されません %&gt;
-</code></pre></div>
+</code></pre>
+
 <p>Rails3 からはデフォルトでHTMLエスケープされた結果が出力されます。HTMLエスケープをスキップするには <code>raw</code> メゾッドを使います</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;!-- &amp;lt;strong&amp;gt;foo&amp;lt;/strong&amp;gt; --&gt;
-&lt;%= &#39;&lt;strong&gt;foo&lt;strong&gt;&#39; %&gt;
+
+<pre><code>&lt;!-- &amp;lt;strong&amp;gt;foo&amp;lt;/strong&amp;gt; --&gt;
+&lt;%= '&lt;strong&gt;foo&lt;strong&gt;' %&gt;
 
 &lt;!-- &lt;strong&gt;foo&lt;/strong&gt; --&gt;
-&lt;%= raw &#39;&lt;strong&gt;foo&lt;strong&gt;&#39; %&gt;
+&lt;%= raw '&lt;strong&gt;foo&lt;strong&gt;' %&gt;
 &lt;!-- &lt;%== .... %&gt; 構文も使えます --&gt;
-&lt;%== &#39;&lt;strong&gt;foo&lt;strong&gt;&#39; %&gt;
-</code></pre></div>
+&lt;%== '&lt;strong&gt;foo&lt;strong&gt;' %&gt;
+</code></pre>
+
 <h2>テンプレートからレイアウトテンプレートにコンテンツを渡す</h2>
 
 <ul>
 <li><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/CaptureHelper.html">ActionView::Helpers::CaptureHelper</a></li>
 </ul>
 
+
 <p><code>content_for</code> メゾッドを使います。</p>
 
 <p><code>app/views/(:controller)/(:action).html.erb</code>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;% content_for :link do %&gt;
-&lt;link rel=&quot;next&quot; href=&quot;...&quot; /&gt;
-&lt;link rel=&quot;prev&quot; href=&quot;...&quot; /&gt;
+
+<pre><code>&lt;% content_for :link do %&gt;
+&lt;link rel="next" href="..." /&gt;
+&lt;link rel="prev" href="..." /&gt;
 &lt;% end %&gt;
 &lt;% content_for :title do %&gt;Home&lt;% end %&gt;
 &lt;h1&gt;&lt;%= content_for :title %&gt;&lt;/h1&gt;
-</code></pre></div>
+</code></pre>
+
 <p><code>app/views/layouts/*.html.erb</code>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;!DOCTYPE html&gt;
+
+<pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
-  &lt;meta charset=&quot;utf-8&quot;&gt;
-  &lt;title&gt;&lt;%= content_for?(:title) ? sprintf(&#39;%s | Sandbox&#39;, (yield :title)) : &#39;Sandbox&#39; %&gt;&lt;/title&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;&lt;%= content_for?(:title) ? sprintf('%s | Sandbox', (yield :title)) : 'Sandbox' %&gt;&lt;/title&gt;
   &lt;%= yield :link &gt;
 &lt;/head&gt;
 &lt;body&gt;
 &lt;%= yield %&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre></div>
+</code></pre>
+
 <h2>他ファイルのインクルード</h2>
 
 <ul>
@@ -150,53 +159,73 @@ Last updated at &lt;%= time.strftime(&#39;%Y/%m/%d&#39;) %&gt;
 <li><a href="http://api.rubyonrails.org/classes/ActionView/PartialRenderer.html">ActionView::PartialRenderer</a></li>
 </ul>
 
+
 <p><code>render</code> メゾッドにより他のファイルを差し込むことができます。</p>
 
 <p><code>app/views/(:controller)/_(name_of_partial).html.erb</code> のように先頭にアンダースコアを付与したファイル名を読み込みます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;!-- app/views/(:controller)/_item.html.erb --&gt;
-&lt;%= render :partial =&gt; &#39;item&#39; %&gt;
+
+<pre><code>&lt;!-- app/views/(:controller)/_item.html.erb --&gt;
+&lt;%= render :partial =&gt; 'item' %&gt;
 
 &lt;!-- app/views/layouts/_navs.html.erb --&gt;
-&lt;%= render :partial =&gt; &#39;layouts/navs&#39; %&gt;
-</code></pre></div>
+&lt;%= render :partial =&gt; 'layouts/navs' %&gt;
+</code></pre>
+
 <p><code>:locals</code> により、インクルードファイルに変数を渡すことができます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">  ....
-  &lt;%= render :partial =&gt; &#39;layouts/footer&#39;, :locals =&gt; { :time =&gt; Time.new } %&gt;
+
+<pre><code>  ....
+  &lt;%= render :partial =&gt; 'layouts/footer', :locals =&gt; { :time =&gt; Time.new } %&gt;
   &lt;/body&gt;
 &lt;/html&gt;
-</code></pre></div>
+</code></pre>
+
 <p><code>app/views/layouts/_footer.html.erb</code>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;div class=&quot;footer&quot;&gt;Last updated: &lt;%= time.strftime(&#39;%Y/%m/%d&#39;) %&gt;&lt;/div&gt;
-</code></pre></div>
+
+<pre><code>&lt;div class="footer"&gt;Last updated: &lt;%= time.strftime('%Y/%m/%d') %&gt;&lt;/div&gt;
+</code></pre>
+
 <p><code>:collection</code> でリストを渡して繰り返すことができます。<code>:partial</code> で指定した <code>item</code> がローカル変数として割り当てられます。<code>(partial_name)_counter</code> にはリストのインデックス値が割り当てられます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;%= render :partial =&gt; &#39;item&#39;, :collection =&gt; @items %&gt;
-</code></pre></div>
+
+<pre><code>&lt;%= render :partial =&gt; 'item', :collection =&gt; @items %&gt;
+</code></pre>
+
 <p><code>app/views/(:controller)/_item.html.erb</code>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;li&gt;&lt;%= item_counter + 1 &gt;. &lt;%= item %&gt;&lt;/li&gt;
-</code></pre></div>
+
+<pre><code>&lt;li&gt;&lt;%= item_counter + 1 &gt;. &lt;%= item %&gt;&lt;/li&gt;
+</code></pre>
+
 <p>partial_name を明示的に指定するには <code>:as</code> で指定します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;%= render :partial =&gt; &#39;product&#39;, :collection =&gt; @products, :as =&gt; &#39;element&#39; %&gt;
-</code></pre></div>
+
+<pre><code>&lt;%= render :partial =&gt; 'product', :collection =&gt; @products, :as =&gt; 'element' %&gt;
+</code></pre>
+
 <h2>URLの一元管理</h2>
 
 <ul>
 <li><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html">ActionView::Helpers::UrlHelper</a></li>
 </ul>
 
+
 <p><code>url_for</code> メゾッドで <code>config/routes.rb</code> で設定したマッピングで URL を取得できます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;%= url_for :controller =&gt; &#39;pages&#39;, :action =&gt; &#39;help&#39;, :format =&gt; &#39;html&#39; %&gt;
-</code></pre></div>
+
+<pre><code>&lt;%= url_for :controller =&gt; 'pages', :action =&gt; 'help', :format =&gt; 'html' %&gt;
+</code></pre>
+
 <p><code>(name_of_route)_path</code> <code>(name_of_route)_url</code> メゾッドで指定することもできます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;!-- /pages/help.html --&gt;
-&lt;%= pages_help_path(:format =&gt; &#39;html&#39;) %&gt;
+
+<pre><code>&lt;!-- /pages/help.html --&gt;
+&lt;%= pages_help_path(:format =&gt; 'html') %&gt;
 
 &lt;!-- http://www.exmaple.net/pages/help.html --&gt;
-&lt;%= pages_help_url(:format =&gt; &#39;html&#39;) %&gt; #
-</code></pre></div>
+&lt;%= pages_help_url(:format =&gt; 'html') %&gt; #
+</code></pre>
+
 <p><code>link_to</code> メゾッドでリンク記述を簡略化できます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;%= link_to :controller =&gt; &#39;pages&#39;, :action =&gt; &#39;help&#39;, :format =&gt; &#39;html&#39; do %&gt;Help&lt;% end %&gt;
-&lt;%= link_to &#39;Back To Home&#39;, pages_home_path(:format =&gt; &#39;html&#39;) %&gt;
-</code></pre></div>
+
+<pre><code>&lt;%= link_to :controller =&gt; 'pages', :action =&gt; 'help', :format =&gt; 'html' do %&gt;Help&lt;% end %&gt;
+&lt;%= link_to 'Back To Home', pages_home_path(:format =&gt; 'html') %&gt;
+</code></pre>
+
           </div>
         </div>
       </div>

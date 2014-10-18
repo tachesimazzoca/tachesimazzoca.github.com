@@ -94,13 +94,17 @@
           <h2>リポジトリの作成</h2>
 
 <p>作業ツリーのルートディレクトリで <code>git init</code> にてリポジトリを作成します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /path/to/git/project
+
+<pre><code>% cd /path/to/git/project
 % git init
-</code></pre></div>
+</code></pre>
+
 <p>ディレクトリ直下のみに <code>.git</code> ディレクトリができていることがわかります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% ls -a
+
+<pre><code>% ls -a
 .  ..  .git
-</code></pre></div>
+</code></pre>
+
 <p><code>git config</code> で</p>
 
 <ul>
@@ -108,10 +112,13 @@
 <li><code>user.email</code> : メールアドレス</li>
 </ul>
 
+
 <p>をリポジトリ設定 <code>.git/config</code> に登録しておきます。コミットを行う際に必須になります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git config user.name &quot;Taro Yamada&quot;
-% git config user.email &quot;yamada@example.net&quot;
-</code></pre></div>
+
+<pre><code>% git config user.name "Taro Yamada"
+% git config user.email "yamada@example.net"
+</code></pre>
+
 <h2>ステージング</h2>
 
 <p>Git にはコミット前に更新内容を保管しておく操作があります。 以下の3つの領域があると考えてください。</p>
@@ -125,6 +132,7 @@
   <dd>最新コミット（HEAD）</dd>
 </dl>
 
+
 <ul>
 <li>新規ファイルは <code>git add</code> でコミット内容に追加します。</li>
 <li>更新ファイルも <code>git add</code> でコミット内容の更新が必要です。</li>
@@ -132,20 +140,24 @@
 <li><code>git commit (ファイル名)</code> で直接ファイル名を指定した場合は、ステージ領域とは関係なく指定した作業ファイルの内容でコミットされます。</li>
 </ul>
 
+
 <h2>ファイル追加・更新</h2>
 
 <p>実際にファイル追加・更新をコミットしてみましょう。<code>README.md</code> を作成してみます。<code>git status</code> で状態を確認してみると、<code>Untrackd files:</code> になっています。このファイルが追跡対象でないことを示しています。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% touch README.md
+
+<pre><code>% touch README.md
 
 % git status
 # On branch master
 # Untracked files:
-#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+#   (use "git add &lt;file&gt;..." to include in what will be committed)
 #
 #       README.md
-</code></pre></div>
-<p><code>(use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</code> とあるように、コミット対象となる新規ファイルは <code>git add</code> を行い追跡対象とする必要があります。<code>git status</code> で確認すると <code>Changes to be committed: new file</code> でコミット内容に追加されていることがわかります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git add README.md
+</code></pre>
+
+<p><code>(use "git add &lt;file&gt;..." to include in what will be committed)</code> とあるように、コミット対象となる新規ファイルは <code>git add</code> を行い追跡対象とする必要があります。<code>git status</code> で確認すると <code>Changes to be committed: new file</code> でコミット内容に追加されていることがわかります。</p>
+
+<pre><code>% git add README.md
 
 % git status
 # On branch master
@@ -153,13 +165,15 @@
 # Initial commit
 #
 # Changes to be committed:
-#   (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)
+#   (use "git rm --cached &lt;file&gt;..." to unstage)
 #
 #       new file:   README.md
 #
-</code></pre></div>
+</code></pre>
+
 <p>作業ファイルに変更を加えてみましょう。<code>git diff</code> で作業ファイルとステージ領域の差分を確認できます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% echo &quot;# git の使い方&quot; &gt; README.md
+
+<pre><code>% echo "# git の使い方" &gt; README.md
 
 % git diff
 diff --git a/README.md b/README.md
@@ -168,105 +182,124 @@ index e69de29..9bce96a 100644
 +++ b/README.md
 @@ -0,0 +1 @@
 +# git の使い方
-</code></pre></div>
+</code></pre>
+
 <p><code>git status</code> を見ると作業ファイルが <code>Changes not staged for commit: modified</code> となっています。これは変更がコミット内容に反映されていないことを表しています。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git status
+
+<pre><code>% git status
 # On branch master
 #
 # Initial commit
 #
 # Changes to be committed:
-#   (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)
+#   (use "git rm --cached &lt;file&gt;..." to unstage)
 #
 #       new file:   README.md
 #
 # Changes not staged for commit:
-#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+#   (use "git add &lt;file&gt;..." to update what will be committed)
+#   (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
 #
 #       modified:   README.md
 #
-</code></pre></div>
+</code></pre>
+
 <p>この変更はコミット内容には含めずにコミットしてみます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git commit -m &quot;Add README.md&quot;
-</code></pre></div>
+
+<pre><code>% git commit -m "Add README.md"
+</code></pre>
+
 <p><code>git status</code> を見ると作業ファイルが <code>Changes not staged for commit: modified:</code> となっており、先のコミットには変更が含まれていなかったことがわかります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git status
+
+<pre><code>% git status
 # On branch master
 # Changes not staged for commit:
-#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+#   (use "git add &lt;file&gt;..." to update what will be committed)
+#   (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
 #
 #       modified:   README.md
 #
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
-</code></pre></div>
-<p><code>(use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</code> とある通り、<code>gitt add</code> してみます。<code>git status</code> を見ると <code>Changes to be committed: modified:</code> で次のコミットに含まれたことがわかります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git add README.md
+no changes added to commit (use "git add" and/or "git commit -a")
+</code></pre>
+
+<p><code>(use "git add &lt;file&gt;..." to update what will be committed)</code> とある通り、<code>gitt add</code> してみます。<code>git status</code> を見ると <code>Changes to be committed: modified:</code> で次のコミットに含まれたことがわかります。</p>
+
+<pre><code>% git add README.md
 
 % git status
 # On branch master
 # Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+#   (use "git reset HEAD &lt;file&gt;..." to unstage)
 #
 #       modified:   README.md
 #
-</code></pre></div>
+</code></pre>
+
 <p><code>git commit</code> で変更をリポジトリに反映します。<code>git status</code> が示す通り、作業ファイルとリポジトリに差分はなくなりました。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git commit -m &quot;Modified README.md&quot;
+
+<pre><code>% git commit -m "Modified README.md"
 [master dbc5aba] Modified README.md
  1 file changed, 1 insertion(+)
 
 % git status
 # On branch master
 nothing to commit (working directory clean)
-</code></pre></div>
+</code></pre>
+
 <p>以上がコミットの流れです。コマンドを忘れてしまったときは <code>git status</code> で確認しましょう。</p>
 
 <h2>ファイル削除</h2>
 
 <p>ファイル削除をコミットする場合は <code>git rm</code> で作業ファイルの削除をおこない、削除したことをコミット内容に追加します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git rm README.md
-rm &#39;README.md&#39;
+
+<pre><code>% git rm README.md
+rm 'README.md'
 
 % git status
 # On branch master
 # Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+#   (use "git reset HEAD &lt;file&gt;..." to unstage)
 #
 #       deleted:    README.md
 #
-</code></pre></div>
-<p><code>(use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</code> とあるように、削除したことをキャンセルできます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git reset HEAD README.md
+</code></pre>
+
+<p><code>(use "git reset HEAD &lt;file&gt;..." to unstage)</code> とあるように、削除したことをキャンセルできます。</p>
+
+<pre><code>% git reset HEAD README.md
 Unstaged changes after reset:
 D       README.md
 
 % git status
 # On branch master
 # Changes not staged for commit:
-#   (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)
-#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+#   (use "git add/rm &lt;file&gt;..." to update what will be committed)
+#   (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
 #
 #       deleted:    README.md
 #
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
-</code></pre></div>
-<p>これで作業ファイルの削除のみが行われた状態に戻りました。作業ファイルも復帰したければ、<code>(use &quot;git checkout — &lt;file&gt;...&quot; to discard changes in working directory)</code> とあるように <code>git checkout</code> でリポジトリの最新状態に戻すことができます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git checkout -- README.md
+no changes added to commit (use "git add" and/or "git commit -a")
+</code></pre>
+
+<p>これで作業ファイルの削除のみが行われた状態に戻りました。作業ファイルも復帰したければ、<code>(use "git checkout — &lt;file&gt;..." to discard changes in working directory)</code> とあるように <code>git checkout</code> でリポジトリの最新状態に戻すことができます。</p>
+
+<pre><code>% git checkout -- README.md
 Unstaged changes after reset:
 D       README.md
 
 % git status
 # On branch master
 nothing to commit (working directory clean)
-</code></pre></div>
+</code></pre>
+
 <p>作業ファイルの変更を行ったまま削除する場合はどうでしょうか？</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% echo &quot;## 変更後の削除&quot; &gt;&gt; README.md
+
+<pre><code>% echo "## 変更後の削除" &gt;&gt; README.md
 % git rm README.md
-error: &#39;README.md&#39; has changes staged in the index
+error: 'README.md' has changes staged in the index
 (use --cached to keep the file, or -f to force removal)
-</code></pre></div>
+</code></pre>
+
 <p>作業ファイルに変更が入っているためエラーになりました。リポジトリから作業ファイルに変更がある場合、うっかりミスで変更内容を失わないように気を効かせてくれています。<code>(use --cached to keep the file, or -f to force removal)</code> とあるように</p>
 
 <ul>
@@ -274,25 +307,29 @@ error: &#39;README.md&#39; has changes staged in the index
 <li><code>-f</code> オプションをつけて、作業ファイルも強制削除する。</li>
 </ul>
 
+
 <p>ことを促しています。</p>
 
 <p><code>--cached</code> で作業ファイルは残し、削除のコミットのみ行ってみます。作業ファイルは追跡対象外として残り、次のコミットでリポジトリから削除されることがわかります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git rm --cached README.md
+
+<pre><code>% git rm --cached README.md
 
 % git status
 # On branch master
 # Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+#   (use "git reset HEAD &lt;file&gt;..." to unstage)
 #
 #       deleted:    README.md
 #
 # Untracked files:
-#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+#   (use "git add &lt;file&gt;..." to include in what will be committed)
 #
 #       README.md
-</code></pre></div>
+</code></pre>
+
 <p>コミットするとリポジトリから削除されます。作業ファイルは追跡対象外として残ったままです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git commit -m &quot;Delete README.md&quot;
+
+<pre><code>% git commit -m "Delete README.md"
 [master a5a5260] a
  1 file changed, 1 deletion(-)
  delete mode 100644 README.md
@@ -300,52 +337,65 @@ error: &#39;README.md&#39; has changes staged in the index
 % git status
 # On branch master
 # Untracked files:
-#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+#   (use "git add &lt;file&gt;..." to include in what will be committed)
 #
 #       README.md
-</code></pre></div>
+</code></pre>
+
 <h2>ベアリポジトリ</h2>
 
 <p>Git ではベアリポジトリという作業ファイルを持たないリポジトリを作る方法があります。作業者のいない push されるだけのリポジトリで、複数作業者間の親リポジトリのように扱います。</p>
 
 <p>ベアリポジトリは <code>--bare</code> オプションをつけて作成します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /path/to/bare/repos/
+
+<pre><code>% cd /path/to/bare/repos/
 # (リポジトリ名).git とするのが慣例です。
 % git init --bare sandbox.git
 Initialized empty Git repository in /path/to/bare/repos/sandbox.git/
-</code></pre></div>
+</code></pre>
+
 <p>すでに存在するリポジトリをベアリポジトリとして複製する方法もあります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /path/to/bare/repos/
+
+<pre><code>% cd /path/to/bare/repos/
 % git clone --bare /path/to/git/project/.git/ sandbox.git
-</code></pre></div>
+</code></pre>
+
 <p>通常のリポジトリ同様に <code>git clone</code> でリポジトリを取得します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /path/to/workspace
+
+<pre><code>% cd /path/to/workspace
 % git clone ssh://user@server/path/to/bare/repos/sandbox.git sandbox
 Cloning into sandbox ...
 done.
 
 % git remote
 origin
-</code></pre></div>
+</code></pre>
+
 <p><code>git push</code> によりローカルブランチをリモートブランチへ反映します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% touch a.txt
+
+<pre><code>% touch a.txt
 % git add a.txt
 # ここで commit していますが、ローカルブランチへのコミットでリモートブランチには反映されていません。
-% git commit -m &quot;Add a.txt&quot;
+% git commit -m "Add a.txt"
 # リモートリポジトリ origin の master ブランチへ反映します
 % git push origin master
-</code></pre></div>
+</code></pre>
+
 <p>リモートブランチの更新を取得するには <code>git fetch</code> でリモートブランチの最新コミットを取得し <code>git merge</code> でとローカルブランチと同期させます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% git fetch
+
+<pre><code>% git fetch
 # 作業ツリーと fetch したリビジョンを比較
 % git diff FETCH_HEAD
 # リモート origin の master ブランチをマージ
 % git merge origin/master
-</code></pre></div>
+</code></pre>
+
 <p><code>git pull</code> で <code>fetch</code> と <code>merge</code> をまとめて行うことができます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># git fetch &amp;&amp; git merge origin/master と同じです
+
+<pre><code># git fetch &amp;&amp; git merge origin/master と同じです
 % git pull origin master
-</code></pre></div>
+</code></pre>
+
           </div>
         </div>
       </div>

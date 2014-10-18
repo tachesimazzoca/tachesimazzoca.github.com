@@ -107,42 +107,55 @@
 <li>lib/</li>
 </ul>
 
+
 <p><code>build.sbt</code> にプロジェクトの情報を記載しておきます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">name := &quot;sandbox&quot;
 
-version := &quot;1.0&quot;
+<pre><code>name := "sandbox"
 
-scalaVersion := &quot;2.10.4&quot;
-</code></pre></div>
+version := "1.0"
+
+scalaVersion := "2.10.4"
+</code></pre>
+
 <p><code>project/build.properties</code> に sbt の情報を記載しておきます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">sbt.version=0.13.5
-</code></pre></div>
+
+<pre><code>sbt.version=0.13.5
+</code></pre>
+
 <p>ソースは <code>src/main/(java|scala)</code> に置きます。<code>src/main/scala/Sandbox.scala</code> を作成してみます。</p>
+
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Sandbox</span> <span class="o">{</span>
   <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span><span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span> <span class="o">{</span>
      <span class="n">println</span><span class="o">(</span><span class="s">&quot;Hello World&quot;</span><span class="o">)</span>
   <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
+
+
 <p>プロジェクトディレクトリ直下で <code>sbt</code> コマンドを実行するとインタラクティブモードでコンソールが立ち上がります。初回起動時は必要なパッケージがダウンロードされます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% cd /path/to/sbt/project/sandbox
+
+<pre><code>% cd /path/to/sbt/project/sandbox
 % sbt
 ...
 [info] Done updating.
 [info] Set current project to sandbox (in build file:...)
 &gt;
-</code></pre></div>
+</code></pre>
+
 <p><code>run</code> でコンパイルが行われ main ブロックが実行されます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&gt; run
+
+<pre><code>&gt; run
 [info] Compiling 1 Scala source to ...
 [info] Running Sandbox
 [success] Total time: ....
 Hello World
-</code></pre></div>
+</code></pre>
+
 <p><code>compile</code> でコンパイルのみ行われます。先頭に <code>~</code> を付けるとファイル更新を検知して、自動でコンパイルしてくれます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&gt; ~compile
+
+<pre><code>&gt; ~compile
 1. Waiting for source changes... (press enter to interrupt)
-</code></pre></div>
+</code></pre>
+
 <h3>lib/</h3>
 
 <p><code>sbt</code> で管理しない jar パッケージは、<code>lib/</code> に置いておきます。自動で <code>-classpath</code> を通してくれます。</p>
@@ -152,6 +165,7 @@ Hello World
 <p>データファイル関連は <code>src/main/resources</code> に置きます。</p>
 
 <p><code>src/main/resources/sandbox.properties</code> を読み込む <code>src/main/scala/Sandbox.scala</code> のサンプルコードです。</p>
+
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">java.io.FileInputStream</span>
 <span class="k">import</span> <span class="nn">java.util.Properties</span>
 
@@ -167,8 +181,11 @@ Hello World
       <span class="n">println</span><span class="o">(</span><span class="n">prop</span><span class="o">.</span><span class="n">getProperty</span><span class="o">(</span><span class="n">key</span><span class="o">))</span>
     <span class="o">}</span>
   <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
+
+
+
+
           </div>
         </div>
       </div>

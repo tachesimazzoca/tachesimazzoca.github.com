@@ -92,7 +92,8 @@
           <div id="toc">
           </div>
           <h2>GHCi</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% ghci
+
+<pre><code>% ghci
 ghci&gt; let a = 1
 ghci&gt; a
 1
@@ -103,8 +104,8 @@ ghci&gt; [ x | x &lt;- [1..10], x `mod` 2 == 0 ]
 ghci&gt; :l path/to/file.hs
 
 -- Show the type of &lt;expr&gt;
-ghci&gt; :t &quot;Foo&quot;
-&quot;Foo&quot; :: [Char]
+ghci&gt; :t "Foo"
+"Foo" :: [Char]
 ghci&gt; :t (+)
 (+) :: Num a =&gt; a -&gt; a -&gt; a
 
@@ -117,16 +118,17 @@ instance Eq a =&gt; Eq (Maybe a) -- Defined in Data.Maybe
 -- Import module(s)
 ghci&gt; :m + Data.Char
 ghci&gt; chr 65
-&quot;A&quot;
+"A"
 ghci&gt; :m - Data.Char
-&lt;interactive&gt;:1:1: Not in scope: `chr&#39;
+&lt;interactive&gt;:1:1: Not in scope: `chr'
 
 -- Load a package
 ghci&gt; :set -package yourpkg
 
 -- Quit GHCi
 ghci&gt; :q
-</code></pre></div>
+</code></pre>
+
           </div>
         </div>
       </div>

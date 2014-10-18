@@ -75,52 +75,65 @@
         </div>
         <h2>Creating a Base Box</h2>
 
-<p>Publicly available base boxes usually use a root password of &quot;vagrant&quot;.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% passwd
+<p>Publicly available base boxes usually use a root password of "vagrant".</p>
+
+<pre><code>% passwd
 Changing password for user root.
 New Unix password: vagrant
 ...
-</code></pre></div>
+</code></pre>
+
 <p>Add <code>vagrant</code> user with the <a href="https://github.com/mitchellh/vagrant/tree/master/keys">insecure keypair</a>.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% useradd vagrant
+
+<pre><code>% useradd vagrant
 % su - vagrant
 $ mkdir .ssh
 $ chmod 700 .ssh
 $ cd .ssh
-$ curl &quot;https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub&quot; &gt; authorized_keys
+$ curl "https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub" &gt; authorized_keys
 $ chmod 600 authorized_keys
 $ export HISTSIZE=0
 $ exit
-</code></pre></div>
+</code></pre>
+
 <p>Allow passwordless sudo for the <code>vagrant</code> user and remove <code>requiretty</code> if it exists.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% visudo
+
+<pre><code>% visudo
 ...
 vagrant ALL=(ALL) NOPASSWD: ALL
 ...
 #Default requiretty
-</code></pre></div>
+</code></pre>
+
 <p>Set <code>UseDNS no</code> in the SSH server configuration.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% vi /etc/ssh/sshd_config
+
+<pre><code>% vi /etc/ssh/sshd_config
 ...
 UseDNS no
 ...
-</code></pre></div>
+</code></pre>
+
 <p>Clear any working files, bash history and so on and then shutdown the VM.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% yum clean all
+
+<pre><code>% yum clean all
 % rm /tmp/*
 % umount /mnt/cdrom
 ...
 % export HISTSIZE=0
 % shutdown -h now
-</code></pre></div>
+</code></pre>
+
 <p>Use the <code>package</code> sub-command to create.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% vagrant package --base &quot;CentOS-6.4-x86_64-minimal&quot; --output /path/to/package.box
-</code></pre></div>
+
+<pre><code>% vagrant package --base "CentOS-6.4-x86_64-minimal" --output /path/to/package.box
+</code></pre>
+
 <h2>Links</h2>
 
 <ul>
 <li><a href="http://docs.vagrantup.com/v2/">Vagrant Documentation</a></li>
 </ul>
+
 
         </div>
       </div>

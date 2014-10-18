@@ -92,13 +92,14 @@
           <div id="toc">
           </div>
           <h2>mysql-4.1</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% su -
+
+<pre><code>% su -
 % cd /usr/local/src
-% curl -O &quot;http://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-4.1/mysql-4.1.22.tar.gz&quot;
+% curl -O "http://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-4.1/mysql-4.1.22.tar.gz"
 % tar xvfz mysql-4.1.22.tar.gz
 % cd mysql-4.1.22
-% CFLAGS=&quot;-O3 -DPIC -fPIC -DUNDEF_HAVE_INITGROUPS -fno-strict-aliasing&quot; \
-  CXXFLAGS=&quot;-O3 -fno-strict-aliasing -felide-constructors -fno-exceptions -fno-rtti -fPIC -DPIC -DUNDEF_HAVE_INITGROUPS&quot; \
+% CFLAGS="-O3 -DPIC -fPIC -DUNDEF_HAVE_INITGROUPS -fno-strict-aliasing" \
+  CXXFLAGS="-O3 -fno-strict-aliasing -felide-constructors -fno-exceptions -fno-rtti -fPIC -DPIC -DUNDEF_HAVE_INITGROUPS" \
   ./configure --without-readline \
   --with-charset=ujis --with-extra-charsets=all \
   --with-mysqld-user=mysql --prefix=/usr/local/mysql
@@ -116,22 +117,27 @@
 % chkconfig mysqld on
 
 % /etc/init.d/mysqld start
-</code></pre></div>
+</code></pre>
+
 <p>CentOS5系に含まれる gcc-4.x 系の場合 <code>make test</code> で <code>mysql_client_test</code> が失敗します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">TEST                            RESULT
+
+<pre><code>TEST                            RESULT
 -------------------------------------------------------
 ....
 mysql_client_test              [ fail ]
 
 Errors are (from /usr/src/mysql-4.1.18/mysql-test/var/log/mysqltest-time) :
-mysql_client_test.c:3573: check failed: &#39;(int) i8_data == rc&#39;
-mysqltest: At line 10: command &quot;$MYSQL_CLIENT_TEST --getopt-ll-test=25600M&quot; failed
+mysql_client_test.c:3573: check failed: '(int) i8_data == rc'
+mysqltest: At line 10: command "$MYSQL_CLIENT_TEST --getopt-ll-test=25600M" failed
 (the last lines may be the most important ones)
-</code></pre></div>
+</code></pre>
+
 <p><code>configure</code> 時に以下の環境変数を設定することで解決します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">CFLAGS=&quot;-O3 -DPIC -fPIC -DUNDEF_HAVE_INITGROUPS -fno-strict-aliasing&quot;
-CXXFLAGS=&quot;-O3 -fno-strict-aliasing -felide-constructors -fno-exceptions -fno-rtti -fPIC -DPIC -DUNDEF_HAVE_INITGROUPS&quot;
-</code></pre></div>
+
+<pre><code>CFLAGS="-O3 -DPIC -fPIC -DUNDEF_HAVE_INITGROUPS -fno-strict-aliasing"
+CXXFLAGS="-O3 -fno-strict-aliasing -felide-constructors -fno-exceptions -fno-rtti -fPIC -DPIC -DUNDEF_HAVE_INITGROUPS"
+</code></pre>
+
           </div>
         </div>
       </div>

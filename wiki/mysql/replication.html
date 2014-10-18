@@ -94,7 +94,8 @@
           <h2>MyISAM</h2>
 
 <p>Master 側では、バイナリログを記録する設定とし <code>server-id</code> を設定します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% vim /etc/my.cnf
+
+<pre><code>% vim /etc/my.cnf
 ....
 [mysqld]
 ...
@@ -103,22 +104,28 @@ log-bin
 # Master の ID
 server-id=1
 ...
-</code></pre></div>
+</code></pre>
+
 <p>Slave サーバに <code>REPLICATION SLAVE</code> 権限を与えます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">-- 192.168.0.0/24 からの slave ユーザを許可
-mysql&gt; GRANT REPLICATION SLAVE ON *.* TO slave@&#39;192.168.0.%&#39; IDENTIFIED BY &#39;&#39;;
-</code></pre></div>
+
+<pre><code>-- 192.168.0.0/24 からの slave ユーザを許可
+mysql&gt; GRANT REPLICATION SLAVE ON *.* TO slave@'192.168.0.%' IDENTIFIED BY '';
+</code></pre>
+
 <p>レプリケーションを開始する Master のバイナリログの現在位置を調べておきます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">mysql&gt; SHOW MASTER STATUS;
+
+<pre><code>mysql&gt; SHOW MASTER STATUS;
 +---------------+----------+--------------+------------------+
 | File          | Position | Binlog_Do_DB | Binlog_Ignore_DB |
 +---------------+----------+--------------+------------------+
 | db-bin.000003 |       79 |              |                  |
 +---------------+----------+--------------+------------------+
 1 row in set (0.00 sec)
-</code></pre></div>
+</code></pre>
+
 <p>Slave サーバにユニークな <code>server-id</code> を設定し、Slave の <code>mysqld</code> を起動します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">% vim /etc/my.cnf
+
+<pre><code>% vim /etc/my.cnf
 ....
 [mysqld]
 ...
@@ -127,13 +134,15 @@ server-id=2
 ...
 
 % /etc/init.d/mysqld start
-</code></pre></div>
+</code></pre>
+
 <p>Slave サーバにて Master の設定を行いレプリケーションを開始します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">-- Master データベース 192.168.0.10 から同期
-mysql&gt; CHANGE MASTER TO MASTER_HOST=&#39;192.168.0.10&#39;,
-       MASTER_USER=&#39;slave&#39;,
-       MASTER_PASSWORD=&#39;&#39;,
-       MASTER_LOG_FILE=&#39;db-bin.000003&#39;,
+
+<pre><code>-- Master データベース 192.168.0.10 から同期
+mysql&gt; CHANGE MASTER TO MASTER_HOST='192.168.0.10',
+       MASTER_USER='slave',
+       MASTER_PASSWORD='',
+       MASTER_LOG_FILE='db-bin.000003',
        MASTER_LOG_POS=79;
 
 -- レプリケーション開始
@@ -142,7 +151,8 @@ mysql&gt; START SLAVE;
 -- Slave 状況を確認
 mysql&gt; SHOW SLAVE STATUS \G
 ....
-</code></pre></div>
+</code></pre>
+
           </div>
         </div>
       </div>
