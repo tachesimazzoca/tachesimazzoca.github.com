@@ -7,8 +7,21 @@
 <title>Five Ws | English</title>
 <link href="../../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../../../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
 </head>
 <body>
 <div id="wrapper">
@@ -55,25 +68,36 @@
     </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3 hidden-sm hidden-xs">
+        <div class="col-md-3 col-sm-4 hidden-xs">
           <div id="navigation">
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="../present_simple.html">Present Simple</a></li><li><a href="../present_continuous.html">Present Continuous</a></li><li><a href="../present_perfect.html">Present Perfect</a></li><li><a href="../future.html">Future</a></li><li><a href="../noun.html">Noun</a></li><li><a href="../article.html">Article</a></li><li><a href="../verb.html">Verb</a></li><li><a href="../modals.html">Modals</a></li><li><a href="../passive.html">Passive</a></li><li><a href="../subjunctive.html">Subjunctive</a></li><li><a href="../reported_speech.html">Reported Speech</a></li><li><a href="../gerund.html">Gerund</a></li><li><a href="../infinitive.html">Infinitive</a></li><li><a href="../pronoun.html">Pronoun</a></li><li><a href="../determiner.html">Determiner</a></li><li><a href="../quantifier.html">Quantifier</a></li><li><a href="../relative_clause.html">Relative Clause</a></li><li class="active"><a href="./index.html">Five Ws</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li><a href="../tenses/index.html">Tenses</a></li><li><a href="../noun.html">Noun</a></li><li><a href="../verb.html">Verb</a></li><li><a href="../modals.html">Modals</a></li><li><a href="../passive.html">Passive</a></li><li><a href="../subjunctive.html">Subjunctive</a></li><li><a href="../reported_speech.html">Reported Speech</a></li><li><a href="../gerund.html">Gerund</a></li><li><a href="../infinitive.html">Infinitive</a></li><li><a href="../pronoun.html">Pronoun</a></li><li><a href="../determiner/index.html">Determiner</a></li><li><a href="../relative_clause.html">Relative Clause</a></li><li class="active"><a href="./index.html">Five Ws</a></li></ul>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-9">
-          <div id="content">
-            <h1>Five Ws</h1>
-            
-
-            <ul><li><a href="./where.html">Where</a></li><li><a href="./when.html">When</a></li><li><a href="./how.html">How</a></li></ul>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/english/grammar/five_ws/index.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/english/grammar/five_ws/index.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/english/grammar/five_ws/index.md">History</a>
           </div>
+          <div id="content">
+          <h1>Five Ws</h1>
+          <div id="toc">
+          </div>
+          
+
+          </div>
+          
+          <h2>Table of Contents</h2>
+          <ul><li><a href="./where.html">Where</a></li><li><a href="./when.html">When</a></li><li><a href="./how.html">How</a></li></ul>
+          
         </div>
       </div>
     </div>

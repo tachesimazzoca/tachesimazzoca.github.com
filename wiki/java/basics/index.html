@@ -7,8 +7,21 @@
 <title>Basics | Java</title>
 <link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
 </head>
 <body>
 <div id="wrapper">
@@ -55,7 +68,7 @@
     </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3 hidden-sm hidden-xs">
+        <div class="col-md-3 col-sm-4 hidden-xs">
           <div id="navigation">
             <div class="panel panel-default">
               <div class="panel-heading">
@@ -67,13 +80,24 @@
             </div>
           </div>
         </div>
-        <div class="col-md-9">
-          <div id="content">
-            <h1>Basics</h1>
-            
-
-            <ul><li><a href="./io.html">I/O</a></li><li><a href="./math.html">Math</a></li><li><a href="./reflection.html">Reflection</a></li><li><a href="./servlet.html">Servlet</a></li></ul>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/java/basics/index.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/java/basics/index.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/java/basics/index.md">History</a>
           </div>
+          <div id="content">
+          <h1>Basics</h1>
+          <div id="toc">
+          </div>
+          
+
+          </div>
+          
+          <h2>Table of Contents</h2>
+          <ul><li><a href="./io.html">I/O</a></li><li><a href="./math.html">Math</a></li><li><a href="./reflection.html">Reflection</a></li><li><a href="./servlet.html">Servlet</a></li></ul>
+          
         </div>
       </div>
     </div>
