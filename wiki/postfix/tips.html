@@ -175,6 +175,40 @@ virtual_alias_maps = hash:/etc/postfix/virtual, regexp:/etc/postfix/virtual_rege
 <pre><code>allow_min_user = yes
 </code></pre>
 
+<h2>外部SMTPサーバへの中継</h2>
+
+<h3>クライアント（中継元）側の設定</h3>
+
+<p><code>relayhost</code> に中継先のホストを指定します。ローカル外のメールは全て指定したホストに中継されます。</p>
+
+<pre><code>relayhost = [smtp.example.net]:25
+</code></pre>
+
+<h3>サーバ（中継先）側の設定</h3>
+
+<p>外部ホストからの配送を許可します。</p>
+
+<pre><code># 外部ホストからの配送を許可
+inet_interfaces = all
+
+# 信頼するネットワークを指定
+#mynetworks_style = subnet
+mynetworks = 127.0.0.0/8, 192.168.56.0/24
+</code></pre>
+
+<ul>
+<li><code>mynetworks</code> が指定された場合には、<code>mynetworks_style</code> は無視されます。</li>
+<li><code>mynetworks</code> は CIDR 形式でカンマ切りで複数指定します。</li>
+<li><code>mynetworks_style</code> のデフォルト値は <code>subnet</code> です。ローカルLAN内のみに制限する際には便利ですが、公衆 LAN 内等で有効にしてしまうと、同一 LAN 内にいる全てのMTAを許可してしまいます。</li>
+<li><code>mynetworks_style = class</code> は同一アドレスクラスを許可します。インターネット接続にプロバイダを介している場合、全ての同一プロバイダ上のMTAから中継を受け付けてしまうため、スパムメールの踏み台となってしまいます。通常 <code>class</code> とすることはありません。</li>
+</ul>
+
+
+<p><code>myhostname</code> が重複していると中継時にエラーとなります。ローカルLAN内で中継する際に、インストール時デフォルトのホスト名 <code>localdomain.localhost</code> のままとなっている場合があります。マシン毎に適切なホスト名を設定するか、<code>myhostname</code> を設定します。</p>
+
+<pre><code>myhostname = smtp.localdomain
+</code></pre>
+
           </div>
           
         </div>
