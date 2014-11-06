@@ -234,6 +234,11 @@ smtp_sasl_auth_enable = yes
 smtp_sasl_password_maps = hash:/etc/postfix/sasl_password
 # デフォルト値は noanonymous, noplaintext のため、AUTH PLAIN を有効にする
 smtp_sasl_security_options = noanonymous
+
+# サポートされていれば STARTTLS を使う
+smtp_tls_CAfile = /etc/pki/tls/cert.pem
+smtp_tls_security_level = may
+smtp_tls_loglevel = 1
 </code></pre>
 
 <p>設定を読み込み、送信確認を行ないます。</p>
@@ -274,11 +279,12 @@ libanonymous.la  libanonymous.so  libanonymous.so.2  libanonymous.so.2.0.22
 EHLO localhost.localdomain
 ...
 250-AUTH PLAIN LOGIN
+250 STARTTLS
 ...
 QUIT
 </code></pre>
 
-<p>上記の応答の場合 <code>AUTH PLAIN</code> または <code>AUTH LOGIN</code> です。<code>curus-sasl-plain</code> を追加インストールします。</p>
+<p>上記の応答の場合 <code>AUTH PLAIN</code> または <code>AUTH LOGIN</code> です。<code>cyrus-sasl-plain</code> を追加インストールします。</p>
 
 <pre><code>% yum install cyrus-sasl-plain
 </code></pre>
