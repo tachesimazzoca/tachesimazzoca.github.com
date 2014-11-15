@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./activity.html">Activity</a></li><li><a href="tools/index.html">Tools</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./activity.html">Activity</a></li><li><a href="./manifest.html">Manifest</a></li><li><a href="tools/index.html">Tools</a></li></ul>
               </div>
             </div>
           </div>
@@ -91,7 +91,40 @@
           <h1>Activity</h1>
           <div id="toc">
           </div>
-          <h2>Cheat Sheet</h2>
+          <h2>Overview</h2>
+
+<ul>
+<li><a href="http://developer.android.com/guide/components/activities.html">http://developer.android.com/guide/components/activities.html</a></li>
+</ul>
+
+
+<h2>this vs. getApplicationContext</h2>
+
+<p>様々な API に Context インターフェイスを渡すことがある。</p>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/content/Context.html">http://developer.android.com/reference/android/content/Context.html</a></li>
+</ul>
+
+
+<p>Activity は Context を継承しているため、アクティビティ自身の <code>this</code> を渡しても動作するが、<code>getApplicationContext</code> との使い分けを意識する必要がある。</p>
+
+<ul>
+<li><code>this</code> は、アクティビティのライフサイクルと連動する</li>
+<li><code>getApplicationContext</code> は、アプリケーションのライフサイクルと連動する</li>
+</ul>
+
+
+<p>単に Context として、アクティビティ自身 <code>this</code> を渡すと、受け側のAPIが Context の参照を保持していた場合、アクティビティのライフサイクルで破棄されず、メモリリークを起こしてしまう。かといって、メモリリークを避けるために、一律で <code>getApplicationContext</code> を使うべきかというとそうではない。</p>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/content/Context.html#getApplicationContext()">http://developer.android.com/reference/android/content/Context.html#getApplicationContext()</a></li>
+</ul>
+
+
+<p><code>registerReceiver</code> で BroadcastReceiver を登録するシナリオを考えてみると、アクティビティから登録されたレシーバは、明示的に <code>unregisterReceiver</code> を行なわなかった場合でも、アクティビティのライフサイクルで破棄されるが、アプリケーションから登録された場合は、明示的に破棄しなければ、いつまでもレシーバは待機しつづけることになる。</p>
+
+<h2>Cheat Sheet</h2>
 
 <h3>Starting another activity</h3>
 
@@ -149,6 +182,13 @@
 <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;Button</span>
     <span class="err">...</span>
     <span class="na">android:onClick=</span><span class="s">&quot;doSomething&quot;</span> <span class="nt">/&gt;</span></code></pre></div>
+
+
+
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">....</span>
+<span class="o">}</span></code></pre></div>
 
 
 <p>However, if the method name is missing, it causes a runtime error. For more type safety, you would rather use the <code>View#setOnClickListner</code> method manually.</p>

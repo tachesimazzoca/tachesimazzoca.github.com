@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Android Debug Bridge | Android</title>
-<link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
-<script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
-<script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../../assets/javascripts/jquery.toctree.js"></script>
+<title>Manifest | Android</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
 <script>
 
 (function($) {
@@ -35,11 +35,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../../index.html">Wiki</a>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
         </div>
         <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="../index.html">Android</a></li>
+            <li><a href="./index.html">Android</a></li>
           </ul>
           <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
   <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
@@ -63,7 +63,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="../index.html">Android</a></li><li><a href="./index.html">Tools</a></li><li>Android Debug Bridge</li>
+        <li><a href="./index.html">Android</a></li><li>Manifest</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./adb.html">Android Debug Bridge</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li><a href="./activity.html">Activity</a></li><li class="active"><a href="./manifest.html">Manifest</a></li><li><a href="tools/index.html">Tools</a></li></ul>
               </div>
             </div>
           </div>
@@ -83,61 +83,52 @@
         <div class="col-md-9 col-sm-8">
           
           <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/tools/adb.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/tools/adb.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/tools/adb.md">History</a>
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/manifest.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/manifest.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/manifest.md">History</a>
           </div>
           <div id="content">
-          <h1>Android Debug Bridge</h1>
+          <h1>Manifest</h1>
           <div id="toc">
           </div>
           <h2>Overview</h2>
 
 <ul>
-<li><a href="http://developer.android.com/tools/help/adb.html">http://developer.android.com/tools/help/adb.html</a></li>
+<li><a href="http://developer.android.com/guide/topics/manifest/manifest-intro.html">http://developer.android.com/guide/topics/manifest/manifest-intro.html</a></li>
 </ul>
 
 
 <h2>Cheat Sheet</h2>
 
-<h3>Dumping system data</h3>
+<h3>Skelton for MainActivity</h3>
 
-<p>You can dump system data to the screen by the command <code>shell dumpsys</code>. The output shows lots of information, so you might redirect STDOUT to a text file.</p>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;manifest</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">package=</span><span class="s">&quot;net.example.android&quot;</span>
+    <span class="na">android:versionCode=</span><span class="s">&quot;1&quot;</span>
+    <span class="na">android:versionName=</span><span class="s">&quot;1.0&quot;</span> <span class="nt">&gt;</span>
 
-<pre><code>% adb shell dumpsys &gt; dump.txt
-% less dump.txt
-Currently running services:
-  SurfaceFlinger
-  accessibility
-  account
-  activity
-  ...
-</code></pre>
+    <span class="nt">&lt;uses-sdk</span>
+        <span class="na">android:minSdkVersion=</span><span class="s">&quot;11&quot;</span>
+        <span class="na">android:targetSdkVersion=</span><span class="s">&quot;19&quot;</span> <span class="nt">/&gt;</span>
 
-<p>The first section tells about <em>Currently running services</em>. If a service name is specified after <code>dumpsys</code>, then the other sections are filtered out.</p>
+    <span class="nt">&lt;application</span>
+        <span class="na">android:allowBackup=</span><span class="s">&quot;true&quot;</span>
+        <span class="na">android:icon=</span><span class="s">&quot;@drawable/ic_launcher&quot;</span>
+        <span class="na">android:label=</span><span class="s">&quot;@string/app_name&quot;</span>
+        <span class="na">android:theme=</span><span class="s">&quot;@style/AppTheme&quot;</span> <span class="nt">&gt;</span>
+        <span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">&quot;.MainActivity&quot;</span> <span class="nt">&gt;</span>
+            <span class="nt">&lt;intent-filter&gt;</span>
+                <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.action.MAIN&quot;</span> <span class="nt">/&gt;</span>
 
-<pre><code># Show only "battery"
-% adb shell dumpsys battery
-Current Battery Service state:
-  AC powered: true
-  USB powered: false
-  Wireless powered: false
-  ...
-</code></pre>
+                <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.category.LAUNCHER&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/intent-filter&gt;</span>
+        <span class="nt">&lt;/activity&gt;</span>
+    <span class="nt">&lt;/application&gt;</span>
 
-<h3>Investigating intent filters</h3>
+<span class="nt">&lt;/manifest&gt;</span></code></pre></div>
 
-<p>Look up the <code>Activitiy Resolver Table</code> section in the output of the command <code>shell dumpsys package</code>.</p>
 
-<pre><code>% adb shell dumpsys package &gt; package.txt
-% less package.txt
-...
-Activity Resolver Table:
-  Full MIME Types:
-      application/itunes:
-        41adb878 com.android.music/.MediaPlaybackActivity filter 41adb9e0
-        ...
-</code></pre>
+
 
           </div>
           
