@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Threads | Android</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Android</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Android</a></li><li>Threads</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./activity.html">Activity</a></li><li><a href="./manifest.html">Manifest</a></li><li class="active"><a href="./threads.html">Threads</a></li><li><a href="tools/index.html">Tools</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/threads.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/threads.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/threads.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Threads</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li><a href="http://developer.android.com/guide/components/processes-and-threads.html">http://developer.android.com/guide/components/processes-and-threads.html</a></li>
+</ul>
+
+
+<h2>UI Thread</h2>
+
+<p>Android では、アプリケーション毎に一つのプロセスが作成され、UI Thread と呼ばれる単一のメインスレッドのみが、画面操作のやりとりを行なう。これにより Activity は、複数スレッドからアクセスされることはないため、スレッドセーフである必要はない。Android UI Toolkit <code>android.(view|widget).*</code> もスレッドセーフではない。</p>
+
+<p>言い換えると、通信などの時間のかかる処理で、UI Thread をブロックすると、一切の画面操作を受け付けずハングしてしまうことになる。規定の秒数（約５秒）を超えると <a href="http://developer.android.com/training/articles/perf-anr.html>">"Application Not Responding" (ANR)</a> 警告ダイアログが表示される。</p>
+
+<p>これを避けるためには、別スレッドで処理させることが必要になるが、UI Thread 以外のスレッドから UI Toolkit を直接操作すると、ランタイムエラーにより強制終了する。</p>
+
+<p>UI Thread 外から UI Toolkit にアクセスする場合は、以下の API を用いる。</p>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)">Activity.runOnUiThread(Runnable)</a></li>
+<li><a href="http://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable)">View.post(Runnable)</a></li>
+<li><a href="http://developer.android.com/reference/android/view/View.html#postDelayed(java.lang.Runnable,%20long)">View.postDelayed(Runnable, long)</a></li>
+</ul>
+
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="kd">private</span> <span class="n">TextView</span> <span class="n">mTextView</span><span class="o">;</span>
+    <span class="o">...</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">waitFor</span><span class="o">(</span><span class="kt">long</span> <span class="n">msec</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">msec</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Error</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// OK: Activity.runOnUiThread(Runnable)</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">accessInsideUiThread</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">waitFor</span><span class="o">(</span><span class="mi">5000L</span><span class="o">);</span>
+                <span class="n">runOnUiThread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="nd">@Override</span>
+                    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                        <span class="n">mTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;Access inside the UI thread.&quot;</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">});</span>
+            <span class="o">}</span>
+        <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// OK: View.post(Runnable)</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">postToMessageQueue</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">waitFor</span><span class="o">(</span><span class="mi">5000L</span><span class="o">);</span>
+                <span class="n">mTextView</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="nd">@Override</span>
+                    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                        <span class="n">mTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;Access via MessageQueue&quot;</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">});</span>
+            <span class="o">}</span>
+        <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// NG: Do not block the UI thread.</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">blockUiThread</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">waitFor</span><span class="o">(</span><span class="mi">5000L</span><span class="o">);</span>
+        <span class="n">mTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;This is an incorrect solution.&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// NG: Do not access the Android UI toolkit from outside the UI thread.</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">accessOutsideUiThread</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">waitFor</span><span class="o">(</span><span class="mi">5000L</span><span class="o">);</span>
+                <span class="c1">// The application will crash with a runtime exception.</span>
+                <span class="n">mTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;This doesn&#39;t work.&quot;</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h2>AsyncTask</h2>
+
+<p>AsyncTask により、ワーカースレッドの処理を簡潔に記述することができる。</p>
+
+<p><code>MeanTask.java</code></p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MeanTask</span> <span class="kd">extends</span> <span class="n">AsyncTask</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Listener</span> <span class="n">mListener</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Listener</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onProgress</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onResult</span><span class="o">(</span><span class="n">Float</span> <span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">MeanTask</span><span class="o">(</span><span class="n">Listener</span> <span class="n">listener</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mListener</span> <span class="o">=</span> <span class="n">listener</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Float</span> <span class="nf">doInBackground</span><span class="o">(</span><span class="n">Integer</span><span class="o">...</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">publishProgress</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span>
+                    <span class="s">&quot;sum = %d + %d (%d/%d)&quot;</span><span class="o">,</span> <span class="n">sum</span><span class="o">,</span> <span class="n">params</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">len</span><span class="o">));</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">params</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="o">((</span><span class="kt">float</span><span class="o">)</span> <span class="n">sum</span><span class="o">)</span> <span class="o">/</span> <span class="n">len</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onProgressUpdate</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">progress</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mListener</span><span class="o">.</span><span class="na">onProgress</span><span class="o">(</span><span class="n">progress</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPostExecute</span><span class="o">(</span><span class="n">Float</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mListener</span><span class="o">.</span><span class="na">onResult</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>MeanTaskClient.java</code></p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">MeanTask</span><span class="o">.</span><span class="na">Listener</span> <span class="n">listener</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MeanTask</span><span class="o">.</span><span class="na">Listener</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">};</span>
+<span class="k">new</span> <span class="nf">MeanTask</span><span class="o">(</span><span class="n">listener</span><span class="o">).</span><span class="na">execute</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span></code></pre></div>
+
+
+<p>AsyncTask 内に Activity への参照を持ちたい時は <a href="http://developer.android.com/reference/java/lang/ref/WeakReference.html">WeakReferece</a> で持つようにする。直接保持すると、アクティビティのライフサイクルで破棄されず、メモリリークを起こす場合がある。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">WeakReference</span><span class="o">&lt;</span><span class="n">MainActivity</span><span class="o">&gt;</span> <span class="n">mActivityRef</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="nf">SomeAsyncTask</span><span class="o">(</span><span class="n">MainActivity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">mActivityRef</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeakReference</span><span class="o">&lt;</span><span class="n">MainActivity</span><span class="o">&gt;(</span><span class="n">activity</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPostExecute</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">MainActivity</span> <span class="n">activity</span> <span class="o">=</span> <span class="n">mActivityRef</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h2>Handler</h2>
+
+<ul>
+<li><a href="https://developer.android.com/training/multiple-threads/communicate-ui.html">https://developer.android.com/training/multiple-threads/communicate-ui.html</a></li>
+</ul>
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
