@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broadcast | Android</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Android</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Android</a></li><li>Broadcast</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./activity.html">Activity</a></li><li><a href="./manifest.html">Manifest</a></li><li><a href="./threads.html">Threads</a></li><li class="active"><a href="./broadcast.html">Broadcast</a></li><li><a href="tools/index.html">Tools</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/broadcast.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/broadcast.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/broadcast.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Broadcast</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/content/BroadcastReceiver.html">http://developer.android.com/reference/android/content/BroadcastReceiver.html</a></li>
+<li><a href="http://developer.android.com/training/monitoring-device-state/battery-monitoring.html">http://developer.android.com/training/monitoring-device-state/battery-monitoring.html</a></li>
+</ul>
+
+
+<h2>Static vs. Dynamic</h2>
+
+<p>BroadcastReceiver は AndroidManifest.xml 内の <code>&lt;receiver&gt;</code> 要素を用いて静的に登録する方法と、<code>Context#registerReceiver</code> で動的に登録する方法がある。</p>
+
+<p>Static:</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;application&gt;</span>
+    ...
+    <span class="nt">&lt;receiver</span>
+        <span class="na">android:name=</span><span class="s">&quot;.ExampleReceiver&quot;</span>
+        <span class="na">android:exported=</span><span class="s">&quot;false&quot;</span> <span class="nt">&gt;</span>
+        <span class="nt">&lt;intent-filter</span> <span class="na">android:priority=</span><span class="s">&quot;0&quot;</span> <span class="nt">&gt;</span>
+            <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;net.example.android.broadcast.EXAMPLE&quot;</span> <span class="nt">&gt;</span>
+            <span class="nt">&lt;/action&gt;</span>
+        <span class="nt">&lt;/intent-filter&gt;</span>
+    <span class="nt">&lt;/receiver&gt;</span>
+<span class="nt">&lt;/application&gt;</span></code></pre></div>
+
+
+<p>Dynamic:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">BroadcastReceiver</span> <span class="n">mReceiver</span><span class="o">;</span>
+
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="n">mReceiver</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">ExampleReceiver</span><span class="o">();</span>
+    <span class="n">IntentFilter</span> <span class="n">ifilter</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">IntentFilter</span><span class="o">(</span><span class="s">&quot;net.example.android.broadcast.EXAMPLE&quot;</span><span class="o">);</span>
+    <span class="n">ifilter</span><span class="o">.</span><span class="na">setPriority</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+    <span class="n">registerReceiver</span><span class="o">(</span><span class="n">mReceiver</span><span class="o">,</span> <span class="n">ifilter</span><span class="o">);</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">mReceiver</span><span class="o">)</span>
+        <span class="n">unregisterReceiver</span><span class="o">(</span><span class="n">mReceiver</span><span class="o">);</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>動的に登録/解除する場合、ライフサイクルに注意しなければならない。</p>
+
+<ul>
+<li><code>Activity#(onCreate|onDestroy)</code> の場合は、アクティビティが休止していても、タスクツリー内にあれば解除されない。</li>
+<li><code>Activity#(onResume|onPause)</code> の場合は、アクティビティが休止する際に解除される。<code>onResume</code> で登録する場合は、<code>onPause</code> で解除しなければならない。</li>
+</ul>
+
+
+<p>アクティビティで登録を行なった場合は、明示的に解除されていないと、警告とともにアクティビティのライフサイクルで破棄される。</p>
+
+<pre><code>android.app.IntentReceiverLeaked: .... Are you missing a call unregisterReceiver()?
+</code></pre>
+
+<p>言い換えると、<code>Context#getApplicationContext()</code> で得られる Context から登録を行なった場合は、明示的に解除しなければ、メモリリークを引き起こすことになる。</p>
+
+<h2>Normal vs. Ordered</h2>
+
+<p><code>sendBroadcast</code> で送信した場合は、順不同で Receiver に配信される。<code>sendOrderedBroadcast</code> で送信した場合は、IntentFilter に指定した priority 値の大きいものから、順番に配信される。</p>
+
+<p>Orderd Broadcast の場合は、<code>BroadcastReceiver#(get|set)ResultData</code> により、各レシーバから結果データを受け渡すことができる。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleReceiver</span> <span class="kd">extends</span> <span class="n">BroadcastReceiver</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">setResultData</span><span class="o">(</span><span class="s">&quot;Received&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;net.example.android.broadcast.EXAMPLE&quot;</span><span class="o">;</span>
+<span class="n">registerReceiver</span><span class="o">(</span><span class="k">new</span> <span class="nf">ExampleReceiver</span><span class="o">(),</span> <span class="k">new</span> <span class="nf">IntentFilter</span><span class="o">(</span><span class="n">action</span><span class="o">));</span>
+<span class="n">sendOrderedBroadcast</span><span class="o">(</span><span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">action</span><span class="o">),</span> <span class="kc">null</span><span class="o">,</span>
+        <span class="k">new</span> <span class="nf">BroadcastReceiver</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">String</span> <span class="n">data</span> <span class="o">=</span> <span class="n">getResultData</span><span class="o">();</span>
+                <span class="o">...</span>
+            <span class="o">}</span>
+        <span class="o">},</span> <span class="kc">null</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span></code></pre></div>
+
+
+<p>結果データを得るには、最終結果を受け取るレシーバを登録できる Ordered Broadcast である必要がある。Normal Broadcast で、<code>(get|set)ResultData</code> を使うと警告が表示される。</p>
+
+<h2>Context vs. LocalBroadcastManager</h2>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/content/BroadcastReceiver.html#Security">http://developer.android.com/reference/android/content/BroadcastReceiver.html#Security</a></li>
+<li><a href="http://developer.android.com/reference/android/support/v4/content/LocalBroadcastManager.html">http://developer.android.com/reference/android/support/v4/content/LocalBroadcastManager.html</a></li>
+</ul>
+
+
+<p>Broadcast はグローバルに行なわれる。すなわち、外部アプリケーションのレシーバであっても IntentFilter にマッチすれば、配信を受け取ることができる。</p>
+
+<ul>
+<li>アクション名は、他アプリケーションと衝突がないように、慣例的にパッケージ名を付与したものにする。</li>
+<li>外部アプリケーションによる受信を許可する場合には、適切なパーミッションを定義する。</li>
+</ul>
+
+
+<p>レシーバ側からの視点でも、外部アプリケーションからの配信を受けてしまう事になる。静的に登録する場合は <code>&lt;receiver ... android:exported="false" ...&gt;</code> で、外部からの配信を受けないようにすることができるが、動的に登録する場合には、このオプションは使えないようである。</p>
+
+<p>Broadcast を自アプリケーション内に限るなら、LocalBroadcastManager を使うことができる。LocalBroadcastManager による送受信は、同一アプリケーション内で閉じており、外部アプリケーションからは守られる。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">LocalBroadcastManager</span> <span class="n">mBcast</span> <span class="o">=</span> <span class="n">LocalBroadcastManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">());</span>
+<span class="n">mBcast</span><span class="o">.</span><span class="na">regsisterReceiver</span><span class="o">(</span><span class="n">mReceiver</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="n">mBcast</span><span class="o">.</span><span class="na">sendBroadcast</span><span class="o">(</span><span class="k">new</span> <span class="nf">Intent</span><span class="o">(...));</span>
+<span class="o">...</span>
+<span class="n">mBrast</span><span class="o">.</span><span class="na">unregisterReceiver</span><span class="o">(</span><span class="n">mReceiver</span><span class="o">);</span></code></pre></div>
+
+
+<p>LocalBroadcastManager には、以下の制限がある。</p>
+
+<ul>
+<li>同一アプリケーション内であっても、LocalBroadcastManager で登録したレシーバは、LocalBroadcastManager からの送信のみ受け付ける。Context での送受信とは区別される。</li>
+<li>LocalBroadcastManager では Ordered Broadcast はできない。</li>
+</ul>
+
+
+<h2>Sticky Broadcast</h2>
+
+<p>Sticky Broadcast は、配信後に永続的に残り、配信後に登録したレシーバであっても、最終配信を受信できる。</p>
+
+<p>配信済みであれば <code>Context#registerReceiver</code> の戻り値 Intent で最終配信を得られるので、レシーバは <code>null</code> でよい。バッテリー残量などシステム情報を得るときに使う。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Intent</span> <span class="n">batteyStatus</span> <span class="o">=</span> <span class="n">registerReceiver</span><span class="o">(</span>
+        <span class="kc">null</span><span class="o">,</span> <span class="k">new</span> <span class="nf">IntentFilter</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_BATTERY_CHANGED</span><span class="o">));</span>
+<span class="kt">int</span> <span class="n">capacity</span> <span class="o">=</span> <span class="n">batteryStatus</span><span class="o">.</span><span class="na">getIntExtra</span><span class="o">(</span><span class="n">BatteryManager</span><span class="o">.</span><span class="na">EXTRA_LEVEL</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">);</span></code></pre></div>
+
+
+<p>アプリケーションからは <code>Context#(send|remove)StickyBroadcast</code> で配信できる。</p>
+
+<ul>
+<li>パーミッション <code>android.permission.BROADCAST_STICKY</code> を設定する。</li>
+<li>配信後も永続的に残るので、<code>removeStickyBroadcast</code> で破棄する。</li>
+</ul>
+
+
+<p>Sticky Broadcast は、外部アプリケーションでも制限なく最終配信を得られるため、セキュリティ面での問題が多い。このため API level 21 より、関連する API は非推奨となっている。システムから、グローバルな端末情報等を配信するものとして用い、アプリケーションから配信する必要はない。利用しているアプリケーションがあれば、すみやかに別の方法でアップデートすべきである。</p>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
