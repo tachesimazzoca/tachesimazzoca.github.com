@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notifications | Android</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Android</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Android</a></li><li>Notifications</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./activity.html">Activity</a></li><li><a href="./manifest.html">Manifest</a></li><li><a href="./threads.html">Threads</a></li><li><a href="./broadcast.html">Broadcast</a></li><li class="active"><a href="./notifications.html">Notifications</a></li><li><a href="tools/index.html">Tools</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/notifications.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/notifications.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/notifications.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Notifications</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li><a href="http://developer.android.com/guide/topics/ui/notifiers/notifications.html">http://developer.android.com/guide/topics/ui/notifiers/notifications.html</a></li>
+</ul>
+
+
+<h2>Usage</h2>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="n">NOTIFICATION_ID</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+<span class="n">NotificationCompat</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NotificationCompat</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span>
+        <span class="n">getApplicationContext</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">setAutoCancel</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">setSmallIcon</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">stat_sys_warning</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">setContentTitle</span><span class="o">(</span><span class="s">&quot;Notification Title&quot;</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">setContentText</span><span class="o">(</span><span class="s">&quot;Here is a notification text.&quot;</span><span class="o">);</span>
+<span class="o">((</span><span class="n">NotificationManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">NOTIFICATION_SERVICE</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">notify</span><span class="o">(</span><span class="n">NOTIFICATION_ID</span><span class="o">,</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">());</span></code></pre></div>
+
+
+<h2>TaskStackBuilder</h2>
+
+<ul>
+<li><a href="http://developer.android.com/guide/components/tasks-and-back-stack.html">http://developer.android.com/guide/components/tasks-and-back-stack.html</a></li>
+</ul>
+
+
+<p>通知をタップした際のアクションは <code>NotificationCompat.Builder#setContentIntent(PendingIntent)</code> で設定する。</p>
+
+<p>単にアクティビティを起動すると、Launcher から起動して、順に履歴に積んでいく場合とは異なり、遷移が不自然になってしまう。親アクティビティからの遷移が必要な場合は、新規に <a href="http://developer.android.com/reference/android/app/TaskStackBuilder.html">TaskStackBuilder</a> を使って履歴を組み直すようにする。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Context</span> <span class="n">context</span> <span class="o">=</span> <span class="n">getApplicadtionContext</span><span class="o">();</span>
+<span class="n">TaskStackBuilder</span> <span class="n">stackBuilder</span> <span class="o">=</span> <span class="n">TaskStackBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+<span class="c1">// ParentActivity &gt; SubActivity</span>
+<span class="n">stackBuilder</span><span class="o">.</span><span class="na">addNextIntent</span><span class="o">(</span><span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+<span class="n">stackBuilder</span><span class="o">.</span><span class="na">addNextIntent</span><span class="o">(</span><span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">SubActivity</span><span class="o">.</span><span class="na">class</span><span class="o">)));</span>
+<span class="n">contentIntent</span> <span class="o">=</span> <span class="n">stackBuilder</span><span class="o">.</span><span class="na">getPendingIntent</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">FLAG_UPDATE_CURRENT</span><span class="o">);</span>
+<span class="n">NotificationCompat</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NotificationCompat</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span>
+        <span class="n">getApplicationContext</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">setContentIntent</span><span class="o">(</span><span class="n">contentIntent</span><span class="o">)</span>
+        <span class="o">...</span></code></pre></div>
+
+
+<p><code>AndroidManifest.xml</code> 内で <code>android:parentActivityName</code> を指定していれば、<code>TaskStackBuilder#setParentStack</code> を使って組み直す事も出来る。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span>
+    <span class="na">android:name=</span><span class="s">&quot;.SubActivity&quot;</span>
+    <span class="na">android:parentActivityName=</span><span class="s">&quot;.MainActivity&quot;</span> <span class="nt">/&gt;</span></code></pre></div>
+
+
+
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">stackBuilder</span><span class="o">.</span><span class="na">setParentStack</span><span class="o">(</span><span class="n">SubActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">stackBuilder</span><span class="o">.</span><span class="na">addNextIntent</span><span class="o">(</span><span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">SubActivity</span><span class="o">.</span><span class="na">class</span><span class="o">)));</span></code></pre></div>
+
+
+<p>対象アクティビティが単独で成立するのであれば、Intent のフラグを指定するだけでもよい。履歴上にアクティビティが存在しない場合のみ、新規に起動させることが出来る。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MainActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">setFlags</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_SINGLE_TOP</span><span class="o">);</span>
+<span class="n">contentIntent</span> <span class="o">=</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getActivity</span><span class="o">(</span>
+        <span class="n">context</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">intent</span><span class="o">,</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">FLAG_UPDATE_CURRENT</span><span class="o">);</span></code></pre></div>
+
+
+<ul>
+<li><code>FLAG_ACTIVITY_SINGLE_TOP</code>
+
+<ul>
+<li>対象アクティビティが最終履歴（Back Stack 先頭）であれば、アクティブにするのみで履歴に新規追加しない。</li>
+</ul>
+</li>
+<li><code>FLAG_ACTIVITY_CLEAR_TOP</code>
+
+<ul>
+<li>対象アクティビティが履歴にあれば、それを最終履歴（Back Stack 先頭）にして、以降の履歴を削除する。</li>
+</ul>
+</li>
+</ul>
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
