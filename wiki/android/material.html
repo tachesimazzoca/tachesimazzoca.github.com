@@ -101,8 +101,8 @@
 <p>v7 Support Libraries r21 を使うことで、Android 5.0 以前の端末にも、Material Design を適用することができる。</p>
 
 <ul>
-<li><code>Theme.AppCompat(.NoActionBar)</code> : 黒地に白文字</li>
-<li><code>Theme.AppCompat.Light(.NoActionBar)</code> : 白地に黒文字</li>
+<li><code>Theme.AppCompat</code> : 黒地に白文字</li>
+<li><code>Theme.AppCompat.Light</code> : 白地に黒文字</li>
 </ul>
 
 
@@ -122,7 +122,7 @@
 
 <ul>
 <li><code>colorPrimary</code>: Action Bar の背景色</li>
-<li><code>colorPrimaryDark</code>: Status Bar の背景色(Android 5.0 以降のみ)</li>
+<li><code>colorPrimaryDark</code>: Status Bar の背景色（Android 5.0 以降のみ）</li>
 <li><code>colorAccent</code>: チェックボックス等のアクセント色</li>
 </ul>
 
@@ -188,7 +188,7 @@
 <p>Toolbar のテーマを継承して <code>android:background</code> を指定してしまうと、内包するポップアップメニューの背景も変更されてしまう。以下の方法は誤りである。</p>
 
 <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- NG: This overrides android:background of app:popupTheme. --&gt;</span>
-<span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&quot;AppTheme.Toolbar&quot;</span> <span class="na">parent=</span><span class="s">&quot;Theme.AppCompat.Dark.ActionBar&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&quot;AppTheme.Toolbar&quot;</span> <span class="na">parent=</span><span class="s">&quot;ThemeOverlay.AppCompat.Dark.ActionBar&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;android:background&quot;</span><span class="nt">&gt;</span>?attr/colorPrimary<span class="nt">&lt;/item&gt;</span>
     ...
 <span class="nt">&lt;/style&gt;</span></code></pre></div>
@@ -200,7 +200,7 @@
 <span class="nt">&lt;android.support.v7.widget.Toolbar</span>
         <span class="err">...</span>
         <span class="na">android:background=</span><span class="s">&quot;?attr/colorPrimary&quot;</span>
-        <span class="na">android:theme=</span><span class="s">&quot;Theme.AppCompat.Dark.ActionBar&quot;</span>
+        <span class="na">android:theme=</span><span class="s">&quot;ThemeOverlay.AppCompat.Dark.ActionBar&quot;</span>
         <span class="err">...</span> <span class="nt">/&gt;</span></code></pre></div>
 
 
