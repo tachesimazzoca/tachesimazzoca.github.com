@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./activity.html">Activity</a></li><li><a href="./manifest.html">Manifest</a></li><li><a href="./threads.html">Threads</a></li><li><a href="./broadcast.html">Broadcast</a></li><li><a href="./notifications.html">Notifications</a></li><li><a href="./material.html">Material Design</a></li><li><a href="tools/index.html">Tools</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./activity.html">Activity</a></li><li><a href="./manifest.html">Manifest</a></li><li><a href="./threads.html">Threads</a></li><li><a href="./broadcast.html">Broadcast</a></li><li><a href="./notifications.html">Notifications</a></li><li><a href="./storage.html">Storage</a></li><li><a href="./material.html">Material Design</a></li><li><a href="tools/index.html">Tools</a></li></ul>
               </div>
             </div>
           </div>
@@ -123,6 +123,16 @@
 
 
 <p><code>registerReceiver</code> で BroadcastReceiver を登録するシナリオを考えてみると、アクティビティから登録されたレシーバは、明示的に <code>unregisterReceiver</code> を行なわなかった場合でも、アクティビティのライフサイクルで破棄されるが、アプリケーションから登録された場合は、明示的に破棄しなければ、いつまでもレシーバは待機しつづけることになる。</p>
+
+<h2>onPause vs. onStop</h2>
+
+<p>アクティビティはバックグラウンドに移る際 <code>onPause</code> が呼ばれ休止状態に入る。他のアプリケーションによりメモリが不足した場合 <code>onStop</code> が呼ばれずにアプリケーションが終了する場合がある。このため、SharedPreference などの永続化処理は <code>onPause</code> で行なう必要がある。</p>
+
+<p>しかし HONEYCOMB 以降からは、アプリケーションのプロセスが終了する前には <code>onStop</code> が呼ばれることが保証されている。</p>
+
+<blockquote><p>Starting with Honeycomb, an application is not in the killable state until its onStop() has returned.</p></blockquote>
+
+<p>このため、HONEYCOMB 以降のみのサポートであれば、永続化処理は <code>onStop</code> で行えばよい。<code>onPause</code> は、次のアプリケーションのためにリソースを使うため、このタイミングでコストのかかる処理は好ましくない。</p>
 
 <h2>Cheat Sheet</h2>
 
