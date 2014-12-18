@@ -157,19 +157,6 @@
 
 <p>このため、漏洩 / 改変されると問題のあるデータ（ポイント/認証トークン/パスワード等）を保存してはならない。セキュリティ的には問題がないデータであっても、改変されてはならないアプリケーション固有のデータは Internal Storage を使う。</p>
 
-<h3>External Storage State</h3>
-
-<p>External Storage はリムーバブルである場合、マウントされていなければ利用可能できない。</p>
-
-<p><a href="http://developer.android.com/reference/android/os/Environment.html#getExternalStorageState()">Environment#getExternalStorageState</a> でマウント状態を取得できる。利用端末により状態は異なるため、External Storage を利用する前には、必ずチェックする。</p>
-
-<p><code>ACTION_MEDIA_(MOUNTED|REMOVED)</code> の Broadcast が送信されるので、レシーバを登録しておくこともできる。</p>
-
-<ul>
-<li><a href="http://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()">http://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()</a></li>
-</ul>
-
-
 <h3>Public Directory</h3>
 
 <p><a href="http://developer.android.com/reference/android/os/Environment.html#getExternalStoragePublicDirectory(java.lang.String)">Environment.getExternalStoragePublicDirectory</a> により、ファイル種別毎の共有ディレクトリを取得できる。</p>
@@ -193,7 +180,48 @@
                      <span class="na">android:maxSdkVersion=</span><span class="s">&quot;18&quot;</span> <span class="nt">/&gt;</span></code></pre></div>
 
 
+<p>API19 以降の端末のみで動作確認すると、パーミッションの追加を忘れてしまいがちなので注意する。</p>
 
+<h3>Error Handling</h3>
+
+<p>External Storage がリムーバブルである場合、マウントされていなければ利用可能できない。</p>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/content/Context.html#getExternalFilesDir(java.lang.String)">Context#getExternalFilesDir</a> は、アクセスできない場合には <code>null</code> が返る。</li>
+<li><a href="http://developer.android.com/reference/android/os/Environment.html#getExternalStorageState()">Environment#getExternalStorageState</a> でマウント状態を取得できる。</li>
+</ul>
+
+
+<p><code>ACTION_MEDIA_(MOUNTED|REMOVED)</code> の Broadcast が送信されるので、レシーバを登録しておくこともできる。</p>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()">http://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()</a></li>
+</ul>
+
+
+<h2>Multi User</h2>
+
+<p>Android 4.2 よりマルチユーザに対応している。Internal Storage および、端末内部の External Storage には、ユーザID毎のディレクトリが作成され、利用ユーザごとのアプリケーションデータが作成されることになる。</p>
+
+<ul>
+<li>Internal Storage: <code>/data/user/(ユーザID)</code></li>
+<li>External Storage: <code>/storage/emulated/(ユーザID)</code></li>
+</ul>
+
+
+<p>External Storage がリムーバブルの場合には、マルチユーザとはならない。</p>
+
+<p>アプリケーション側では、シングル/マルチユーザの違いは意識せず API を介してディレクトリを取得すればよい。ディレクトリ名は端末により異なるので、直接ファイルパスを指定してはならない。</p>
+
+<p>エミュレータではシングルユーザに制限されている。Android 4.2(API17) 系のエミュレータであれば、<code>adb shell</code> を介して <code>fw.max_users</code> で最大ユーザ数を指定することで、マルチユーザを利用することができる。</p>
+
+<pre><code>$ adb shell
+root@generic:/ # pm get-max-users
+Maximum supported users: 1
+root@generic:/ # setprop fw.max_users 8
+root@generic:/ # pm get-max-users
+Maximum supported users: 8
+</code></pre>
 
           </div>
           
