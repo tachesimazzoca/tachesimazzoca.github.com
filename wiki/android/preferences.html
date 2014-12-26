@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preferences | Android</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Android</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Android</a></li><li>Preferences</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./manifest.html">Manifest</a></li><li><a href="./activity.html">Activity</a></li><li><a href="./threads.html">Threads</a></li><li><a href="./broadcast.html">Broadcast</a></li><li><a href="./notifications.html">Notifications</a></li><li><a href="./storage.html">Storage</a></li><li class="active"><a href="./preferences.html">Preferences</a></li><li><a href="./material.html">Material Design</a></li><li><a href="tools/index.html">Tools</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/preferences.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/preferences.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/preferences.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Preferences</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li><a href="http://developer.android.com/guide/topics/ui/settings.html">http://developer.android.com/guide/topics/ui/settings.html</a></li>
+</ul>
+
+
+<h2>PreferenceActivity</h2>
+
+<p><a href="http://developer.android.com/reference/android/preference/PreferenceActivity.html">PreferenceActivity</a> を用いることで、設定画面 XML 定義のみで、<a href="http://developer.android.com/reference/android/content/SharedPreferences.html">SharedPrefecences</a> への読み書きを行なうことができる。</p>
+
+<p><code>res/xml/prefs_settings.xml</code>:</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;PreferenceScreen</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;PreferenceCategory</span>
+        <span class="na">android:key=</span><span class="s">&quot;pref_general&quot;</span>
+        <span class="na">android:persistent=</span><span class="s">&quot;false&quot;</span>
+        <span class="na">android:title=</span><span class="s">&quot;General&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;CheckBoxPreference</span>
+            <span class="na">android:key=</span><span class="s">&quot;pref_enabled&quot;</span>
+            <span class="na">android:title=</span><span class="s">&quot;Enabled&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;EditTextPreference</span>
+            <span class="na">android:key=</span><span class="s">&quot;pref_username&quot;</span>
+            <span class="na">android:title=</span><span class="s">&quot;Username&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/PreferenceCategory&gt;</span>
+<span class="nt">&lt;/PreferenceScreen&gt;</span></code></pre></div>
+
+
+<ul>
+<li><code>android:key</code> の値をキーとして SharedPreferences に読み書きされる。</li>
+<li>保存しないキーには <code>android:persistent="false"</code> を指定する。</li>
+</ul>
+
+
+<p><code>PreferenceActivity#onCreate</code> 内で、<code>PreferenceActivity#addPreferencesFromResource</code> を用いて、XML リソースを読み込むだけでよい。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SettingsActivity</span> <span class="kd">extends</span> <span class="n">PreferenceActivity</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">addPreferencesFromResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">xml</span><span class="o">.</span><span class="na">prefs_settings</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>全ての Android バージョンに対応しているが、サポートライブラリ v4-appcompat 用の PreferenceActivity は提供されていない。PreferenceActivity は、内部的にビュー全体を組み立てるため、v7-appcompat のテーマ <code>Theme.Appcompat</code> 等で利用した場合には、アクションバーが表示されない。</p>
+
+<h2>PreferenceFragment</h2>
+
+<p>Android 3.0 以降であれば <a href="http://developer.android.com/reference/android/preference/PreferenceFragment.html">PreferenceFragment</a> を用いて Preference UI を利用することができる。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SettingsFragment</span> <span class="kd">extends</span> <span class="n">PreferenceFragment</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">addPreferencesFromResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">xml</span><span class="o">.</span><span class="na">prefs_settings</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>v4-appcompat の <a href="http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html">FragmentActivity</a> では、<code>android.support.v4.app.(Fragment|FragmentManager)</code> を使う必要があるが、サポートライブラリ v4-appcompat 用の PreferenceFragment は提供されていない。</p>
+
+<p>Material Design のために、v7-appcompat の ActionBarActivity を使っている等の理由で、Android 3.0 以降のみのサポートであれば、あえて FragmentManager を使うこともできるが、<code>FragmentManager#addToBackStack</code> が正しく動作しない。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// The back stack doesn&#39;t work in v4 FragmentActivity.</span>
+<span class="n">getFragmentManager</span><span class="o">().</span><span class="na">beginTransaction</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">content</span><span class="o">,</span> <span class="k">new</span> <span class="nf">SettingsFragment</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">addToBackStack</span><span class="o">(</span><span class="kc">null</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">commit</span><span class="o">();</span></code></pre></div>
+
+
+<p><code>Activity#onBackPressed</code> で強制的に <code>FragmentManager#popBackStack</code> を呼ぶ方法があるが、PreferenceFragment を使う場合は、Appcompat は使わないほうがよいだろう。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onBackPressed</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">FragmentManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">getFragmentManager</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">manager</span><span class="o">.</span><span class="na">getBackStackEntryCount</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">manager</span><span class="o">.</span><span class="na">popBackStack</span><span class="o">();</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onBackPressed</span><span class="o">();</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h2>Nested Preference Screen</h2>
+
+<p>Preference UI を複数階層に置きたい場合は、PreferenceScreen 要素を入れ子にすればよい。PreferenceScreen のタイトルがリンクになり、子の PreferenceScreen ごとに UI が作成される。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;PreferenceScreen</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;EditTextPreference</span>
+        <span class="na">android:key=</span><span class="s">&quot;pref_parent&quot;</span>
+        <span class="na">android:title=</span><span class="s">&quot;Parent&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;PreferenceScreen</span>
+        <span class="na">android:persistent=</span><span class="s">&quot;false&quot;</span>
+        <span class="na">android:title=</span><span class="s">&quot;Children&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;EditTextPreference</span>
+          <span class="na">android:key=</span><span class="s">&quot;pref_child&quot;</span>
+          <span class="na">android:title=</span><span class="s">&quot;Child&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/PreferenceScreen&gt;</span>
+<span class="nt">&lt;/PreferenceScreen&gt;</span></code></pre></div>
+
+
+<p>Intent を用いて、任意のアクティビティを起動することもできるので、extra 値に設定カテゴリのキーを指定して、リソースを切り替える方法もある。カテゴリ階層ごとに Activity を作ってもよい。</p>
+
+<p><code>res/xml/pref_settings.xml</code>:</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;PreferenceScreen</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;EditTextPreference</span>
+        <span class="na">android:key=</span><span class="s">&quot;pref_parent&quot;</span>
+        <span class="na">android:title=</span><span class="s">&quot;Parent&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;Preference</span>
+        <span class="na">android:persistent=</span><span class="s">&quot;false&quot;</span>
+        <span class="na">android:title=</span><span class="s">&quot;Children&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;intent</span>
+            <span class="na">android:targetClass=</span><span class="s">&quot;net.example.android.SettingsActivity&quot;</span>
+            <span class="na">android:targetPackage=</span><span class="s">&quot;net.example.android&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- A key of the nested preference --&gt;</span>
+            <span class="nt">&lt;extra</span> <span class="na">android:name=</span><span class="s">&quot;category&quot;</span> <span class="na">android:value=</span><span class="s">&quot;children&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/intent&gt;</span>
+    <span class="nt">&lt;/Preference&gt;</span>
+<span class="nt">&lt;/PreferenceScreen&gt;</span></code></pre></div>
+
+
+<p><code>res/xml/pref_settings_children.xml</code>:</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;PreferenceScreen</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;EditTextPreference</span>
+        <span class="na">android:key=</span><span class="s">&quot;pref_child&quot;</span>
+        <span class="na">android:title=</span><span class="s">&quot;Child&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/PreferenceScreen&gt;</span></code></pre></div>
+
+
+
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SettingsActivity</span> <span class="kd">extends</span> <span class="n">PreferenceActivity</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+
+        <span class="n">String</span> <span class="n">category</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">().</span><span class="na">getStringExtra</span><span class="o">(</span><span class="s">&quot;category&quot;</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="s">&quot;children&quot;</span><span class="o">.</span><span class="na">equlas</span><span class="o">(</span><span class="n">category</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">addPreferencesFromResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">xml</span><span class="o">.</span><span class="na">prefs_settings_children</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">addPreferencesFromResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">xml</span><span class="o">.</span><span class="na">prefs_settings</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h2>Preference Headers</h2>
+
+<p>画面幅がある場合、設定カテゴリの一覧と設定コンテンツの二つのペインに切り替えたい場合がある。</p>
+
+<p>PreferenceFragment を用いて、ヘッダ部とコンテンツ部に分ければよいが、シンプルなタイトルのみのヘッダであれば、PreferenceActivity だけで実現できる。</p>
+
+<ul>
+<li><a href="http://developer.android.com/guide/topics/ui/settings.html#PreferenceHeaders">http://developer.android.com/guide/topics/ui/settings.html#PreferenceHeaders</a></li>
+</ul>
+
+
+<p>ヘッダ部の XML リソースを定義して、各カテゴリごとに、どの PreferenceFragment を使うか設定すればよい。</p>
+
+<p><code>res/xml/prefs_headers.xml</code>:</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;preference-headers</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;header</span>
+        <span class="na">android:fragment=</span><span class="s">&quot;net.example.android.GeneralPreferenceFragment&quot;</span>
+        <span class="na">android:title=</span><span class="s">&quot;General&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;header</span>
+        <span class="na">android:fragment=</span><span class="s">&quot;net.example.android.AdvancedPreferenceFragment&quot;</span>
+        <span class="na">android:title=</span><span class="s">&quot;Advanced&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/preference-headers&gt;</span></code></pre></div>
+
+
+<p><code>PreferenceActivity#onBuildHeaders</code> 内で、<code>PreferenceActivity#loadHeadersFromResource</code> を用いて、この XML を読み込むだけでよい。Android 4.4 以降の場合は、<code>PreferenceActivity#isValidFragment</code> も実装する必要がある。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SettingsActivity</span> <span class="kd">extends</span> <span class="n">PreferenceActivity</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="nd">@TargetApi</span><span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">HONEYCOMB</span><span class="o">)</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onBuildHeaders</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Header</span><span class="o">&gt;</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">loadHeadersFromResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">xml</span><span class="o">.</span><span class="na">prefs_headers</span><span class="o">,</span> <span class="n">target</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@TargetApi</span><span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">KITKAT</span><span class="o">)</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">isValidFragment</span><span class="o">(</span><span class="n">String</span> <span class="n">fragmentName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Subclasses should override this method and verify</span>
+        <span class="c1">// that the given fragment is valid. If the SDK version</span>
+        <span class="c1">// is older than KITKAT, the default implementation</span>
+        <span class="c1">// always returns true.</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>Android 3.0 以前の場合は、このヘッダは使えない。別途ヘッダのみの PreferenceScreen を作成し、Intent により UI を切り替える。</p>
+
+<p><code>res/xml/prefs_headers_legacy.xml</code>:</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;PreferenceScreen</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Preference</span> <span class="na">android:title=</span><span class="s">&quot;General&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;intent</span>
+            <span class="na">android:targetClass=</span><span class="s">&quot;net.example.android.SettingsActivity&quot;</span>
+            <span class="na">android:targetPackage=</span><span class="s">&quot;net.example.android&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;extra</span> <span class="na">android:name=</span><span class="s">&quot;category&quot;</span> <span class="na">android:value=</span><span class="s">&quot;general&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/intent&gt;</span>
+    <span class="nt">&lt;/Preference&gt;</span>
+    <span class="nt">&lt;Preference</span> <span class="na">android:title=</span><span class="s">&quot;Advanced&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;intent</span>
+            <span class="na">android:targetClass=</span><span class="s">&quot;net.example.android.SettingsActivity&quot;</span>
+            <span class="na">android:targetPackage=</span><span class="s">&quot;net.example.android&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;extra</span> <span class="na">android:name=</span><span class="s">&quot;category&quot;</span> <span class="na">android:value=</span><span class="s">&quot;advanced&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/intent&gt;</span>
+    <span class="nt">&lt;/Preference&gt;</span>
+<span class="nt">&lt;/PreferenceScreen&gt;</span></code></pre></div>
+
+
+
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SettingsActivity</span> <span class="kd">extends</span> <span class="n">PreferenceActivity</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&lt;</span> <span class="n">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">HONEYCOMB</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">category</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">().</span><span class="na">getStringExtra</span><span class="o">(</span><span class="s">&quot;category&quot;</span><span class="o">);</span>
+            <span class="kt">int</span> <span class="n">prefId</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="na">xml</span><span class="o">.</span><span class="na">prefs_headers_legacy</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">category</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="s">&quot;general&quot;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">category</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="n">prefId</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="na">xml</span><span class="o">.</span><span class="na">prefs_settings_general</span><span class="o">;</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="s">&quot;advanced&quot;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">category</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="n">prefId</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="na">xml</span><span class="o">.</span><span class="na">prefs_settings_advanced</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="n">addPreferencesFromResource</span><span class="o">(</span><span class="n">prefId</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
