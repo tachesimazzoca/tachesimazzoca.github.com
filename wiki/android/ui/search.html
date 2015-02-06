@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search | Android</title>
+<link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="../index.html">Android</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="../index.html">Android</a></li><li><a href="./index.html">User Interface</a></li><li>Search</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./actionbar.html">Action Bar</a></li><li class="active"><a href="./search.html">Search</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/ui/search.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/ui/search.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/ui/search.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Search</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li><a href="http://developer.android.com/guide/topics/search/index.html">http://developer.android.com/guide/topics/search/index.html</a></li>
+</ul>
+
+
+<h2>Search Dialog</h2>
+
+<p>Android は、システム共通の検索ダイアログを持っている。<code>AndroidManifest.xml</code> 内で、このダイアログを利用するアクティビティを指定する。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">&quot;.SearchableActivity&quot;</span> <span class="nt">&gt;</span>
+    <span class="nt">&lt;intent-filter&gt;</span>
+        <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.action.SEARCH&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/intent-filter&gt;</span>
+    <span class="nt">&lt;meta-data</span> <span class="na">android:name=</span><span class="s">&quot;android.app.searchable&quot;</span>
+               <span class="na">android:resource=</span><span class="s">&quot;@xml/searchable&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/activity&gt;</span></code></pre></div>
+
+
+<ul>
+<li><code>&lt;intent-filter&gt;</code> に <code>Intent.ACTION_SEARCH</code> を加える。</li>
+<li><code>meta-data[@android:name="android.app.searchable"]</code> に、検索ダイアログの設定を記述したXMLリソースを指定する。</li>
+</ul>
+
+
+<h3>SearchableInfo</h3>
+
+<p>検索ダイアログの設定は XML リソースから行なう。</p>
+
+<ul>
+<li><a href="http://developer.android.com/guide/topics/search/searchable-config.html">http://developer.android.com/guide/topics/search/searchable-config.html</a></li>
+</ul>
+
+
+<p><code>res/xml/searchable.xml</code>:</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;searchable</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">android:label=</span><span class="s">&quot;@string/app_name&quot;</span>
+    <span class="na">android:hint=</span><span class="s">&quot;@string/searchable_hint&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/searchable&gt;</span></code></pre></div>
+
+
+<ul>
+<li><code>android:label</code> のみが必須の属性になる。Global Search で表示されるアプリケーション名を指定する。</li>
+<li><code>android:hint</code> に検索クエリ未入力時のヒント文字列を指定する。</li>
+<li>これらの二つの属性値は <code>@string</code> リソースからでないと認識されないバグがある。リテラル文字列で指定しても有効にならない。</li>
+</ul>
+
+
+<p>この設定ファイルを元に <code>SearchableInfo</code> オブジェクトが生成される。アプリケーションからは <code>SearchManager</code> から取得できる。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml">SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+SearchableInfo searchableInfo = searchManager.getSearchableInfo(getComponentName());</code></pre></div>
+
+
+<p><code>SearchableInfo</code> は XML リソースからの生成のみに限られ、ランタイム時に動的に生成することはできない。</p>
+
+<h3>onSearchRequested</h3>
+
+<p>ボタンやメニューのフックとして、<code>Activity#onSearchRequested</code> を呼ぶ事で検索ダイアログが表示される。検索操作により、<code>Intent.ACTION_SEARCH</code> が、アクティビティに送信される。</p>
+
+<p>検索毎に、新たなアクティビティが生成され Back Stack に積まれて行くので、起動中のアクティビティに送信するには <code>android:launchMode="singleTop"</code> を指定する。ただし、Back Stack から検索履歴を辿ることはできなくなる。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">&quot;.SearchableActivity&quot;</span>
+          <span class="na">android:launchMode=</span><span class="s">&quot;singleTop&quot;</span><span class="nt">&gt;</span></code></pre></div>
+
+
+<p>検索クエリ文字列は、キー名 <code>SearchManager.QUERY</code> の Extra から取得する。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="n">handleIntent</span><span class="o">(</span><span class="n">getIntent</span><span class="o">());</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onNewIntent</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">setIntent</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+    <span class="n">handleIntent</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">handleIntent</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_SEARCH</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">()))</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">q</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">SearchManager</span><span class="o">.</span><span class="na">QUERY</span><span class="o">);</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>android:launchMode="single"</code> の場合、アクティビティは生成済みのため <code>Activity#onNewIntent</code> で Intent を取得する。</p>
+
+<h3>startSearch</h3>
+
+<p>検索クエリ以外の追加情報を渡したい時は、<code>Activity#onSearchRequested</code> をオーバーライドする。<code>Activity#startSearch</code> を介して、Bundle で追加情報を登録する。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onSearchRequested</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Bundle</span> <span class="n">appData</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Bundle</span><span class="o">();</span>
+    <span class="n">appData</span><span class="o">.</span><span class="na">putBoolean</span><span class="o">(</span><span class="n">SearchableActivity</span><span class="o">.</span><span class="na">SEARCH_OPTION_FOO</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+    <span class="n">startSearch</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="n">appData</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>Intent#getBundleExtra</code> より、キー名 <code>SearchManager.APP_DATA</code> で取得する。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Bundle</span> <span class="n">appData</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">().</span><span class="na">getBundleExtra</span><span class="o">(</span><span class="n">SearchManager</span><span class="o">.</span><span class="na">APP_DATA</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">appData</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="n">foo</span> <span class="o">=</span> <span class="n">appData</span><span class="o">.</span><span class="na">getBoolean</span><span class="o">(</span><span class="n">SearchableActivity</span><span class="o">.</span><span class="na">SEARCH_OPTION_FOO</span><span class="o">);</span>
+    <span class="o">...</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h3>android.app.default_searchable</h3>
+
+<p>検索ダイアログのみ利用し、<code>Intent.ACTION_SEARCH</code> を受け取る検索処理は、他のアクティビティに受け渡すこともできる。<code>meta-data[@android:name="android.app.default_searchable"]</code> に、受け渡し先のアクティビティを指定すればよい。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">&quot;.MainActivity&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta-data</span> <span class="na">android:name=</span><span class="s">&quot;android.app.default_searchable&quot;</span>
+               <span class="na">android:value=</span><span class="s">&quot;.SearchableActivity&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/activity&gt;</span></code></pre></div>
+
+
+<h2>SearchView Widget</h2>
+
+<p>Android 3.0 (API11) 以上であれば、Widget の <code>android.widget.SearchView</code> を使うことができる。</p>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/widget/SearchView.html">http://developer.android.com/reference/android/widget/SearchView.html</a></li>
+</ul>
+
+
+<p>Action Bar 内で利用する場合は、<code>android:actionVewClass</code> で、クラス名を指定する。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">&quot;@+id/action_search&quot;</span>
+          <span class="err">...</span>
+          <span class="na">android:actionViewClass=</span><span class="s">&quot;android.widget.SearchView&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/menu&gt;</span></code></pre></div>
+
+
+<p><code>SearchView</code> に対し、<code>SearchableInfo</code> をセットするだけでよい。<code>Activity#onSearchRequested</code> は検索ダイアログを起動するハンドラなので、 Widget 利用時に呼ぶ必要はない。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">MenuInflater</span> <span class="n">inflater</span> <span class="o">=</span> <span class="n">getMenuInflater</span><span class="o">();</span>
+    <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">menu_main</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+
+    <span class="n">SearchManager</span> <span class="n">searchManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">SearchManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">SEARCH_SERVICE</span><span class="o">);</span>
+    <span class="n">SearchView</span> <span class="n">searchView</span> <span class="o">=</span> <span class="o">(</span><span class="n">SearchView</span><span class="o">)</span> <span class="n">menu</span><span class="o">.</span><span class="na">findItem</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">action_search</span><span class="o">).</span><span class="na">getActionView</span><span class="o">();</span>
+    <span class="n">searchView</span><span class="o">.</span><span class="na">setSearchableInfo</span><span class="o">(</span><span class="n">searchManager</span><span class="o">.</span><span class="na">getSearchableInfo</span><span class="o">(</span><span class="n">getComponentName</span><span class="o">()));</span>
+    <span class="n">searchView</span><span class="o">.</span><span class="na">setIconified</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onCreateOptionsMenu</span><span class="o">(</span><span class="n">menu</span><span class="o">);</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>appcompat-v7 では、<code>android.support.v7.widget.SearchView</code> を指定する。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;menu</span> <span class="err">...</span>
+      <span class="na">xmlns:app=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">&quot;@+id/action_search&quot;</span>
+          <span class="err">...</span>
+          <span class="na">app:actionViewClass=</span><span class="s">&quot;android.support.v7.widget.SearchView&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/menu&gt;</span></code></pre></div>
+
+
+<p><code>SearchView</code> は、<code>android.support.v4.view.MenuItemCompat</code> を使って取得する。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// Use the static method MenuItemCompat#getActionView, instead</span>
+<span class="n">SearchView</span> <span class="n">searchView</span> <span class="o">=</span> <span class="o">(</span><span class="n">SearchView</span><span class="o">)</span> <span class="n">MenuItemCompat</span><span class="o">.</span><span class="na">getActionView</span><span class="o">(</span>
+    <span class="n">menu</span><span class="o">.</span><span class="na">findItem</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">action_search</span><span class="o">));</span></code></pre></div>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+

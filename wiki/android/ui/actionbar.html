@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Action Bar | Android</title>
+<link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="../index.html">Android</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="../index.html">Android</a></li><li><a href="./index.html">User Interface</a></li><li>Action Bar</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./actionbar.html">Action Bar</a></li><li><a href="./search.html">Search</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/ui/actionbar.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/ui/actionbar.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/ui/actionbar.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Action Bar</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li><a href="http://developer.android.com/guide/topics/ui/actionbar.html">http://developer.android.com/guide/topics/ui/actionbar.html</a></li>
+<li><a href="http://developer.android.com/guide/topics/resources/menu-resource.html">http://developer.android.com/guide/topics/resources/menu-resource.html</a></li>
+</ul>
+
+
+<h2>Cheat Sheet</h2>
+
+<h3>Android 3.0 (API11) or higher</h3>
+
+<p><code>res/menu/menu_main.xml</code></p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">&quot;@+id/action_search&quot;</span>
+          <span class="na">android:icon=</span><span class="s">&quot;@android:drawable/ic_menu_search&quot;</span>
+          <span class="na">android:title=</span><span class="s">&quot;Search&quot;</span>
+          <span class="na">android:showAsAction=</span><span class="s">&quot;ifRoom&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/menu&gt;</span></code></pre></div>
+
+
+<p><code>MainActivity.java</code></p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">...</span>
+<span class="kn">import</span> <span class="nn">android.view.Menu</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.MenuInflater</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.MenuItem</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">MenuInflater</span> <span class="n">inflater</span> <span class="o">=</span> <span class="n">getMenuInflater</span><span class="o">();</span>
+        <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">menu_main</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onCreateOptionsMenu</span><span class="o">(</span><span class="n">menu</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">action_search</span><span class="o">:</span>
+                <span class="c1">// do something ...</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h3>v7 Support Libraries</h3>
+
+<p>appcompat-v7 により Android 3.0 (API11) 以前の機種でも、Action Bar が実現できる。</p>
+
+<p>テーマは appcompat-v7 に含まれる <code>Theme.AppCompat</code> 系を利用する。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&quot;AppTheme&quot;</span> <span class="na">parent=</span><span class="s">&quot;Theme.AppCompat.Light.DarkActionBar&quot;</span><span class="nt">&gt;&lt;/style&gt;</span></code></pre></div>
+
+
+<p>Menu Resource において、いくつかの属性 <code>android:showAsAction</code> などは含まれないため、<code>app:</code> 等の独自のXML名前空間を追加して指定する。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;menu</span> <span class="err">...</span>
+      <span class="na">xmlns:app=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span> <span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span> <span class="err">...</span>
+          <span class="na">app:showAsAction=</span><span class="s">&quot;ifRoom&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/menu&gt;</span></code></pre></div>
+
+
+<p>Activity は <a href="http://developer.android.com/reference/android/support/v7/app/ActionBarActivity.html">ActionBarActivity</a> を継承する。<code>ActionBar</code> は <code>ActionBarActivity#getSupportActionBar</code> から取得する。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">...</span>
+<span class="kn">import</span> <span class="nn">android.support.v7.app.ActionBar</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.v7.app.ActionBarActivity</span><span class="o">;</span>
+<span class="o">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SearchDialogActivity</span> <span class="kd">extends</span> <span class="n">ActionBarActivity</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+
+        <span class="n">ActionBar</span> <span class="n">actionBar</span> <span class="o">=</span> <span class="n">getSupportActionBar</span><span class="o">();</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
