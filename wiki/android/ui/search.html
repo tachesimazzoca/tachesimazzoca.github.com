@@ -267,7 +267,132 @@ SearchableInfo searchableInfo = searchManager.getSearchableInfo(getComponentName
     <span class="n">menu</span><span class="o">.</span><span class="na">findItem</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">action_search</span><span class="o">));</span></code></pre></div>
 
 
+<h2>Query Suggestions</h2>
 
+<p>Content Provider により、検索クエリの候補表示を行なうことができる。</p>
+
+<p><code>searchable[@android:searchSuggestAuthority]</code> に Content Provider の Authority を指定する。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;searchable</span> <span class="err">...</span>
+    <span class="na">android:searchSuggestAuthority=</span><span class="s">&quot;net.example.android.search.SuggestionsProvider&quot;</span> <span class="nt">/&gt;</span></code></pre></div>
+
+
+<p>検索クエリの入力毎に <code>ContentProvider#query</code> が呼ばれるので、適宜、候補文字列への <code>Cursor</code> を返せばよい。URI の最後尾パスに、検索クエリがURLエンコードされて渡される。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Cursor</span> <span class="nf">query</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">projection</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span>
+                    <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">,</span> <span class="n">String</span> <span class="n">sortOrder</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// content://net.example.android.search.SuggestionProvider/(encodedQueryString)?...</span>
+    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">uri</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+    <span class="n">String</span> <span class="n">q</span> <span class="o">=</span> <span class="n">uri</span><span class="o">.</span><span class="na">getLastPathSegment</span><span class="o">();</span>
+    <span class="o">...</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>searchable[@android:searchSuggestSelection]</code> に、<code>ContentProvider#query</code> の第２引数 <code>selection</code> に渡す文字列（WHERE 節等）を指定できる。この場合、検索クエリは、第３引数の <code>selectionArgs</code> に渡される。<code>selection</code> 文字列をどう使うかは、<code>ContentProvider#query</code> メゾッドの実装次第なので、単に <code>selectionArgs</code> から検索クエリを受け取るために、ダミーの <code>android:searchSuggestSelection</code> を指定する方法もある。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;searchable</span> <span class="err">...</span>
+    <span class="na">android:searchSuggestAuthority=</span><span class="s">&quot;net.example.android.search.SuggestionsProvider&quot;</span>
+    <span class="na">android:searchSuggestSelection=</span><span class="s">&quot; ? &quot;</span> <span class="nt">/&gt;</span></code></pre></div>
+
+
+
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Cursor</span> <span class="nf">query</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">projection</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span>
+                    <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">,</span> <span class="n">String</span> <span class="n">sortOrder</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="mi">1</span> <span class="o">!=</span> <span class="n">selectionArgs</span><span class="o">.</span><span class="na">length</span><span class="o">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;The length of selectionArgs must be 1.&quot;</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">q</span> <span class="o">=</span> <span class="n">selectionArgs</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+    <span class="o">...</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>Cursor</code> には、主に以下のカラムが必要になる。</p>
+
+<ul>
+<li><code>BasicColumns._ID</code>: 候補一覧の Adapter から選択するために必要</li>
+<li><code>SearchManager.SUGGEST_COLUMN_TEXT_1</code>: 候補文字列</li>
+<li><code>SearchManager.SUGGEST_COLUMN_TEXT_2</code>: 候補説明文</li>
+<li><code>SearchManager.SUGGEST_COLUMN_QUERY</code>: <code>Intent.ACTION_SEARCH</code> の場合、検索クエリとして <code>SerchManager.QUERY</code> に渡す文字列</li>
+</ul>
+
+
+<p>候補選択時に <code>Intent.ACTION_SEARCH</code> ではなく、任意の Intent を発行することもできる。</p>
+
+<ul>
+<li><a href="http://developer.android.com/guide/topics/search/adding-custom-suggestions.html#IntentForSuggestions">http://developer.android.com/guide/topics/search/adding-custom-suggestions.html#IntentForSuggestions</a></li>
+</ul>
+
+
+<p><code>Cursor</code> の各レコードに <code>SearchManager.SUGGEST_COLUMN_INTENT_*</code> のカラム値を含めればよい。</p>
+
+<ul>
+<li><code>SearchManager.SUGGEST_COLUMN_INTENT_ACTION</code></li>
+<li><code>SearchManager.SUGGEST_COLUMN_INTENT_DATA</code></li>
+<li><code>SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID</code></li>
+<li><code>SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA</code></li>
+</ul>
+
+
+<p>全ての候補に共通な値は、<code>SearchableInfo</code> に含めることもできる。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!--</span>
+<span class="c">searchSuggestIntentAction: SUGGEST_COLUMN_INTENT_ACTION</span>
+<span class="c">searchSuggestIntentData  : SUGGEST_COLUMN_INTENT_DATA</span>
+<span class="c">--&gt;</span>
+<span class="nt">&lt;searchable</span> <span class="err">...</span>
+    <span class="na">android:searchSuggestIntentAction=</span><span class="s">&quot;android.intent.action.VIEW&quot;</span>
+    <span class="na">android:searchSuggestIntentData=</span><span class="s">&quot;content://net.example.android.data&quot;</span> <span class="nt">/&gt;</span></code></pre></div>
+
+
+<h2>SearchRecentSuggestionsProvider</h2>
+
+<ul>
+<li><a href="http://developer.android.com/guide/topics/search/adding-recent-query-suggestions.html">http://developer.android.com/guide/topics/search/adding-recent-query-suggestions.html</a></li>
+</ul>
+
+
+<p>検索クエリの履歴を候補にするなら、<code>SearchRecentSuggestionsProvider</code> を継承した Content Provider を使えば良い。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">android.content.SearchRecentSuggestionsProvider</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SearchHistoryProvider</span> <span class="kd">extends</span> <span class="n">SearchRecentSuggestionsProvider</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">AUTHORITY</span> <span class="o">=</span> <span class="s">&quot;net.example.android.search.SearchHistoryProvider&quot;</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">MODE</span> <span class="o">=</span> <span class="n">DATABASE_MODE_QUERIES</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">SearchHistoryProvider</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">setupSuggestions</span><span class="o">(</span><span class="n">AUTHORITY</span><span class="o">,</span> <span class="n">MODE</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>SearchRecentSuggestionsProvider#query</code> の実装では、検索クエリを <code>selectionArgs</code> から取得するため、<code>android:searchSuggestSelection</code> には、ダミー文字列 <code>?</code> を指定する。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;searchable</span> <span class="err">...</span>
+    <span class="na">android:searchSuggestAuthority=</span><span class="s">&quot;net.example.android.search.SearchHistoryProvider&quot;</span>
+    <span class="na">android:searchSuggestSelection=</span><span class="s">&quot; ? &quot;</span> <span class="nt">/&gt;</span></code></pre></div>
+
+
+<p>履歴に追加する検索クエリは <code>SearchRecentSuggestions#saveRecentQuery</code> を介して登録する。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+    <span class="o">...</span>
+    <span class="n">Intent</span> <span class="n">intent</span>  <span class="o">=</span> <span class="n">getIntent</span><span class="o">();</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_SEARCH</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">()))</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">query</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span><span class="n">SearchManager</span><span class="o">.</span><span class="na">QUERY</span><span class="o">);</span>
+        <span class="n">SearchRecentSuggestions</span> <span class="n">suggestions</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">SearchRecentSuggestions</span><span class="o">(</span><span class="k">this</span><span class="o">,</span>
+                <span class="n">SearchHistoryProvider</span><span class="o">.</span><span class="na">AUTHORITY</span><span class="o">,</span> <span class="n">SearchHistoryProvider</span><span class="o">.</span><span class="na">MODE</span><span class="o">);</span>
+        <span class="n">suggestions</span><span class="o">.</span><span class="na">saveRecentQuery</span><span class="o">(</span><span class="n">query</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>履歴の削除には <code>SearchRecentSuggestions#clearHistory</code> を用いる。ユーザのプライバシーのため、アプリケーションでは必ず提供しておくべきである。</p>
 
           </div>
           
