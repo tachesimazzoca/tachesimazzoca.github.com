@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content Providers | Android</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Android</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Android</a></li><li>Content Providers</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./manifest.html">Manifest</a></li><li><a href="./activity.html">Activity</a></li><li><a href="./threads.html">Threads</a></li><li><a href="./broadcast.html">Broadcast Receivers</a></li><li><a href="./notifications.html">Notifications</a></li><li><a href="./storage.html">Storage</a></li><li class="active"><a href="./providers.html">Content Providers</a></li><li><a href="./preferences.html">Preferences</a></li><li><a href="./material.html">Material Design</a></li><li><a href="ui/index.html">User Interface</a></li><li><a href="tools/index.html">Tools</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/providers.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/providers.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/providers.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Content Providers</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li><a href="http://developer.android.com/guide/topics/providers/content-providers.html">http://developer.android.com/guide/topics/providers/content-providers.html</a></li>
+</ul>
+
+
+<p>Content Provider は以下の特徴を持つ。</p>
+
+<ul>
+<li>異なるアプリケーションに対して、適切なパーミッションを持つデータアクセスを提供できる。</li>
+<li><code>ContentResolver</code> を介した URI 形式でのメッセージ通信により、非同期にデータアクセスを行なう。</li>
+<li>各アプリケーションにデータの更新を通知できる。</li>
+</ul>
+
+
+<h2>Content URI</h2>
+
+<p>データアクセスは URI のメッセージ通信で行なう。URI から、どの Provider 宛のものかを特定するために、Authority と呼ばれる名前空間を定義する。慣習的に各アプリケーションのパッケージ名に続ける。</p>
+
+<p><code>AndroidManifest.xml</code> に <code>&lt;provider&gt;</code> として登録しておく。</p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;application</span> <span class="err">...</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;provider</span> <span class="na">android:name=</span><span class="s">&quot;.TodoProvider&quot;</span>
+              <span class="na">android:authorities=</span><span class="s">&quot;net.example.android.provider.TodoProvider&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/application&gt;</span></code></pre></div>
+
+
+<p>Provider は <code>content://(authority)</code> の後に続けて、各 URI を定義する。クライアントは <code>ContentResolver</code> を介して、 URI を送信してデータアクセスを行なう。直接 Provider にアクセスすることはできない。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">&quot;content://net.example.android.provider.TodoProvider/tasks&quot;</span><span class="o">);</span>
+<span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">getContentResolver</span><span class="o">().</span><span class="na">query</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span></code></pre></div>
+
+
+<h3>ContentUris</h3>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/content/ContentUris.html">http://developer.android.com/reference/android/content/ContentUris.html</a></li>
+</ul>
+
+
+<p>パス名の最後尾に Long 型の ID を指定する URI の場合、Long / String 型に相互に変換する定型処理がある。このために <code>ContentUris</code> というユーティリティクラスが提供されている。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="n">Uri</span> <span class="n">CONTENT_URI</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">&quot;content://net.example.android.provider.TodoProvider/tasks&quot;</span><span class="o">);</span>
+<span class="kt">long</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1234</span><span class="o">;</span>
+<span class="n">Uri</span> <span class="n">newUri</span> <span class="o">=</span> <span class="n">ContentUris</span><span class="o">.</span><span class="na">withAppendId</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+<span class="k">assert</span> <span class="s">&quot;content://net.example.android.provider.TodoProvider/tasks/1234&quot;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">newUri</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+<span class="k">assert</span> <span class="n">id</span> <span class="o">==</span> <span class="n">ContentUris</span><span class="o">.</span><span class="na">parseId</span><span class="o">(</span><span class="n">newUri</span><span class="o">);</span></code></pre></div>
+
+
+<h2>ContentProvider</h2>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/content/ContentProvider.html">http://developer.android.com/reference/android/content/ContentProvider.html</a></li>
+</ul>
+
+
+<p>独自の Content Provider を作るには <code>ContentProvider</code> を継承する。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TodoProvider</span> <span class="kd">extends</span> <span class="n">ContentProvider</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Cursor</span> <span class="nf">query</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">projection</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span>
+                        <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">,</span> <span class="n">String</span> <span class="n">sortOrder</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Cursor</span> <span class="n">cursor</span><span class="o">;</span>
+        <span class="o">...</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="na">setNotificationUri</span><span class="o">(</span><span class="n">getContext</span><span class="o">().</span><span class="na">getContentResolver</span><span class="o">(),</span> <span class="n">uri</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">cursor</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getType</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Uri</span> <span class="nf">insert</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">ContentValues</span> <span class="n">contentValues</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">id</span><span class="o">;</span>
+        <span class="o">...</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Uri</span> <span class="n">newUri</span> <span class="o">=</span> <span class="n">ContentUris</span><span class="o">.</span><span class="na">withAppendedId</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+            <span class="n">getContext</span><span class="o">().</span><span class="na">getContentResolver</span><span class="o">().</span><span class="na">notifyChange</span><span class="o">(</span><span class="n">newUri</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">newUri</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">SQLException</span><span class="o">(</span><span class="s">&quot;Failed to insert &quot;</span> <span class="o">+</span> <span class="n">contentValues</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">n</span><span class="o">;</span> <span class="c1">// the number of rows affected</span>
+        <span class="o">...</span>
+        <span class="n">getContext</span><span class="o">().</span><span class="na">getContentResolver</span><span class="o">().</span><span class="na">notifyChange</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">n</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">ContentValues</span> <span class="n">contentValues</span><span class="o">,</span>
+                      <span class="n">String</span> <span class="n">selection</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">n</span><span class="o">;</span> <span class="c1">// the number of rows affected</span>
+        <span class="kt">long</span> <span class="n">id</span> <span class="o">=</span> <span class="n">ContentUris</span><span class="o">.</span><span class="na">parseId</span><span class="o">(</span><span class="n">uri</span><span class="o">);</span>
+        <span class="o">...</span>
+        <span class="n">getContext</span><span class="o">().</span><span class="na">getContentResolver</span><span class="o">().</span><span class="na">notifyChange</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">n</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<ul>
+<li><code>query</code> では <code>Loader</code> を介してデータを監視しているクライアントのために、<code>Cursor#setNotificationUri</code> で通知URIをセットしておく。</li>
+<li><code>(insert|update|delete)</code> では <code>Loader</code> を介してデータを監視しているクライアントのために、<code>ContentResolver#notifyChange</code> で変更を通知する。</li>
+</ul>
+
+
+<h3>UriMatcher</h3>
+
+<ul>
+<li><a href="http://developer.android.com/reference/android/content/UriMatcher.html">http://developer.android.com/reference/android/content/UriMatcher.html</a></li>
+</ul>
+
+
+<p>URI のパターンマッチのために、<code>UriMatcher</code> が提供されている。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">UriMatcher</span> <span class="n">mUriMatcher</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">UriMatcher</span><span class="o">(</span><span class="n">UriMatcher</span><span class="o">.</span><span class="na">NO_MATCH</span><span class="o">);</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">URI_TASKS</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">URI_TASKS_ID</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">URI_TASK_LABELS</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">URI_TASK_LABELS_NAME</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+
+<span class="kd">static</span> <span class="o">{</span>
+    <span class="c1">// content://(authority)/tasks</span>
+    <span class="n">sUriMatcher</span><span class="o">.</span><span class="na">addURI</span><span class="o">(</span><span class="s">&quot;tasks&quot;</span><span class="o">,</span> <span class="n">URI_TASKS</span><span class="o">);</span>
+
+    <span class="c1">// content://(authority)/tasks/123</span>
+    <span class="n">sUriMatcher</span><span class="o">.</span><span class="na">addURI</span><span class="o">(</span><span class="s">&quot;tasks/#&quot;</span><span class="o">,</span> <span class="n">URI_TASKS_ID</span><span class="o">);</span>
+
+    <span class="c1">// content://(authority)/tasks/123/labels</span>
+    <span class="n">sUriMatcher</span><span class="o">.</span><span class="na">addURI</span><span class="o">(</span><span class="s">&quot;tasks/#/labels&quot;</span><span class="o">,</span> <span class="n">URI_TASK_LABELS</span><span class="o">);</span>
+
+    <span class="c1">// content://(authority)/tasks/123/labels/foo</span>
+    <span class="n">sUriMatcher</span><span class="o">.</span><span class="na">addURI</span><span class="o">(</span><span class="s">&quot;tasks/#/labels/*&quot;</span><span class="o">,</span> <span class="n">URI_TASK_LABELS_NAME</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Cursor</span> <span class="nf">query</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">projection</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span>
+                    <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">,</span> <span class="n">String</span> <span class="n">sortOrder</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">switch</span> <span class="o">(</span><span class="n">sUriMatcher</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">uri</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="nl">URI_TASKS:</span>
+            <span class="o">...</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">...</span>
+        <span class="k">default</span><span class="o">:</span>
+            <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="o">...</span></code></pre></div>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
