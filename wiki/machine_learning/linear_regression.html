@@ -134,9 +134,9 @@ J(0, 2) = \frac{(2 - 2)^2 + (4 - 4)^2 + (6 - 6)^2}{2 \cdot 3} = 0
 </script>
 
 
-<p><code>a = 0, b = 2</code> すなわち <code>h(x) = 2 * x</code> が、最適な線形回帰モデル <em>Linear Regression Model</em> になる。</p>
+<p><code>a = 0, b = 2</code> の時に費用が最小となり、<code>h(x) = 2 * x</code> が、最適な線形回帰モデル <em>Linear Regression Model</em> になる。</p>
 
-<p>この訓練データ内では誤差はないが、今後のあらゆるケースで、誤差なく予測できるわけではない。あくまで訓練データ内で誤差がないというだけである。言い替えると、訓練データに関しては、誤差なく予測することができる。</p>
+<p>この訓練データ内では <code>J(0, 2) = 0</code> で誤差はないが、今後のあらゆるケースで、誤差なく予測できるわけではない。あくまで訓練データ内で誤差がないというだけである。言い替えると、訓練データに関しては、誤差なく予測することができる。</p>
 
 <ul>
 <li>訓練データに含まれない <code>x = 4</code> が、必ず <code>y = h(x) = 2 * 4 = 8</code> という結果になるわけではない。</li>
@@ -234,7 +234,7 @@ X_i := X_i - \alpha \left( {\partial f(X) \over \partial X_i} \right)
 
 <script type="math/tex; mode=display" id="MathJax-Element-gradient_descent_hypothesis">
 x_{0} = 1 \\
-h(x) = \theta^T x = \theta_{0}x_{0} + \theta_{1}x_{1} + \ldots + \theta_{n}x_n
+h_{\theta}(x) = \theta^T x = \theta_{0}x_{0} + \theta_{1}x_{1} + \ldots + \theta_{n}x_n
 </script>
 
 
@@ -252,7 +252,7 @@ h(x) = \theta^T x = \theta_{0}x_{0} + \theta_{1}x_{1} + \ldots + \theta_{n}x_n
 <p>偏微分の項を 「全データの誤差の総和 x 各パラメータ入力 / データ数」として、全パラメータに対して、同時に最急降下法を行なっていく。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-gradient_descent_a">
-\theta_{j} := \theta_{j} - \alpha \left(\frac{1}{m} \sum_{i=1}^{m} (h(X_{i}) - y_{i}) \cdot X_{i,j} \right)
+\theta_{j} := \theta_{j} - \alpha \left(\frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(X_{i}) - y_{i}) \cdot X_{i,j} \right)
 </script>
 
 
