@@ -105,7 +105,7 @@
 
 <p><em>Classification Problem</em> において、<code>(0|1)</code> の二つの値 <em>Binomial</em> に分類することを考えてみる。</p>
 
-<p>仮説 <code>h(x)</code> の範囲を <code>0 &lt; h(x) &lt; 1</code> に制限し、境界値 <code>0.5</code> を境に <code>(0|1)</code> に分類すればよい。シグモイド関数 <em>Sigmoid (Logistic) Function</em> により、<code>(0, 0.5)</code> に変曲点をもち、<code>(-Inf, Inf) -&gt; (0, 1)</code> となる関数を実現できる。</p>
+<p>仮説 <code>h(x)</code> の範囲を <code>0 &lt; h(x) &lt; 1</code> に制限し、境界値 <code>0.5</code> を境に <code>(0|1)</code> に分類すればよい。シグモイド関数 <em>Sigmoid (Logistic) Function</em> により、<code>(0, 0.5)</code> に変曲点をもち <code>(-Inf, Inf) -&gt; (0, 1)</code> となる関数を実現できる。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-sigmoid">
 g(z) = \frac{1}{1 + e^{-z}} \\
@@ -121,13 +121,15 @@ g(z) = \frac{1}{1 + e^{-z}} \\
 </ul>
 
 
-<p>訓練データ入力のベクトルを <code>x</code> とし、パラメータを <code>θ</code> とすると、シグモイド関数による <code>h(x)</code> は以下のようになる。</p>
+<p>訓練データ入力のベクトルを <code>x</code> とし、パラメータを <code>θ</code> とすると、<code>h(x)</code> は以下のようになる。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-sigimoid_hypothesis">
 h_{\theta}(x) = g({\theta}_0 + {\theta}_1 x_1 + {\theta}_2 x_2 + ...) \\
 h_{\theta}(x) = g({\theta}^T x) = \frac{1}{1 + e^{- { {\theta}^T x } } } \\
 </script>
 
+
+<p>この <code>h(x)</code> の最適式を見つけることを、ロジスティック回帰 <em>Logistic Regression</em> と呼ぶ。</p>
 
 <p>結果値を <code>y</code> とした時、<code>h(x)</code> は <code>y = 1</code> になる確率であると解釈できる。<code>y = (1|0)</code> となる確率を <code>P(y = 1), P(y = 0)</code> とした時、<code>P(y = 1) + P(y = 0) = 1</code> が成り立つ。</p>
 
@@ -138,52 +140,9 @@ h_{\theta}(x) = P(y = 1) = 0.3 \ldots P(y = 0) = 1 - 0.3 = 0.7 \\
 </script>
 
 
-<h2>Decision Boundary</h2>
-
-<p>シグモイド関数を <code>g(z)</code> とした時、訓練データの入力をグラフにプロットすると、<code>z = 0</code> を境界線として、<code>y = (1|0)</code> の領域で区分される。</p>
-
-<p>入力が二つ <code>x1, x2</code> の訓練データで、<code>z = -2 + x1 + x2</code> の線形の仮説を例にすると、<code>x1 + x2 = 2</code> を満たす直線が境界線になることが分かる。</p>
-
-<script type="math/tex; mode=display" id="MathJax-Element-decision_boundary_linear">
-\theta = \begin{bmatrix}
-  -2 \\
-  1 \\
-  1 \\
-\end{bmatrix} \\
-h_{\theta}(x) = g(-2 + {\theta}_1 x_1 + {\theta}_2 x_2) \\
-z = -2 + x_1 + x_2 = 0 \\
-\begin{array}{l l}
-y = 1 & x_1 + x_2 > 2 & (-1, 4), (0, 3), (1, 2), (2, 1), \ldots \\
-y = 0.5 & x_1 + x_2 = 2 & (-1, 3), (0, 2), (1, 1), (2, 0), \ldots \\
-y = 0 & x_1 + x_2 < 2 & (-1, 2), (0, 1), (1, 0), (2, -1), \ldots \\
-\end{array}
-</script>
-
-
-<p>多項式 <em>Polynomial</em> の場合も同様である。<code>z = -1 + x1^2 + x2^2</code> を例にすると、<code>x1^2 + x^2 = 1</code> を満たす曲線（この場合円形）が境界線になることがわかる。</p>
-
-<script type="math/tex; mode=display" id="MathJax-Element-decision_boundary_nonlinear">
-\theta = \begin{bmatrix}
-  -1 \\
-  0 \\
-  0 \\
-  1 \\
-  0 \\
-  1 \\
-\end{bmatrix} \\
-h_{\theta}(x) = g(-1 + {\theta}_1 x_1 + {\theta}_2 x_2 + {\theta}_3 x_{1}^2 + {\theta}_4 x_{1} x_{2} + {\theta}_5 x_{2}^2) \\
-z = -1 + x_{1}^2 + x_{2}^2 = 0 \\
-\begin{array}{l l}
-y = 1 & x_{1}^2 + x_{2}^2 > 1 & (-2, 0), (0, -2), (2, 0), (0, 2), \ldots \\
-y = 0.5 & x_{1}^2 + x_{2}^2 = 1 & (-1, 0), (0, -1), (1, 0), (0, 1), \ldots \\
-y = 0 & x_{1}^2 + x_{2}^2 < 1 & (-0.5, 0), (0, -0.5), (0.5, 0), (0, 0.5), \ldots \\
-\end{array}
-</script>
-
-
 <h2>Cost Function</h2>
 
-<p>シグモイド（ロジスティック）関数のパラメータ <code>θ</code> を求めることを、ロジスティック回帰 <em>Logistic Regression</em> と呼ぶ。線形回帰 <em>Linear Regression</em> と同様に、費用関数 <em>Cost Function</em> を定義し、勾配法 <em>Gradient decent</em> で、費用が最小となるパラメータを見つけ出せば良い。</p>
+<p>ロジスティック回帰モデル <em>Logistic Regression Model</em> のパラメータを求めるには、線形回帰 <em>Linear Regression</em> と同様に、費用関数 <em>Cost Function</em> を定義し、勾配法 <em>Gradient Decent</em> で、費用が最小となるパラメータを見つけ出せば良い。</p>
 
 <p>ロジスティック回帰での誤差は</p>
 
@@ -207,13 +166,92 @@ y = 0 & x_{1}^2 + x_{2}^2 < 1 & (-0.5, 0), (0, -0.5), (0.5, 0), (0, 0.5), \ldots
 </script>
 
 
-<p><code>y = (0|1)</code> で式が異なるので、<code>y</code> の値によって打ち消す係数 <code>y, 1-y</code> をかければよい。誤差平均をもとにした費用関数と、勾配法 <em>Gradient decent</em> で用いる偏微分の項は以下になる。</p>
+<p><code>y = (0|1)</code> で式が異なるので、<code>y</code> の値によって打ち消す係数 <code>y, 1-y</code> をかければよい。誤差平均をもとにした費用関数と、勾配法で用いる偏微分の項は以下になる。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-logistic_function_cost">
 J(\theta) = \frac{1}{m} {\sum_{i=1}^{m} [ -log(h_{\theta}(X_i))(y_i) - log(1 - h_{\theta}(X_i)) (1 - y_i) ] } \\
 {\partial J(\theta) \over \partial \theta_{j}} = \frac{1}{m} {\sum_{i=1}^{m} (h_{\theta}(X_i) - y_i)X_{i,j} } \\
 \theta_{j} := \theta_{j} - \alpha \left(\frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(X_{i}) - y_{i}) X_{i,j} \right) \\
 </script>
+
+
+<h2>Decision Boundary</h2>
+
+<p>シグモイド関数を <code>g(z)</code> とした時、訓練データの入力 <code>(x1, x2)</code> を二次元グラフにプロットすると、<code>z = 0</code> を境界線として、<code>y = (1|0)</code> の領域で区分される。</p>
+
+<h3>Linear Decision Boundary</h3>
+
+<p><code>z = -2 + x1 + x2</code> の線形の仮説を例にすると、<code>z = 0</code> すなわち <code>x1 + x2 = 2</code> を満たす直線が境界線になることが分かる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-decision_boundary_linear">
+\theta = \begin{bmatrix}
+  -2 \\
+  1 \\
+  1 \\
+\end{bmatrix} \\
+h_{\theta}(x) = g(-2 + {\theta}_1 x_1 + {\theta}_2 x_2) \\
+z = -2 + x_1 + x_2 = 0 \\
+\begin{array}{l l}
+y = 1 & x_1 + x_2 > 2 & (0, 3), (1, 2), (2, 1), \ldots \\
+y = 0.5 & x_1 + x_2 = 2 & (0, 2), (1, 1), (2, 0), \ldots \\
+y = 0 & x_1 + x_2 < 2 & (0, 1), (1, 0) \ldots \\
+\end{array}
+</script>
+
+
+<p>直線なので、プロットするには両端の <code>(x1, x2)</code> を求めるだけでよい。<code>x1</code> に対する <code>x2</code> は以下で求められる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-decision_boundary_linear_plotting">
+\begin{array}{r l}
+{\theta}_0 + {\theta}_1 x_1 + {\theta}_1 x_2 &= 0 \\
+x_2 &= -{ \frac{1}{ {\theta}_2 } } ( {\theta}_0 + {\theta}_1 x_1 ) \\
+\end{array}
+</script>
+
+
+
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">theta</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">;</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">1</span><span class="p">];</span>
+<span class="n">octave</span><span class="o">&gt;</span> <span class="n">x1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">];</span>
+<span class="n">octave</span><span class="o">&gt;</span> <span class="n">x2</span> <span class="p">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">./</span> <span class="n">theta</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="o">.*</span> <span class="p">(</span><span class="n">theta</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">.*</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">theta</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<span class="n">octave</span><span class="o">&gt;</span> <span class="nb">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">);</span></code></pre></div>
+
+
+<h3>Non-linear Decision Boundary</h3>
+
+<p>多項式 <em>Polynomial</em> の場合、<code>z = -1 + x1^2 + x2^2</code> を例にすると、<code>x1^2 + x^2 = 1</code> を満たす曲線（この場合円形）が境界線になることがわかる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-decision_boundary_nonlinear">
+\theta = \begin{bmatrix}
+  -1 \\
+  0 \\
+  0 \\
+  1 \\
+  0 \\
+  1 \\
+\end{bmatrix} \\
+h_{\theta}(x) = g(-1 + {\theta}_1 x_1 + {\theta}_2 x_2 + {\theta}_3 x_{1}^2 + {\theta}_4 x_{1} x_{2} + {\theta}_5 x_{2}^2) \\
+z = -1 + x_{1}^2 + x_{2}^2 = 0 \\
+\begin{array}{l l}
+y = 1 & x_{1}^2 + x_{2}^2 > 1 & (-2, 0), (0, -2), (2, 0), (0, 2), \ldots \\
+y = 0.5 & x_{1}^2 + x_{2}^2 = 1 & (-1, 0), (0, -1), (1, 0), (0, 1), \ldots \\
+y = 0 & x_{1}^2 + x_{2}^2 < 1 & (-0.5, 0), (0, -0.5), (0.5, 0), (0, 0.5), \ldots \\
+\end{array}
+</script>
+
+
+<p>二次元グラフに境界線をプロットするには、<code>(x1, x2, z)</code> の <code>z</code> 軸を等高線でプロット <em>Contour Plot</em> すればよい。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">n</span> <span class="p">=</span> <span class="mi">50</span><span class="p">;</span>
+<span class="n">x1</span> <span class="p">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="n">x2</span> <span class="p">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="n">z</span> <span class="p">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="k">for</span> <span class="n">i</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span>
+  <span class="k">for</span> <span class="n">j</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span>
+    <span class="n">z</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">x1</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x2</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">contour</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">z</span><span class="o">&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]);</span></code></pre></div>
 
 
 
