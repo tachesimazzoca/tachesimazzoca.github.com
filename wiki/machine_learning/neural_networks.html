@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neural Networks | Machine Learning</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Machine Learning</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Machine Learning</a></li><li>Neural Networks</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li class="active"><a href="./neural_networks.html">Neural Networks</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/neural_networks.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/neural_networks.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/neural_networks.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Neural Networks</h1>
+          <div id="toc">
+          </div>
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
+</script>
+
+
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+
+<h2>Sigmoid Activation Function</h2>
+
+<p>入力とパラメータの内積をシグモイド関数を通して <code>0 &lt; a &lt; 1</code> に収めるモデルを、 <em>Sigmoid (Logistic) Activation Function</em> と呼ぶ。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-logistic_unit">
+g(z) = \frac{1}{1 + e^{-z} } \\
+h(x) = g({\theta}^{T} x) \\
+</script>
+
+
+<p>バイアス項 <em>Bias Unit</em> として、<code>x(0) = 1</code> で固定し、<code>theta(0)</code> をオフセット値とする。入力値 <code>x</code> を <code>(0|1)</code> に制限すると、論理回路を実現できる。</p>
+
+<p><code>theta = [-30; 20; 20]</code> とした場合、AND ゲートとして機能することがわかる。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">theta</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">30</span><span class="p">;</span> <span class="mi">20</span><span class="p">;</span> <span class="mi">20</span><span class="p">];</span>
+<span class="n">x</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">];</span>
+<span class="n">z</span> <span class="p">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">theta</span> <span class="c">% expected [-30; -10; -10; 10]</span>
+<span class="n">sigmoid</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="c">% expected [0; 0; 0; 1]</span></code></pre></div>
+
+
+<p><code>theta = [-10; 20; 20]</code> とした場合、OR ゲートとして機能することがわかる。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">theta</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">;</span> <span class="mi">20</span><span class="p">;</span> <span class="mi">20</span><span class="p">];</span>
+<span class="n">x</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">];</span>
+<span class="n">z</span> <span class="p">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">theta</span> <span class="c">% expected [-10; 10; 10; 30]</span>
+<span class="n">sigmoid</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="c">% expected [0; 1; 1; 1]</span></code></pre></div>
+
+
+<h2>Forward Propagation</h2>
+
+<p><em>Activation Function</em> を複数レイヤーに定義し、各レイヤーの出力を次のレイヤーへの入力とすることで、より複雑な論理回路を実現できる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-neural_network_layer2">
+\begin{array}{l l}
+\text{Layer1: ${\Theta}^{(1)} \in \mathbb{R}^{3 \times 3}$} & \left\{
+  \begin{array}{l l}
+    \text{input: $x$, output: $a^{(2)}$} \\
+    a^{(2)}_0 = 1 \\
+    a^{(2)}_{1} = g({ {\Theta}^{(1)}_{1,0} } x_0 + { {\Theta}^{(1)}_{1,1} } x_1 + { {\Theta}^{(1)}_{1,2} x_2 }) \\
+    a^{(2)}_{2} = g({ {\Theta}^{(1)}_{2,0} } x_0 + { {\Theta}^{(1)}_{2,1} } x_1 + { {\Theta}^{(1)}_{2,2} x_2 }) \\
+    a^{(2)}_{3} = g({ {\Theta}^{(1)}_{3,0} } x_0 + { {\Theta}^{(1)}_{3,1} } x_1 + { {\Theta}^{(1)}_{3,2} x_2 }) \\
+  \end{array}
+\right. \\
+
+\text{Layer2: ${\Theta}^{(2)} \in \mathbb{R}^{2 \times 4}$} & \left\{
+  \begin{array}{l l}
+    \text{input: $a^{(2)}$, output: $a^{(3)}$} \\
+    a^{(3)}_0 = 1 \\
+    a^{(3)}_{1} = g({\Theta}^{(2)}_{1,0} a^{(2)}_0 + {\Theta}^{(2)}_{1,1} a^{(2)}_1 + {\Theta}^{(2)}_{1,2} a^{(2)}_2 + {\Theta}^{(2)}_{1,3} a^{(2)}_3) \\
+    a^{(3)}_{2} = g({\Theta}^{(2)}_{2,0} a^{(2)}_0 + {\Theta}^{(2)}_{2,1} a^{(2)}_1 + {\Theta}^{(2)}_{2,2} a^{(2)}_2 + {\Theta}^{(2)}_{2,3} a^{(2)}_3) \\
+  \end{array}
+\right. \\
+
+\text{Layer3: ${\Theta}^{(3)} \in \mathbb{R}^{1 \times 3}$} & \left\{
+  \begin{array}{l l}
+    \text{input: $a^{(3)}$, output: $a^{(4)}$} \\
+    a^{(4)}_1 = g({\Theta}^{(3)}_{1,0} a^{(3)}_0 + {\Theta}^{(3)}_{1,1} a^{(3)}_1 + {\Theta}^{(3)}_{1,2} a^{(3)}_2) \\
+    h_{\Theta}(x) = a^{(4)}_1 \\
+  \end{array}
+\right. \\
+
+\end{array}
+
+</script>
+
+
+<ul>
+<li>２つの入力 <code>x</code> に、バイアス項として <code>x(0) = 1</code> を加える。</li>
+<li>Layer1: ３つの入力 <code>x</code> から、３つの出力 <code>a2</code> を算出する。バイアス項として <code>a2(0) = 1</code> を加える。</li>
+<li>Layer2: Layer1 の４つの出力 <code>a2</code> を入力とし、２つの出力 <code>a3</code> を算出する。バイアス項として <code>a3(0) = 1</code> を加える。</li>
+<li>Layer3: Layer2 の３つの出力 <code>a3</code> を入力とし、１つの出力 <code>a4</code> を算出する。</li>
+<li>最終レイヤーの出力 <code>a4(1)</code> が、そのまま予測値 <code>h(x)</code> となる。</li>
+</ul>
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
