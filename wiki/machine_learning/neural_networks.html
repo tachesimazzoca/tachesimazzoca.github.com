@@ -103,41 +103,56 @@
 
 <h2>Sigmoid Activation Function</h2>
 
-<p>入力とパラメータの内積をシグモイド関数を通して <code>0 &lt; a &lt; 1</code> に収めるモデルを、 <em>Sigmoid (Logistic) Activation Function</em> と呼ぶ。</p>
+<p>入力とパラメータの内積を、シグモイド関数を通して <code>0 &lt; a &lt; 1</code> の範囲に変換するモデルを、 <em>Sigmoid (Logistic) Activation Function</em> と呼ぶ。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-logistic_unit">
 g(z) = \frac{1}{1 + e^{-z} } \\
-h(x) = g({\theta}^{T} x) \\
+h_{\theta}(x) = g({\theta}^{T} x) \\
 </script>
 
 
-<p>バイアス項 <em>Bias Unit</em> として、<code>x(0) = 1</code> で固定し、<code>theta(0)</code> をオフセット値とする。入力値 <code>x</code> を <code>(0|1)</code> に制限すると、論理回路を実現できる。</p>
+<p>バイアス項 <em>Bias Unit</em> として、<code>x(0) = 1</code> で固定し、<code>theta(0)</code> をオフセット値とする。入力値 <code>x</code> を <code>(0|1)</code> に制限すると、<code>theta</code> の値に応じて AND / OR の論理回路を実現できる。</p>
 
-<p><code>theta = [-30; 20; 20]</code> とした場合、AND ゲートとして機能することがわかる。</p>
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">];</span>
+<span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="nb">ones</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span> <span class="n">X</span><span class="p">];</span>         <span class="c">% [1 0 0; 1 0 1; 1 1 0; 1 1 1]</span>
 
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">theta</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">30</span><span class="p">;</span> <span class="mi">20</span><span class="p">;</span> <span class="mi">20</span><span class="p">];</span>
-<span class="n">x</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">];</span>
-<span class="n">z</span> <span class="p">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">theta</span> <span class="c">% expected [-30; -10; -10; 10]</span>
-<span class="n">sigmoid</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="c">% expected [0; 0; 0; 1]</span></code></pre></div>
+<span class="n">theta1</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">30</span><span class="p">;</span> <span class="mi">20</span><span class="p">;</span> <span class="mi">20</span><span class="p">];</span>              <span class="c">% AND gate</span>
+<span class="n">z1</span> <span class="p">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">theta1</span><span class="p">;</span>                     <span class="c">% [-30; -10; -10; 10]</span>
+<span class="n">h1</span> <span class="p">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z1</span><span class="p">);</span>                    <span class="c">% [0; 0; 0; 1]</span>
 
-
-<p><code>theta = [-10; 20; 20]</code> とした場合、OR ゲートとして機能することがわかる。</p>
-
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">theta</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">;</span> <span class="mi">20</span><span class="p">;</span> <span class="mi">20</span><span class="p">];</span>
-<span class="n">x</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">];</span>
-<span class="n">z</span> <span class="p">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">theta</span> <span class="c">% expected [-10; 10; 10; 30]</span>
-<span class="n">sigmoid</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="c">% expected [0; 1; 1; 1]</span></code></pre></div>
+<span class="n">theta2</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">;</span> <span class="mi">20</span><span class="p">;</span> <span class="mi">20</span><span class="p">];</span>              <span class="c">% OR gate</span>
+<span class="n">z2</span> <span class="p">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">theta2</span><span class="p">;</span>                     <span class="c">% [-10; 10; 10; 30]</span>
+<span class="n">h2</span> <span class="p">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z2</span><span class="p">);</span>                    <span class="c">% [0; 1; 1; 1]</span></code></pre></div>
 
 
 <h2>Forward Propagation</h2>
 
 <p><em>Activation Function</em> を複数レイヤーに定義し、各レイヤーの出力を次のレイヤーへの入力とすることで、より複雑な論理回路を実現できる。</p>
 
+<pre><code>   L1    |    L2    |    L3    |    L4
+------------------------------------------
+    [+1]-+     [+1]-+     [+1]-+
+         |          |          |
+  [x(1)]-+-&gt;[a2(1)]-+-&gt;[a3(1)]-+-&gt;[a4(1)]-&gt; h(x)
+         |          |          |
+  [x(2)]-+-&gt;[a2(2)]-+-&gt;[a3(2)]-+
+         |          |
+         +-&gt;[a2(3)]-+
+</code></pre>
+
 <script type="math/tex; mode=display" id="MathJax-Element-neural_network_layer2">
 \begin{array}{l l}
-\text{Layer1: ${\Theta}^{(1)} \in \mathbb{R}^{3 \times 3}$} & \left\{
+\text{Input} & \left\{
   \begin{array}{l l}
-    \text{input: $x$, output: $a^{(2)}$} \\
+    x_0 = 1 \\
+    x_1 \in \mathbb{R} \\
+    x_2 \in \mathbb{R} \\
+  \end{array}
+\right. \\
+
+\text{Layer1} & \left\{
+  \begin{array}{l l}
+    {\Theta}^{(1)} \in \mathbb{R}^{3 \times 3} \\
     a^{(2)}_0 = 1 \\
     a^{(2)}_{1} = g({ {\Theta}^{(1)}_{1,0} } x_0 + { {\Theta}^{(1)}_{1,1} } x_1 + { {\Theta}^{(1)}_{1,2} x_2 }) \\
     a^{(2)}_{2} = g({ {\Theta}^{(1)}_{2,0} } x_0 + { {\Theta}^{(1)}_{2,1} } x_1 + { {\Theta}^{(1)}_{2,2} x_2 }) \\
@@ -145,18 +160,18 @@ h(x) = g({\theta}^{T} x) \\
   \end{array}
 \right. \\
 
-\text{Layer2: ${\Theta}^{(2)} \in \mathbb{R}^{2 \times 4}$} & \left\{
+\text{Layer2} & \left\{
   \begin{array}{l l}
-    \text{input: $a^{(2)}$, output: $a^{(3)}$} \\
+    {\Theta}^{(2)} \in \mathbb{R}^{2 \times 4} \\
     a^{(3)}_0 = 1 \\
     a^{(3)}_{1} = g({\Theta}^{(2)}_{1,0} a^{(2)}_0 + {\Theta}^{(2)}_{1,1} a^{(2)}_1 + {\Theta}^{(2)}_{1,2} a^{(2)}_2 + {\Theta}^{(2)}_{1,3} a^{(2)}_3) \\
     a^{(3)}_{2} = g({\Theta}^{(2)}_{2,0} a^{(2)}_0 + {\Theta}^{(2)}_{2,1} a^{(2)}_1 + {\Theta}^{(2)}_{2,2} a^{(2)}_2 + {\Theta}^{(2)}_{2,3} a^{(2)}_3) \\
   \end{array}
 \right. \\
 
-\text{Layer3: ${\Theta}^{(3)} \in \mathbb{R}^{1 \times 3}$} & \left\{
+\text{Layer3} & \left\{
   \begin{array}{l l}
-    \text{input: $a^{(3)}$, output: $a^{(4)}$} \\
+    {\Theta}^{(3)} \in \mathbb{R}^{1 \times 3} \\
     a^{(4)}_1 = g({\Theta}^{(3)}_{1,0} a^{(3)}_0 + {\Theta}^{(3)}_{1,1} a^{(3)}_1 + {\Theta}^{(3)}_{1,2} a^{(3)}_2) \\
     h_{\Theta}(x) = a^{(4)}_1 \\
   \end{array}
@@ -168,12 +183,30 @@ h(x) = g({\theta}^{T} x) \\
 
 
 <ul>
-<li>２つの入力 <code>x</code> に、バイアス項として <code>x(0) = 1</code> を加える。</li>
-<li>Layer1: ３つの入力 <code>x</code> から、３つの出力 <code>a2</code> を算出する。バイアス項として <code>a2(0) = 1</code> を加える。</li>
-<li>Layer2: Layer1 の４つの出力 <code>a2</code> を入力とし、２つの出力 <code>a3</code> を算出する。バイアス項として <code>a3(0) = 1</code> を加える。</li>
+<li>２つの入力 <code>x</code> に、バイアス項として <code>x(0) = 1</code> とする。</li>
+<li>Layer1: ３つの入力 <code>x</code> から、３つの出力 <code>a2</code> を算出する。バイアス項として <code>a2(0) = 1</code> とする。</li>
+<li>Layer2: Layer1 の４つの出力 <code>a2</code> を入力とし、２つの出力 <code>a3</code> を算出する。バイアス項として <code>a3(0) = 1</code> とする。</li>
 <li>Layer3: Layer2 の３つの出力 <code>a3</code> を入力とし、１つの出力 <code>a4</code> を算出する。</li>
-<li>最終レイヤーの出力 <code>a4(1)</code> が、そのまま予測値 <code>h(x)</code> となる。</li>
+<li>最終レイヤーの出力 <code>a4(1)</code> が、予測値 <code>h(x)</code> となる。</li>
 </ul>
+
+
+<p>Layer2 の２入力に NAND / OR ゲート、Layer3 の１入力に AND ゲートを置くことで、XOR ゲートとして機能する。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">Theta1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">30</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">20</span><span class="p">;</span> <span class="o">-</span><span class="mi">10</span> <span class="mi">20</span> <span class="mi">20</span><span class="p">];</span>    <span class="c">% [{NAND}; {OR}]</span>
+<span class="n">Theta2</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">30</span> <span class="mi">20</span> <span class="mi">20</span><span class="p">];</span>                <span class="c">% [{AND}]</span>
+
+<span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">];</span>
+<span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="nb">ones</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span> <span class="n">X</span><span class="p">];</span>         <span class="c">% [1 0 0; 1 0 1; 1 1 0; 1 1 1]</span>
+
+<span class="n">z1</span> <span class="p">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Theta1</span><span class="o">&#39;</span><span class="p">;</span>                    <span class="c">% [30 -10; 10 10; 10 10; -10 30]</span>
+<span class="n">a2</span> <span class="p">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z1</span><span class="p">);</span>                    <span class="c">% [1 0; 1 1; 1 1; 0 1]</span>
+<span class="n">a2</span> <span class="p">=</span> <span class="p">[</span><span class="nb">ones</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">a2</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span> <span class="n">a2</span><span class="p">];</span>      <span class="c">% [1 1 0; 1 1 1; 1 1 1; 1 0 1]</span>
+
+<span class="n">z2</span> <span class="p">=</span> <span class="n">a2</span> <span class="o">*</span> <span class="n">Theta2</span><span class="o">&#39;</span><span class="p">;</span>                   <span class="c">% [-10; 10; 10; -10]</span>
+<span class="n">a3</span> <span class="p">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z2</span><span class="p">);</span>                    <span class="c">% [0; 1; 1; 0]</span></code></pre></div>
+
+
 
 
           </div>
