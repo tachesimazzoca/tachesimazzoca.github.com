@@ -100,7 +100,7 @@
 
 <h2>Mapping</h2>
 
-<p>トレイト <code>play.api.data.Mapping[T]</code> により、フォーム入力 <code>Map[String, String]</code> とデータオブジェクトの変換ルールを定義し、相互変換を行なうことができる。</p>
+<p><code>play.api.data.Mapping[T]</code> により、フォーム入力 <code>Map[String, String]</code> とデータオブジェクトの変換ルールを定義し、相互に変換を行なうことができる。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.data._</span>
 <span class="k">import</span> <span class="nn">play.api.data.Forms._</span>
@@ -117,7 +117,9 @@
 <span class="o">)(</span><span class="nc">Item</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Item</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span></code></pre></div>
 
 
-<p><code>play.api.data.Forms.mapping</code> 関数を用いて、<code>ObjectMapping</code> を生成する。フィールド型を保つために、フィールド数に応じた <code>play.api.data.ObjectMapping(1..18)</code> が定義されている。</p>
+<h3>ObjectMapping</h3>
+
+<p><code>play.api.data.Forms.mapping</code> 関数を用いて、<code>play.api.data.ObjectMapping</code> を生成する。フィールド型を保つために、フィールド数（最大 18）に応じた <code>ObjectMapping(1..18)</code> が定義されている。</p>
 
 <ul>
 <li>引数 1..n は <code>(String, Mapping)</code> で、フィールド毎のキーと変換ルールのペアを指定する。</li>
@@ -139,17 +141,69 @@
   <span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="n">of</span><span class="o">[</span><span class="kt">Long</span><span class="o">],</span>
   <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">of</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
 <span class="o">)</span>
-<span class="k">val</span> <span class="n">t</span><span class="k">:</span> <span class="o">(</span><span class="kt">Long</span><span class="o">,</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;123&quot;</span><span class="o">,</span> <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">)).</span><span class="n">right</span><span class="o">.</span><span class="n">get</span>
-
-<span class="n">assert</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="n">_1</span> <span class="o">==</span> <span class="mi">123L</span><span class="o">)</span>
-<span class="n">assert</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="n">_2</span> <span class="o">==</span> <span class="s">&quot;Foo&quot;</span><span class="o">)</span></code></pre></div>
+<span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;123&quot;</span><span class="o">,</span> <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">))</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">t</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="n">assert</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="n">_1</span> <span class="o">==</span> <span class="mi">123L</span><span class="o">)</span>
+    <span class="n">assert</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="n">_2</span> <span class="o">==</span> <span class="s">&quot;Foo&quot;</span><span class="o">)</span>
+  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+<span class="o">}</span></code></pre></div>
 
 
 <p>ただし <code>Tuple1</code> の <code>tuple</code> 関数は提供されていないので、<code>play.api.data.Forms.single</code> を使う。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">m</span><span class="k">:</span> <span class="kt">Mapping</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">single</span><span class="o">(</span><span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">of</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
-<span class="k">val</span> <span class="n">v</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">)).</span><span class="n">right</span><span class="o">.</span><span class="n">get</span>
-<span class="n">assert</span><span class="o">(</span><span class="n">v</span> <span class="o">==</span> <span class="s">&quot;Foo&quot;</span><span class="o">)</span></code></pre></div>
+<span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">))</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">v</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">assert</span><span class="o">(</span><span class="n">v</span> <span class="o">==</span> <span class="s">&quot;Foo&quot;</span><span class="o">)</span>
+  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h4>Maximum Number of Fields</h4>
+
+<p><code>ObjectMapping</code> は最大 18 フィールドまでしか定義できないが、<code>Mapping</code> 型を持つので変換ルールとなりうるので、住所や確認入力などのグループで入れ子にすればよい。</p>
+
+<p>入れ子に対するフォーム入力のキーは、<code>address.street</code> のようにドットで区切る。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Address</span><span class="o">(</span><span class="n">street</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">city</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">address</span><span class="k">:</span> <span class="kt">Address</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">mapping</span><span class="o">(</span>
+  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span><span class="o">,</span>
+  <span class="s">&quot;address&quot;</span> <span class="o">-&gt;</span> <span class="n">mapping</span><span class="o">(</span>
+    <span class="s">&quot;street&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span><span class="o">,</span>
+    <span class="s">&quot;city&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span>
+  <span class="o">)(</span><span class="nc">Address</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Address</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span>
+<span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span>
+  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Nested Values&quot;</span><span class="o">,</span>
+  <span class="s">&quot;address.street&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;1-2-3&quot;</span><span class="o">,</span>
+  <span class="s">&quot;address.city&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Fukuoka&quot;</span>
+<span class="o">))</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">user</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="n">assert</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&quot;Nested Values&quot;</span><span class="o">)</span>
+    <span class="n">assert</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="n">address</span><span class="o">.</span><span class="n">street</span> <span class="o">==</span> <span class="s">&quot;1-2-3&quot;</span><span class="o">)</span>
+    <span class="n">assert</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="n">address</span><span class="o">.</span><span class="n">city</span> <span class="o">==</span> <span class="s">&quot;Fukuoka&quot;</span><span class="o">)</span>
+  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>入れ子になっているからといって、階層毎にデータ型が必要なわけではない。<code>(apply|unapply)</code> 関数を調整すれば、単一のデータオブジェクトに変換できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Item</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">price</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">description</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">mapping</span><span class="o">(</span>
+  <span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="n">longNumber</span><span class="o">,</span>
+  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span><span class="o">,</span>
+  <span class="s">&quot;meta&quot;</span> <span class="o">-&gt;</span> <span class="n">tuple</span><span class="o">(</span>
+    <span class="s">&quot;price&quot;</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="o">,</span>
+    <span class="s">&quot;description&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span>
+  <span class="o">)</span>
+<span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">meta</span><span class="o">)</span> <span class="k">=&gt;</span>
+  <span class="nc">Item</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">meta</span><span class="o">.</span><span class="n">_1</span><span class="o">,</span> <span class="n">meta</span><span class="o">.</span><span class="n">_2</span><span class="o">)</span>
+<span class="o">}</span> <span class="o">{</span> <span class="o">(</span><span class="n">item</span><span class="o">)</span> <span class="k">=&gt;</span>
+  <span class="nc">Some</span><span class="o">((</span><span class="n">item</span><span class="o">.</span><span class="n">id</span><span class="o">,</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="o">,</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="n">price</span><span class="o">,</span> <span class="n">item</span><span class="o">.</span><span class="n">description</span><span class="o">)))</span>
+<span class="o">}</span></code></pre></div>
 
 
 <h3>FieldMapping</h3>
@@ -168,7 +222,7 @@
 <span class="o">)</span></code></pre></div>
 
 
-<p><code>play.api.data.Forms._</code> に、ほとんどのフォーマットに対応したヘルパーメゾッドが定義されているので、基本的にはそれらを使えばよい。</p>
+<p><code>play.api.data.Forms._</code> に、ほとんどのフォーム入力のフォーマットに対応したヘルパー関数が定義されているので、基本的にはそれらを使えばよい。</p>
 
 <h3>RepeatedMapping</h3>
 
@@ -181,58 +235,33 @@
   <span class="s">&quot;tags&quot;</span> <span class="o">-&gt;</span> <span class="n">seq</span><span class="o">(</span><span class="n">of</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
 <span class="o">)</span>
 
-<span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span>
+<span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span>
   <span class="s">&quot;numbers[0]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;123&quot;</span><span class="o">,</span>
   <span class="s">&quot;numbers[1]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;456&quot;</span><span class="o">,</span>
   <span class="s">&quot;tags[0]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;scala&quot;</span><span class="o">,</span>
   <span class="s">&quot;tags[1]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;play&quot;</span><span class="o">,</span>
   <span class="s">&quot;tags[2]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;framework&quot;</span>
-<span class="o">)).</span><span class="n">right</span><span class="o">.</span><span class="n">get</span>
-
-<span class="n">assert</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="n">_1</span> <span class="o">==</span> <span class="nc">List</span><span class="o">(</span><span class="mi">123</span><span class="o">,</span> <span class="mi">456</span><span class="o">))</span>
-<span class="n">assert</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="n">_2</span> <span class="o">==</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">&quot;scala&quot;</span><span class="o">,</span> <span class="s">&quot;play&quot;</span><span class="o">,</span> <span class="s">&quot;framework&quot;</span><span class="o">))</span></code></pre></div>
+<span class="o">))</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="n">assert</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="n">_1</span> <span class="o">==</span> <span class="nc">List</span><span class="o">(</span><span class="mi">123</span><span class="o">,</span> <span class="mi">456</span><span class="o">))</span>
+    <span class="n">assert</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="n">_2</span> <span class="o">==</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">&quot;scala&quot;</span><span class="o">,</span> <span class="s">&quot;play&quot;</span><span class="o">,</span> <span class="s">&quot;framework&quot;</span><span class="o">))</span>
+  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+<span class="o">}</span></code></pre></div>
 
 
 <h3>OptionalMapping</h3>
 
-<p><code>play.api.data.OptionalMapping</code> は <code>Option</code> へのマッピングを行なう。<code>FieldMapping</code> を <code>play.api.data.Forms.option</code> 関数で括ればよい。</p>
+<p><code>play.api.data.OptionalMapping</code> は <code>Option</code> へのマッピングを行なう。<code>Mapping</code> を <code>play.api.data.Forms.option</code> 関数で括ればよい。</p>
 
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Long</span><span class="o">],</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+<p><code>play.api.data.Forms.default</code> 関数を使うとデフォルト値を指定できる。内部的には <code>Mapping#transform</code> で <code>Option#getOrElse</code> から変換しているので、<code>FieldMapping</code> ではない点に注意する。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Long</span><span class="o">],</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">activated</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">mapping</span><span class="o">(</span>
   <span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="n">optional</span><span class="o">(</span><span class="n">of</span><span class="o">[</span><span class="kt">Long</span><span class="o">]),</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">of</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">of</span><span class="o">[</span><span class="kt">String</span><span class="o">],</span>
+  <span class="s">&quot;activated&quot;</span> <span class="o">-&gt;</span> <span class="n">default</span><span class="o">(</span><span class="n">of</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">],</span> <span class="kc">true</span><span class="o">)</span>
 <span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span></code></pre></div>
-
-
-<h3>ObjectMapping</h3>
-
-<p><code>play.api.data.ObjectMapping</code> は、それ自身も <code>Mapping</code> 型を持つので、変換ルールの入れ子となりうる。必ずしもトップレベルのみにあるのではない。</p>
-
-<p><code>ObjectMapping</code> は、最大 18 フィールド <code>ObjectMapping18</code> までのため、18 個までしかフィールド定義できないが、住所や確認入力などのグループで入れ子にすればよい。</p>
-
-<p>入れ子に対するフォーム入力のキーは <code>address.street</code> のように、ドットで区切る。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Address</span><span class="o">(</span><span class="n">street</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">city</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
-<span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">address</span><span class="k">:</span> <span class="kt">Address</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">mapping</span><span class="o">(</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span><span class="o">,</span>
-  <span class="s">&quot;address&quot;</span> <span class="o">-&gt;</span> <span class="n">mapping</span><span class="o">(</span>
-    <span class="s">&quot;street&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span><span class="o">,</span>
-    <span class="s">&quot;city&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span>
-  <span class="o">)(</span><span class="nc">Address</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Address</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span>
-<span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="n">user</span> <span class="k">=</span> <span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Nested Values&quot;</span><span class="o">,</span>
-  <span class="s">&quot;address.street&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;1-2-3&quot;</span><span class="o">,</span>
-  <span class="s">&quot;address.city&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Fukuoka&quot;</span>
-<span class="o">)).</span><span class="n">right</span><span class="o">.</span><span class="n">get</span>
-
-<span class="n">assert</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&quot;Nested Values&quot;</span><span class="o">)</span>
-<span class="n">assert</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="n">address</span><span class="o">.</span><span class="n">street</span> <span class="o">==</span> <span class="s">&quot;1-2-3&quot;</span><span class="o">)</span>
-<span class="n">assert</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="n">address</span><span class="o">.</span><span class="n">city</span> <span class="o">==</span> <span class="s">&quot;Fukuoka&quot;</span><span class="o">)</span></code></pre></div>
 
 
 
