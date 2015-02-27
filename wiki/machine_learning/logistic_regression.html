@@ -103,9 +103,9 @@
 
 <h2>Sigmoid Function</h2>
 
-<p><em>Classification Problem</em> において、<code>(0|1)</code> の二つの値 <em>Binomial</em> に分類することを考えてみる。</p>
+<p><em>Classification problem</em> において、<code>(0|1)</code> の二つの値 <em>Binomial</em> に分類することを考えてみる。</p>
 
-<p>仮説 <code>h(x)</code> の範囲を <code>0 &lt; h(x) &lt; 1</code> に制限し、境界値 <code>0.5</code> を境に <code>(0|1)</code> に分類すればよい。シグモイド関数 <em>Sigmoid (Logistic) Function</em> により、<code>(0, 0.5)</code> に変曲点をもち <code>(-Inf, Inf) -&gt; (0, 1)</code> となる関数を実現できる。</p>
+<p>仮説 <code>h(x)</code> の範囲を <code>0 &lt; h(x) &lt; 1</code> に制限し、境界値 <code>0.5</code> を境に <code>(0|1)</code> に分類すればよい。シグモイド関数 <em>Sigmoid (Logistic) function</em> により、<code>(0, 0.5)</code> に変曲点をもち <code>(-Inf, Inf) -&gt; (0, 1)</code> となる関数を実現できる。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-sigmoid">
 g(z) = \frac{1}{1 + e^{-z}} \\
@@ -129,7 +129,7 @@ h_{\theta}(x) = g({\theta}^T x) = \frac{1}{1 + e^{- { {\theta}^T x } } } \\
 </script>
 
 
-<p>この <code>h(x)</code> の最適式を見つけることを、ロジスティック回帰 <em>Logistic Regression</em> と呼ぶ。</p>
+<p>この <code>h(x)</code> の最適式を見つけることを、ロジスティック回帰 <em>Logistic regression</em> と呼ぶ。</p>
 
 <p>結果値を <code>y</code> とした時、<code>h(x)</code> は <code>y = 1</code> になる確率であると解釈できる。<code>y = (1|0)</code> となる確率を <code>P(y = 1), P(y = 0)</code> とした時、<code>P(y = 1) + P(y = 0) = 1</code> が成り立つ。</p>
 
@@ -142,7 +142,7 @@ h_{\theta}(x) = P(y = 1) = 0.3 \ldots P(y = 0) = 1 - 0.3 = 0.7 \\
 
 <h2>Cost Function</h2>
 
-<p>ロジスティック回帰モデル <em>Logistic Regression Model</em> のパラメータを求めるには、線形回帰 <em>Linear Regression</em> と同様に、費用関数 <em>Cost Function</em> を定義し、勾配法 <em>Gradient Decent</em> で、費用が最小となるパラメータを見つけ出せば良い。</p>
+<p>ロジスティック回帰モデル <em>Logistic regression model</em> のパラメータを求めるには、線形回帰と同様に、費用関数を定義し、勾配法で、費用が最小となるパラメータを見つけ出せば良い。</p>
 
 <p>ロジスティック回帰での誤差は</p>
 
@@ -154,7 +154,7 @@ h_{\theta}(x) = P(y = 1) = 0.3 \ldots P(y = 0) = 1 - 0.3 = 0.7 \\
 
 <p>となればよい。</p>
 
-<p><code>(-log(1), -log(0)) = (0, Inf)</code> であることを利用して、誤差の算出を以下のように定義できる。</p>
+<p><code>(-log(1), -log(0)) = (0, Inf)</code> であることを利用して、誤差の算出方法を以下のように定義できる。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-logistic_function_error_def">
 \left\{
@@ -166,7 +166,7 @@ h_{\theta}(x) = P(y = 1) = 0.3 \ldots P(y = 0) = 1 - 0.3 = 0.7 \\
 </script>
 
 
-<p><code>y = (0|1)</code> で式が異なるので、<code>y</code> の値によって打ち消す係数 <code>y, 1-y</code> をかければよい。誤差平均をもとにした費用関数と、勾配法で用いる偏微分の項は以下になる。</p>
+<p><code>y = (0|1)</code> で式が異なるので、<code>y</code> の値によって打ち消す係数 <code>y, 1-y</code> をかければよい。誤差平均を元にした費用関数と、勾配法で用いる偏微分の項は以下になる。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-logistic_function_cost">
 J(\theta) = \frac{1}{m} {\sum_{i=1}^{m} [ -log(h_{\theta}(X_i))(y_i) - log(1 - h_{\theta}(X_i)) (1 - y_i) ] } \\
@@ -240,7 +240,7 @@ y = 0 & x_{1}^2 + x_{2}^2 < 1 & (-0.5, 0), (0, -0.5), (0.5, 0), (0, 0.5), \ldots
 </script>
 
 
-<p>二次元グラフに境界線をプロットするには、<code>(x1, x2, z)</code> の <code>z</code> 軸を等高線でプロット <em>Contour Plot</em> すればよい。</p>
+<p>二次元グラフに境界線をプロットするには、<code>(x1, x2, z)</code> の <code>z</code> 軸を等高線でプロットすればよい。</p>
 
 <div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">n</span> <span class="p">=</span> <span class="mi">50</span><span class="p">;</span>
 <span class="n">x1</span> <span class="p">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>

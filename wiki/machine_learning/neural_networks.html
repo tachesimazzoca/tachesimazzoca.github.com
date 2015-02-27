@@ -103,7 +103,7 @@
 
 <h2>Sigmoid Activation Function</h2>
 
-<p>入力とパラメータの内積を、シグモイド関数を通して <code>0 &lt; a &lt; 1</code> の範囲に変換するモデルを、 <em>Sigmoid (Logistic) Activation Function</em> と呼ぶ。</p>
+<p>入力とパラメータの内積を、シグモイド関数を通して <code>0 &lt; a &lt; 1</code> の範囲に変換するモデルを、 <em>Sigmoid (Logistic) activation function</em> と呼ぶ。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-logistic_unit">
 g(z) = \frac{1}{1 + e^{-z} } \\
@@ -111,7 +111,7 @@ h_{\theta}(x) = g({\theta}^{T} x) \\
 </script>
 
 
-<p>バイアス項 <em>Bias Unit</em> として、<code>x(0) = 1</code> で固定し、<code>theta(0)</code> をオフセット値とする。入力値 <code>x</code> を <code>(0|1)</code> に制限すると、<code>theta</code> の値に応じて AND / OR の論理回路を実現できる。</p>
+<p>バイアス項 <em>Bias unit</em> として、<code>x(0) = 1</code> で固定し、<code>theta(0)</code> をオフセット値とする。入力値 <code>x</code> を <code>(0|1)</code> に制限すると、<code>theta</code> の値に応じて AND / OR の論理回路を実現できる。</p>
 
 <div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">];</span>
 <span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="nb">ones</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span> <span class="n">X</span><span class="p">];</span>         <span class="c">% [1 0 0; 1 0 1; 1 1 0; 1 1 1]</span>
@@ -127,7 +127,7 @@ h_{\theta}(x) = g({\theta}^{T} x) \\
 
 <h2>Forward Propagation</h2>
 
-<p><em>Activation Function</em> を複数レイヤーに定義し、各レイヤーの出力を次のレイヤーへの入力とすることで、より複雑な論理回路を実現できる。</p>
+<p><em>Activation function</em> を複数レイヤーに定義し、各レイヤーの出力を次のレイヤーへの入力とすることで、より複雑な論理回路を実現できる。</p>
 
 <pre><code>   L1    |    L2    |    L3    |    L4
 ------------------------------------------
@@ -183,7 +183,7 @@ h_{\theta}(x) = g({\theta}^{T} x) \\
 
 
 <ul>
-<li>２つの入力 <code>x</code> に、バイアス項として <code>x(0) = 1</code> とする。</li>
+<li>入力 <code>x</code> のバイアス項として <code>x(0) = 1</code> とする。</li>
 <li>Layer1: ３つの入力 <code>x</code> から、３つの出力 <code>a2</code> を算出する。バイアス項として <code>a2(0) = 1</code> とする。</li>
 <li>Layer2: Layer1 の４つの出力 <code>a2</code> を入力とし、２つの出力 <code>a3</code> を算出する。バイアス項として <code>a3(0) = 1</code> とする。</li>
 <li>Layer3: Layer2 の３つの出力 <code>a3</code> を入力とし、１つの出力 <code>a4</code> を算出する。</li>
@@ -207,6 +207,32 @@ h_{\theta}(x) = g({\theta}^{T} x) \\
 <span class="n">a3</span> <span class="p">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z2</span><span class="p">);</span>                    <span class="c">% [0; 1; 1; 0]</span></code></pre></div>
 
 
+<p>このように、複数レイヤーの入出力を介して伝播させていく方法を <em>Forward propagation</em> と呼ぶ。</p>
+
+<h2>Multi-class Classification</h2>
+
+<p>３つ以上に分類するには、最終レイヤーのユニットを、分類の数だけ用意すればよい。</p>
+
+<pre><code>   L1    |    L2    |    L3    |
+--------------------------------
+    [+1]-+     [+1]-+
+         |          |
+  [x(1)]-+-&gt;[a2(1)]-+-&gt;[a3(1)]
+         |          |
+  [x(2)]-+-&gt;[a2(2)]-+-&gt;[a3(2)]
+         |          |
+         +-&gt;[a2(3)]-+-&gt;[a3(3)]
+         |          |
+         +-&gt;[a2(4)]-+
+</code></pre>
+
+<p>最終レイヤーのベクトルを <code>a3</code>、正解値を <code>y</code> としたとき、<code>a3(y)</code> のフラグが立つと考える。</p>
+
+<ul>
+<li><code>y = 1 if a3 = [1; 0; 0]</code></li>
+<li><code>y = 2 if a3 = [0; 1; 0]</code></li>
+<li><code>y = 3 if a3 = [0; 0; 1]</code></li>
+</ul>
 
 
           </div>

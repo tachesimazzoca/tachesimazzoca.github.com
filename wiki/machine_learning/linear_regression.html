@@ -104,13 +104,13 @@
 <h2>Cost Function</h2>
 
 <ul>
-<li><code>x</code> から <code>y</code> を導く <code>m</code> 個の訓練データ <em>Training Set</em> があるとする。例) x: 部屋の広さ, y: 家賃</li>
+<li><code>x</code> から <code>y</code> を導く <code>m</code> 個の訓練データ <em>Training set</em> があるとする。例) x: 部屋の広さ, y: 家賃</li>
 <li><code>y</code> を予測する関数を <code>h(x) = a + b * x</code> とする。</li>
 <li><code>h(x) - y</code> すなわち <code>(a + b * x) - y</code> が予測との誤差になる。</li>
 </ul>
 
 
-<p>各データ毎の誤差の二乗したものの総和を、「二乗誤差」 <em>Squared Error</em> と呼ぶ。この値が小さい程、予測との誤差が少ないことになる。この値を元に、費用関数 <em>Cost Function</em> を定義して、最適値を見つけていく。</p>
+<p>各データ毎の誤差の二乗したものの総和を、「二乗誤差」 <em>Squared error</em> と呼ぶ。この値が小さい程、予測との誤差が少ないことになる。この値を元に、費用関数 <em>Cost Function</em> を定義して、最適値を見つけていく。</p>
 
 <p>例として、以下の費用関数 <code>J(a, b)</code> を定義し、訓練データ <code>x = [1; 2; 3], y = [2; 4; 6]</code> を適用してみる。</p>
 
@@ -134,7 +134,7 @@ J(0, 2) = \frac{(2 - 2)^2 + (4 - 4)^2 + (6 - 6)^2}{2 \cdot 3} = 0
 </script>
 
 
-<p><code>a = 0, b = 2</code> の時に費用が最小となり、<code>h(x) = 2 * x</code> が最適式であることが分かる。この手法を線形回帰 <em>Linear Regression</em> と呼ぶ。</p>
+<p><code>a = 0, b = 2</code> の時に費用が最小となり、<code>h(x) = 2 * x</code> が最適式であることが分かる。この手法を線形回帰 <em>Linear regression</em> と呼ぶ。</p>
 
 <p>この訓練データ内では <code>J(0, 2) = 0</code> で誤差はないが、今後のあらゆるケースで、誤差なく予測できるわけではない。あくまで訓練データ内で誤差がないというだけである。言い替えると、訓練データに関しては、誤差なく予測することができる。</p>
 
@@ -146,7 +146,7 @@ J(0, 2) = \frac{(2 - 2)^2 + (4 - 4)^2 + (6 - 6)^2}{2 \cdot 3} = 0
 
 <h2>Gradient Decent</h2>
 
-<p>線形回帰モデル <em>Linear Regression Model</em> を見つけるには、勾配法 <em>Gradient decent</em> を用いることができる。</p>
+<p>線形回帰モデル <em>Linear regression model</em> を見つけるには、勾配法 <em>Gradient decent</em> を用いることができる。</p>
 
 <p>勾配法は、反復法を用いて解に近づけていく。反復法の一つ、ニュートン法 <em>Newton's method</em> により平方根を見つける例をおさらいしてみる。</p>
 
