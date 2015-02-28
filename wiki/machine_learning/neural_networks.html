@@ -127,7 +127,7 @@ h_{\theta}(x) = g({\theta}^{T} x) \\
 
 <h2>Forward Propagation</h2>
 
-<p><em>Activation function</em> を複数レイヤーに定義し、各レイヤーの出力を次のレイヤーへの入力とすることで、より複雑な論理回路を実現できる。</p>
+<p><em>Activation function</em> を複数レイヤーに定義し、各レイヤーの出力を次のレイヤーへの入力とすることで、より複雑な論理回路を実現できる。このモデルは、神経回路のシミュレーションを元にしており、ニューラルネットワーク <em>Neural network</em> と呼ばれる。</p>
 
 <pre><code>   L1    |    L2    |    L3    |    L4
 ------------------------------------------
@@ -207,7 +207,7 @@ h_{\theta}(x) = g({\theta}^{T} x) \\
 <span class="n">a3</span> <span class="p">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z2</span><span class="p">);</span>                    <span class="c">% [0; 1; 1; 0]</span></code></pre></div>
 
 
-<p>このように、複数レイヤーの入出力を介して伝播させていく方法を <em>Forward propagation</em> と呼ぶ。</p>
+<p>このように、複数レイヤーの入出力を介して、前方に伝播させていく方法を <em>Forward propagation</em> と呼ぶ。</p>
 
 <h2>Multi-class Classification</h2>
 
@@ -233,6 +233,27 @@ h_{\theta}(x) = g({\theta}^{T} x) \\
 <li><code>y = 2 if a3 = [0; 1; 0]</code></li>
 <li><code>y = 3 if a3 = [0; 0; 1]</code></li>
 </ul>
+
+
+<p>分類数を <code>K</code> とすると、費用関数は各出力の誤差平均を求めればよい。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-backprop_cost">
+a = h_{\Theta}(x) \in \mathbb{R}^{K}\\
+J(\Theta) = \frac{1}{m} {\sum_{i=1}^{m}} {\sum_{k=1}^{K}} [ -log(a_{i,k})(y_{i,k}) - log(1 - a_{i,k}) (1 - y_{i,k}) ] \\
+</script>
+
+
+<h2>Backpropagation</h2>
+
+<p>ニューラルネットワークの費用関数は、ロジスティック回帰と同じであるが、予測値を求めるには <em>Forward propagation</em> で各レイヤーごとに算出する必要がある。</p>
+
+<p><em>Regularization</em> を行なう場合は、各レイヤーにパラメータがある点に注意する。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-backprop_cost_reg">
+J(\Theta) = J(\Theta) + \frac{\lambda}{2m} \sum_{l=1}^{L-1} \sum_{i=1}^{sl} \sum_{j=1}^{sl+1} ({\Theta}_{j,i}^{(l)})^2 \\
+</script>
+
+
 
 
           </div>
