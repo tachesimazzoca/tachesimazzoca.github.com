@@ -245,13 +245,40 @@ J(\Theta) = \frac{1}{m} {\sum_{i=1}^{m}} {\sum_{k=1}^{K}} [ -log(a_{i,k})(y_{i,k
 
 <h2>Backpropagation</h2>
 
-<p>ニューラルネットワークの費用関数は、ロジスティック回帰と同じであるが、予測値を求めるには <em>Forward propagation</em> で各レイヤーごとに算出する必要がある。</p>
+<p>ニューラルネットワークの費用関数は、ロジスティック回帰と同じであるが、予測値を求めるには <em>Forward propagation</em> で各レイヤーを通して算出する必要がある。</p>
 
-<p><em>Regularization</em> を行なう場合は、各レイヤーにパラメータがある点に注意する。</p>
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">Theta1</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">30</span> <span class="mi">10</span> <span class="mi">10</span> <span class="mi">10</span><span class="p">;</span> <span class="o">-</span><span class="mi">10</span> <span class="mi">20</span> <span class="mi">20</span> <span class="mi">20</span><span class="p">;</span> <span class="mi">20</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span><span class="p">;</span> <span class="o">-</span><span class="mi">20</span> <span class="mi">10</span> <span class="mi">10</span> <span class="mi">10</span><span class="p">];</span>
+<span class="n">Theta2</span> <span class="p">=</span> <span class="p">[</span><span class="mi">10</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span><span class="p">;</span> <span class="o">-</span><span class="mi">10</span> <span class="mi">10</span> <span class="mi">10</span> <span class="mi">0</span> <span class="mi">10</span><span class="p">;</span> <span class="mi">20</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span><span class="p">];</span>
+<span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">];</span>
+<span class="n">m</span> <span class="p">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+<span class="n">a1</span> <span class="p">=</span> <span class="n">X</span><span class="p">;</span>                         <span class="c">% 4 x 3</span>
+<span class="n">a1</span> <span class="p">=</span> <span class="p">[</span><span class="nb">ones</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="n">a1</span><span class="p">];</span>           <span class="c">% 4 x 4</span>
+<span class="n">z2</span> <span class="p">=</span> <span class="n">a1</span> <span class="o">*</span> <span class="n">Theta1</span><span class="o">&#39;</span><span class="p">;</span>              <span class="c">% 4 x 4</span>
+<span class="n">a2</span> <span class="p">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z2</span><span class="p">);</span>
+<span class="n">a2</span> <span class="p">=</span> <span class="p">[</span><span class="nb">ones</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">a2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="n">a2</span><span class="p">];</span> <span class="c">% 4 x 5</span>
+<span class="n">z3</span> <span class="p">=</span> <span class="n">a2</span> <span class="o">*</span> <span class="n">Theta2</span><span class="o">&#39;</span><span class="p">;</span>              <span class="c">% 4 x 3</span>
+<span class="n">h</span> <span class="p">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z3</span><span class="p">);</span></code></pre></div>
+
+
+<p><em>Regularization</em> を行なう場合は、各レイヤーにパラメータがある点に注意する。バイアス項は除外する。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-backprop_cost_reg">
+\text{$L = $ the number of the layers} \\
+\text{$sl = $ the number of parameters of the layer $l$} \\
 J(\Theta) = J(\Theta) + \frac{\lambda}{2m} \sum_{l=1}^{L-1} \sum_{i=1}^{sl} \sum_{j=1}^{sl+1} ({\Theta}_{j,i}^{(l)})^2 \\
 </script>
+
+
+
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">t1</span> <span class="p">=</span> <span class="n">Theta1</span><span class="p">;</span>
+<span class="n">t2</span> <span class="p">=</span> <span class="n">Theta2</span><span class="p">;</span>
+<span class="n">t1</span><span class="p">(:,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">t2</span><span class="p">(:,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="n">lambda</span> <span class="p">=</span> <span class="mf">0.1</span><span class="p">;</span>
+<span class="n">J</span> <span class="p">=</span> <span class="n">J</span> <span class="o">+</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">t1</span> <span class="o">.^</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">t2</span> <span class="o">.^</span> <span class="mi">2</span><span class="p">)))</span> <span class="o">*</span> <span class="n">lambda</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m</span><span class="p">);</span></code></pre></div>
 
 
 
