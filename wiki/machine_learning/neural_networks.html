@@ -210,7 +210,7 @@ h_{\theta}(x) = g({\theta}^{T} x) \\
 
 <h2>Multi-class Classification</h2>
 
-<p>３つ以上に分類するには、最終レイヤーのユニットを、分類の数だけ用意すればよい。</p>
+<p>３つ以上に分類するには、出力レイヤーのユニットを、分類の数だけ用意すればよい。</p>
 
 <pre><code>   L1    |    L2    |    L3    |
 --------------------------------
@@ -225,7 +225,7 @@ h_{\theta}(x) = g({\theta}^{T} x) \\
          +-&gt;[a2(4)]-+
 </code></pre>
 
-<p>最終レイヤーのベクトルを <code>a3</code>、正解値を <code>y</code> としたとき、<code>a3(y)</code> のフラグが立つと考える。</p>
+<p>出力レイヤーのベクトルを <code>a3</code>、正解値を <code>y</code> としたとき、<code>a3(y)</code> のフラグが立つと考える。</p>
 
 <ul>
 <li><code>y = 1 if a3 = [1; 0; 0]</code></li>
@@ -242,9 +242,9 @@ J(\Theta) = \frac{1}{m} {\sum_{i=1}^{m}} {\sum_{k=1}^{K}} [ -log(a_{i,k})(y_{i,k
 </script>
 
 
-<h2>Backpropagation</h2>
+<h2>Cost Function</h2>
 
-<p>ニューラルネットワークの費用関数は、ロジスティック回帰と同じであるが、予測値を求めるには <em>Forward propagation</em> で各レイヤーを通して算出する必要がある。</p>
+<p>ニューラルネットワークの費用関数は、ロジスティック回帰と同様であるが、予測値を求めるには <em>Forward propagation</em> で各レイヤーを通して算出する必要がある。</p>
 
 <div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">Theta1</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">30</span> <span class="mi">10</span> <span class="mi">10</span> <span class="mi">10</span><span class="p">;</span> <span class="o">-</span><span class="mi">10</span> <span class="mi">20</span> <span class="mi">20</span> <span class="mi">20</span><span class="p">;</span> <span class="mi">20</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span><span class="p">;</span> <span class="o">-</span><span class="mi">20</span> <span class="mi">10</span> <span class="mi">10</span> <span class="mi">10</span><span class="p">];</span>
 <span class="n">Theta2</span> <span class="p">=</span> <span class="p">[</span><span class="mi">10</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span><span class="p">;</span> <span class="o">-</span><span class="mi">10</span> <span class="mi">10</span> <span class="mi">10</span> <span class="mi">0</span> <span class="mi">10</span><span class="p">;</span> <span class="mi">20</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span><span class="p">];</span>
@@ -280,7 +280,7 @@ J(\Theta) = J(\Theta) + \frac{\lambda}{2m} \sum_{l=1}^{L-1} \sum_{i=1}^{sl} \sum
 <span class="n">J</span> <span class="p">=</span> <span class="n">J</span> <span class="o">+</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">t1</span> <span class="o">.^</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">t2</span> <span class="o">.^</span> <span class="mi">2</span><span class="p">)))</span> <span class="o">*</span> <span class="n">lambda</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m</span><span class="p">);</span></code></pre></div>
 
 
-<p>ニューラルネットワークの各ユニットのパラメータを求めるには、勾配法を用いる。各ユニットの偏微分の項を求めるためには、最終出力の誤差から各レイヤーを逆に伝播して算出する必要がある。この方法を、誤差逆伝播法 <em>Backpropagation</em> と呼ぶ。</p>
+<h2>Sigmoid Gradient Function</h2>
 
 <p>ネイピア数 <code>e</code> を底とする指数の微分は <code>(e^x)' = e^x</code> であることを利用して、シグモイド関数 <code>g(z)</code> を微分すると <code>g'(z) = g(z) * (1 - g(z))</code> となる。</p>
 
@@ -291,15 +291,10 @@ g(z) = \frac{1}{1 + e^{-z}} \\
 
 & \left\{
 \begin{array}{l l}
-u = 1 + e^{-z} \\
-g'(u) = (u^{-1})' = -1 \cdot u^{-2} = -(1 + e^{-z})^{-2} \\
-\end{array}
-\right. \\
-
-& \left\{
-\begin{array}{l l}
 x = -z \\
-u' = (1 + e^{-z})' = (e^{-z})' = (e^{x})'(x)' = (e^{x})(-1) = -e^{-z} \\
+u = 1 + e^{x} \\
+g'(u) = (u^{-1})' = -1 \cdot u^{-2} = -(1 + e^{-z})^{-2} \\
+u' = (1 + e^{x})' = (e^{x})'(-z)' = (e^{x})(-1) = -e^{-z} \\
 \end{array}
 \right. \\
 
@@ -308,17 +303,50 @@ u' = (1 + e^{-z})' = (e^{-z})' = (e^{x})'(x)' = (e^{x})(-1) = -e^{-z} \\
 </script>
 
 
-<script type="math/tex; mode=display" id="MathJax-Element-sigmoid_partial">
+<script type="math/tex; mode=display" id="MathJax-Element-sigmoid_gradient">
 \begin{align}
 g'(z) & = g'(u) \cdot u' = -(1 + e^{-z})^{-2} \cdot -e^{-z}\\
       & = \frac{e^{-z}}{(1 + e^{-z})^2} \\
       & = \frac{1}{1 + e^{-z}} \left( \frac{1 + e^{-z}}{1 + e^{-z}} - \frac{1}{1 + e^{-z}} \right) \\
       & = \frac{1}{1 + e^{-z}} \left( 1 - \frac{1}{1 + e^{-z}} \right) \\
       & = g(z)(1 - g(z)) \\
+g'(0) & = g(0)(1 - g(0)) = 0.5 \cdot 0.5 = 0.25 \\
 \end{align} \\
 </script>
 
 
+<h2>Backpropagation</h2>
+
+<p>ニューラルネットワークの各ユニットのパラメータを求めるには、ロジスティック回帰と同様に勾配法を用いる。各ユニットの偏微分を求めるために、最終出力の誤差から各レイヤーを逆に伝播して算出する必要がある。この方法を、誤差逆伝播法 <em>Backpropagation</em> と呼ぶ。</p>
+
+<p>出力レイヤーの誤差は、予測値ベクトルから正解値ベクトルを引いたものになる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-backprop_error_output">
+\delta^{(L)}_{k} = a^{(L)}_{k} - y_{k}\\
+</script>
+
+
+<p>各中間レイヤーの誤差は以下の式で求められる。各パラメータ自身が次のレイヤーに伝播させてしまった誤差を算出すると考えればよい。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-backprop_error_hidden">
+\delta^{(l)} = ({\Theta}^{(l)})^{T} \delta^{(l+1)} .* g'(z^{(l)}) \\
+
+\left\{
+  \begin{array}{l l}
+    \delta^{(l)}_1 = ({\Theta}^{(l)}_{1,1} \delta^{(l+1)}_{1} + {\Theta}^{(l)}_{2,1} \delta^{(l+1)}_{2} + {\Theta}^{(l)}_{3,1} \delta^{(l+1)}_{3} \ldots) g'(z^{(l)}_1) \\
+    \delta^{(l)}_2 = ({\Theta}^{(l)}_{1,2} \delta^{(l+1)}_{1} + {\Theta}^{(l)}_{2,2} \delta^{(l+1)}_{2} + {\Theta}^{(l)}_{3,2} \delta^{(l+1)}_{3} \ldots) g'(z^{(l)}_2) \\
+    \delta^{(l)}_3 = ({\Theta}^{(l)}_{1,3} \delta^{(l+1)}_{1} + {\Theta}^{(l)}_{2,3} \delta^{(l+1)}_{2} + {\Theta}^{(l)}_{3,3} \delta^{(l+1)}_{3} \ldots) g'(z^{(l)}_3) \\
+  \end{array} \\
+\right. \\
+</script>
+
+
+<p>各ユニットの出力に直後のレイヤーの誤差を掛け合わせたものが、各パラメータの偏微分となる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-backprop_grad">
+\Delta^{(l)} = \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^{T} \\
+\frac{\partial J(\Theta)}{\partial \Theta^{(l)}_{i,j}} = a^{(l)}_{j} \delta^{(l+1)}_{i} = \frac{1}{m} \Delta^{(l)}_{i,j} \\
+</script>
 
 
           </div>
