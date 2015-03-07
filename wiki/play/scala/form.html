@@ -98,6 +98,51 @@
 </ul>
 
 
+<h2>Constraint</h2>
+
+<p><code>play.api.data.validation.Constraint[T]</code> により、バリデータを作成できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.data.validation._</span>
+
+<span class="k">val</span> <span class="n">yesOrNo</span> <span class="k">=</span> <span class="nc">Constraint</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="o">{</span> <span class="n">s</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=&gt;</span>
+  <span class="n">s</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="s">&quot;yes&quot;</span> <span class="o">|</span> <span class="s">&quot;no&quot;</span> <span class="k">=&gt;</span> <span class="nc">Valid</span>
+    <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;The string must be (yes|no).&quot;</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Valid</span> <span class="o">==</span> <span class="n">yesOrNo</span><span class="o">(</span><span class="s">&quot;yes&quot;</span><span class="o">))</span>
+
+<span class="k">def</span> <span class="n">range</span><span class="o">(</span><span class="n">min</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">max</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="nc">Constraint</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="s">&quot;constraint.range&quot;</span><span class="o">,</span> <span class="n">min</span><span class="o">,</span> <span class="n">max</span><span class="o">)</span> <span class="o">{</span> <span class="n">v</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=&gt;</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">v</span> <span class="o">&gt;=</span> <span class="n">min</span> <span class="o">&amp;&amp;</span> <span class="n">v</span> <span class="o">&lt;=</span> <span class="n">max</span><span class="o">)</span> <span class="nc">Valid</span>
+  <span class="k">else</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;error.range&quot;</span><span class="o">,</span> <span class="n">min</span><span class="o">,</span> <span class="n">max</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="k">val</span> <span class="n">validator</span> <span class="k">=</span> <span class="n">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="s">&quot;constraint.range&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="n">validator</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span> <span class="o">==</span> <span class="n">validator</span><span class="o">.</span><span class="n">args</span><span class="o">)</span>
+<span class="n">validator</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Invalid</span><span class="o">(</span><span class="n">errors</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="n">assert</span><span class="o">(</span><span class="mi">1</span> <span class="o">==</span> <span class="n">errors</span><span class="o">.</span><span class="n">size</span><span class="o">)</span>
+    <span class="n">assert</span><span class="o">(</span><span class="s">&quot;error.range&quot;</span> <span class="o">==</span> <span class="n">errors</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">message</span><span class="o">)</span>
+    <span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span> <span class="o">==</span> <span class="n">errors</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">args</span><span class="o">)</span>
+  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span>
+    <span class="n">assert</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<ul>
+<li><code>Constraint.apply</code> を使ってバリデータを作成する。値をチェックして <code>play.api.data.validation.(Valid|Invalid)</code> を返す関数を渡す。</li>
+<li>インスタンス自身の <code>Constraint#apply</code> メゾッドが定義されており、それを経由して値をチェックして <code>ValidationResult</code> を受け取る。</li>
+<li>バリデータのメタ情報を外部から参照できるように、<code>Constraint.apply</code> でバリデーション名と引数 <code>Any*</code> を定義することができる。入力のヒント文字列の組み立て等のために、外部用に提供する属性であって、バリデーションを行なう関数内から参照はできない。設定が冗長になるのを回避するには、<code>Constraint</code> オブジェクトを生成するヘルパー関数を定義するとよい。</li>
+</ul>
+
+
+<p><code>play.api.data.validation.Constraints._</code> に、基本的なバリデータは定義されているので、不足する場合に独自に作成すればよい。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.data.validation.Constraints.pattern</span>
+
+<span class="k">val</span> <span class="n">alnum</span> <span class="k">=</span> <span class="n">pattern</span><span class="o">(</span><span class="n">regex</span> <span class="k">=</span> <span class="s">&quot;&quot;&quot;^[A-Z0-9]+$&quot;&quot;&quot;</span><span class="o">.</span><span class="n">r</span><span class="o">,</span> <span class="n">error</span> <span class="k">=</span> <span class="s">&quot;must be alphanumeric&quot;</span><span class="o">)</span></code></pre></div>
+
+
 <h2>Mapping</h2>
 
 <p><code>play.api.data.Mapping[T]</code> により、フォーム入力 <code>Map[String, String]</code> とデータオブジェクトの変換ルールを定義し、相互に変換を行なうことができる。</p>
