@@ -131,9 +131,20 @@
 
 <ul>
 <li><code>Constraint.apply</code> を使ってバリデータを作成する。値をチェックして <code>play.api.data.validation.(Valid|Invalid)</code> を返す関数を渡す。</li>
-<li>インスタンス自身の <code>Constraint#apply</code> メゾッドが定義されており、それを経由して値をチェックして <code>ValidationResult</code> を受け取る。</li>
-<li>バリデータのメタ情報を外部から参照できるように、<code>Constraint.apply</code> でバリデーション名と引数 <code>Any*</code> を定義することができる。入力のヒント文字列の組み立て等のために、外部用に提供する属性であって、バリデーションを行なう関数内から参照はできない。設定が冗長になるのを回避するには、<code>Constraint</code> オブジェクトを生成するヘルパー関数を定義するとよい。</li>
+<li><code>Constraint#apply</code> メゾッドで値をチェックして <code>ValidationResult</code> を受け取る。</li>
+<li>バリデータのメタ情報を外部から参照できるように、<code>Constraint.apply</code> でバリデーション名と引数 <code>Any*</code> を定義することができる。入力のヒント文字列の組み立て等のために、外部用に提供する属性であって、バリデーションを行なう関数内から参照はできない。設定が冗長になるのを回避するには、<code>Constraint</code> インスタンスを生成するヘルパー関数を定義するとよい。</li>
 </ul>
+
+
+<p><code>Invalid</code> は <code>apply</code> メゾッドに <code>play.api.data.validation.ValidationError</code> を渡して作成する。メッセージと引数だけの <code>apply</code> も提供されている。インスタンスは <code>Invalid#++</code> でマージできる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">result1</span> <span class="k">=</span> <span class="nc">Invalid</span><span class="o">(</span><span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.foo&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">))</span>
+<span class="k">val</span> <span class="n">result2</span> <span class="k">=</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;error.bar&quot;</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">result3</span> <span class="k">=</span> <span class="n">result1</span> <span class="o">++</span> <span class="n">result2</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span>
+  <span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.foo&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span>
+  <span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.bar&quot;</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<span class="o">)</span> <span class="o">==</span> <span class="n">result3</span><span class="o">.</span><span class="n">errors</span><span class="o">)</span></code></pre></div>
 
 
 <p><code>play.api.data.validation.Constraints._</code> に、基本的なバリデータは定義されているので、不足する場合に独自に作成すればよい。</p>
