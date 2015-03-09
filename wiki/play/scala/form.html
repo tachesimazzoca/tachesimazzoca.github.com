@@ -98,62 +98,6 @@
 </ul>
 
 
-<h2>Constraint</h2>
-
-<p><code>play.api.data.validation.Constraint[T]</code> により、バリデータを作成できる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.data.validation._</span>
-
-<span class="k">val</span> <span class="n">yesOrNo</span> <span class="k">=</span> <span class="nc">Constraint</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="o">{</span> <span class="n">s</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=&gt;</span>
-  <span class="n">s</span> <span class="k">match</span> <span class="o">{</span>
-    <span class="k">case</span> <span class="s">&quot;yes&quot;</span> <span class="o">|</span> <span class="s">&quot;no&quot;</span> <span class="k">=&gt;</span> <span class="nc">Valid</span>
-    <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;The string must be (yes|no).&quot;</span><span class="o">)</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Valid</span> <span class="o">==</span> <span class="n">yesOrNo</span><span class="o">(</span><span class="s">&quot;yes&quot;</span><span class="o">))</span>
-
-<span class="k">def</span> <span class="n">range</span><span class="o">(</span><span class="n">min</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">max</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="nc">Constraint</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="s">&quot;constraint.range&quot;</span><span class="o">,</span> <span class="n">min</span><span class="o">,</span> <span class="n">max</span><span class="o">)</span> <span class="o">{</span> <span class="n">v</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=&gt;</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">v</span> <span class="o">&gt;=</span> <span class="n">min</span> <span class="o">&amp;&amp;</span> <span class="n">v</span> <span class="o">&lt;=</span> <span class="n">max</span><span class="o">)</span> <span class="nc">Valid</span>
-  <span class="k">else</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;error.range&quot;</span><span class="o">,</span> <span class="n">min</span><span class="o">,</span> <span class="n">max</span><span class="o">)</span>
-<span class="o">}</span>
-<span class="k">val</span> <span class="n">validator</span> <span class="k">=</span> <span class="n">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="s">&quot;constraint.range&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="n">validator</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span> <span class="o">==</span> <span class="n">validator</span><span class="o">.</span><span class="n">args</span><span class="o">)</span>
-<span class="n">validator</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Invalid</span><span class="o">(</span><span class="n">errors</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="n">assert</span><span class="o">(</span><span class="mi">1</span> <span class="o">==</span> <span class="n">errors</span><span class="o">.</span><span class="n">size</span><span class="o">)</span>
-    <span class="n">assert</span><span class="o">(</span><span class="s">&quot;error.range&quot;</span> <span class="o">==</span> <span class="n">errors</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">message</span><span class="o">)</span>
-    <span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span> <span class="o">==</span> <span class="n">errors</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">args</span><span class="o">)</span>
-  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span>
-    <span class="n">assert</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<ul>
-<li><code>Constraint.apply</code> を使ってバリデータを作成する。値をチェックして <code>play.api.data.validation.(Valid|Invalid)</code> を返す関数を渡す。</li>
-<li><code>Constraint#apply</code> メゾッドで値をチェックして <code>ValidationResult</code> を受け取る。</li>
-<li>バリデータのメタ情報を外部から参照できるように、<code>Constraint.apply</code> でバリデーション名と引数 <code>Any*</code> を定義することができる。入力のヒント文字列の組み立て等のために、外部用に提供する属性であって、バリデーションを行なう関数内から参照はできない。設定が冗長になるのを回避するには、<code>Constraint</code> インスタンスを生成するヘルパー関数を定義するとよい。</li>
-</ul>
-
-
-<p><code>Invalid</code> は <code>apply</code> メゾッドに <code>play.api.data.validation.ValidationError</code> を渡して作成する。メッセージと引数だけの <code>apply</code> も提供されている。インスタンスは <code>Invalid#++</code> でマージできる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">result1</span> <span class="k">=</span> <span class="nc">Invalid</span><span class="o">(</span><span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.foo&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">))</span>
-<span class="k">val</span> <span class="n">result2</span> <span class="k">=</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;error.bar&quot;</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">result3</span> <span class="k">=</span> <span class="n">result1</span> <span class="o">++</span> <span class="n">result2</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span>
-  <span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.foo&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span>
-  <span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.bar&quot;</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
-<span class="o">)</span> <span class="o">==</span> <span class="n">result3</span><span class="o">.</span><span class="n">errors</span><span class="o">)</span></code></pre></div>
-
-
-<p><code>play.api.data.validation.Constraints._</code> に、基本的なバリデータは定義されているので、不足する場合に独自に作成すればよい。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.data.validation.Constraints.pattern</span>
-
-<span class="k">val</span> <span class="n">alnum</span> <span class="k">=</span> <span class="n">pattern</span><span class="o">(</span><span class="n">regex</span> <span class="k">=</span> <span class="s">&quot;&quot;&quot;^[A-Z0-9]+$&quot;&quot;&quot;</span><span class="o">.</span><span class="n">r</span><span class="o">,</span> <span class="n">error</span> <span class="k">=</span> <span class="s">&quot;must be alphanumeric&quot;</span><span class="o">)</span></code></pre></div>
-
-
 <h2>Mapping</h2>
 
 <p><code>play.api.data.Mapping[T]</code> により、フォーム入力 <code>Map[String, String]</code> とデータオブジェクトの変換ルールを定義し、相互に変換を行なうことができる。</p>
@@ -172,6 +116,8 @@
   <span class="s">&quot;price&quot;</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="o">(</span><span class="n">min</span> <span class="k">=</span> <span class="mi">1</span><span class="o">,</span> <span class="n">max</span> <span class="k">=</span> <span class="mi">100000</span><span class="o">)</span>
 <span class="o">)(</span><span class="nc">Item</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Item</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span></code></pre></div>
 
+
+<p><code>play.api.data.Forms._</code> に、ほとんどのフォーム入力のフォーマットに対応したヘルパー関数が定義されているので、基本的にはそれらを使えばよい。</p>
 
 <h3>ObjectMapping</h3>
 
@@ -278,7 +224,16 @@
 <span class="o">)</span></code></pre></div>
 
 
-<p><code>play.api.data.Forms._</code> に、ほとんどのフォーム入力のフォーマットに対応したヘルパー関数が定義されているので、基本的にはそれらを使えばよい。</p>
+<p>固定値には <code>play.api.data.Forms.ignored</code> を使う。<code>bind</code> で上書きはされない。<code>unbind</code> 時には除外される。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">m</span><span class="k">:</span> <span class="kt">Mapping</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="n">tuple</span><span class="o">(</span>
+  <span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="n">ignored</span><span class="o">(</span><span class="mi">123L</span><span class="o">),</span>
+  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span>
+<span class="o">)</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Right</span><span class="o">((</span><span class="mi">123L</span><span class="o">,</span> <span class="s">&quot;Foo&quot;</span><span class="o">))</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">)))</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Right</span><span class="o">((</span><span class="mi">123L</span><span class="o">,</span> <span class="s">&quot;Foo&quot;</span><span class="o">))</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;999&quot;</span><span class="o">,</span> <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">)))</span> <span class="c1">// id:999 ignored</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">unbind</span><span class="o">((</span><span class="mi">123L</span><span class="o">,</span> <span class="s">&quot;Foo&quot;</span><span class="o">)))</span> <span class="c1">// id:123 removed</span></code></pre></div>
+
 
 <h3>RepeatedMapping</h3>
 
@@ -320,7 +275,147 @@
 <span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span></code></pre></div>
 
 
+<h2>Constraint</h2>
 
+<p><code>play.api.data.validation.Constraint[T]</code> により、バリデータを作成できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.data.validation._</span>
+
+<span class="k">val</span> <span class="n">yesOrNo</span> <span class="k">=</span> <span class="nc">Constraint</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="o">{</span> <span class="n">s</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=&gt;</span>
+  <span class="n">s</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="s">&quot;yes&quot;</span> <span class="o">|</span> <span class="s">&quot;no&quot;</span> <span class="k">=&gt;</span> <span class="nc">Valid</span>
+    <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;The string must be (yes|no).&quot;</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Valid</span> <span class="o">==</span> <span class="n">yesOrNo</span><span class="o">(</span><span class="s">&quot;yes&quot;</span><span class="o">))</span>
+
+<span class="k">def</span> <span class="n">range</span><span class="o">(</span><span class="n">min</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">max</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="nc">Constraint</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="s">&quot;constraint.range&quot;</span><span class="o">,</span> <span class="n">min</span><span class="o">,</span> <span class="n">max</span><span class="o">)</span> <span class="o">{</span> <span class="n">v</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=&gt;</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">v</span> <span class="o">&gt;=</span> <span class="n">min</span> <span class="o">&amp;&amp;</span> <span class="n">v</span> <span class="o">&lt;=</span> <span class="n">max</span><span class="o">)</span> <span class="nc">Valid</span>
+  <span class="k">else</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;error.range&quot;</span><span class="o">,</span> <span class="n">min</span><span class="o">,</span> <span class="n">max</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="k">val</span> <span class="n">validator</span> <span class="k">=</span> <span class="n">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="s">&quot;constraint.range&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="n">validator</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span> <span class="o">==</span> <span class="n">validator</span><span class="o">.</span><span class="n">args</span><span class="o">)</span>
+<span class="n">validator</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Invalid</span><span class="o">(</span><span class="n">errors</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="n">assert</span><span class="o">(</span><span class="mi">1</span> <span class="o">==</span> <span class="n">errors</span><span class="o">.</span><span class="n">size</span><span class="o">)</span>
+    <span class="n">assert</span><span class="o">(</span><span class="s">&quot;error.range&quot;</span> <span class="o">==</span> <span class="n">errors</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">message</span><span class="o">)</span>
+    <span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span> <span class="o">==</span> <span class="n">errors</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">args</span><span class="o">)</span>
+  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span>
+    <span class="n">assert</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<ul>
+<li><code>Constraint[T].apply</code> を使ってバリデータを作成する。引数には、値をチェックする関数 <code>T =&gt; play.api.data.validation.ValidationResult</code> を渡す。
+
+<ul>
+<li>正常時には <code>Valid</code> を返す。</li>
+<li>エラー時には <code>Invalid</code> を返す。</li>
+</ul>
+</li>
+<li><code>Constraint[T]#apply</code> メゾッドで値をチェックして <code>ValidationResult</code> を受け取る。</li>
+<li>バリデータのメタ情報を外部から参照できるように、<code>Constraint[T].apply</code> でバリデーション名と引数 <code>Any*</code> を定義することができる。入力のヒント文字列の組み立て等のために、外部用に提供する属性であって、バリデーションを行なう関数内から参照はできない。設定が冗長になるのを回避するには、<code>Constraint[T]</code> インスタンスを生成するヘルパー関数を定義するとよい。</li>
+</ul>
+
+
+<p><code>Invalid</code> は <code>apply</code> メゾッドに <code>play.api.data.validation.ValidationError</code> を渡して作成する。メッセージと引数だけの <code>apply</code> も提供されている。インスタンスは <code>Invalid#++</code> でマージできる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">result1</span> <span class="k">=</span> <span class="nc">Invalid</span><span class="o">(</span><span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.foo&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">))</span>
+<span class="k">val</span> <span class="n">result2</span> <span class="k">=</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;error.bar&quot;</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">result3</span> <span class="k">=</span> <span class="n">result1</span> <span class="o">++</span> <span class="n">result2</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span>
+  <span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.foo&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span>
+  <span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.bar&quot;</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<span class="o">)</span> <span class="o">==</span> <span class="n">result3</span><span class="o">.</span><span class="n">errors</span><span class="o">)</span></code></pre></div>
+
+
+<p><code>play.api.data.validation.Constraints._</code> に、基本的なバリデータは定義されているので、不足する場合に独自に作成すればよい。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.data.validation.Constraints.pattern</span>
+
+<span class="k">val</span> <span class="n">alnum</span> <span class="k">=</span> <span class="n">pattern</span><span class="o">(</span><span class="n">regex</span> <span class="k">=</span> <span class="s">&quot;&quot;&quot;^[A-Z0-9]+$&quot;&quot;&quot;</span><span class="o">.</span><span class="n">r</span><span class="o">,</span> <span class="n">error</span> <span class="k">=</span> <span class="s">&quot;must be alphanumeric&quot;</span><span class="o">)</span></code></pre></div>
+
+
+<h3>Working with Mapping</h3>
+
+<p><code>Mapping#verifying</code> メゾッドで、フィールド値の制約を定義できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">tuple</span><span class="o">(</span>
+  <span class="s">&quot;username&quot;</span> <span class="o">-&gt;</span> <span class="n">tuple</span><span class="o">(</span>
+    <span class="s">&quot;main&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span><span class="o">.</span><span class="n">verifying</span><span class="o">(</span><span class="n">pattern</span><span class="o">(</span> <span class="s">&quot;&quot;&quot;[a-z][a-z0-9]{4,31}&quot;&quot;&quot;</span><span class="o">.</span><span class="n">r</span><span class="o">)),</span>
+    <span class="s">&quot;sub&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span>
+  <span class="o">).</span><span class="n">verifying</span><span class="o">(</span><span class="s">&quot;error.username.sub&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="n">v</span> <span class="k">=&gt;</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">_1</span> <span class="o">==</span> <span class="n">v</span><span class="o">.</span><span class="n">_2</span>
+  <span class="o">}),</span>
+  <span class="s">&quot;age&quot;</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="o">.</span><span class="n">verifying</span><span class="o">(</span><span class="n">min</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">max</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span>
+<span class="o">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span>
+  <span class="s">&quot;username.main&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;abc123&quot;</span><span class="o">,</span>
+  <span class="s">&quot;username.sub&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;abc12&quot;</span><span class="o">,</span>
+  <span class="s">&quot;age&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;26&quot;</span>
+<span class="o">))</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="n">errors</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="n">assert</span><span class="o">(</span><span class="mi">1</span> <span class="o">===</span> <span class="n">errors</span><span class="o">.</span><span class="n">size</span><span class="o">)</span>
+    <span class="n">assert</span><span class="o">(</span><span class="s">&quot;error.username.sub&quot;</span> <span class="o">===</span> <span class="n">errors</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">message</span><span class="o">)</span>
+  <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+<span class="o">}</span></code></pre></div>
+
+
+<ul>
+<li><code>Constraint[T]</code> のインスタンスを可変長引数で渡す。</li>
+<li><code>Constraint[T]</code> の代わりに、<code>T =&gt; Boolean</code> の関数を渡すこともできる。値の制約は <code>Constraint[T]</code> を作るのがよいが、入力確認フィールドの状態など、マッピング全体の制約にはこの方法が良いだろう。</li>
+<li><code>Constraint#apply</code> で得られるエラーは <code>ValidationError</code> だが、<code>Mapping#bind</code> でのエラーは、エラーが起こったフィールドキーと共に、<code>play.api.data.FormError</code> に移し替えられる。</li>
+</ul>
+
+
+<h2>Form</h2>
+
+<p><code>play.api.data.Form</code> は、<code>Mapping</code> をラップした HTTP フォームのモデルを提供する。<code>Mapping</code> はマッピングのみで状態を持たないが、<code>Form</code> は入力値やエラーを保持する。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">userForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(</span><span class="n">mapping</span><span class="o">(</span>
+  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+  <span class="s">&quot;age&quot;</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="o">.</span><span class="n">verifying</span><span class="o">(</span><span class="n">min</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">max</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span>
+<span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">unapply</span><span class="o">))</span>
+<span class="k">val</span> <span class="n">boundForm</span> <span class="k">=</span> <span class="n">userForm</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">,</span> <span class="s">&quot;age&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;26&quot;</span><span class="o">))</span>
+<span class="n">assert</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="nc">User</span><span class="o">(</span><span class="s">&quot;Foo&quot;</span><span class="o">,</span> <span class="mi">26</span><span class="o">))</span> <span class="o">==</span> <span class="n">boundForm</span><span class="o">.</span><span class="n">value</span><span class="o">)</span>
+<span class="n">assert</span><span class="o">(</span><span class="kc">false</span> <span class="o">==</span> <span class="n">boundForm</span><span class="o">.</span><span class="n">hasErrors</span><span class="o">)</span></code></pre></div>
+
+
+<p>状態は持つが <code>Form</code> はケースクラス、すなわちイミュータブルであり、副作用のメゾッドは持たない。言い換えると <code>Form#(bind|fill)</code> 等で状態を更新する度にコピーされるので、スレッドセーフについては考慮しなくてよい。</p>
+
+<p><code>Controller</code> 内で利用する際、リクエスト毎に <code>Mapping</code> から <code>Form</code> を毎回組み立てるのはコストがかかるので、<code>Controller</code> のメンバー変数などに、初期値でインスタンス化したものを保持しておくとよい。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">models.Contact</span>
+<span class="k">import</span> <span class="nn">play.api.data._</span>
+<span class="k">import</span> <span class="nn">play.api.mvc._</span>
+
+<span class="k">object</span> <span class="nc">ContactsController</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">contactForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(</span><span class="n">mapping</span><span class="o">(</span>
+    <span class="o">...</span>
+  <span class="o">)(</span><span class="nc">Contact</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Contact</span><span class="o">.</span><span class="n">unapply</span><span class="o">))</span>
+
+  <span class="k">def</span> <span class="n">entry</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
+    <span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">contacts</span><span class="o">.</span><span class="n">entry</span><span class="o">(</span><span class="n">contactForm</span><span class="o">))</span>
+  <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">submit</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">request</span> <span class="k">=&gt;</span>
+    <span class="n">contactForm</span><span class="o">.</span><span class="n">bindFromRequest</span><span class="o">.</span><span class="n">fold</span><span class="o">(</span>
+      <span class="n">formWithErrors</span> <span class="k">=&gt;</span> <span class="nc">BadRequest</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">contacts</span><span class="o">.</span><span class="n">entry</span><span class="o">(</span><span class="n">formWithErrors</span><span class="o">)),</span>
+      <span class="n">contact</span> <span class="k">=&gt;</span> <span class="o">{</span>
+        <span class="c1">// TODO: Do something with the value contact.</span>
+        <span class="nc">Redirect</span><span class="o">(</span><span class="n">routes</span><span class="o">.</span><span class="nc">ContactController</span><span class="o">.</span><span class="n">done</span><span class="o">())</span>
+      <span class="o">}</span>
+    <span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">done</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
+    <span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">contacts</span><span class="o">.</span><span class="n">done</span><span class="o">())</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>送信されるフォームデータは、<code>Form#bindFromRequest</code> で暗黙パラメータの <code>Request</code> からバインドし、<code>Form#fold</code> で、エラー時と正常時の関数を定義しておくと簡潔に書ける。</p>
 
           </div>
           
