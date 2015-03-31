@@ -126,7 +126,7 @@
 </script>
 
 
-<p><code>Σ</code> は、学習データ <code>x</code> の各要素を交差させて平均をとった <code>n</code> の平方行列になる。各要素の相関関係を調べるために、この共分散行列により各要素を交差させて、分散度合いを計ると考えればよい。</p>
+<p><code>Σ</code> は、学習データ <code>x</code> の各要素を交差させて平均をとった <code>n</code> の平方行列になる。各要素の相関度合いを調べるために、この共分散行列を用いると考えればよい。</p>
 
 <h2>Singular Value Decomposition</h2>
 
@@ -139,8 +139,8 @@ M = U \Sigma V^{T}
 
 <ul>
 <li><code>U</code> は出力の基底となる正規直交ベクトル</li>
-<li><code>V</code> は入力の基底となる正規直交ベクトル</li>
 <li><code>Σ</code> は特異値を対角に持つ行列</li>
+<li><code>V</code> は入力の基底となる正規直交ベクトル</li>
 </ul>
 
 
@@ -157,7 +157,7 @@ M = U \Sigma V^{T}
 
 <h2>PCA Algorithm</h2>
 
-<p>学習データ <code>X</code> のパラメータ数 <code>n</code> から、<code>k</code> に圧縮したいとする。</p>
+<p>学習データ <code>X</code> のパラメータ数 <code>n</code> を、<code>k</code> に圧縮したいとする。</p>
 
 <div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">5</span> <span class="mi">1</span> <span class="mi">3</span><span class="p">;</span> <span class="mi">2</span> <span class="mi">8</span> <span class="mi">2</span> <span class="mi">4</span><span class="p">;</span> <span class="mi">3</span> <span class="mi">6</span> <span class="mi">3</span> <span class="mi">8</span><span class="p">;</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">7</span><span class="p">];</span>
 
@@ -167,7 +167,7 @@ M = U \Sigma V^{T}
 <span class="n">k</span> <span class="p">=</span> <span class="mi">3</span><span class="p">;</span></code></pre></div>
 
 
-<p>学習データはあらかじめ、<em>Feature normalization</em> を行い、要素のスケールを揃えておく。</p>
+<p>学習データはあらかじめ、<em>Feature normalization</em> を行っておく。</p>
 
 <div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="c">% -1.16190  -0.70711  -1.16190  -1.05021</span>
 <span class="c">% -0.38730   1.41421  -0.38730  -0.63013</span>
@@ -224,7 +224,7 @@ M = U \Sigma V^{T}
 </script>
 
 
-<p>実際には、上記式を用いる必要はない。特異値分解を行なって得られる行列 <code>Σ</code> は特異値を対角に持つ。<code>svd</code> 関数で得られる <code>S</code> は後方にある要素ほど 0 に近づく。</p>
+<p>実際には、上記式を用いる必要はない。特異値分解を行なって得られる行列 <code>Σ</code> は特異値を対角に持つ。<code>svd</code> 関数で得られる <code>S</code> は、後方にある要素ほど 0 に近づく。</p>
 
 <div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">2</span> <span class="mi">9</span> <span class="mi">8</span> <span class="mi">2</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">3</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span><span class="p">;</span> <span class="mi">4</span> <span class="mi">9</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">4</span><span class="p">];</span>
 <span class="n">octave</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span><span class="p">]</span> <span class="p">=</span> <span class="nb">svd</span><span class="p">(</span><span class="n">X</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span> <span class="o">/</span> <span class="mi">4</span><span class="p">);</span>
