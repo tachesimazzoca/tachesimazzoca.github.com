@@ -209,6 +209,47 @@ M = U \Sigma V^{T}
 <span class="n">Xdiff</span> <span class="p">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">Xapprox</span><span class="p">)</span> <span class="o">.^</span> <span class="mi">2</span><span class="p">;</span></code></pre></div>
 
 
+<h2>Choosing Number of Principal Components</h2>
+
+<p>学習データと射影（圧縮後に復元した学習データ） との誤差が許容範囲を超えるまで、パラメータ数 <code>k</code> を削減できる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-pca_choosing_k">
+\frac{
+  \frac{1}{m} \sum_{i = 1}^{m} \begin{Vmatrix}
+  x^{(i)} -  x^{(i)}_{ \text{approx} }
+  \end{Vmatrix}^{2}
+}{
+  \frac{1}{m} \sum_{i = 1}^{m} \begin{Vmatrix} x^{(i)} \end{Vmatrix}^{2}
+} \leq 0.01
+</script>
+
+
+<p>実際には、上記式を用いる必要はない。特異値分解を行なって得られる行列 <code>Σ</code> は特異値を対角に持つ。<code>svd</code> 関数で得られる <code>S</code> は後方にある要素ほど 0 に近づく。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">2</span> <span class="mi">9</span> <span class="mi">8</span> <span class="mi">2</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">3</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">3</span><span class="p">;</span> <span class="mi">4</span> <span class="mi">9</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">4</span><span class="p">];</span>
+<span class="n">octave</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span><span class="p">]</span> <span class="p">=</span> <span class="nb">svd</span><span class="p">(</span><span class="n">X</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span> <span class="o">/</span> <span class="mi">4</span><span class="p">);</span>
+<span class="n">octave</span><span class="o">&gt;</span> <span class="n">S</span>
+<span class="n">S</span> <span class="p">=</span>
+
+<span class="n">Diagonal</span> <span class="n">Matrix</span>
+
+   <span class="mf">93.68813</span>          <span class="mi">0</span>          <span class="mi">0</span>          <span class="mi">0</span>          <span class="mi">0</span>
+          <span class="mi">0</span>    <span class="mf">4.49246</span>          <span class="mi">0</span>          <span class="mi">0</span>          <span class="mi">0</span>
+          <span class="mi">0</span>          <span class="mi">0</span>    <span class="mf">0.31941</span>          <span class="mi">0</span>          <span class="mi">0</span>
+          <span class="mi">0</span>          <span class="mi">0</span>          <span class="mi">0</span>    <span class="mf">0.00000</span>          <span class="mi">0</span>
+          <span class="mi">0</span>          <span class="mi">0</span>          <span class="mi">0</span>          <span class="mi">0</span>    <span class="mf">0.00000</span>
+
+<span class="n">octave</span><span class="o">&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">)))</span>
+<span class="n">ans</span> <span class="p">=</span>  <span class="mf">98.500</span>
+<span class="n">octave</span><span class="o">&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
+<span class="n">ans</span> <span class="p">=</span>  <span class="mf">98.500</span></code></pre></div>
+
+
+<p>上記の例では <code>S(i, i), i &gt; 3</code> は出力に影響しない。すなわち <code>k = 3</code> が最適な主成分数となる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-pca_choosing_k_by_sigma">
+\frac{ \sum_{i = 1}^{k} S_{i,i} }{ \sum_{i = 1}^{n} S_{i,i} } \geq 0.99
+</script>
 
 
           </div>
