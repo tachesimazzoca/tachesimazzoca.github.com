@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Principle Component Analysis | Machine Learning</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Machine Learning</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Machine Learning</a></li><li>Principle Component Analysis</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./clustering.html">Clustering</a></li><li class="active"><a href="./pca.html">Principle Component Analysis</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/pca.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/pca.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/pca.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Principle Component Analysis</h1>
+          <div id="toc">
+          </div>
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
+</script>
+
+
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+
+<h2>Overview</h2>
+
+<p>計測対象のデータによっては、相関のない似た成分が含まれることがある。例えば画像識別を行なうとして、ある程度の形状が判断できればよいならば、わずかな色の違いは不要な情報である。これらの成分は、ひとまとめにして学習したほうが効率的である。</p>
+
+<p>主成分分析 <em>Principle Component Analysis (PCA)</em> により、相関のない成分を見つけ出し、次元数を圧縮することができる。</p>
+
+<ul>
+<li>２次元データ <code>(x1, x2)</code> から１次元データ <code>z1</code> に圧縮するとする。</li>
+<li>各 <code>(x1, x2)</code> からの射影 <em>Projection</em> への距離が、最も小さくなるベクトル <code>u</code> を見つける。</li>
+<li>u の射影の <code>x1</code> 軸が <code>z1</code> になる。</li>
+</ul>
+
+
+<p>線形回帰と似ているが、誤差の捉え方が異なる。線形回帰の誤差 <code>h(x) - y</code> は正解軸 <code>y</code> に対して平行に計るが、<em>PCA</em> は射影に対しての誤差、ベクトル <code>u</code> を底辺、<code>x</code> を斜辺とした、直角三角形の高さを計る。</p>
+
+<h2>Covariance Matrix</h2>
+
+<p><em>PCA</em> では、学習データの共分散行列 <em>Covariance matrix</em> を利用する。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-pca_sigma">
+\Sigma = \frac{1}{m} \sum_{i = 1}^{n} {(x^{(i)})(x^{(i)})^{T}} \\
+\Sigma \in \mathbb{R}^{n \times n}
+</script>
+
+
+<p><code>Σ</code> は、学習データ <code>x</code> の各要素を交差させて平均をとった <code>n</code> の平方行列になる。各要素の相関関係を調べるために、この共分散行列により各要素を交差させて、分散度合いを計ると考えればよい。</p>
+
+<h2>Singular Value Decomposition</h2>
+
+<p>特異値分解 <em>Singular value decomposition</em> では、行列を３つの行列に分解する。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-pca_svd">
+M = U \Sigma V^{T}
+</script>
+
+
+<ul>
+<li><code>U</code> は出力の基底となる正規直交ベクトル</li>
+<li><code>V</code> は入力の基底となる正規直交ベクトル</li>
+<li><code>Σ</code> は特異値を対角に持つ行列</li>
+</ul>
+
+
+<p>MATLAB 互換であれば <code>svd</code> 関数が提供されている。分解した <code>[U, S, V]</code> を得ることができる。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span><span class="p">]</span> <span class="p">=</span> <span class="nb">svd</span><span class="p">(</span><span class="nb">magic</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
+<span class="n">octave</span><span class="o">&gt;</span> <span class="n">U</span> <span class="o">*</span> <span class="n">S</span> <span class="o">*</span> <span class="n">V</span><span class="o">&#39;</span>
+<span class="n">ans</span> <span class="p">=</span>
+
+   <span class="mf">8.00000</span>   <span class="mf">1.00000</span>   <span class="mf">6.00000</span>
+   <span class="mf">3.00000</span>   <span class="mf">5.00000</span>   <span class="mf">7.00000</span>
+   <span class="mf">4.00000</span>   <span class="mf">9.00000</span>   <span class="mf">2.00000</span></code></pre></div>
+
+
+<h2>PCA Algorithm</h2>
+
+<p>学習データ <code>X</code> のパラメータ数 <code>n</code> から、<code>k</code> に圧縮したいとする。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">5</span> <span class="mi">1</span> <span class="mi">3</span><span class="p">;</span> <span class="mi">2</span> <span class="mi">8</span> <span class="mi">2</span> <span class="mi">4</span><span class="p">;</span> <span class="mi">3</span> <span class="mi">6</span> <span class="mi">3</span> <span class="mi">8</span><span class="p">;</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">4</span> <span class="mi">7</span><span class="p">];</span>
+
+<span class="c">% number of examples and features</span>
+<span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span> <span class="p">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
+<span class="c">% number of eigenvectors</span>
+<span class="n">k</span> <span class="p">=</span> <span class="mi">3</span><span class="p">;</span></code></pre></div>
+
+
+<p>学習データはあらかじめ、<em>Feature normalization</em> を行い、要素のスケールを揃えておく。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="c">% -1.16190  -0.70711  -1.16190  -1.05021</span>
+<span class="c">% -0.38730   1.41421  -0.38730  -0.63013</span>
+<span class="c">%  0.38730   0.00000   0.38730   1.05021</span>
+<span class="c">%  1.16190  -0.70711   1.16190   0.63013</span>
+<span class="n">X</span> <span class="p">=</span> <span class="n">X</span> <span class="o">-</span> <span class="nb">repmat</span><span class="p">(</span><span class="nb">mean</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">X</span> <span class="p">=</span> <span class="n">X</span> <span class="o">./</span> <span class="nb">repmat</span><span class="p">(</span><span class="nb">std</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span></code></pre></div>
+
+
+<p>学習データ <code>X</code> の共分散行列 <code>Sigma</code> を得て、特異値分解する。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">Sigma</span> <span class="p">=</span> <span class="p">(</span><span class="n">X</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> <span class="o">./</span> <span class="n">m</span><span class="p">;</span>
+<span class="p">[</span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span><span class="p">]</span> <span class="p">=</span> <span class="nb">svd</span><span class="p">(</span><span class="n">Sigma</span><span class="p">);</span></code></pre></div>
+
+
+<p>得られた <code>U</code> から圧縮パラメータ数 <code>k</code> 分の列を取り出し、学習データ <code>X</code> との積をとることで、圧縮された学習データが得られる。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="c">% -0.577740  -0.110058  -0.392560</span>
+<span class="c">%  0.170136  -0.985083   0.025784</span>
+<span class="c">% -0.577740  -0.110058  -0.392560</span>
+<span class="c">% -0.550896  -0.073387   0.831341</span>
+<span class="n">Ureduce</span> <span class="p">=</span> <span class="n">U</span><span class="p">(:,</span> <span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">);</span>
+
+<span class="c">%  1.800799   1.029382   0.020913</span>
+<span class="c">%  1.035258  -1.261625  -0.183311</span>
+<span class="c">% -1.026072  -0.162322   0.569007</span>
+<span class="c">% -1.809985   0.394565  -0.406609</span>
+<span class="n">Z</span> <span class="p">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Ureduce</span><span class="p">;</span></code></pre></div>
+
+
+<p>完全ではないが、圧縮前の学習データに復元するには、逆の行列演算を行なえば良い。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">Xapprox</span> <span class="p">=</span> <span class="n">Z</span> <span class="o">*</span> <span class="n">Ureduce</span><span class="o">&#39;</span><span class="p">;</span>
+
+<span class="c">% 1.9722e-31   6.0397e-31   4.9304e-32   4.9304e-32</span>
+<span class="c">% 0.0000e+00   1.2326e-30   0.0000e+00   1.2326e-32</span>
+<span class="c">% 1.5099e-31   1.3271e-33   1.2326e-32   0.0000e+00</span>
+<span class="c">% 0.0000e+00   1.9722e-31   1.9722e-31   1.2326e-32</span>
+<span class="n">Xdiff</span> <span class="p">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">Xapprox</span><span class="p">)</span> <span class="o">.^</span> <span class="mi">2</span><span class="p">;</span></code></pre></div>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
