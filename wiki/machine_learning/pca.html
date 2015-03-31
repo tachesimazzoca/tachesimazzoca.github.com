@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Principle Component Analysis | Machine Learning</title>
+<title>Principal Component Analysis | Machine Learning</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
@@ -63,7 +63,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">Machine Learning</a></li><li>Principle Component Analysis</li>
+        <li><a href="./index.html">Machine Learning</a></li><li>Principal Component Analysis</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./clustering.html">Clustering</a></li><li class="active"><a href="./pca.html">Principle Component Analysis</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./clustering.html">Clustering</a></li><li class="active"><a href="./pca.html">Principal Component Analysis</a></li></ul>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@
             <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/pca.md">History</a>
           </div>
           <div id="content">
-          <h1>Principle Component Analysis</h1>
+          <h1>Principal Component Analysis</h1>
           <div id="toc">
           </div>
           <script type="text/x-mathjax-config">
@@ -105,7 +105,7 @@
 
 <p>計測対象のデータによっては、相関のない似た成分が含まれることがある。例えば画像識別を行なうとして、ある程度の形状が判断できればよいならば、わずかな色の違いは不要な情報である。これらの成分は、ひとまとめにして学習したほうが効率的である。</p>
 
-<p>主成分分析 <em>Principle Component Analysis (PCA)</em> により、相関のない成分を見つけ出し、次元数を圧縮することができる。</p>
+<p>主成分分析 <em>Principal Component Analysis (PCA)</em> により、相関のない成分を見つけ出し、次元数を圧縮することができる。</p>
 
 <ul>
 <li>２次元データ <code>(x1, x2)</code> から１次元データ <code>z1</code> に圧縮するとする。</li>
@@ -198,7 +198,7 @@ M = U \Sigma V^{T}
 <span class="n">Z</span> <span class="p">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Ureduce</span><span class="p">;</span></code></pre></div>
 
 
-<p>完全ではないが、圧縮前の学習データに復元するには、逆の行列演算を行なえば良い。</p>
+<p>圧縮前の学習データに復元するには、逆の行列演算を行なえば良い。ただし完全に元の値には戻らない。</p>
 
 <div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">Xapprox</span> <span class="p">=</span> <span class="n">Z</span> <span class="o">*</span> <span class="n">Ureduce</span><span class="o">&#39;</span><span class="p">;</span>
 

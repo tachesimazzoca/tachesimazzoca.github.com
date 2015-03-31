@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li class="active"><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principle Component Analysis</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li class="active"><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li></ul>
               </div>
             </div>
           </div>
@@ -121,7 +121,7 @@ g(z) = \frac{1}{1 + e^{-z}} \\
 </ul>
 
 
-<p>訓練データ入力のベクトルを <code>x</code> とし、パラメータを <code>θ</code> とすると、<code>h(x)</code> は以下のようになる。</p>
+<p>学習データ入力のベクトルを <code>x</code> とし、パラメータを <code>θ</code> とすると、<code>h(x)</code> は以下のようになる。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-sigimoid_hypothesis">
 h_{\theta}(x) = g({\theta}_0 + {\theta}_1 x_1 + {\theta}_2 x_2 + ...) \\
@@ -142,13 +142,13 @@ h_{\theta}(x) = P(y = 1) = 0.3 \ldots P(y = 0) = 1 - 0.3 = 0.7 \\
 
 <h2>Cost Function</h2>
 
-<p>ロジスティック回帰モデル <em>Logistic regression model</em> のパラメータを求めるには、線形回帰と同様に、費用関数を定義し、勾配法で、費用が最小となるパラメータを見つけ出せば良い。</p>
+<p>ロジスティック回帰の場合も、線形回帰と同様にコスト関数を定義し、勾配法でコストが最小となる式 <code>h(x)</code> を見つけ出せば良い。</p>
 
 <p>ロジスティック回帰での誤差は</p>
 
 <ul>
-<li>仮説 <code>h(x)</code> が、期待値 <code>(0|1)</code> に近づくほどに <code>0</code></li>
-<li>仮説 <code>h(x)</code> が、期待値 <code>(0|1)</code> から離れるほどに無限大</li>
+<li><code>h(x)</code> が、期待値 <code>(0|1)</code> に近づくほどに <code>0</code></li>
+<li><code>h(x)</code> が、期待値 <code>(0|1)</code> から離れるほどに無限大</li>
 </ul>
 
 
@@ -166,7 +166,7 @@ h_{\theta}(x) = P(y = 1) = 0.3 \ldots P(y = 0) = 1 - 0.3 = 0.7 \\
 </script>
 
 
-<p><code>y = (0|1)</code> で式が異なるので、<code>y</code> の値によって打ち消す係数 <code>y, 1-y</code> をかければよい。誤差平均を元にした費用関数と、勾配法で用いる偏微分の項は以下になる。</p>
+<p><code>y = (0|1)</code> で式が異なるので、<code>y</code> の値によって打ち消す係数 <code>y, 1-y</code> をかければよい。誤差平均を元にしたコスト関数と、勾配法で用いる偏微分の項は以下になる。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-logistic_function_cost">
 J(\theta) = \frac{1}{m} {\sum_{i=1}^{m} [ -log(h_{\theta}(X_i))(y_i) - log(1 - h_{\theta}(X_i)) (1 - y_i) ] } \\
@@ -177,7 +177,7 @@ J(\theta) = \frac{1}{m} {\sum_{i=1}^{m} [ -log(h_{\theta}(X_i))(y_i) - log(1 - h
 
 <h2>Decision Boundary</h2>
 
-<p>シグモイド関数を <code>g(z)</code> とした時、訓練データの入力 <code>(x1, x2)</code> を二次元グラフにプロットすると、<code>z = 0</code> を境界線として、<code>y = (1|0)</code> の領域で区分される。</p>
+<p>シグモイド関数を <code>g(z)</code> とした時、学習データの入力 <code>(x1, x2)</code> を二次元グラフにプロットすると、<code>z = 0</code> を境界線として、<code>y = (1|0)</code> の領域で区分される。</p>
 
 <h3>Linear Decision Boundary</h3>
 
@@ -258,7 +258,7 @@ y = 0 & x_{1}^2 + x_{2}^2 < 1 & (-0.5, 0), (0, -0.5), (0.5, 0), (0, 0.5), \ldots
 
 <p>３つ以上の複数の値に分類するには、分類ごとにロジスティック回帰を行い、それぞれの分類の回帰パラメータを保持しておく。</p>
 
-<p><code>1:4</code> の分類に振り分けるとして、訓練データの正解値のベクトルが <code>y = [1; 2; 3; 2; 4; 1; 3]</code> の場合</p>
+<p><code>1:4</code> の分類に振り分けるとして、学習データの正解値のベクトルが <code>y = [1; 2; 3; 2; 4; 1; 3]</code> の場合</p>
 
 <ul>
 <li><code>y1 = [1; 0; 0; 0; 0; 1; 0]</code></li>

@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li class="active"><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principle Component Analysis</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li class="active"><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li></ul>
               </div>
             </div>
           </div>
@@ -234,7 +234,7 @@ h_{\theta}(x) = g({\theta}^{T} x) \\
 </ul>
 
 
-<p>分類数を <code>K</code> とすると、費用関数は各出力の誤差平均を求めればよい。</p>
+<p>分類数を <code>K</code> とすると、コスト関数は各出力の誤差平均を求めればよい。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-backprop_cost">
 a = h_{\Theta}(x) \in \mathbb{R}^{K}\\
@@ -244,7 +244,7 @@ J(\Theta) = \frac{1}{m} {\sum_{i=1}^{m}} {\sum_{k=1}^{K}} [ -log(a_{i,k})(y_{i,k
 
 <h2>Cost Function</h2>
 
-<p>ニューラルネットワークの費用関数は、ロジスティック回帰と同様であるが、予測値を求めるには <em>Forward propagation</em> で各レイヤーを通して算出する必要がある。</p>
+<p>ニューラルネットワークのコスト関数は、ロジスティック回帰と同様であるが、予測値を求めるには <em>Forward propagation</em> で各レイヤーを通して算出する必要がある。</p>
 
 <div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">Theta1</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">30</span> <span class="mi">10</span> <span class="mi">10</span> <span class="mi">10</span><span class="p">;</span> <span class="o">-</span><span class="mi">10</span> <span class="mi">20</span> <span class="mi">20</span> <span class="mi">20</span><span class="p">;</span> <span class="mi">20</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span><span class="p">;</span> <span class="o">-</span><span class="mi">20</span> <span class="mi">10</span> <span class="mi">10</span> <span class="mi">10</span><span class="p">];</span>
 <span class="n">Theta2</span> <span class="p">=</span> <span class="p">[</span><span class="mi">10</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span><span class="p">;</span> <span class="o">-</span><span class="mi">10</span> <span class="mi">10</span> <span class="mi">10</span> <span class="mi">0</span> <span class="mi">10</span><span class="p">;</span> <span class="mi">20</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mi">10</span><span class="p">];</span>
@@ -351,7 +351,7 @@ g'(0) & = g(0)(1 - g(0)) = 0.5 \cdot 0.5 = 0.25 \\
 </script>
 
 
-<p><em>Regularization</em> を行なう場合は、各パラメータ毎にペナルティを与えればよい。費用関数と同様に、バイアス項は除外する。</p>
+<p><em>Regularization</em> を行なう場合は、各パラメータ毎にペナルティを与えればよい。コスト関数と同様に、バイアス項は除外する。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-backprop_grad_reg">
 D^{(l)}_{i,j} = D^{(l)}_{i,j} + \frac{\lambda}{m} \Theta^{(l)}_{i,j} \\
@@ -360,7 +360,7 @@ D^{(l)}_{i,j} = D^{(l)}_{i,j} + \frac{\lambda}{m} \Theta^{(l)}_{i,j} \\
 
 <h3>Numerical Gradient</h3>
 
-<p><em>Backpropagation</em> を正しく行なえているかどうかは、一つのパラメータのみ極小値で増減させて、二つの費用関数を適用した差分が、<em>Backpropagation</em> で得た偏微分とほぼ相違ないこと（1e-9 以下が目安）をチェックすればよい。</p>
+<p><em>Backpropagation</em> を正しく行なえているかどうかは、一つのパラメータのみ極小値で増減させて、二つのコスト関数を適用した差分が、<em>Backpropagation</em> で得た偏微分とほぼ相違ないこと（1e-9 以下が目安）をチェックすればよい。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-grad_checking">
 \frac{\partial J(\theta)}{\partial \theta_1} \approx \frac{ J(\theta_1 + \epsilon, \theta_2, \theta_3, \ldots, \theta_n) - J(\theta_1 - \epsilon, \theta_2 , \theta_3, \ldots, \theta_n) }{2 \epsilon} \\
@@ -385,7 +385,7 @@ D^{(l)}_{i,j} = D^{(l)}_{i,j} + \frac{\lambda}{m} \Theta^{(l)}_{i,j} \\
 <span class="k">end</span></code></pre></div>
 
 
-<p>すべてのパラメータに対して費用関数を適用するため、非常にコストがかかる。あくまで、<em>Backpropagation</em> が正しくおこなえているかのチェックのみで、実際の学習処理に含めてはならない。</p>
+<p>すべてのパラメータに対してコスト関数を適用するため、非常に処理時間がかかる。あくまで、<em>Backpropagation</em> が正しくおこなえているかのチェックのみで、実際の学習処理に含めてはならない。</p>
 
 <h3>Symmetry Breaking</h3>
 
