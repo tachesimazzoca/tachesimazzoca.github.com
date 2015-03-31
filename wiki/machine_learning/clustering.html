@@ -101,11 +101,13 @@
 </script>
 
 
+<h2>Overview</h2>
+
+<p>クラスタリング <em>Clustering</em> は、教師なし学習 <em>Unsupervised Learning</em> の一つで、サンプルデータのメンバー間の類似性を見つけて、部分集合に振り分ける。サンプル毎にどの分類になるかの解答は必要としない。</p>
+
 <h2>K-means Algorithm</h2>
 
-<p><em>K-means algorithm</em> は、教師なし学習 <em>Unsupervised Learning</em> の一つで、正解のないデータから、学習データの分布を頼りに分類を見つけ出すことができる。</p>
-
-<p>サンプルデータを、<code>K</code> 個の分類 <em>Cluster</em> に分けるとする。</p>
+<p>サンプルデータを、<code>K</code> 個のクラスタ <em>Cluster</em> に振り分けるとする。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-k_means_step1">
 {\scriptsize \text{$K = $ number of clusters}} \\
@@ -115,7 +117,7 @@ x^{(i)} = x^{(1)},x^{(2)}, \ldots,x^{(m)} \in \mathbb{R}^{n} \\
 </script>
 
 
-<p>任意の <code>K</code> 個の重心 <em>Centroid</em> を置く。各重心はサンプルと同サイズ <code>n</code> のベクトルになる。</p>
+<p>任意の <code>K</code> 個の重心 <em>Centroid</em> を置く。各重心はサンプルと同サイズ（パラメータ数） <code>n</code> のベクトルになる。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-k_means_step2">
 {\scriptsize \text{$\mu = $ cluster centroids}} \\
@@ -161,9 +163,22 @@ C_{3} & = \left\{ x^{(4)}, x^{(5)} \right\} \\
 </ul>
 
 
+<h3>Cost Function</h3>
+
+<p>収束した重心に対しての全データの距離の平均値をコスト関数として定義できる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-k_means_cost">
+J(c, \mu) = \frac{1}{m} \sum_{i = 1}^{m} \begin{Vmatrix}
+x^{(i)} - \mu_{c(i)}
+\end{Vmatrix}^{2}
+</script>
+
+
+<p>この値が小さい程、分類形状の歪み具合 <em>Distortion</em> が少なくなるので、最適化（バランス良く振り分けられたかどうか）の目安になる。</p>
+
 <h3>Random Initialization</h3>
 
-<p>アルゴリズムの性質上、重心の初期値が重複していたり、偏っていたりすると <em>Local optima</em> に収束しやすい。</p>
+<p>アルゴリズムの性質上、重心の初期値が重複していたり偏っていたりすると、<em>Local optima</em> に収束しやすい。</p>
 
 <ul>
 <li><code>X = [0,0; 0,2; 0,10; 0,12]</code> を、二つのクラスタに分けるとする。</li>
@@ -177,7 +192,7 @@ C_{3} & = \left\{ x^{(4)}, x^{(5)} \right\} \\
 </ul>
 
 
-<p>このため、重心の初期値は、学習データからランダムに選択したユニークなサンプルと同値に置くとよい。</p>
+<p>このため、重心の初期値は、学習データからランダムに選択したユニークなサンプルと同値に置く。</p>
 
 <ul>
 <li>初期値 <code>centroids = [0,0; 0,2]</code> の場合、期待値 <code>[0,1; 0,11]</code> に収束する。
@@ -190,7 +205,17 @@ C_{3} & = \left\{ x^{(4)}, x^{(5)} \right\} \\
 </ul>
 
 
-<p>いくつかの初期値を試し、同じ重心に収束するかどうか検証することも有効である。</p>
+<p>いくつかの初期値で試し、最適な重心を見つけることも重要になる。分類完了後にコスト <code>J(c, mu)</code> を計算し、最も小さいコストになる結果（初期値）を採用する。</p>
+
+<h3>Elbow Method</h3>
+
+<p><em>K-means algorithm</em> では、初めに重心数 <code>K</code> を決めなければいけない。サンプルデータに適した重心数を見つけるには、<em>Elbow method</em> が使える。</p>
+
+<p><code>K</code> を x 軸、コスト関数 <code>J(c, mu)</code> を y 軸にプロットすると、<code>K = 1</code> を最大として、ある時点の <code>K</code> を境に、目立ってコスト値が下がらなくなる。この肘 <em>Elbow</em> の支点のように見える <code>K</code> が、最適な重心数になる。</p>
+
+<p>もちろん、利用用途によりクラスタ数の範囲が決まっているのであれば、常に最適値を取るという訳ではない。</p>
+
+<p>未開の場所に食事店を出すとして「並 / 大盛 / 特盛」のような <code>K = 3</code> のバリエーションが有効かを判断したい時、近辺住民の行動データから計測した最適なクラスタ数が <code>K = 5</code> であっても、バリエーションを増やすことが良いかは状況次第である。</p>
 
           </div>
           
