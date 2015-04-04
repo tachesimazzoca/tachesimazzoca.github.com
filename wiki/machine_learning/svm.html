@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support Vector Machine | Machine Learning</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Machine Learning</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Machine Learning</a></li><li>Support Vector Machine</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li class="active"><a href="./svm.html">Support Vector Machine</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/svm.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/svm.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/svm.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Support Vector Machine</h1>
+          <div id="toc">
+          </div>
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
+</script>
+
+
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+
+<h2>Decision Boundary</h2>
+
+<p>ロジスティック回帰により、二値に分類することができるが、その決定境界 <em>Decision boundary</em> はシグモイド関数により <code>(0. 0.5)</code> の一つの変曲点になる。</p>
+
+<p>変曲点が一つであることは、その条件さえ満たせば良いので、決定境界が必ずしも最適な結果にならないことを意味する。</p>
+
+<ul>
+<li><code>h(0, 10) = 1</code> <code>h(0, -10) = 0</code> という学習データを例にする。</li>
+<li>直感では、決定境界は <code>(0, -N)..(0, N)</code> のような、y 軸に沿う境界線が考えられる。</li>
+<li>しかし、ロジスティック回帰においては、マージンが少ない <code>(-10, -1)..(10, 1)</code> を通る決定境界を与えることもある。</li>
+</ul>
+
+
+<p>これに対し、<em>Support vector machine</em> は、より最適なマージンをもつ決定境界を見つけようとする。ロジスティック回帰と似た目的関数を用いる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-svm_hyphothesis">
+\min_{\theta} C \sum_{i = 1}^{m} \begin{bmatrix}
+  y^{(i)} \text{cost}_{1}(\theta^{T} x^{(i)}) + (1 - y^{(i)}) \text{cost}_{0}(\theta^{T} x^{(i)})
+\end{bmatrix} + \frac{1}{2} \sum_{j = 1}^{n} \theta_{j}^{2}  \\
+
+\left\{
+  \begin{array}{l l}
+  \text{cost}_1 (\theta^{T} x) & \ldots & \theta^{T} x^{(i)} \geq 1 & \text{if $y = 1$} \\
+  \text{cost}_0 (\theta^{T} x) & \ldots & \theta^{T} x^{(i)} \leq -1 & \text{if $y = 0$} \\
+  \end{array} \\
+\right.
+</script>
+
+
+<ul>
+<li><code>cost1</code> 関数は <code>y = 1</code> である時のコストを返す。<code>θ^T x</code> が 1 以上であればコスト無し 0 となり、そうでなければ 1 から離れる（減少する）ごとにコストが比例して増える。</li>
+<li><code>cost0</code> 関数は <code>y = 0</code> である時のコストを返す。<code>θ^T x</code> が -1 以下であればコスト無し 0 となり、そうでなければ 1 から離れる（増加する）ごとにコストが比例して増える。</li>
+<li><code>C</code> は定数で、大きくするごとに誤差への感度が上がり、境界線はより正解値にフィットしようとする。小さくすると誤差への感度が下がり、境界線は正解値にフィットするよりも、マージンを取ることを優先する。</li>
+<li><code>θ^2</code> の総和を取っている項は、ロジスティック回帰での正規化項のように思えるが、<em>Support vector machine</em> においては、役目が反対になる。すなわち <code>θ</code> の値を最小にすることが目的になる。</li>
+</ul>
+
+
+<p><code>θ^2</code> を出来る限り最小にしつつ（境界線のマージンを保ちつつ）、<code>cost(θ^T x)</code> の値も 0 に近い（正しく分類できる）、パラメータ <code>θ</code> を見つけることになる。</p>
+
+<h2>Vector Inner Product</h2>
+
+<p>直角三角形の斜辺の長さは、ピタゴラスの定理「斜辺の長さ <em>c</em> の二乗は、残りの二辺（底辺 / 高さ） <em>a, b</em> それぞれの二乗の和と等しい」ことより以下の式で求めることができる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-pythagrean_theorem">
+a^2 + b^2 = c^2 \\
+c = \sqrt{a^2 + b^2} \\
+</script>
+
+
+<p>直角三角形の斜辺は、ベクトルに置き換えるとその距離に等しく、ノルム <em>Norm</em> という表記 <code>||u||</code> で表す。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-norm">
+u = \begin{bmatrix}
+3 \\
+5 \\
+\end{bmatrix} \\
+
+\begin{Vmatrix} u \end{Vmatrix} = \sqrt{ u_1^{2} + u_2^{2} } = \sqrt{ 3^2 + 5^2 } = \sqrt{ 31 } = 5.5678
+</script>
+
+
+<p>ベクトルの内積 <em>Vector inner product</em> は、以下の公式がなりたつ。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-vector_inner_product">
+\vec{u} \cdot \vec{v} = u^{T}v = \begin{Vmatrix}u\end{Vmatrix} \cdot \begin{Vmatrix}v\end{Vmatrix} \cos \theta \\
+</script>
+
+
+<p>すなわち、ベクトル <code>v</code> から、ベクトル <code>u</code> への射影 <em>Projection</em> を <code>p</code> とすると</p>
+
+<ul>
+<li>ベクトル <code>v</code> の距離は、直角三角形の斜辺</li>
+<li>射影 <code>p</code> の距離は、直角三角形の底辺 <code>||v||cosθ</code></li>
+</ul>
+
+
+<p>と考えることができる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-vector_projection">
+\begin{align}
+u^{T}v & = p \cdot \begin{Vmatrix}u\end{Vmatrix} \\
+u_1 v_1 + u_2 v_2  & = p \cdot \sqrt{u_1^{2} + u_2^{2}} \\
+\end{align}
+</script>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
