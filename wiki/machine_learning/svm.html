@@ -103,20 +103,20 @@
 
 <h2>Decision Boundary</h2>
 
-<p>ロジスティック回帰により、二値に分類することができるが、その決定境界 <em>Decision boundary</em> はシグモイド関数により <code>(0. 0.5)</code> の一つの変曲点になる。</p>
+<p>ロジスティック回帰により、二値に分類することができるが、その決定境界 <em>Decision boundary</em> はシグモイド関数による一つの変曲点 <code>(0. 0.5)</code> になる。</p>
 
-<p>変曲点が一つであることは、その条件さえ満たせば良いので、決定境界が必ずしも最適な結果にならないことを意味する。</p>
+<p>変曲点が一つであることは、決定境界が必ずしも最適な結果にならないことも意味する。</p>
 
 <ul>
-<li><code>h(0, 10) = 1</code> <code>h(0, -10) = 0</code> という学習データを例にする。</li>
-<li>直感では、決定境界は <code>(0, -N)..(0, N)</code> のような、y 軸に沿う境界線が考えられる。</li>
-<li>しかし、ロジスティック回帰においては、マージンが少ない <code>(-10, -1)..(10, 1)</code> を通る決定境界を与えることもある。</li>
+<li><code>x = [0 10; 0 -10], y = [1; 0]</code> という学習データを例にする。</li>
+<li>直感では、決定境界は <code>(0, -N)..(0, N)</code> のような、y 軸に沿う直線が考えられる。</li>
+<li>ロジスティック回帰においては、正解値のマージンが少ない <code>(-10, -1)..(10, 1)</code> を通る決定境界を与えることもある。</li>
 </ul>
 
 
-<p>これに対し、<em>Support vector machine</em> は、より最適なマージンをもつ決定境界を見つけようとする。ロジスティック回帰と似た目的関数を用いる。</p>
+<p>これに対し、<em>Support vector machine</em> は、より最適なマージンをもつ決定境界を見つけようとする。目的関数はロジスティク回帰と似ており、<code>y = (0|1)</code> の値に応じてコスト算出アルゴリズムを切り替える。</p>
 
-<script type="math/tex; mode=display" id="MathJax-Element-svm_hyphothesis">
+<script type="math/tex; mode=display" id="MathJax-Element-svm_linear_boundary">
 \min_{\theta} C \sum_{i = 1}^{m} \begin{bmatrix}
   y^{(i)} \text{cost}_{1}(\theta^{T} x^{(i)}) + (1 - y^{(i)}) \text{cost}_{0}(\theta^{T} x^{(i)})
 \end{bmatrix} + \frac{1}{2} \sum_{j = 1}^{n} \theta_{j}^{2}  \\
@@ -131,18 +131,26 @@
 
 
 <ul>
-<li><code>cost1</code> 関数は <code>y = 1</code> である時のコストを返す。<code>θ^T x</code> が 1 以上であればコスト無し 0 となり、そうでなければ 1 から離れる（減少する）ごとにコストが比例して増える。</li>
-<li><code>cost0</code> 関数は <code>y = 0</code> である時のコストを返す。<code>θ^T x</code> が -1 以下であればコスト無し 0 となり、そうでなければ 1 から離れる（増加する）ごとにコストが比例して増える。</li>
-<li><code>C</code> は定数で、大きくするごとに誤差への感度が上がり、境界線はより正解値にフィットしようとする。小さくすると誤差への感度が下がり、境界線は正解値にフィットするよりも、マージンを取ることを優先する。</li>
-<li><code>θ^2</code> の総和を取っている項は、ロジスティック回帰での正規化項のように思えるが、<em>Support vector machine</em> においては、役目が反対になる。すなわち <code>θ</code> の値を最小にすることが目的になる。</li>
+<li><code>cost1</code> 関数は <code>y = 1</code> である時のコストを返す。<code>θ^T x</code> が 1 以上であればコスト無し 0 となり、そうでなければ 1 から減少するごとにコストが比例して増える。</li>
+<li><code>cost0</code> 関数は <code>y = 0</code> である時のコストを返す。<code>θ^T x</code> が -1 以下であればコスト無し 0 となり、そうでなければ -1 から増加するごとにコストが比例して増える。</li>
+<li><code>C</code> は定数で、大きくするごとに誤差への感度が上がり、決定境界を正解値にフィットしようとする。小さくすると誤差への感度が下がり、決定境界が正解値から外れることを許容する。</li>
+<li><code>θ</code> の二乗和を取っている項は、ロジスティック回帰でのペナルティ項のように思えるが、<em>Support vector machine</em> においては、役目が反対になる。すなわち <code>θ</code> の値を最小にすることが目的になる。</li>
 </ul>
 
 
-<p><code>θ^2</code> を出来る限り最小にしつつ（境界線のマージンを保ちつつ）、<code>cost(θ^T x)</code> の値も 0 に近い（正しく分類できる）、パラメータ <code>θ</code> を見つけることになる。</p>
+<p><code>θ</code> が小さいほど決定境界のマージンが保たれるとするならば、目的関数を最小化することは</p>
+
+<ul>
+<li>決定境界を見つける: <code>cost</code> 関数を 0 に近づける。</li>
+<li>決定境界のマージンを保つ: <code>θ</code> を出来る限り最小にする。</li>
+</ul>
+
+
+<p>この二つが両立するパラメータ <code>θ</code> を見つけることになる。</p>
 
 <h2>Vector Inner Product</h2>
 
-<p>直角三角形の斜辺の長さは、ピタゴラスの定理「斜辺の長さ <em>c</em> の二乗は、残りの二辺（底辺 / 高さ） <em>a, b</em> それぞれの二乗の和と等しい」ことより以下の式で求めることができる。</p>
+<p>直角三角形の斜辺の長さは、ピタゴラスの定理により「斜辺の長さ <em>c</em> の二乗は、残りの二辺（底辺 / 高さ） <em>a, b</em> それぞれの二乗の和と等しい」</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-pythagrean_theorem">
 a^2 + b^2 = c^2 \\
@@ -187,7 +195,54 @@ u_1 v_1 + u_2 v_2  & = p \cdot \sqrt{u_1^{2} + u_2^{2}} \\
 </script>
 
 
+<p>射影 <code>p</code> は、ベクトル <code>u, v</code> 間の角度が 90 度以上になると、負の値になる。</p>
 
+<h2>Linear Kernel</h2>
+
+<p>簡略化のために、二次元に制限して <code>(θ1, θ2), (x1, x2)</code> で考えてみる。</p>
+
+<p><code>θ^T x</code> を、ベクトルの内積 <code>u^T v</code> に置き換えると、目的関数内の <code>cost</code> 関数の条件を以下のように言い換えることができる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-svm_linear_kernel_cost">
+\left\{
+  \begin{array}{l l}
+  \text{cost}_1 ( p \cdot \begin{Vmatrix} u \end{Vmatrix} ) & \ldots & p \cdot \begin{Vmatrix} u \end{Vmatrix} \geq 1 & \text{if $y = 1$} \\
+  \text{cost}_0 ( p \cdot \begin{Vmatrix} u \end{Vmatrix} ) & \ldots & p \cdot \begin{Vmatrix} u \end{Vmatrix} \leq -1 & \text{if $y = 0$} \\
+  \end{array} \\
+\right.
+</script>
+
+
+<ul>
+<li><code>p</code> は、斜辺ベクトル <code>x</code> から、底辺ベクトル <code>θ</code> への射影の長さ</li>
+<li><code>||u||</code> は底辺ベクトル <code>θ</code> の長さ</li>
+<li><code>y = 1</code> である時、射影 <code>p</code> がより大きければ（正の方向に十分な長さがあれば）ベクトル <code>θ</code> はより小さくなれる。</li>
+<li><code>y = 0</code> である時、射影 <code>p</code> がより小さければ（負の方向に十分な長さがあれば）ベクトル <code>θ</code> はより小さくなれる。</li>
+</ul>
+
+
+<p>決定境界を <code>(0, 0)</code> を通過する直線とした時、以下のように視覚化できる。</p>
+
+<ul>
+<li>ベクトル <code>x</code> を直角三角形の斜辺と捉えると、決定境界はその直角三角形の高さに平行な直線となる。</li>
+<li><code>cost</code> 関数への引数 <code>θ^T x</code> を、直角三角形の斜辺 <code>x</code> と底辺ベクトル <code>θ</code> の内積を取ることと考えれば、<code>θ</code> は決定境界（直角三角形の高さと平行の直線）に対して、正方向に 90 度の角度を持つベクトルになる。</li>
+<li>ベクトル <code>x</code> から、ベクトル <code>θ</code> への 射影 <code>p</code> の長さは、決定境界と <code>(x1, x2)</code> のマージンになる。</li>
+</ul>
+
+
+<p>決定境界が完全に正解値に分類できているならば、<code>cost</code> 関数が 0 となるので、目的関数は以下に簡略化できる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-svm_linear_kernel_theta">
+\begin{align}
+\min_{\theta} C \cdot 0 + \frac{1}{2} \sum_{j = 1}^{n} \theta_{j}^{2} & = \frac{1}{2} \sum_{j = 1}^{n} \theta_{j}^{2} \\
+& = \frac{1}{2} (\theta_1^{2} + \theta_2^{2}) \\
+& = \frac{1}{2} \left( \sqrt{ \theta_1^{2} + \theta_2^{2} } \right) ^{2} \\
+& = \frac{1}{2} \begin{Vmatrix} \theta \end{Vmatrix} ^{2} \\
+\end{align}
+</script>
+
+
+<p>つまり <code>θ</code> を最小化しつつ、<code>cost</code> 関数が 0 となる条件を満たすには、射影 <code>p</code> の長さが十分であることが必要で、このことは <em>Support vector machine</em> が、決定境界を正解値にフィットさせつつ、よりマージンを取ろうとすることに繋がる。</p>
 
           </div>
           
