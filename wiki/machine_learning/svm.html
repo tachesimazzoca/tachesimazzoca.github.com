@@ -101,7 +101,7 @@
 </script>
 
 
-<h2>Decision Boundary</h2>
+<h2>vs. Sigmoid Function</h2>
 
 <p>ロジスティック回帰により、二値に分類することができるが、その決定境界 <em>Decision boundary</em> はシグモイド関数による一つの変曲点 <code>(0. 0.5)</code> になる。</p>
 
@@ -114,7 +114,7 @@
 </ul>
 
 
-<p>これに対し、<em>Support vector machine</em> は、より最適なマージンをもつ決定境界を見つけようとする。目的関数はロジスティク回帰と似ており、<code>y = (0|1)</code> の値に応じてコスト算出アルゴリズムを切り替える。</p>
+<p>これに対し、<em>SVM (Support Vector Machine)</em> は、より最適なマージンをもつ決定境界を見つけようとする。目的関数はロジスティク回帰と似ており、<code>y = (0|1)</code> の値に応じてコスト算出アルゴリズムを切り替える。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-svm_linear_boundary">
 \min_{\theta} C \sum_{i = 1}^{m} \begin{bmatrix}
@@ -134,7 +134,7 @@
 <li><code>cost1</code> 関数は <code>y = 1</code> である時のコストを返す。<code>θ^T x</code> が 1 以上であればコスト無し 0 となり、そうでなければ 1 から減少するごとにコストが比例して増える。</li>
 <li><code>cost0</code> 関数は <code>y = 0</code> である時のコストを返す。<code>θ^T x</code> が -1 以下であればコスト無し 0 となり、そうでなければ -1 から増加するごとにコストが比例して増える。</li>
 <li><code>C</code> は定数で、大きくするごとに誤差への感度が上がり、決定境界を正解値にフィットしようとする。小さくすると誤差への感度が下がり、決定境界が正解値から外れることを許容する。</li>
-<li><code>θ</code> の二乗和を取っている項は、ロジスティック回帰でのペナルティ項のように思えるが、<em>Support vector machine</em> においては、役目が反対になる。すなわち <code>θ</code> の値を最小にすることが目的になる。</li>
+<li><code>θ</code> の二乗和を取っている項は、ロジスティック回帰でのペナルティ項のように思えるが、<em>SVM</em> においては、役目が反対になる。すなわち <code>θ</code> の値を最小にすることが目的になる。</li>
 </ul>
 
 
@@ -185,7 +185,7 @@ u = \begin{bmatrix}
 </ul>
 
 
-<p>と考えることができる。</p>
+<p>である。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-vector_projection">
 \begin{align}
@@ -197,13 +197,14 @@ u_1 v_1 + u_2 v_2  & = p \cdot \sqrt{u_1^{2} + u_2^{2}} \\
 
 <p>射影 <code>p</code> は、ベクトル <code>u, v</code> 間の角度が 90 度以上になると、負の値になる。</p>
 
-<h2>Linear Kernel</h2>
+<h2>Linear Decision Boundary</h2>
 
-<p>簡略化のために、二次元に制限して <code>(θ1, θ2), (x1, x2)</code> で考えてみる。</p>
+<p><em>SVM</em> が、どのように決定境界のマージンを確保するかは、ベクトルの内積の公式からイメージできる。</p>
 
-<p><code>θ^T x</code> を、ベクトルの内積 <code>u^T v</code> に置き換えると、目的関数内の <code>cost</code> 関数の条件を以下のように言い換えることができる。</p>
+<p>簡略化のために、二次元に制限して <code>(θ1, θ2), (x1, x2)</code> 、線形の決定境界 <em>Linear decision boundary</em> を持つケースで考えてみる。<code>θ^T x</code> を、ベクトルの内積 <code>u^T v</code> に置き換えると、目的関数内の <code>cost</code> 関数の条件を以下のように言い換えることができる。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-svm_linear_kernel_cost">
+\theta^{T} x = u^{T}v = p \cdot \begin{Vmatrix}u\end{Vmatrix} \\
 \left\{
   \begin{array}{l l}
   \text{cost}_1 ( p \cdot \begin{Vmatrix} u \end{Vmatrix} ) & \ldots & p \cdot \begin{Vmatrix} u \end{Vmatrix} \geq 1 & \text{if $y = 1$} \\
@@ -242,7 +243,85 @@ u_1 v_1 + u_2 v_2  & = p \cdot \sqrt{u_1^{2} + u_2^{2}} \\
 </script>
 
 
-<p>つまり <code>θ</code> を最小化しつつ、<code>cost</code> 関数が 0 となる条件を満たすには、射影 <code>p</code> の長さが十分であることが必要で、このことは <em>Support vector machine</em> が、決定境界を正解値にフィットさせつつ、よりマージンを取ろうとすることに繋がる。</p>
+<p>つまり <code>θ</code> を最小化しつつ、<code>cost</code> 関数が 0 となる条件を満たすには、射影 <code>p</code> の長さが十分であることが必要で、このことは <em>SVM</em> が、決定境界を正解値にフィットさせつつ、よりマージンを取ろうとすることに繋がる。</p>
+
+<h2>Gaussian Kernel</h2>
+
+<p>二値間の類似度を計る関数を <em>Kernel (Similarity) function</em> と呼ぶ。一つに、ガウス関数 <em>Gaussian Function (Kernel)</em> がある。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-svm_gaussian_function">
+\text{similarity} (a, b) = K_{gaussian} (a, b) = \exp \left( - \frac{ \begin{Vmatrix} a - b \end{Vmatrix}^{2} }{2 \sigma^{2}} \right) \\
+</script>
+
+
+<ul>
+<li><code>| a - b |</code> が小さいほど（類似度が高いほど）1</li>
+<li><code>| a - b |</code> が大きいほど（類似度が低いほど）0</li>
+<li><code>σ</code> により、類似度の曖昧さを調整する。この値を増やすほど勾配（類似度への感度）がなだらかになり、減らすほど勾配が急激になる。</li>
+</ul>
+
+
+<h2>Non-linear Decision Boundary</h2>
+
+<p>決定境界が直線でない場合、一般式に高次の多項式のパラメータを取る方法があるが、どのような項を追加すればよいかということは直感的に判断が難しい。また画像ピクセルのように入力が多すぎる場合、計算量も高くつく。</p>
+
+<p>学習データの入力に対して、多項式のパラメータを取るのではなく、いったん学習データ間の類似度データに変換し、それに対して線形パラメータを取る方法がある。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-svm_similarity">
+\begin{array}{l l}
+x \in \mathbb{R}^{m} & {\scriptsize \text{$m = $ number of examples}} \\
+f \in \mathbb{R}^{m \times n} & {\scriptsize \text{$n = $ number of features $(n = m)$}} \\
+\end{array} \\
+f_{1}^{(i)} = \text{similarity} (x^{(i)}, x^{(1)}) \\
+f_{2}^{(i)} = \text{similarity} (x^{(i)}, x^{(2)}) \\
+\vdots \\
+f_{n}^{(i)} = \text{similarity} (x^{(i)}, x^{(n)}) \\
+h_{\theta}(f) = \theta^{T} f = \theta_0 + \theta_1 f_1 + \theta_2 f_2 + \ldots + \theta_{n} f_n \\
+</script>
+
+
+<ul>
+<li>学習データの入力 <code>x</code> を交差させた類似度を持つデータ <code>f</code> を作成する。</li>
+<li>類似度データ <code>f</code> のパラメータ数 <code>n</code> は、学習データ数 <code>m</code> に等しく、大きさ <code>m</code> の正方行列になる。</li>
+</ul>
+
+
+<p><em>SVM</em> においても、類似度データからコストを取れば、非線形の決定境界 <em>Non-linear decison boundary</em> に対してもマージンを調整できる。<em>Kernel function</em> にガウス関数を用いると以下のようになる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-svm_non_linear_boundary">
+f_{j}^{(i)} = \text{similarity} (x(i), x(j)) = \exp \left( - \frac{ \begin{Vmatrix} x^{(i)} - x^{(j)} \end{Vmatrix}^{2} }{2 \sigma^{2}} \right) = \exp \left( - \frac{ \sum_{k = 1}^{n} ( x_k^{(i)} - x_k^{(j)} )^{2} }{2 \sigma^{2}} \right) \\
+\min_{\theta} C \sum_{i = 1}^{m} \begin{bmatrix}
+  y^{(i)} \text{cost}_{1}(\theta^{T} f^{(i)}) + (1 - y^{(i)}) \text{cost}_{0}(\theta^{T} f^{(i)})
+\end{bmatrix} + \frac{1}{2} \sum_{j = 1}^{n} \theta_{j}^{2}  \\
+</script>
+
+
+<ul>
+<li>類似度データ <code>f</code> に変換する前に、学習データの入力 <code>x</code> は <em>Feature scaling</em> を行なっておく必要がある。</li>
+<li>目的関数は、学習データの入力 <code>x</code> からではなく、類似度データ <code>f</code> から取る。</li>
+<li>パラメータ数 <code>n</code> は、学習データ数 <code>m</code> に等しい <code>n = m</code></li>
+<li><code>C</code> と <code>σ</code> の役目は反対になる。
+
+<ul>
+<li>Increase <code>C</code>: 予測誤差に対する感度を上げ、マージンを許容しない。 <em>Low bias / High variance</em></li>
+<li>Decrease <code>C</code>: 予測誤差に対する感度を下げ、マージンを許容する。 <em>High bias / Low variance</em></li>
+<li>Increase <code>σ</code>: 類似度に対する感度を下げ、マージンを許容する。 <em>High bias / Low variance</em></li>
+<li>Decrease <code>σ</code>: 類似度に対する感度を上げ、マージンを許容しない。 <em>Low bias / High variance</em></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>vs. Logistic Regression / Neural Network</h2>
+
+<p><em>Kernel</em> を用いた <em>SVM</em> が万能のように思えるが、必ずしもそうではない。</p>
+
+<ul>
+<li>パラメータ数 <code>n</code> が十分に得られている（i.e. 学習データ数よりも大きい）なら、ロジスティック回帰か、<em>Kernel</em> なしの <em>SVM</em> を用いればよく、あえて <em>Kernel function</em> を介す必要はない。</li>
+<li>パラメータ数 <code>n</code> が少ないのであれば、<em>Kernel</em> を用いた <em>SVM</em> を用いることを検討できるが、類似データ作成の処理時間は学習データ数 <code>m</code> に対して <em>O(N^2)</em> で増加し、一般式のパラメータ数も <code>m</code> になる。これらがインパクトを与える場合には選択できない。この場合は、パラメータ数 <code>n</code> を増やして、ロジスティック回帰か、<em>Kernel</em> なしの <em>SVM</em> を用いる。</li>
+<li>ニューラルネットワークは、複雑なケースにもうまくフィットするが、学習処理においては、各ユニットへ伝播を繰り返すため、総じて時間がかかる。画像認識 / 音声認識など入力ソースからパラメータを見つけることが直感的に捉えづらい場合には、潤沢なリソースをかけて学習させる価値はあるが、テキスト/数値データなどの単純な入力に際しては、最初に選択すべきではない。</li>
+</ul>
+
 
           </div>
           
