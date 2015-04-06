@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anomaly Detection | Machine Learning</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Machine Learning</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Machine Learning</a></li><li>Anomaly Detection</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./svm.html">Support Vector Machine</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li><li class="active"><a href="./anomaly_detection.html">Anomaly Detection</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/anomaly_detection.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/anomaly_detection.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/anomaly_detection.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Anomaly Detection</h1>
+          <div id="toc">
+          </div>
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
+</script>
+
+
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+
+<h2>Normal Distribution</h2>
+
+<p>正規（ガウス）分布 <em>Normal (Gaussian) distribution</em> により、平均値を頂点として、データがどのように分散しているか（どのような確率分布を持っているか）を示すことができる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-normal_distribution">
+{\scriptsize \text{$\mu = $ the mean of $x$}} \\
+{\scriptsize \text{$\sigma^{2} = $ the variance of $x$ ($\sigma =$ standard deviation)}} \\
+\begin{align}
+p(x; \mu, \sigma^{2}) & = \frac{1}{ \sqrt{ 2 \pi \sigma^{2} } } \exp \left( - \frac{ (x - \mu)^{2} }{ 2 \sigma^{2} } \right) \\
+\end{align} \\
+</script>
+
+
+<ul>
+<li><code>μ</code> は平均値</li>
+<li><code>σ</code> は標準偏差で、<code>σ^2</code> で分散度合い（平均値からの距離）を示す。</li>
+<li>確率関数 <code>p</code> をグラフにプロットすると、平均値を頂点として、左右対称のベル上の形状を描く。<code>σ^2</code> 値が大きいほど、頂点（平均値である確率）が下がり、勾配がなだらかになり、まんべんなく分布していることを示す。</li>
+</ul>
+
+
+<h2>Anomaly Detection Algorithm</h2>
+
+<p>各パラメータ毎に正規分布から得られた確率値の積として、確率関数 <code>p</code> を定義する。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-anomaly_detection_algorithm">
+\begin{align}
+\mu_{j} & = \frac{1}{m} \sum_{i = 1}^{m} x_{j}^{(i)} \\
+\sigma_{j}^{2} & = \frac{1}{m} \sum_{i = 1}^{m} (x_{j}^{(i)} - \mu_{j})^{2} \\
+p(x) & = p(x_1; \mu_1, \sigma_1^2) \cdot p(x_2; \mu_2, \sigma_2^2) \cdot \ldots \cdot p(x_n; \mu_n, \sigma_n^2) \\
+& = \prod_{j = 1}^{n} p(x_{j}; \mu_{j}, \sigma_{j}^{2}) \\
+& = \prod_{j = 1}^{n} \frac{1}{ \sqrt{ 2 \pi \sigma_{j}^{2} } } \exp \left( - \frac{ (x_{j} - \mu_{j})^{2} }{ 2 \sigma_{j}^{2} } \right) \\
+\end{align} \\
+</script>
+
+
+<p>既知の正常データが 10,000 件、例外データが 20 件あるとすと、以下のように配分すると良い。確率分布を求める学習データは正常データのみである点に注意する。</p>
+
+<ul>
+<li>学習データ: 正常データのみの 6,000 件</li>
+<li>検証データ: 正常データ 2,000 件 / 例外データ 10 件</li>
+<li>テストデータ: 正常データ 2,000 件 / 例外データ 10 件</li>
+</ul>
+
+
+<p>学習データから、確率関数 <code>p</code>（平均値 <code>μ</code> と分散度 <code>σ^2</code>）を決める。</p>
+
+<p>次に、例外と見なす分岐点（確率）を決める。学習データから得られた確率関数より、検証データの確率値ベクトルを得る。確率値の最小値と最大値の間で、任意のステップ数（1,000 程度）で分岐点を取り出し、分岐点よりも確率値が小さければ、例外であるとみなす。</p>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="c">% pval: vector of probabilities</span>
+<span class="n">s</span> <span class="p">=</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">pval</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">pval</span><span class="p">))</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="k">for</span> <span class="n">v</span> <span class="n">in</span> <span class="nb">min</span><span class="p">(</span><span class="n">pval</span><span class="p">):</span><span class="n">s</span><span class="p">:</span><span class="nb">max</span><span class="p">(</span><span class="n">pval</span><span class="p">)</span>
+    <span class="n">predictions</span> <span class="p">=</span> <span class="p">(</span><span class="n">pval</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">);</span> <span class="c">% vector of (0:normal|1:anomaly)</span>
+    <span class="p">...</span>
+<span class="k">end</span></code></pre></div>
+
+
+<p>分岐点ごとに、精度 <em>Precision</em> と再現率 <em>Recall</em> を算出し、<em>F-score</em> が最も良い分岐点を採用する。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-anomaly_detection_algorithm_fscore">
+{\scriptsize \text{$tp = $ true positive, $fp = $ false positive, $fn = $ false negative}} \\
+{\scriptsize \text{$P = $ Precision, $R = $ Recall}} \\
+P = \frac{tp}{tp + fp} \\
+R = \frac{tp}{tp + fn} \\
+F_{1} = 2 \frac{PR}{P + R} \\
+</script>
+
+
+<ul>
+<li>True Positive: 正常データを正常と判定した数（予測成功）</li>
+<li>False Positive: 正常データを例外と判定した数（予測失敗）</li>
+<li>False Negative: 例外データを正常と判定した数（予測失敗）</li>
+</ul>
+
+
+<p>分岐点が決定したら、テストデータに対して例外を予測し、その精度を確かめる。</p>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
