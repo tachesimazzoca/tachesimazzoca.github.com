@@ -248,6 +248,21 @@ A  c.txt
 </table>
 
 
+<h2>fetch</h2>
+
+<p>To download objects and references from another repository, use the command <code>git fetch &lt;remote&gt;</code>.</p>
+
+<pre><code>% git fetch origin
+
+# The remote "origin" will be used, when no remote is specified.
+% git fetch
+</code></pre>
+
+<p>By default, the command won't remove any references that no longer exist on the remote. To prune them, use the <code>-p --prune</code> option.</p>
+
+<pre><code>% git fetch -p
+</code></pre>
+
 <h2>branch</h2>
 
 <pre><code># 現在のブランチを確認
@@ -287,14 +302,14 @@ A  c.txt
 % git branch -d current
 </code></pre>
 
-<h2>Working with Remotes</h2>
+<h2>Working with Remote Repositories</h2>
 
-<pre><code># リモートを確認
-% git remove -v
+<pre><code># List remote-tracking repositories with the verbose option.
+% git remote -v
 origin  git@github.com:foo/bar.git (fetch)
 origin  git@github.com:foo/bar.git (push)
 
-# リモートブランチを含めた全てのブランチを確認
+# List both remote-tracking branches and local branches.
 % git branch -a
 * master
   remotes/origin/master
@@ -343,7 +358,7 @@ origin  git@github.com:foo/bar.git (push)
 
 <h2>History</h2>
 
-<p>To reset author, use <code>git-rebase</code> with <code>-i</code> option. The following is an example to modify last 2 commits.</p>
+<p>To reset the authorship information, use <code>git-rebase</code> with the option <code>-i</code>. The following is an example to modify last 2 commits.</p>
 
 <pre><code>% git rebase -i HEAD~2
 pick b234567  Do something
@@ -374,7 +389,7 @@ Once you are satisfied with your changes, run
         git rebase --continue
 </code></pre>
 
-<p>Repeat running <code>commit --amend --reset-author</code> and <code>rebase --continue</code>.</p>
+<p>Repeat running the commands <code>commit --amend --reset-author</code> and <code>rebase --continue</code> alternately.</p>
 
 <pre><code>% git commit --amend --reset-author
 % git rebase --continue
@@ -383,7 +398,7 @@ Once you are satisfied with your changes, run
 Successfully rebased and updated refs/heads/...
 </code></pre>
 
-<p>You can use <code>filter-branch</code> to reset all commits. The following is an example:</p>
+<p>You can also use <code>filter-branch</code> to reset all commits.</p>
 
 <pre><code>% git filter-branch --commit-filter '
 GIT_AUTHOR_NAME="Foo Bar"
