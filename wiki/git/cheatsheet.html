@@ -131,7 +131,7 @@ A  b.txt
 ?? c.txt
 </code></pre>
 
-<p>To Add, modifiy and remove them, use the <code>-A</code> option.</p>
+<p>To add, modifiy and remove them, use the <code>-A</code> option.</p>
 
 <pre><code>% rm b.txt
 % git add -A .
@@ -145,7 +145,7 @@ A  c.txt
 % git rm -r /path/to/dir/
 </code></pre>
 
-<p>The following is an one-liner to remove index entries to match deleted files.</p>
+<p>The following is an one-liner to remove index entries that start with <code>^.D</code> as tracking status. (i.e. Each file tracked by the index entries has already been removed without using git-rm.)</p>
 
 <pre><code>% git status -s | grep ^'.D' | awk '{print $2}' | xargs git rm
 </code></pre>
