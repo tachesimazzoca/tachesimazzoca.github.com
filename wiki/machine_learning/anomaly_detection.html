@@ -185,15 +185,6 @@ F_{1} = 2 \frac{PR}{P + R} \\
 
 <p>不良 PC を見つけるとすると、一般的に CPU 利用率は処理数に比例するが、これらの値を個別にパラメータとして取っても、単に PC の貢献度を計るだけで、例外は検知できない。このような時は CPU 利用率とリクエスト処理数の比を取ることで、CPU が異常な使われ方をしていることをパラメータ化するとよい。</p>
 
-<h2>vs. Supervised Learning</h2>
-
-<ul>
-<li>確率分布からどこからが例外であるかを見つける方法においては、学習データ数は精度には貢献しない。例外データのバリエーション数が、入力パラメータの選択に貢献するのみである。</li>
-<li>不正アクセス / 不良判定 / システム異常 など例外のバリエーションが多岐に渡っている場合、正常から外れるということを指標に判定するほうがよい。</li>
-<li>スパム判定のように、正常時と例外時のどちらにも人間が判断できる一定の傾向があり、両方の学習データが潤沢にあるのであれば、正解値から一般式を見つける <em>Supervise learning</em> のほうがよい。</li>
-</ul>
-
-
 <h2>Multivariate Normal Distribution</h2>
 
 <p>正規分布では、パラメータ間の相関は持たない。例を上げると</p>
@@ -231,13 +222,15 @@ p(x; \mu, S) & = \frac{1}{ ( \sqrt{ 2 \pi } )^{m} \sqrt{ | S | } } \exp \left( -
 
 
 <ul>
-<li><code>S</code> は、入力ベクトル <code>x</code> と平均ベクトル <code>μ</code> の共分散行列 <em>Covarance matrix</em></li>
+<li><code>S</code> は、入力ベクトル <code>x</code> と平均ベクトル <code>μ</code> の共分散行列 <em>Covariance matrix</em></li>
 <li><code>|S|</code> は、行列式 <em>Determinant</em> <code>= det(S)</code></li>
+<li><code>S</code> は逆行列をとっているため、可逆である必要がある。</li>
+<li><code>S</code> が正規分布の <code>σ^2</code> の対角行列（対角成分以外が 0 で相関がない）ならば、正規分布と同じ値となる。</li>
 <li>共分散から算出するため、パラメータ毎に分けた確率密度関数 <code>p(j)</code> を取る必要はない。</li>
 </ul>
 
 
-<p>共分散行列 <code>S</code> は逆行列をとっているため可逆である必要がある。特異行列 <em>Singular matrix</em> の場合には、以下の傾向がある。</p>
+<p><code>S</code> が非可逆の特異行列 <em>Singular matrix</em> の場合には、以下の傾向がある。</p>
 
 <ul>
 <li>サンプル数 <code>m</code> が、パラメータ数 <code>n</code> に対して少なすぎる。</li>
@@ -245,7 +238,88 @@ p(x; \mu, S) & = \frac{1}{ ( \sqrt{ 2 \pi } )^{m} \sqrt{ | S | } } \exp \left( -
 </ul>
 
 
-<p><code>S</code> は、対角成分以外が 0 の対角行列（他パラメータと相関がない）ならば、正規分布と同じ分布となる。</p>
+<p>共分散行列から算出するため、<em>O(N^2)</em> のコストとなる点が欠点になる。各パラメータに相関がないか、相関をパラメータ化できているならば、あえて使う必要はない。</p>
+
+<h3>vs. Normal Distribution</h3>
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="k">function</span><span class="w"> </span>p <span class="p">=</span><span class="w"> </span><span class="nf">normalDist</span><span class="p">(</span>x, u, s<span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">n</span> <span class="p">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">ps</span> <span class="p">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span>
+      <span class="n">ps</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="p">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">pi</span> <span class="o">*</span> <span class="n">s</span><span class="p">(</span><span class="n">j</span><span class="p">))))</span> <span class="o">*</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">-</span> <span class="n">u</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>^<span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">s</span><span class="p">(</span><span class="n">j</span><span class="p">)));</span>
+    <span class="k">end</span>
+    <span class="n">p</span> <span class="p">=</span> <span class="nb">prod</span><span class="p">(</span><span class="n">ps</span><span class="p">);</span>
+<span class="k">end</span></code></pre></div>
+
+
+
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="k">function</span><span class="w"> </span>p <span class="p">=</span><span class="w"> </span><span class="nf">multiNormalDist</span><span class="p">(</span>x, u, S<span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">n</span> <span class="p">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">p</span> <span class="p">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(((</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">pi</span><span class="p">))</span>^<span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="nb">sqrt</span><span class="p">(</span><span class="nb">det</span><span class="p">(</span><span class="n">S</span><span class="p">))))</span> <span class="o">*</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">u</span><span class="p">)</span><span class="o">&#39;</span> <span class="o">*</span> <span class="nb">pinv</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">u</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+<span class="k">end</span></code></pre></div>
+
+
+
+
+<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="c">% CPU load, number of requests</span>
+<span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">34</span> <span class="mi">5</span><span class="p">;</span> <span class="mi">56</span> <span class="mi">10</span><span class="p">;</span> <span class="mi">89</span> <span class="mi">15</span><span class="p">;</span> <span class="mi">90</span> <span class="mi">20</span><span class="p">;</span> <span class="mi">125</span> <span class="mi">32</span><span class="p">;</span> <span class="mi">68</span> <span class="mi">18</span><span class="p">];</span>
+
+<span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span> <span class="p">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
+
+<span class="c">% mean of X</span>
+<span class="n">u</span> <span class="p">=</span> <span class="nb">mean</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">&#39;</span><span class="p">;</span>
+<span class="nb">printf</span><span class="p">(</span><span class="s">&#39;mean: [%f, %f]\n&#39;</span><span class="p">,</span> <span class="n">u</span><span class="p">);</span>
+
+<span class="c">% variance of X</span>
+<span class="n">s</span> <span class="p">=</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(((</span><span class="n">X</span> <span class="o">-</span> <span class="nb">repmat</span><span class="p">(</span><span class="n">u</span><span class="o">&#39;</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">.^</span> <span class="mi">2</span><span class="p">))</span> <span class="o">./</span> <span class="n">m</span><span class="p">)</span><span class="o">&#39;</span><span class="p">;</span>
+<span class="nb">printf</span><span class="p">(</span><span class="s">&#39;sigma: [%f, %f]\n&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+
+<span class="c">%</span>
+<span class="c">% Normal distribution:</span>
+<span class="c">%</span>
+<span class="n">normalDist</span><span class="p">([</span><span class="mi">77</span><span class="p">;</span> <span class="mf">16.6</span><span class="p">],</span> <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="c">% 6.5101e-04</span>
+<span class="n">normalDist</span><span class="p">([</span><span class="mi">34</span><span class="p">;</span> <span class="mi">5</span><span class="p">],</span> <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>    <span class="c">% 8.3081e-05</span>
+<span class="n">normalDist</span><span class="p">([</span><span class="mi">125</span><span class="p">;</span> <span class="mi">32</span><span class="p">],</span> <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>  <span class="c">% 3.1740e-05</span>
+
+<span class="c">% According to the results above, we assume that the probability</span>
+<span class="c">% in normal cases should be greater than 3.1740e-05.</span>
+<span class="c">%</span>
+<span class="c">% In this case, the CPU load is too high, although the number</span>
+<span class="c">% of requests is low. We expected that it would be labeled as</span>
+<span class="c">% an anomaly, but the probability with normal distribution is</span>
+<span class="c">% better than 3.1740e-05.</span>
+<span class="n">normalDist</span><span class="p">([</span><span class="mi">100</span><span class="p">;</span> <span class="mi">8</span><span class="p">],</span> <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="c">% 2.8090e-04</span>
+
+<span class="c">%</span>
+<span class="c">% Multivariate normal distribution:</span>
+<span class="c">%</span>
+<span class="n">v</span> <span class="p">=</span> <span class="n">X</span> <span class="o">-</span> <span class="nb">repmat</span><span class="p">(</span><span class="n">u</span><span class="o">&#39;</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">S</span> <span class="p">=</span> <span class="p">(</span><span class="n">v</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">v</span> <span class="o">./</span> <span class="n">m</span><span class="p">)</span><span class="o">&#39;</span><span class="p">;</span>
+<span class="n">multiNormalDist</span><span class="p">([</span><span class="mi">77</span><span class="p">;</span> <span class="mf">16.6</span><span class="p">],</span> <span class="n">u</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span> <span class="c">% 0.0020253</span>
+<span class="n">multiNormalDist</span><span class="p">([</span><span class="mi">34</span><span class="p">;</span> <span class="mi">5</span><span class="p">],</span> <span class="n">u</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>    <span class="c">% 6.6206e-04</span>
+<span class="n">multiNormalDist</span><span class="p">([</span><span class="mi">125</span><span class="p">;</span> <span class="mi">32</span><span class="p">],</span> <span class="n">u</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>  <span class="c">% 3.9053e-04</span>
+
+<span class="c">% The probability with multivariate normal distribution is</span>
+<span class="c">% sufficiently lower than the limit 3.9053e-04, so we can</span>
+<span class="c">% predict that this case must be an anomaly.</span>
+<span class="n">multiNormalDist</span><span class="p">([</span><span class="mi">100</span><span class="p">;</span> <span class="mi">8</span><span class="p">],</span> <span class="n">u</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>   <span class="c">% 3.3423e-10</span>
+
+<span class="c">% If the covariance matrix &quot;S&quot; is a diagonal matrix of the</span>
+<span class="c">% sigma &quot;s&quot; of normal distribution, the probability will</span>
+<span class="c">% completely be the same as normal distribution.</span>
+<span class="n">multiNormalDist</span><span class="p">([</span><span class="mi">77</span><span class="p">;</span> <span class="mf">16.6</span><span class="p">],</span> <span class="n">u</span><span class="p">,</span> <span class="nb">diag</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="c">% 6.5101e-04</span>
+<span class="n">multiNormalDist</span><span class="p">([</span><span class="mi">100</span><span class="p">;</span> <span class="mi">8</span><span class="p">],</span> <span class="n">u</span><span class="p">,</span> <span class="nb">diag</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>   <span class="c">% 2.8090e-04</span></code></pre></div>
+
+
+<h2>vs. Supervised Learning</h2>
+
+<ul>
+<li>確率分布からどこからが例外であるかを見つける方法においては、学習データ数は精度には貢献しない。例外データのバリエーション数が、入力パラメータの選択に貢献するのみである。</li>
+<li>不正アクセス / 不良判定 / システム異常 など例外のバリエーションが多岐に渡っている場合、正常から外れるということを指標に判定するほうがよい。</li>
+<li>スパム判定のように、正常時と例外時のどちらにも人間が判断できる一定の傾向があり、両方の学習データが潤沢にあるのであれば、正解値から一般式を見つける <em>Supervise learning</em> のほうがよい。</li>
+</ul>
+
 
           </div>
           
