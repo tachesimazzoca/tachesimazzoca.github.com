@@ -117,13 +117,13 @@ p(x; \mu, \sigma^{2}) & = \frac{1}{ \sqrt{ 2 \pi \sigma^{2} } } \exp \left( - \f
 <ul>
 <li><code>μ</code> は平均値</li>
 <li><code>σ</code> は標準偏差で、<code>σ^2</code> で分散度合い（平均値からの距離）を示す。</li>
-<li>確率関数 <code>p</code> をグラフにプロットすると、平均値を頂点として、左右対称のベル上の形状を描く。<code>σ^2</code> 値が大きいほど、頂点（平均値である確率）が下がり、勾配がなだらかになり、まんべんなく分布していることを示す。</li>
+<li>確率密度関数 <code>p</code> をグラフにプロットすると、平均値を頂点として、左右対称のベル上の形状を描く。<code>σ^2</code> 値が大きいほど、頂点（平均値である確率）が下がり、勾配がなだらかになり、まんべんなく分布していることを示す。</li>
 </ul>
 
 
 <h2>Algorithm Evaluation</h2>
 
-<p>各パラメータ毎に正規分布から得られた確率値の積として、確率関数 <code>p</code> を定義する。</p>
+<p>各パラメータ毎に正規分布から得られた確率値の積として、確率密度関数 <code>p</code> を定義する。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-anomaly_detection_algorithm">
 \begin{align}
@@ -145,9 +145,9 @@ p(x) & = p(x_1; \mu_1, \sigma_1^2) \cdot p(x_2; \mu_2, \sigma_2^2) \cdot \ldots 
 </ul>
 
 
-<p>学習データから、確率関数 <code>p</code>（平均値 <code>μ</code> と分散度 <code>σ^2</code>）を決める。</p>
+<p>学習データから、確率密度関数 <code>p</code>（平均値 <code>μ</code> と分散度 <code>σ^2</code>）を決める。</p>
 
-<p>次に、例外と見なす分岐点（確率）を決める。学習データから得られた確率関数より、検証データの確率値ベクトルを得る。確率値の最小値と最大値の間で、任意のステップ数で分岐点を取り出し、分岐点よりも確率値が小さければ、例外であるとみなす。</p>
+<p>次に、例外と見なす分岐点（確率）を決める。学習データから得られた確率密度関数より、検証データの確率値ベクトルを得る。確率値の最小値と最大値の間で、任意のステップ数で分岐点を取り出し、分岐点よりも確率値が小さければ、例外であるとみなす。</p>
 
 <div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="c">% pval: vector of probabilities</span>
 <span class="n">s</span> <span class="p">=</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">pval</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">pval</span><span class="p">))</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">;</span>
@@ -177,7 +177,7 @@ F_{1} = 2 \frac{PR}{P + R} \\
 
 <p>分岐点が決定したら、テストデータに対して例外を予測し、その精度を確かめる。</p>
 
-<p>このように、確率分布から例外の分岐点を決める方法は、<em>Supervise learning</em> と異なり、アルゴリズム（確率関数）の組み立てには正解値を必要としない。</p>
+<p>このように、確率分布から例外の分岐点を決める方法は、<em>Supervise learning</em> と異なり、アルゴリズム（確率密度関数）の組み立てには正解値を必要としない。</p>
 
 <p>現実に則した正常数と例外数（例：例外率 1 %）に分離されるような、入力パラメータ <code>x</code> を見つけることが重要になる。</p>
 
@@ -193,6 +193,59 @@ F_{1} = 2 \frac{PR}{P + R} \\
 <li>スパム判定のように、正常時と例外時のどちらにも人間が判断できる一定の傾向があり、両方の学習データが潤沢にあるのであれば、正解値から一般式を見つける <em>Supervise learning</em> のほうがよい。</li>
 </ul>
 
+
+<h2>Multivariate Normal Distribution</h2>
+
+<p>正規分布では、パラメータ間の相関は持たない。例を上げると</p>
+
+<ul>
+<li>CPU 利用率 10-90% を正常</li>
+<li>秒間アクセス数 5-95 を正常</li>
+</ul>
+
+
+<p>のように、範囲が各パラメータ空間内で閉じており、秒間アクセス数 5 で CPU 利用率 90% でも正常と判断するほかない。</p>
+
+<p>例外とみなす分岐点は、各パラメータ内に限った上限と下限を決定することしかできず、二次元グラフにプロットした場合、分岐境界が描く円は、軸に対して平行 <em>Axis-aligned</em> になる。</p>
+
+<ul>
+<li>秒間アクセス数 10 以下で CPU 利用率 80% 以上なら異常</li>
+<li>CPU 利用率 20% 以下で、秒間アクセス数 50 以上なら異常</li>
+</ul>
+
+
+<p>のように、CPU 利用率と秒間アクセス数が「比例していなれば例外」と判断したい時は、比率「CPU 利用率/アクセス数」を新しいパラメータとして追加する方法があるが、パラメータにどのような相関関係にあるかというのは、判断しづらい場合もある。</p>
+
+<p>多変量正規分布 <em>Multivariate normal distribution</em> により、パラメータ間の相関関係も含めた多次元の正規分布を見ることができる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-multivariate_normal_distribution">
+{\scriptsize \text{$m = $ number of examples}} \\
+{\scriptsize \text{$n = $ number of features}} \\
+
+\begin{align}
+\mu & = \frac{1}{m} \sum_{i = 1}^{m} x^{(i)} \in \mathbb{R}^{n} \\
+S & = \frac{1}{m} \sum_{i = 1}^{m} (x^{(i)} - \mu) (x^{(i)} - \mu)^{T} \in \mathbb{R}^{n \times n} \\
+p(x; \mu, S) & = \frac{1}{ ( \sqrt{ 2 \pi } )^{m} \sqrt{ | S | } } \exp \left( - \frac{1}{2} (x - \mu)^{T} S^{-1} (x - \mu) \right) \\
+\end{align}
+</script>
+
+
+<ul>
+<li><code>S</code> は、入力ベクトル <code>x</code> と平均ベクトル <code>μ</code> の共分散行列 <em>Covarance matrix</em></li>
+<li><code>|S|</code> は、行列式 <em>Determinant</em> <code>= det(S)</code></li>
+<li>共分散から算出するため、パラメータ毎に分けた確率密度関数 <code>p(j)</code> を取る必要はない。</li>
+</ul>
+
+
+<p>共分散行列 <code>S</code> は逆行列をとっているため可逆である必要がある。特異行列 <em>Singular matrix</em> の場合には、以下の傾向がある。</p>
+
+<ul>
+<li>サンプル数 <code>m</code> が、パラメータ数 <code>n</code> に対して少なすぎる。</li>
+<li>重複しているパラメータ <code>x1 = x2, x3 = x4 + x5, ...</code> がある。</li>
+</ul>
+
+
+<p><code>S</code> は、対角成分以外が 0 の対角行列（他パラメータと相関がない）ならば、正規分布と同じ分布となる。</p>
 
           </div>
           
