@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Overview | Machine Learning</title>
+<title>Collaborative Filtering | Machine Learning</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
@@ -63,7 +63,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">Machine Learning</a></li><li>Overview</li>
+        <li><a href="./index.html">Machine Learning</a></li><li>Collaborative Filtering</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./svm.html">Support Vector Machine</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li><li><a href="./anomaly_detection.html">Anomaly Detection</a></li><li><a href="./collaborative_filtering.html">Collaborative Filtering</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./svm.html">Support Vector Machine</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li><li><a href="./anomaly_detection.html">Anomaly Detection</a></li><li class="active"><a href="./collaborative_filtering.html">Collaborative Filtering</a></li></ul>
               </div>
             </div>
           </div>
@@ -83,81 +83,63 @@
         <div class="col-md-9 col-sm-8">
           
           <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/overview.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/overview.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/overview.md">History</a>
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/collaborative_filtering.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/collaborative_filtering.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/collaborative_filtering.md">History</a>
           </div>
           <div id="content">
-          <h1>Overview</h1>
+          <h1>Collaborative Filtering</h1>
           <div id="toc">
           </div>
-          <h2>Definition</h2>
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
+</script>
 
-<p>Arthur Samuel (1959) - Machine Learning:</p>
 
-<blockquote><p>Field of study that gives computers the ability to learn without being explicitly programmed.</p></blockquote>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
 
-<p>Tom Mitchell (1998) - Well-posed Learning:</p>
 
-<blockquote><p>A computer program is said to learn from experience E with respect to some task T
-and some performance measure P, if its performance on T, as measured by P, improves with experience E.</p></blockquote>
+<h2>Optimization Algorithm</h2>
 
-<p>スパムメール判定</p>
+<p>商品に対してユーザ評価が与えられたデータセットを持っているとする。</p>
+
+<p>商品の特性が得られていると仮定して、これを学習データの入力 <code>x</code> とし、パラメータ <code>θ</code> をユーザ特性と考えれば、正解値 <code>y</code> をユーザ評価として、以下の目的関数を定義できる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-content_based_recommendation">
+{\scriptsize \text{$n = $ number of features}} \\
+{\scriptsize \text{$x = $ items, $\theta = $ users}} \\
+{\scriptsize \text{$r = $ whether or not each user has rated}} \\
+{\scriptsize \text{$y = $ rating given by users}} \\
+
+\min_{\theta^{(j)}} \frac{1}{2} \sum_{i;r(i,j) = 1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)})^{2} + \frac{\lambda}{2} \sum_{k = 1}^{n} (\theta_{k}^{(j)})^{2} \\
+</script>
+
 
 <ul>
-<li>E(xperience): メールをスパムとして振り分ける</li>
-<li>T(ask): メールをスパムとして分類する</li>
-<li>P(erformance): 振り分けたメールがスパムである確率</li>
+<li><code>x</code>: 商品特性（すでに得られていると仮定する）</li>
+<li><code>θ</code>: ユーザ特性</li>
+<li><code>r(i, j) = (0|1)</code>: ユーザ <code>j</code> が商品 <code>i</code> を評価したかどうか？ 評価なしと未評価は異なる。</li>
+<li><code>y</code>: 商品 <code>i</code> に対する、ユーザ <code>j</code> の評価</li>
 </ul>
 
 
-<p>対戦ゲーム</p>
+<p>すべての商品ではなく、ユーザが評価を行なった商品 <code>r(i, j) = 1</code> のみコストを取る点に注意する。</p>
 
-<ul>
-<li>E(xperience): ゲームをする（次の手を決める）</li>
-<li>T(ask): ゲームに勝つ</li>
-<li>P(erformance): ゲームに勝つ確率</li>
-</ul>
+<p>すべてのユーザに対して適用するコスト関数は、以下のようになる。</p>
 
+<script type="math/tex; mode=display" id="MathJax-Element-content_based_recommendation_cost_grad">
+{\scriptsize \text{$n_{u} = $ number of users}} \\
+\min_{\theta^{(1)} \ldots \theta^{(n_{u})}} J(\theta) = \frac{1}{2} \sum_{j = 1}^{n_{u}} \sum_{i;r(i,j) = 1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)})^{2} + \frac{\lambda}{2} \sum_{j = 1}^{n_{u}} \sum_{k = 1}^{n} (\theta_{k}^{(j)})^{2} \\
 
-<h3>Classification Problem vs. Regression Problem</h3>
-
-<p><em>Classification problem</em> は、<code>(YES|NO)</code> や <code>(A|B|C)</code> のように区分された値 <em>Discrete-value</em> に分類する問題を指す。</p>
-
-<ul>
-<li>過去の対戦成績から、勝敗を予測する</li>
-<li>オーディオデータから、ボーカル曲かどうかを判定する</li>
-<li>腫瘍の大きさから、良性か悪性かを予測する</li>
-</ul>
+\begin{align}
+\theta_{k}^{(j)} & := \theta_{k}^{(j)} - \alpha (\sum_{i:r(i, j)=1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)}) x_{k}^{(i)}) & \text{(for $k = 0$)} \\
+\theta_{k}^{(j)} & := \theta_{k}^{(j)} - \alpha (\sum_{i:r(i, j)=1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)}) x_{k}^{(i)} + \lambda (\theta_{k}^{(j)})) & \text{(for $k \ne 0$)} \\
+\end{align}
+</script>
 
 
-<p><em>Regression problem</em> は、連続値 <em>Continuous-value</em> すなわち、量を求める問題を指す。数は整数値として考えれば、区切られているように感じてしまうが、単に取引上の単位であって、実際には境界のない連続値である。</p>
-
-<ul>
-<li>部屋の大きさから、家賃を予測する</li>
-<li>過去の雨量データから、降水量を予測する</li>
-<li>過去実績から、売上げを予測する</li>
-</ul>
-
-
-<h3>Supervised Learning vs. Unsupervised Learning</h3>
-
-<p><em>Supervised learning</em> は、予め正解（分類）が分かっていて、その分類に振り分ける手法になる。</p>
-
-<ul>
-<li>真偽 / 勝敗 / 可否</li>
-<li>性別</li>
-<li>ラベル（重要|通常|スパム）</li>
-</ul>
-
-
-<p><em>Unsupervised learning</em> は、正解（分類）自体が定義されていない状態から、分類を抽出していく手法になる。</p>
-
-<ul>
-<li>記事内容から、同種の記事を見つける（記事のカテゴリは不定）</li>
-<li>行動パターンから、似ているユーザ同士を見つける（どのようなユーザかは不定）</li>
-<li>投薬結果から、同症状を引き起こす患者同士を見つける（どのような副作用を起こすかは不定）</li>
-</ul>
 
 
           </div>
