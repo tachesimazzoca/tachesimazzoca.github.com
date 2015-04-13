@@ -101,13 +101,13 @@
 </script>
 
 
-<h2>Optimization Algorithm</h2>
+<h2>Content Based Algorithm</h2>
 
-<p>商品に対してユーザ評価が与えられたデータセットを持っているとする。</p>
+<p>商品に対してユーザ評価が与えられたデータセットを持っているとする。このデータを元にユーザの評価を予測したい。</p>
 
 <p>商品の特性が得られていると仮定して、これを学習データの入力 <code>x</code> とし、パラメータ <code>θ</code> をユーザ特性と考えれば、正解値 <code>y</code> をユーザ評価として、以下の目的関数を定義できる。</p>
 
-<script type="math/tex; mode=display" id="MathJax-Element-content_based_recommendation">
+<script type="math/tex; mode=display" id="MathJax-Element-content_based_cost">
 {\scriptsize \text{$n = $ number of features}} \\
 {\scriptsize \text{$x = $ items, $\theta = $ users}} \\
 {\scriptsize \text{$r = $ whether or not each user has rated}} \\
@@ -129,17 +129,77 @@
 
 <p>すべてのユーザに対して適用するコスト関数は、以下のようになる。</p>
 
-<script type="math/tex; mode=display" id="MathJax-Element-content_based_recommendation_cost_grad">
+<script type="math/tex; mode=display" id="MathJax-Element-content_based_cost_grad">
 {\scriptsize \text{$n_{u} = $ number of users}} \\
 \min_{\theta^{(1)} \ldots \theta^{(n_{u})}} J(\theta) = \frac{1}{2} \sum_{j = 1}^{n_{u}} \sum_{i;r(i,j) = 1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)})^{2} + \frac{\lambda}{2} \sum_{j = 1}^{n_{u}} \sum_{k = 1}^{n} (\theta_{k}^{(j)})^{2} \\
 
 \begin{align}
 \theta_{k}^{(j)} & := \theta_{k}^{(j)} - \alpha (\sum_{i:r(i, j)=1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)}) x_{k}^{(i)}) & \text{(for $k = 0$)} \\
-\theta_{k}^{(j)} & := \theta_{k}^{(j)} - \alpha (\sum_{i:r(i, j)=1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)}) x_{k}^{(i)} + \lambda (\theta_{k}^{(j)})) & \text{(for $k \ne 0$)} \\
+\theta_{k}^{(j)} & := \theta_{k}^{(j)} - \alpha (\sum_{i:r(i, j)=1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)}) x_{k}^{(i)} + \lambda \theta_{k}^{(j)}) & \text{(for $k \ne 0$)} \\
 \end{align}
 </script>
 
 
+<h2>Collaborative Filtering Algorithm</h2>
+
+<p><em>Content based algorithm</em> での、商品特性からユーザ特性を見つける場合と逆の発想で、ユーザ特性 <code>θ</code> がすでに得られていると仮定すると、商品特性 <code>x</code> を予測することができる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-user_based_cost_grad">
+{\scriptsize \text{$n_{m} = $ number of items}} \\
+\min_{x^{(1)} \ldots x^{(n_{m})}} J(x) = \frac{1}{2} \sum_{i = 1}^{n_{m}} \sum_{i;r(i,j) = 1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)})^{2} + \frac{\lambda}{2} \sum_{i = 1}^{n_{m}} \sum_{k = 1}^{n} (x_{k}^{(i)})^{2} \\
+</script>
+
+
+<p>協調フィルタリング <em>Collaborative filtering</em> では</p>
+
+<ul>
+<li>与えられた商品特性から、ユーザ特性を予測する。</li>
+<li>与えられたユーザ特性から、商品特性を予測する。</li>
+</ul>
+
+
+<p>この二つの目的関数を同時に最小化していくことで、ユーザ特性と商品特性が互いに協調して最適値に収束する。これにより、予測解だけではなく、予測を導く特性そのものを学習 <em>Feature learning</em> することができる。</p>
+
+<p>ユーザ特性と商品特性の目的関数は、二乗誤差の項は実質同じである。</p>
+
+<ul>
+<li>ユーザ特性: 全ユーザ <code>j</code> のうち、ユーザが評価 <code>r(i, j) = 1</code> した商品 <code>x(i)</code> の予測評価と実評価 <code>y</code> との誤差</li>
+<li>商品特性: 全商品 <code>i</code> のうち、ユーザに評価 <code>r(i, j) = 1</code> された商品 <code>x(i)</code> の予測評価と実評価 <code>y</code> との誤差</li>
+</ul>
+
+
+<p>このことから、正規化項が異なるだけなので、コスト関数は同一式にまとめることができる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-collaborative_filtering_cost">
+J(x, \theta) = \frac{1}{2} \sum_{(i, j);r(i,j) = 1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)})^{2} + \frac{\lambda}{2} \sum_{j = 1}^{n_{n}} \sum_{k = 1}^{n} (\theta_{k}^{(j)})^{2} + \frac{\lambda}{2} \sum_{i = 1}^{n_{m}} \sum_{k = 1}^{n} (x_{k}^{(i)})^{2} \\
+</script>
+
+
+<p><em>Gradient descent</em> は、<code>x(i)</code> と <code>θ(j)</code> それぞれに偏微分を取り個別に行なう。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-collaborative_filtering_grad">
+\begin{align}
+x_{k}^{(i)} & := x_{k}^{(i)} - \alpha \frac{\partial J}{\partial x_{k}^{(i)}} & \frac{\partial J}{\partial x_{k}^{(i)}} & = \sum_{j:r(i, j)=1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)}) \theta_{k}^{(j)} + \lambda x_{k}^{(i)} \\
+\theta_{k}^{(j)} & := \theta_{k}^{(j)} - \alpha \frac{\partial J}{\partial \theta_{k}^{(j)}} & \frac{\partial J}{\partial \theta_{k}^{(j)}} & = \sum_{i:r(i, j)=1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)}) x_{k}^{(i)} + \lambda \theta_{k}^{(j)} \\
+\end{align}
+</script>
+
+
+<p>パラメータ自体を予測するので、切片項に対するパラメータ <code>x0 = 1, θ0 = 1</code> は不要である。もしそのような項が必要な時には、アルゴリズム自体でそのように収束する。よって、切片項用の偏微分も必要ない。</p>
+
+<ol>
+<li>商品特性 <code>x</code> とユーザ特性 <code>θ</code> のランダムな極小値で初期化 <em>Symmetry breaking</em> する。ニューラルネットワークの場合と同じように、初期値が同一値であると協調動作が起こらない。</li>
+<li>協調フィルタリングで、最小コストとなる商品特性 <code>x</code> とユーザ特性 <code>θ</code> を見つける。</li>
+<li><code>θ(j)^T * x(i)</code> により、商品 <code>i</code> に対してユーザ <code>j</code> が下す評価（の予測）が得られる。</li>
+</ol>
+
+
+<p>予測した評価の高いものが、ユーザにとって有意義な商品であろうと言える。さらに得られた特性は、各要素間の類似度も予測することができる。</p>
+
+<ul>
+<li><code>x</code> 任意の二つの要素間の距離を計ることで、似ている商品を見つけることができる。</li>
+<li><code>θ</code> 任意の二つの要素間の距離を計ることで、似ているユーザを見つけることができる。</li>
+</ul>
 
 
           </div>
