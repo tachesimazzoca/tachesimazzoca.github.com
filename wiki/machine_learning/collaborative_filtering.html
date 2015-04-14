@@ -198,7 +198,7 @@ x_{k}^{(i)} & := x_{k}^{(i)} - \alpha \frac{\partial J}{\partial x_{k}^{(i)}} & 
 
 <p>予測した評価の高いものが、ユーザにとって有意義な商品であろうと言える。</p>
 
-<h2>Low Rank Matrix Factorization</h2>
+<h2>Matrix Factorization</h2>
 
 <p>「商品数 x ユーザ数」のサイズの、ユーザ評価の行列 <code>Y</code> を考えてみる。各要素は予測評価値は <code>θ^T * x</code> に置き換えて考えてみると、行列 <code>Y</code> は</p>
 
@@ -240,11 +240,66 @@ Y = X \Theta^{T} = \begin{bmatrix}
 
 <p>と予測することもできる。</p>
 
-<p>行列 <code>Y</code> に対して特異値分解 <em>SVD</em> を行なうと、特異値の対角行列 <code>S</code> は、ユーザと商品を結びつけるために、どのような係数があるのかということを示している。実際にどのような特徴を表しているのかは判別できないが、何かしらの関連があることを表している。</p>
+<p>行列 <code>Y</code> に対して特異値分解 <em>SVD</em> を行なうと、特異値の対角行列は、ユーザと商品を結びつけるために、どのような係数があるのかということを示している。実際にどのような特徴を表しているのかは判別できないが、何かしらの関連があることを表している。</p>
 
 <p>ユーザ評価においては、ユーザがすべての商品に対して評価を与えていることはなく、欠損値がほとんどになる。数学的に言い換えると、ユーザ評価の行列 <code>Y</code> の階数は低くなる（低ランク行列となる）傾向にある。この場合、特異値分解はうまく機能しない。</p>
 
 <p>対して、低ランク行列についても機能する <em>(Low rank) Matrix Factorization = MF</em> と呼ばれている手法は、本質的には勾配法による協調フィルタリングと同じことを行なっている。</p>
+
+<h2>Mean Normalization</h2>
+
+<p>協調フィルタリングは、全く評価を行なっていないユーザに対して工夫が必要になる。</p>
+
+<ul>
+<li>コスト関数では、評価を行なったもの <code>r(i, j) = 1</code> のみの二乗誤差を取る。</li>
+<li>全く評価を行なっていないとすると誤差の項は 0 になる。</li>
+<li>最小化に影響があるのは、ユーザ特性 <code>θ</code> による正規化項のみとなり、<code>θ</code> の要素は全て 0 に収束する。</li>
+<li>評価予測式は <code>θ^T * x</code> のため、全ての評価が 0 になる。</li>
+</ul>
+
+
+<p>このため、協調フィルタリングでのコスト関数においては、正解評価値 <code>y</code> との誤差を取るのではなく、平均値との差との誤差を取る。</p>
+
+<p>予測評価値を求める時に、平均値を加えるようにする。<code>θ^T * x = 0</code> の場合には、平均値が予測評価となる。</p>
+
+<script type="math/tex; mode=display" id="MathJax-Element-confi_mean_normalization">
+{\scriptsize \text{$m^{(i)} = $ number of ratings given to item $i$}} \\
+\mu^{(i)} = \frac{1}{m^{(i)}} \sum_{j; r(i, j)=1} y^{(i, j)} \\
+y^{(i, j)} = y^{(i, j)} - \mu^{(i)} \\
+(\theta^{(j)})^{T} x^{(i)} + \mu^{(i)} = \text{rating given to item $i$ by user $j$}  \\
+</script>
+
+
+
+
+<script type="math/tex; mode=display" id="MathJax-Element-confi_mean_normalization_eg">
+Y = \begin{bmatrix}
+3 & ? & 4 & 2 & 1 \\
+? & ? & 5 & ? & ? \\
+? & 4 & 4 & 4 & ? \\
+2 & 3 & 3 & 2 & ? \\
+\end{bmatrix} \to \mu = \begin{bmatrix}
+(3 + 4 + 2 + 1) / 4 \\
+(5) / 1 \\
+(4 + 4 + 4) / 3 \\
+(2 + 3 + 3 + 2) / 4 \\
+\end{bmatrix} = \begin{bmatrix}
+2.5 \\
+5 \\
+4 \\
+2.5 \\
+\end{bmatrix} \\
+
+Y - \mu = \begin{bmatrix}
+0.5 & ? & 1.5 & -0.5 & -1.5 \\
+? & ? & 0 & ? & ? \\
+? & 0 & 0 & 0 & ? \\
+-0.5 & 0.5 & 0.5 & -0.5 & ? \\
+\end{bmatrix} \\
+</script>
+
+
+
 
           </div>
           
