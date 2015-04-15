@@ -120,7 +120,7 @@ h(x) = a + bx
 
 
 <script type="math/tex; mode=display" id="MathJax-Element-mse">
-J(a, b) = \frac{1}{2m} {\sum_{i=1}^{m} (h(x_i)-y_i)^2}
+J(a, b) = \frac{1}{2m} {\sum_{i=1}^{m} (h(x^{(i)})-y^{(i)})^2}
 </script>
 
 
@@ -225,7 +225,7 @@ x_{i+1} = x_{i} - \frac{f(x_{i})}{f'(x_{i})} = x_{i} - \frac{x_{i}^2 - a}{2x_{i}
 </ul>
 
 
-<p>学習データ <code>x = [1; 2; 3]; y = [2; 4; 6]</code> の仮説 <code>h(x) = a + b * x</code> を、最急降下法で求めてみる。</p>
+<p>学習データ <code>x = [1; 2; 3]; y = [2; 4; 6]</code> の式 <code>hθ(x) = θ0 + θ1 * x</code> を、最急降下法で求めてみる。</p>
 
 <p>入力データ <code>x</code> より、先頭列に固定値 <code>1</code> を置いた行列 <code>X</code> を作成する。</p>
 
@@ -238,7 +238,7 @@ x_{i+1} = x_{i} - \frac{f(x_{i})}{f'(x_{i})} = x_{i} - \frac{x_{i}^2 - a}{2x_{i}
    <span class="mi">1</span>   <span class="mi">3</span></code></pre></div>
 
 
-<p><code>h(x) = a + b * x</code> のパラメータ <code>a, b</code> 用に、ベクトル <code>theta</code> を作成する。<code>X(:,1) = 1</code> としておいたことで、行列の積 <code>X * theta</code> のみで、各入力データ行の <code>h(x)</code> が得られることが分かる。パラメータが増えた時は、<code>X</code> の各列と <code>theta</code> に追加するだけで良い。</p>
+<p>パラメータ <code>θ</code> 用に、ベクトル <code>theta</code> を作成する。<code>X(:,1) = 1</code> としておいたことで、行列の積 <code>X * theta</code> のみで、各入力の <code>hθ(x) = θ0 + θ1 * x</code> の解が得られることが分かる。パラメータが増えた時は、<code>X</code> の各列と <code>theta</code> に追加するだけで良い。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-gradient_descent_hypothesis">
 x_{0} = 1 \\
@@ -265,7 +265,7 @@ h_{\theta}(x) = \theta^T x = \theta_{0}x_{0} + \theta_{1}x_{1} + \ldots + \theta
 </script>
 
 
-<p><code>theta = [1; 1], alpha = 0.1</code> として反復していくと、<code>theta = [0; 2]</code> すなわち <code>h(x) = 2 * x</code> に収束していくことが分かる。　</p>
+<p><code>theta = [1; 1], alpha = 0.1</code> を初期値として反復していくと、<code>theta = [0; 2]</code> すなわち <code>h(x) = 2 * x</code> に収束していくことが分かる。　</p>
 
 <div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">x</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">3</span><span class="p">];</span>
 <span class="n">octave</span><span class="o">&gt;</span> <span class="n">y</span> <span class="p">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">;</span> <span class="mi">4</span><span class="p">;</span> <span class="mi">6</span><span class="p">];</span>
@@ -340,7 +340,7 @@ h_{\theta}(x) = \theta^T x = \theta_{0}x_{0} + \theta_{1}x_{1} + \ldots + \theta
 
 <h2>Normal Equations</h2>
 
-<p>勾配法を用いずに、連立方程式で解を得る方法もある。連立方程式は以下のように行列で表すことができる。</p>
+<p>最急降下法を用いずに、連立方程式で解を得る方法もある。連立方程式は以下のように行列で表すことができる。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-normaleq">
 \left\{
@@ -413,7 +413,7 @@ y_{m} \\
 </script>
 
 
-<p>公式は <code>X^-1 * y</code> になるが、逆行列 <code>X^-1</code> を求めるには <code>m = n</code> の正方行列 <em>Square matrix</em> である必要がある。正方行列でない場合は、疑似逆行列 <em>Pseudo-inverse matrix</em> <code>(X^T * X)^-1 * X^T</code> を用いる。疑似逆行列の計算には、<em>O(n^3)</em> のコストがかかってしまうので、パラメータ数が多い場合は勾配法を使う。</p>
+<p>公式は <code>X^-1 * y</code> になるが、逆行列 <code>X^-1</code> を求めるには <code>m = n</code> の正方行列 <em>Square matrix</em> である必要がある。正方行列でない場合は、疑似逆行列 <em>Pseudo-inverse matrix</em> <code>(X^T * X)^-1 * X^T</code> を用いる。疑似逆行列の計算には、<em>O(n^3)</em> のコストがかかってしまうので、パラメータ数が多い場合は最急降下法を使う。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-normaleq_matrices_formula">
 \begin{align}
