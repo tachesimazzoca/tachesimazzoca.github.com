@@ -429,7 +429,7 @@
 
 <h3>Field</h3>
 
-<p><code>Form#apply</code> メゾッドを介して、指定フィールドのモデル <code>play.api.data.Field</code> を得ることができる。フィールド値やエラーの状態の他、HTMLフォームの組み立てを想定した API が提供されている。</p>
+<p><code>Form#apply</code> メゾッドを介して、指定フィールドのモデル <code>play.api.data.Field</code> を得ることができる。フィールド状態の取得の他、HTMLの組み立てを想定した API が提供されている。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">itemForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(</span><span class="n">mapping</span><span class="o">(</span>
   <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
@@ -446,7 +446,7 @@
 
 
 <ul>
-<li><code>Field#id</code> により、id 属性文字列を得る。フィールド名と同じだが <code>foo.bar[0]</code> は <code>foo_bar_0</code>  に変換される。</li>
+<li><code>Field#id</code> により、入力 HTML 要素のid 属性文字列を得る。フィールド名と同じだが <code>foo.bar[0]</code> は <code>foo_bar_0</code>  に変換される。</li>
 <li><code>Field#label</code> により、フィールド名のラベルに対応する<code>play.api.i18n.Messages</code> のキーを得る。フィールド名と同じだが <code>foo[0]</code> は <code>foo.0</code>  に変換される。</li>
 </ul>
 
@@ -454,6 +454,13 @@
 <h2>FieldConstructor</h2>
 
 <p>Twirl 向けのHTMLフォームフィールドのヘルパーとして <code>views.html.helper.input</code> が提供されている。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="o">@(</span><span class="n">field</span><span class="k">:</span> <span class="kt">play.api.data.Field</span><span class="o">,</span> <span class="n">args</span><span class="k">:</span> <span class="o">(</span><span class="kt">Symbol</span><span class="o">,</span> <span class="kt">Any</span><span class="o">)*)</span>
+<span class="o">(</span><span class="n">inputDef</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span> <span class="kt">String</span><span class="o">,</span> <span class="nc">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">],</span> <span class="nc">Map</span><span class="o">[</span><span class="kt">Symbol</span>, <span class="kt">Any</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Html</span><span class="o">)</span>
+<span class="o">(</span><span class="k">implicit</span> <span class="n">handler</span><span class="k">:</span> <span class="kt">FieldConstructor</span><span class="o">,</span> <span class="n">messages</span><span class="k">:</span> <span class="kt">play.api.i18n.Messages</span><span class="o">)</span></code></pre></div>
+
+
+<p><code>views.html.helper.FieldConstructor</code> を暗黙パラメータに持ち、ラベルやエラーメッセージを含めたフィールドブロックの HTML を組み立てることができる。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@helper</span><span class="o">.</span><span class="n">input</span><span class="o">(</span>
   <span class="n">userForm</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">),</span>
@@ -466,29 +473,23 @@
 <span class="o">}</span></code></pre></div>
 
 
-<p><code>views.html.helper.FieldConstructor</code> を暗黙パラメータに持ち、ラベルやエラーメッセージを含めたフィールドブロックの HTML を組み立てることができる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="o">@(</span><span class="n">field</span><span class="k">:</span> <span class="kt">play.api.data.Field</span><span class="o">,</span> <span class="n">args</span><span class="k">:</span> <span class="o">(</span><span class="kt">Symbol</span><span class="o">,</span> <span class="kt">Any</span><span class="o">)*)</span>
-<span class="o">(</span><span class="n">inputDef</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span> <span class="kt">String</span><span class="o">,</span> <span class="nc">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">],</span> <span class="nc">Map</span><span class="o">[</span><span class="kt">Symbol</span>, <span class="kt">Any</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Html</span><span class="o">)</span>
-<span class="o">(</span><span class="k">implicit</span> <span class="n">handler</span><span class="k">:</span> <span class="kt">FieldConstructor</span><span class="o">,</span> <span class="n">messages</span><span class="k">:</span> <span class="kt">play.api.i18n.Messages</span><span class="o">)</span></code></pre></div>
-
-
 <ul>
 <li><code>field: play.api.data.Field</code>: 出力対象の <code>field:Field</code> オブジェクト</li>
 <li><code>args: (Symbol, Any)*</code>
 
 <ul>
-<li><code>'_id</code>: フィールドブロック要素の id 属性。入力要素の id 属性ではない点に注意。</li>
-<li><code>'_label</code>: label 属性。<code>messages</code> のキーとしては参照されない。</li>
-<li><code>'_help</code>: 入力ガイド文字列。<code>messages</code> のキーとしても参照される。</li>
-<li><code>'_showConstraints</code>: (true|false) 入力ガイドを表示するかどうか？</li>
-<li><code>'_error</code>: エラーメッセージ文字列。<code>messages</code> のキーとしても参照される。</li>
-<li><code>'_showErrors</code>: (true|false) エラーメッセージを表示するかどうか？</li>
-<li><code>id</code>: 入力要素 (input/select/textarea) の id 属性</li>
-<li>それ以外は HTML 要素の追加属性</li>
+<li><code>'_id -&gt; String</code>: フィールドブロック要素の id 属性。入力要素の id 属性ではない点に注意。</li>
+<li><code>'_label -&gt; String</code>: label 属性。<code>messages</code> のキーとしては参照されない。</li>
+<li><code>'_help -&gt; String</code>: 入力ガイド文字列。<code>messages</code> のキーとしても参照される。</li>
+<li><code>'_showConstraints -&gt; Boolean</code>: 入力ガイドを表示するかどうか？</li>
+<li><code>'_error -&gt; String</code>: エラーメッセージ文字列。<code>messages</code> のキーとしても参照される。</li>
+<li><code>'_showErrors -&gt; Boolean</code>: エラーメッセージを表示するかどうか？</li>
+<li><code>'_(.+) -&gt; Any</code>: 独自 <code>FieldConstructor</code> へのパラメータ</li>
+<li><code>id -&gt; String</code>: 入力 HTML 要素 (input/select/textarea) の id 属性</li>
+<li><code>[^_](.+) -&gt; Any</code>: 入力 HTML 要素の追加属性</li>
 </ul>
 </li>
-<li><code>inputDef</code>: 入力要素のみの <code>play.twirl.api.Html</code> を返す関数
+<li><code>inputDef</code>: 入力 HTML 要素の <code>play.twirl.api.Html</code> を返す関数
 
 <ul>
 <li><code>id: String</code>: id 属性</li>
@@ -499,8 +500,6 @@
 </li>
 </ul>
 
-
-<p><code>Field</code> と <code>inputDef</code> から得た <code>Html</code> を元に <code>views.html.helper.FieldElements</code> に変換し、<code>FieldConstructor#apply(FieldElements)</code> メゾッドを介して、<code>Html</code> を得ている。</p>
 
           </div>
           
