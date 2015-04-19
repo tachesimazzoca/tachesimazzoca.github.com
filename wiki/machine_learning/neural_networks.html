@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./gradient_descent.html">Gradient Descent</a></li><li><a href="./regularization.html">Regularization</a></li><li class="active"><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./svm.html">Support Vector Machine</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li><li><a href="./anomaly_detection.html">Anomaly Detection</a></li><li><a href="./collaborative_filtering.html">Collaborative Filtering</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./gradient_descent.html">Gradient Descent</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./testing.html">Testing</a></li><li class="active"><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./svm.html">Support Vector Machine</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li><li><a href="./anomaly_detection.html">Anomaly Detection</a></li><li><a href="./collaborative_filtering.html">Collaborative Filtering</a></li></ul>
               </div>
             </div>
           </div>
@@ -347,7 +347,7 @@ g'(0) & = g(0)(1 - g(0)) = 0.5 \cdot 0.5 = 0.25 \\
 
 <script type="math/tex; mode=display" id="MathJax-Element-backprop_grad">
 \Delta^{(l)} = \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^{T} \\
-\frac{\partial J(\Theta)}{\partial \Theta^{(l)}_{i,j}} = D^{(l)}_{i,j} = a^{(l)}_{j} \delta^{(l+1)}_{i} = \frac{1}{m} \Delta^{(l)}_{i,j} \\
+\frac{\partial}{\partial \Theta^{(l)}_{i,j}} J(\Theta) = D^{(l)}_{i,j} = a^{(l)}_{j} \delta^{(l+1)}_{i} = \frac{1}{m} \Delta^{(l)}_{i,j} \\
 </script>
 
 
@@ -363,10 +363,10 @@ D^{(l)}_{i,j} = D^{(l)}_{i,j} + \frac{\lambda}{m} \Theta^{(l)}_{i,j} \\
 <p><em>Backpropagation</em> を正しく行なえているかどうかは、一つのパラメータのみ極小値で増減させて、二つのコスト関数を適用した差分が、<em>Backpropagation</em> で得た偏微分とほぼ相違ないこと（1e-9 以下が目安）をチェックすればよい。</p>
 
 <script type="math/tex; mode=display" id="MathJax-Element-grad_checking">
-\frac{\partial J(\theta)}{\partial \theta_1} \approx \frac{ J(\theta_1 + \epsilon, \theta_2, \theta_3, \ldots, \theta_n) - J(\theta_1 - \epsilon, \theta_2 , \theta_3, \ldots, \theta_n) }{2 \epsilon} \\
-\frac{\partial J(\theta)}{\partial \theta_2} \approx \frac{ J(\theta_1, \theta_2 + \epsilon, \theta_3, \ldots, \theta_n) - J(\theta_1, \theta_2 - \epsilon, \theta_3, \ldots, \theta_n) }{2 \epsilon} \\
+\frac{\partial}{\partial \theta_1} J(\theta) \approx \frac{ J(\theta_1 + \epsilon, \theta_2, \theta_3, \ldots, \theta_n) - J(\theta_1 - \epsilon, \theta_2 , \theta_3, \ldots, \theta_n) }{2 \epsilon} \\
+\frac{\partial}{\partial \theta_2} J(\theta) \approx \frac{ J(\theta_1, \theta_2 + \epsilon, \theta_3, \ldots, \theta_n) - J(\theta_1, \theta_2 - \epsilon, \theta_3, \ldots, \theta_n) }{2 \epsilon} \\
 \ldots \\
-\frac{\partial J(\theta)}{\partial \theta_n} \approx \frac{ J(\theta_1, \theta_2, \theta_3, \ldots, \theta_n + \epsilon) - J(\theta_1, \theta_2, \theta_3, \ldots, \theta_n - \epsilon) }{2 \epsilon} \\
+\frac{\partial}{\partial \theta_n} J(\theta) \approx \frac{ J(\theta_1, \theta_2, \theta_3, \ldots, \theta_n + \epsilon) - J(\theta_1, \theta_2, \theta_3, \ldots, \theta_n - \epsilon) }{2 \epsilon} \\
 </script>
 
 
