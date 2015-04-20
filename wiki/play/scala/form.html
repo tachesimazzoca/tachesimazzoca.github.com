@@ -453,7 +453,9 @@
 
 <h2>FieldConstructor</h2>
 
-<p>Twirl 向けのHTMLフォームフィールドのヘルパーとして <code>views.html.helper.input</code> が提供されている。</p>
+<h3>views.html.helper.input</h3>
+
+<p>HTMLフォームフィールドのヘルパーとして <code>views.html.helper.input</code> が提供されている。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="o">@(</span><span class="n">field</span><span class="k">:</span> <span class="kt">play.api.data.Field</span><span class="o">,</span> <span class="n">args</span><span class="k">:</span> <span class="o">(</span><span class="kt">Symbol</span><span class="o">,</span> <span class="kt">Any</span><span class="o">)*)</span>
 <span class="o">(</span><span class="n">inputDef</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span> <span class="kt">String</span><span class="o">,</span> <span class="nc">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">],</span> <span class="nc">Map</span><span class="o">[</span><span class="kt">Symbol</span>, <span class="kt">Any</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Html</span><span class="o">)</span>
@@ -499,6 +501,68 @@
 </ul>
 </li>
 </ul>
+
+
+<p>暗黙パラメータの <code>handler: FieldConstructor</code> に対し、<code>views.html.helper.FieldElements</code> を渡してフィールドブロックの HTML 得る流れになる。</p>
+
+<h3>defaultFieldConstructor</h3>
+
+<p><code>FieldConstructor</code> はデフォルトで、<code>views.html.helper.defaultFieldConstructor</code> を暗黙値として持っている。</p>
+
+<p>独自の <code>FieldConstructor</code> を作成したい場合は、まず <code>FieldElements</code> から <code>Html</code> を返すヘルパーを作成する。</p>
+
+<p><code>views/_helpers/customFieldConstructor.scala.html</code>:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="o">@(</span><span class="n">elements</span><span class="k">:</span> <span class="kt">helper.FieldElements</span><span class="o">)</span>
+
+<span class="o">&lt;</span><span class="n">dl</span> <span class="n">class</span><span class="o">=</span><span class="s">&quot;@elements.args.get(&#39;_class) @if(elements.hasErrors) {error}&quot;</span>
+    <span class="n">id</span><span class="o">=</span><span class="s">&quot;@elements.args.get(&#39;_id).getOrElse(elements.id + &quot;</span><span class="nc">_field</span><span class="s">&quot;)&quot;</span><span class="o">&gt;</span>
+    <span class="nd">@if</span><span class="o">(</span><span class="n">elements</span><span class="o">.</span><span class="n">hasName</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">&lt;</span><span class="n">dt</span><span class="o">&gt;@</span><span class="n">elements</span><span class="o">.</span><span class="n">name</span><span class="o">(</span><span class="n">elements</span><span class="o">.</span><span class="n">lang</span><span class="o">)&lt;/</span><span class="n">dt</span><span class="o">&gt;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="o">&lt;</span><span class="n">dt</span><span class="o">&gt;&lt;</span><span class="n">label</span> <span class="k">for</span><span class="o">=</span><span class="s">&quot;@elements.id&quot;</span><span class="o">&gt;@</span><span class="n">elements</span><span class="o">.</span><span class="n">label</span><span class="o">(</span><span class="n">elements</span><span class="o">.</span><span class="n">lang</span><span class="o">)&lt;/</span><span class="n">label</span><span class="o">&gt;&lt;/</span><span class="n">dt</span><span class="o">&gt;</span>
+    <span class="o">}</span>
+    <span class="o">&lt;</span><span class="n">dd</span><span class="o">&gt;@</span><span class="n">elements</span><span class="o">.</span><span class="n">input</span><span class="o">&lt;/</span><span class="n">dd</span><span class="o">&gt;</span>
+    <span class="nd">@elements</span><span class="o">.</span><span class="n">errors</span><span class="o">(</span><span class="n">elements</span><span class="o">.</span><span class="n">lang</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">error</span> <span class="k">=&gt;</span>
+        <span class="o">&lt;</span><span class="n">dd</span> <span class="n">class</span><span class="o">=</span><span class="s">&quot;error&quot;</span><span class="o">&gt;@</span><span class="n">error</span><span class="o">&lt;/</span><span class="n">dd</span><span class="o">&gt;</span>
+    <span class="o">}</span>
+    <span class="nd">@elements</span><span class="o">.</span><span class="n">infos</span><span class="o">(</span><span class="n">elements</span><span class="o">.</span><span class="n">lang</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">info</span> <span class="k">=&gt;</span>
+        <span class="o">&lt;</span><span class="n">dd</span> <span class="n">class</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span class="o">&gt;@</span><span class="n">info</span><span class="o">&lt;/</span><span class="n">dd</span><span class="o">&gt;</span>
+    <span class="o">}</span>
+<span class="o">&lt;/</span><span class="n">dl</span><span class="o">&gt;</span></code></pre></div>
+
+
+<p>任意のパッケージ内で <code>FieldConstructor</code> の暗黙値を定義し <code>@import</code> すれば良い。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@import</span> <span class="n">views</span><span class="o">.</span><span class="nc">_helpers</span><span class="o">.</span><span class="n">fieldConstructor</span></code></pre></div>
+
+
+<p><code>views/_helpers/package.scala</code>:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">package</span> <span class="nn">views</span>
+
+<span class="k">import</span> <span class="nn">views.html.helper.FieldConstructor</span>
+
+<span class="k">package</span> <span class="nn">object</span> <span class="nc">_helpers</span> <span class="o">{</span>
+  <span class="k">implicit</span> <span class="k">val</span> <span class="n">fieldConstructor</span> <span class="k">=</span> <span class="nc">FieldConstructor</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="nc">_helpers</span><span class="o">.</span><span class="n">customFieldConstructor</span><span class="o">.</span><span class="n">f</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>Twirl では <code>@implicit*</code> で始まる Reusable block を暗黙値として定義してくれるので、動的に組み込む方法もある。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@implicitField</span> <span class="k">=</span> <span class="o">@{</span> <span class="n">helper</span><span class="o">.</span><span class="nc">FieldConstructor</span><span class="o">(</span><span class="nc">_helpers</span><span class="o">.</span><span class="n">customFieldConstructor</span><span class="o">.</span><span class="n">f</span><span class="o">)</span> <span class="o">}</span></code></pre></div>
+
+
+<p>明示的にフィールド単位で指定することもできる。この場合は <code>play.api.i18n.Lang</code> も必要になる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="o">@(</span><span class="n">userForm</span><span class="k">:</span> <span class="kt">Form</span><span class="o">[</span><span class="kt">User</span><span class="o">])(</span><span class="k">implicit</span> <span class="n">lang</span><span class="k">:</span> <span class="kt">play.api.i18n.Lang</span><span class="o">)</span>
+<span class="o">...</span>
+<span class="nd">@helper</span><span class="o">.</span><span class="n">inputText</span><span class="o">(</span><span class="n">userForm</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">))(</span>
+  <span class="n">helper</span><span class="o">.</span><span class="nc">FieldConstructor</span><span class="o">(</span><span class="nc">_helpers</span><span class="o">.</span><span class="n">customFieldConstructor</span><span class="o">.</span><span class="n">f</span><span class="o">),</span>
+  <span class="n">lang</span>
+<span class="o">)</span></code></pre></div>
+
+
 
 
           </div>
