@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iteratees | Play Framework</title>
+<link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="../index.html">Play Framework</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="../index.html">Play Framework</a></li><li><a href="./index.html">Scala</a></li><li>Iteratees</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./iteratees.html">Iteratees</a></li><li><a href="./forms.html">Forms</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/play/scala/iteratees.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/play/scala/iteratees.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/play/scala/iteratees.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Iteratees</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li>https://www.playframework.com/documentation/2.3.x/Iteratees</li>
+</ul>
+
+
+<p><code>play.api.libs.iteratee.Iteratee[E, A]</code> は入力から出力を組み立てる <em>Consumer</em> となる。単に入力 <code>E</code> に対して、どのように出力 <code>A</code> を組み立てるかのみを定義する。</p>
+
+<p>ヘルパーメゾッド <code>Iteratee.fold[E, A]</code> により、アキュームレータ <code>A</code> と入力 <code>E</code> から、出力 <code>A</code> を返す関数を指定するだけで <code>Iteratee[E, A]</code> を実装できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">fold</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">](</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span> <span class="k">=&gt;</span>
+  <span class="n">acc</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">toInt</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>play.api.libs.iteratee.Enumerator[E]</code> は <code>Iteratee</code> に入力を与える <em>Producer</em> となる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">,</span> <span class="s">&quot;3&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span>
+<span class="n">result</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(6) ... 1 + 2 + 3</span></code></pre></div>
+
+
+<h2>Iteratee</h2>
+
+<p><em>Iteratee</em> は、一つのインスタンスで連続する入力を処理する（ループ等を繰り返す）のではない。ステップ毎に新たな <em>Iteratee</em> を生成して引き継いでいく。</p>
+
+<p><code>play.api.libs.iteratee.Input</code> は <em>Iteratee</em> に送られる入力を表す。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Input</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="k">class</span> <span class="nc">El</span><span class="o">[</span><span class="kt">+E</span><span class="o">](</span><span class="n">e</span><span class="k">:</span> <span class="kt">E</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Input</span><span class="o">[</span><span class="kt">E</span><span class="o">]</span>
+  <span class="k">case</span> <span class="k">object</span> <span class="nc">Empty</span> <span class="k">extends</span> <span class="nc">Input</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span>
+  <span class="k">case</span> <span class="k">object</span> <span class="nc">EOF</span> <span class="k">extends</span> <span class="nc">Input</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span>
+<span class="o">}</span></code></pre></div>
+
+
+<ul>
+<li><code>Input.El(e)</code> は入力があることを示す。<em>Iteratee</em> は入力を出力に変換し、次の <em>Iteratee</em> に引き継ぐ。</li>
+<li><code>Input.Empty</code> は入力がないことを示す。<em>Iteratee</em> は何もせずに、次の <em>Iteratee</em> に引き継ぐ。</li>
+<li><code>Input.EOF</code> は入力の終端を示す。<em>Iteratee</em> は最終の出力結果を返す。</li>
+</ul>
+
+
+<h3>DoneIteratee</h3>
+
+<p><code>play.api.libs.iteratee.Done[E, A]</code> により、どのような入力があっても固定の結果を返す <em>Iteratee</em> を生成できる。<code>Input.EOF</code> が送られた時に、最終の出力結果を返すために用いられる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">doneIt</span> <span class="k">=</span> <span class="nc">Done</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">](</span><span class="mi">123</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">)</span>
+<span class="c1">// Whatever the type of input, it will print Success(123)</span>
+<span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">doneIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">)).</span><span class="n">run</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">doneIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">)).</span><span class="n">run</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">doneIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;345&quot;</span><span class="o">))).</span><span class="n">run</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span></code></pre></div>
+
+
+<h3>ContIteratee</h3>
+
+<p><code>play.api.libs.iteratee.Cont[E, A])</code> は、継続する <em>Iteratee</em> を生成できる。入力に応じた次の <em>Iteratee</em> を返す関数 <code>Input[E] =&gt; Iteratee[E, A]</code> を <code>apply</code> メゾッドに渡せばよい。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">step</span><span class="o">(</span><span class="n">acc</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="n">in</span><span class="k">:</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">in</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="c1">// Add the number converted from a string to the state</span>
+  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="n">e</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Cont</span><span class="o">(</span><span class="n">step</span><span class="o">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">toInt</span><span class="o">))</span>
+  <span class="c1">// Keep the state</span>
+  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span> <span class="k">=&gt;</span> <span class="nc">Cont</span><span class="o">(</span><span class="n">step</span><span class="o">(</span><span class="n">acc</span><span class="o">))</span>
+  <span class="c1">// Done iteration</span>
+  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span> <span class="k">=&gt;</span> <span class="nc">Done</span><span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">contIt</span> <span class="k">=</span> <span class="nc">Cont</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">](</span><span class="n">step</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span>
+<span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">contIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">)).</span><span class="n">run</span>
+  <span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">a</span> <span class="k">=&gt;</span> <span class="n">assert</span><span class="o">(</span><span class="nc">Success</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">===</span> <span class="n">a</span><span class="o">))</span>
+<span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">contIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;123&quot;</span><span class="o">))).</span><span class="n">run</span>
+  <span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">a</span> <span class="k">=&gt;</span> <span class="n">assert</span><span class="o">(</span><span class="nc">Success</span><span class="o">(</span><span class="mi">123</span><span class="o">)</span> <span class="o">===</span> <span class="n">a</span><span class="o">))</span>
+
+<span class="o">(</span><span class="k">for</span> <span class="o">{</span>
+  <span class="n">it1</span> <span class="k">&lt;-</span> <span class="n">contIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;12&quot;</span><span class="o">))</span>
+  <span class="n">it2</span> <span class="k">&lt;-</span> <span class="n">it1</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;34&quot;</span><span class="o">))</span>
+  <span class="n">it3</span> <span class="k">&lt;-</span> <span class="n">it2</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">)</span>
+  <span class="n">it4</span> <span class="k">&lt;-</span> <span class="n">it3</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;56&quot;</span><span class="o">))</span>
+  <span class="n">a</span> <span class="k">&lt;-</span> <span class="n">it4</span><span class="o">.</span><span class="n">run</span>
+<span class="o">}</span> <span class="k">yield</span> <span class="n">a</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(102) ... 12 + 34 + 56</span></code></pre></div>
+
+
+<h3>ErrorIteratee</h3>
+
+<p><code>play.api.libs.iteratee.Error[E]</code> により、エラーを返す <em>Iteratee</em> を生成できる。<code>Done</code> と同様に、この <em>Iteratee</em> に引き継がれた場合は、以降の入力は無視される。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">step</span><span class="o">(</span><span class="n">acc</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="n">in</span><span class="k">:</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">in</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="n">e</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">e</span><span class="o">.</span><span class="n">isEmpty</span><span class="o">)</span> <span class="nc">Cont</span><span class="o">(</span><span class="n">step</span><span class="o">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">toInt</span><span class="o">))</span>
+    <span class="k">else</span> <span class="nc">Error</span><span class="o">(</span><span class="s">&quot;empty string&quot;</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">)</span>
+  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span> <span class="k">=&gt;</span> <span class="nc">Cont</span><span class="o">(</span><span class="n">step</span><span class="o">(</span><span class="n">acc</span><span class="o">))</span>
+  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span> <span class="k">=&gt;</span> <span class="nc">Done</span><span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="o">(</span><span class="k">for</span> <span class="o">{</span>
+  <span class="n">it1</span> <span class="k">&lt;-</span> <span class="n">errorIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;12&quot;</span><span class="o">))</span>
+  <span class="n">it2</span> <span class="k">&lt;-</span> <span class="n">it1</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">))</span>
+  <span class="c1">// The following feed will be ignored because it just</span>
+  <span class="c1">// returns Error(msg, e) whatever the type of Input.</span>
+  <span class="n">it3</span> <span class="k">&lt;-</span> <span class="n">it2</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;56&quot;</span><span class="o">))</span>
+  <span class="n">a</span> <span class="k">&lt;-</span> <span class="n">it3</span><span class="o">.</span><span class="n">run</span>
+<span class="o">}</span> <span class="k">yield</span> <span class="n">a</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Failure(java.lang.RuntimeException: empty string)</span></code></pre></div>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
