@@ -98,7 +98,7 @@
 </ul>
 
 
-<p><code>play.api.libs.iteratee.Iteratee[E, A]</code> は入力から出力を組み立てる <em>Consumer</em> となる。単に入力 <code>E</code> に対して、どのように出力 <code>A</code> を組み立てるかのみを定義する。</p>
+<p><code>play.api.libs.iteratee.Iteratee[E, +A]</code> は入力から出力を組み立てる <em>Consumer</em> となる。単に入力 <code>E</code> に対して、どのように出力 <code>A</code> を組み立てるかのみを定義する。</p>
 
 <p>ヘルパーメゾッド <code>Iteratee.fold[E, A]</code> により、アキュームレータ <code>A</code> と入力 <code>E</code> から、出力 <code>A</code> を返す関数を指定するだけで <code>Iteratee[E, A]</code> を実装できる。</p>
 
@@ -117,9 +117,13 @@
 
 <p><em>Iteratee</em> は、一つのインスタンスで連続する入力を処理する（ループ等を繰り返す）のではない。ステップ毎に新たな <em>Iteratee</em> を生成して引き継いでいく。</p>
 
-<p><code>play.api.libs.iteratee.Input</code> は <em>Iteratee</em> に送られる入力を表す。</p>
+<h3>Input</h3>
 
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Input</span> <span class="o">{</span>
+<p><code>play.api.libs.iteratee.Input</code> は <em>Iteratee</em> に送る入力を表す。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">Input</span><span class="o">[</span><span class="kt">+E</span><span class="o">]</span>
+
+<span class="nc">object</span> <span class="nc">Input</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">class</span> <span class="nc">El</span><span class="o">[</span><span class="kt">+E</span><span class="o">](</span><span class="n">e</span><span class="k">:</span> <span class="kt">E</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Input</span><span class="o">[</span><span class="kt">E</span><span class="o">]</span>
   <span class="k">case</span> <span class="k">object</span> <span class="nc">Empty</span> <span class="k">extends</span> <span class="nc">Input</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span>
   <span class="k">case</span> <span class="k">object</span> <span class="nc">EOF</span> <span class="k">extends</span> <span class="nc">Input</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span>
@@ -127,9 +131,9 @@
 
 
 <ul>
-<li><code>Input.El(e)</code> は入力があることを示す。<em>Iteratee</em> は入力を出力に変換し、次の <em>Iteratee</em> に引き継ぐ。</li>
-<li><code>Input.Empty</code> は入力がないことを示す。<em>Iteratee</em> は何もせずに、次の <em>Iteratee</em> に引き継ぐ。</li>
-<li><code>Input.EOF</code> は入力の終端を示す。<em>Iteratee</em> は最終の出力結果を返す。</li>
+<li><code>Input.El(e)</code> は入力があることを示す: <em>Iteratee</em> は入力を出力に変換し、次の <em>Iteratee</em> に引き継ぐ。</li>
+<li><code>Input.Empty</code> は入力がないことを示す: <em>Iteratee</em> は何もせずに、次の <em>Iteratee</em> に引き継ぐ。</li>
+<li><code>Input.EOF</code> は入力の終端を示す: <em>Iteratee</em> は処理結果を返す。</li>
 </ul>
 
 
@@ -192,6 +196,48 @@
   <span class="n">it3</span> <span class="k">&lt;-</span> <span class="n">it2</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;56&quot;</span><span class="o">))</span>
   <span class="n">a</span> <span class="k">&lt;-</span> <span class="n">it3</span><span class="o">.</span><span class="n">run</span>
 <span class="o">}</span> <span class="k">yield</span> <span class="n">a</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Failure(java.lang.RuntimeException: empty string)</span></code></pre></div>
+
+
+<h3>Step</h3>
+
+<p>独自の <em>Iteratee</em> を作成するには、<code>Iteratee#fold</code> メゾッドを実装する。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">fold</span><span class="o">[</span><span class="kt">B</span><span class="o">](</span><span class="n">folder</span><span class="k">:</span> <span class="kt">Step</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span>
+           <span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span> <span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span></code></pre></div>
+
+
+<p><code>fold</code> メゾッドにより、<code>folder</code> 関数を通じて、<em>Iteratee</em> は、自身がどのステップ <code>play.api.libs.iteratee.Step</code> であるかを伝えて処理結果を得る。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">Step</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">+A</span><span class="o">]</span>
+
+<span class="nc">object</span> <span class="nc">Step</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="k">class</span> <span class="nc">Done</span><span class="o">[</span><span class="kt">+A</span>, <span class="kt">E</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">remaining</span><span class="k">:</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">E</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">Step</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span>
+  <span class="k">case</span> <span class="k">class</span> <span class="nc">Cont</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">+A</span><span class="o">](</span><span class="n">k</span><span class="k">:</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">E</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Iteratee</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">E</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">Step</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span>
+  <span class="k">case</span> <span class="k">class</span> <span class="nc">Error</span><span class="o">[</span><span class="kt">E</span><span class="o">](</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">input</span><span class="k">:</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">E</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">Step</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">Nothing</span><span class="o">]</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>folder</code> 関数はどのようなものかは、<code>Iteratee#run</code> の実装を参考にするとよい。<em>ContIteratee</em> であれば、<code>Input.EOF</code> を送って処理結果を得ている。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">run</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="n">fold</span><span class="o">({</span>
+  <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Done</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span><span class="o">(</span><span class="n">a</span><span class="o">)</span>
+  <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Cont</span><span class="o">(</span><span class="n">k</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">k</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">).</span><span class="n">fold</span><span class="o">({</span>
+    <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Done</span><span class="o">(</span><span class="n">a1</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span><span class="o">(</span><span class="n">a1</span><span class="o">)</span>
+    <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Cont</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">error</span><span class="o">(</span><span class="s">&quot;diverging iteratee after Input.EOF&quot;</span><span class="o">)</span>
+    <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Error</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">e</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">error</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
+  <span class="o">})(</span><span class="n">dec</span><span class="o">)</span>
+  <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Error</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">e</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">error</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
+<span class="o">})(</span><span class="n">dec</span><span class="o">)</span></code></pre></div>
+
+
+<p><em>DoneIteratee</em> の <code>fold</code> の実装は、以下と同等である。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// val doneIteratee = Done[String, Int](1, Input.Empty)</span>
+<span class="k">val</span> <span class="n">doneIteratee</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">fold</span><span class="o">[</span><span class="kt">B</span><span class="o">](</span><span class="n">folder</span><span class="k">:</span> <span class="kt">Step</span><span class="o">[</span><span class="kt">String</span>,<span class="kt">Int</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span>
+             <span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span> <span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span> <span class="k">=</span>
+    <span class="n">folder</span><span class="o">(</span><span class="nc">Step</span><span class="o">.</span><span class="nc">Done</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">))</span>
+<span class="o">}</span></code></pre></div>
 
 
 
