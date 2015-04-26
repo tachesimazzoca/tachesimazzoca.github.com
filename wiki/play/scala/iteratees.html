@@ -139,7 +139,7 @@
 
 <h3>DoneIteratee</h3>
 
-<p><code>play.api.libs.iteratee.Done[E, A]</code> により、どのような入力があっても固定の結果を返す <em>Iteratee</em> を生成できる。<code>Input.EOF</code> が送られた時に、最終の出力結果を返すために用いられる。</p>
+<p><code>play.api.libs.iteratee.Done[E, A]</code> により、どのような入力があっても固定の結果を返す <em>Iteratee</em> を生成できる。<code>Input.EOF</code> が送られた時に、最終の出力結果を返すために用いる。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">doneIt</span> <span class="k">=</span> <span class="nc">Done</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">](</span><span class="mi">123</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">)</span>
 <span class="c1">// It will print Success(123) regardless of the type of input.</span>
@@ -150,7 +150,7 @@
 
 <h3>ContIteratee</h3>
 
-<p><code>play.api.libs.iteratee.Cont[E, A])</code> は、継続する <em>Iteratee</em> を生成できる。入力に応じた次の <em>Iteratee</em> を返す関数 <code>Input[E] =&gt; Iteratee[E, A]</code> を <code>apply</code> メゾッドに渡せばよい。</p>
+<p><code>play.api.libs.iteratee.Cont[E, A])</code> により、継続する <em>Iteratee</em> を生成できる。入力に応じた次の <em>Iteratee</em> を返す関数 <code>Input[E] =&gt; Iteratee[E, A]</code> を <code>apply</code> メゾッドに渡せばよい。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">step</span><span class="o">(</span><span class="n">acc</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="n">in</span><span class="k">:</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">in</span> <span class="k">match</span> <span class="o">{</span>
   <span class="c1">// Add the number converted from a string to the state</span>
@@ -301,7 +301,7 @@
 <span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
 <span class="k">val</span> <span class="n">newIt</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="n">enumerator</span><span class="o">(</span><span class="n">it</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">newIt</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">run</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">newIt</span><span class="o">).</span><span class="n">run</span>
 <span class="n">result</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// foobarbazqux</span></code></pre></div>
 
 
@@ -327,7 +327,7 @@
 
 <h3>|>>> (run)</h3>
 
-<p><code>Enumerator#|&gt;&gt;&gt;</code> では <code>Input.EOF</code> を送信する <code>Interatee#run</code> も同時に行なう。</p>
+<p><code>Enumerator#|&gt;&gt;&gt;</code> により、入力ストリームの送信後に <code>Input.EOF</code> を送信して処理結果を得ることができる。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
 <span class="k">val</span> <span class="n">enumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;Foo&quot;</span><span class="o">,</span> <span class="s">&quot;Bar&quot;</span><span class="o">,</span> <span class="s">&quot;Baz&quot;</span><span class="o">)</span>
@@ -336,7 +336,7 @@
 <span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">enumerator</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span></code></pre></div>
 
 
-<p><code>Future[Iteratee[E, A]]</code> のまま <code>flatMap</code> で <code>Iteratee#run</code> を送って <code>Future[B]</code> を得る。<code>Iteratee</code> に置き換える <code>Iteratee.flatten</code> とは異なる。</p>
+<p><code>Future[Iteratee[E, A]]</code> のまま <code>flatMap</code> で <code>Iteratee#run</code> を送って <code>Future[B]</code> を得るので、<code>Iteratee</code> に置き換える <code>Iteratee.flatten</code> とは異なる。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">newIt</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="n">enumerator</span> <span class="o">|&gt;&gt;</span> <span class="n">it</span>
 <span class="k">val</span> <span class="n">futureIt</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">newIt</span><span class="o">)</span>
