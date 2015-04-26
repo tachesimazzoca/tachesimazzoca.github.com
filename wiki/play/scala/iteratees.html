@@ -343,6 +343,43 @@
 <span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">futureIt</span><span class="o">.</span><span class="n">run</span></code></pre></div>
 
 
+<h3>Helper Methods</h3>
+
+<h4>repeatM / generateM</h4>
+
+<p><em>Enumerator</em> は、無限の入力ストリームを扱うことができる。<code>Enumerator.repeatM</code> に <code>Future[E]</code> を返す関数を渡すことで、無限に反復実行される。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.libs.concurrent.Promise</span>
+<span class="o">...</span>
+<span class="k">val</span> <span class="n">dateEnumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">Date</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">.</span><span class="n">repeatM</span> <span class="o">{</span>
+  <span class="nc">Promise</span><span class="o">.</span><span class="n">timeout</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">(),</span> <span class="mf">1.</span><span class="n">seconds</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>Enumerator.generateM</code> では、<code>Future[Option[E]]</code> を返す関数を渡すことで、<code>None</code> の場合に反復実行を停止する。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">endOfTime</span> <span class="k">=</span> <span class="nc">System</span><span class="o">.</span><span class="n">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="mi">3000L</span>
+<span class="k">val</span> <span class="n">dateEnumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">Date</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">.</span><span class="n">generateM</span> <span class="o">{</span>
+  <span class="nc">Promise</span><span class="o">.</span><span class="n">timeout</span><span class="o">({</span>
+    <span class="k">if</span> <span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="n">currentTimeMillis</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">endOfTime</span><span class="o">)</span> <span class="nc">Some</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">())</span>
+    <span class="k">else</span> <span class="nc">None</span>
+  <span class="o">},</span> <span class="mf">1.</span><span class="n">seconds</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h4>fromStream / fromFile</h4>
+
+<p><code>Enumerator.fromStream</code> では <code>java.io.InputStream</code> を入力ソースとすることができる。内部的には <code>Enumerator.generateM</code> を用いており、読み込み中に <code>Some[Array[Byte]]</code> を返し、読み込み完了後に <code>None</code> を返している。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">streamEnumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Enumerator</span><span class="o">.</span><span class="n">fromStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">&quot;/path/to/file&quot;</span><span class="o">)))</span>
+<span class="o">}</span>
+<span class="c1">// or use Enumerator.fromFile</span>
+<span class="k">val</span> <span class="n">fileEnumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Enumerator</span><span class="o">.</span><span class="n">fromFile</span><span class="o">(</span><span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">&quot;/path/to/file&quot;</span><span class="o">))</span>
+<span class="o">}</span></code></pre></div>
+
+
 
 
           </div>
