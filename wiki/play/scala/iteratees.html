@@ -257,6 +257,92 @@
 <span class="o">}</span></code></pre></div>
 
 
+<h3>Helper Methods</h3>
+
+<h4>consume</h4>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
+<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="s">&quot;bar&quot;</span><span class="o">,</span> <span class="s">&quot;baz&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span>
+<span class="n">result</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// foobarbaz</span></code></pre></div>
+
+
+<h4>foreach</h4>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">foreach</span><span class="o">[</span><span class="kt">String</span><span class="o">](</span><span class="n">prinln</span><span class="o">)</span>
+<span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="s">&quot;bar&quot;</span><span class="o">,</span> <span class="s">&quot;baz&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span>
+<span class="c1">// foo</span>
+<span class="c1">// bar</span>
+<span class="c1">// baz</span></code></pre></div>
+
+
+<h4>flatten</h4>
+
+<p>継続する <em>Iteratee</em> は、遅延評価で非同期に得るため <code>Future[Iteratee[E, A]]</code> となる。<code>Iteratee#run</code> で <code>Input.EOF</code> を送るには、<code>flatMap</code> や <em>for-comprehension</em> を介して行なう必要がある。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
+<span class="k">val</span> <span class="n">newIt</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="s">&quot;bar&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;</span> <span class="n">it</span>
+<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">newIt</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">run</span><span class="o">)</span></code></pre></div>
+
+
+<p><code>Iteratee.flatten</code> は <code>Iteratee#fold</code> 内部で <code>flatMap</code> を行う <code>Iteratee</code> を生成する。あたかも初回の <em>Iteratee</em> のように振る舞う。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">futureIt</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">newIt</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">futureIt</span><span class="o">.</span><span class="n">run</span></code></pre></div>
+
+
+<h2>Enumerator</h2>
+
+<p><em>Enumerator</em> は、<em>Iteratee</em> に送る入力ストリームを生成する。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">enumerator1</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="s">&quot;bar&quot;</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">enumerator2</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">,</span> <span class="s">&quot;qux&quot;</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">enumerator</span> <span class="k">=</span> <span class="n">enumerator1</span><span class="o">.</span><span class="n">andThen</span><span class="o">(</span><span class="n">enumerator2</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
+<span class="k">val</span> <span class="n">newIt</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="n">enumerator</span><span class="o">(</span><span class="n">it</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">newIt</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">run</span><span class="o">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// foobarbazqux</span></code></pre></div>
+
+
+<h3>>>> (andThen)</h3>
+
+<p><code>Enumerator#andThen</code> で <em>Enumerator</em> を連結することができる。エイリアスとして <code>Enumerator#&gt;&gt;&gt;</code> が提供されている。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">enumerator1</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="s">&quot;bar&quot;</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">enumerator2</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">,</span> <span class="s">&quot;qux&quot;</span><span class="o">)</span>
+<span class="c1">//val enumerator = enumerator1.andThen(enumerator2)</span>
+<span class="k">val</span> <span class="n">enumerator</span> <span class="k">=</span> <span class="n">enumerator1</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">enumerator2</span></code></pre></div>
+
+
+<h3>|>> (apply)</h3>
+
+<p><code>Enumerator#apply</code> に <em>Iteratee</em> を渡す事で、<code>Future[Iteratee[E, A]]</code> が得られる。<code>Iteratee#feed</code> は内部的には同等のことを行なっている。エイリアスとして <code>Enumerator#|&gt;&gt;</code> が提供されている。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
+<span class="k">val</span> <span class="n">enumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;Foo&quot;</span><span class="o">,</span> <span class="s">&quot;Bar&quot;</span><span class="o">,</span> <span class="s">&quot;Baz&quot;</span><span class="o">)</span>
+<span class="c1">//val newIt: Future[Iteratee[String, String]] = enumerator(it)</span>
+<span class="k">val</span> <span class="n">newIt</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="n">enumerator</span> <span class="o">|&gt;&gt;</span> <span class="n">it</span></code></pre></div>
+
+
+<h3>|>>> (run)</h3>
+
+<p><code>Enumerator#|&gt;&gt;&gt;</code> では <code>Input.EOF</code> を送信する <code>Interatee#run</code> も同時に行なう。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
+<span class="k">val</span> <span class="n">enumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;Foo&quot;</span><span class="o">,</span> <span class="s">&quot;Bar&quot;</span><span class="o">,</span> <span class="s">&quot;Baz&quot;</span><span class="o">)</span>
+
+<span class="c1">//val result: Future[String] = enumerator(it).flatMap(_.run)</span>
+<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">enumerator</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span></code></pre></div>
+
+
+<p><code>Future[Iteratee[E, A]]</code> のまま <code>flatMap</code> で <code>Iteratee#run</code> を送って <code>Future[B]</code> を得る。<code>Iteratee</code> に置き換える <code>Iteratee.flatten</code> とは異なる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">newIt</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="n">enumerator</span> <span class="o">|&gt;&gt;</span> <span class="n">it</span>
+<span class="k">val</span> <span class="n">futureIt</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">newIt</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">futureIt</span><span class="o">.</span><span class="n">run</span></code></pre></div>
+
+
 
 
           </div>
