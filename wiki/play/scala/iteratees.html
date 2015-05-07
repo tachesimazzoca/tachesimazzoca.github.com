@@ -331,7 +331,6 @@
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
 <span class="k">val</span> <span class="n">enumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;Foo&quot;</span><span class="o">,</span> <span class="s">&quot;Bar&quot;</span><span class="o">,</span> <span class="s">&quot;Baz&quot;</span><span class="o">)</span>
-
 <span class="c1">//val result: Future[String] = enumerator(it).flatMap(_.run)</span>
 <span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">enumerator</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span></code></pre></div>
 
@@ -378,6 +377,102 @@
 <span class="k">val</span> <span class="n">fileEnumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Enumerator</span><span class="o">.</span><span class="n">fromFile</span><span class="o">(</span><span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">&quot;/path/to/file&quot;</span><span class="o">))</span>
 <span class="o">}</span></code></pre></div>
+
+
+<h2>Enumeratee</h2>
+
+<p><code>plap.api.libs.iteratee.Enumeratee[From, To]</code> により、ストリームデータを変換をすることができる。</p>
+
+<p>ヘルパーメゾッド <code>Enumeratee.map</code> に変換関数を渡せば、<em>Enumeratee</em> を生成できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">byteToHexStr</span><span class="k">:</span> <span class="kt">Enumeratee</span><span class="o">[</span><span class="kt">Byte</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumeratee</span><span class="o">.</span><span class="n">map</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]</span> <span class="o">{</span> <span class="n">b</span> <span class="k">=&gt;</span>
+  <span class="s">&quot;%02X&quot;</span><span class="o">.</span><span class="n">format</span><span class="o">(</span><span class="n">b</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h3>&amp;>> (transform)</h3>
+
+<p><code>Enumeratee#transform</code> により、前段に変換を加えた <em>Iteratee</em> を生成できる。エイリアスとして <code>Enumeratee#&amp;&gt;&gt;</code> が提供されている。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">consume</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
+<span class="c1">//val it = byteToHexStr.transform(consume)</span>
+<span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">Byte</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">byteToHexStr</span> <span class="o">&amp;&gt;&gt;</span> <span class="n">consume</span></code></pre></div>
+
+
+<h3>&amp;> (through)</h3>
+
+<p><em>Enumeratee</em> は <em>Enumerator</em> に対しても適用できる。<code>Enumerater#through</code> により、後段に変換を加えた <em>Enumerator</em> を生成できる。エイリアスとして <code>Enumerator#&amp;&gt;</code> が提供されている。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Make sure that either &quot;&amp;&gt;&quot; or &quot;through&quot; is defined</span>
+<span class="c1">// on Enumerator, not on Enumeratee.</span>
+
+<span class="k">val</span> <span class="n">enumerator</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;Hello&quot;</span><span class="o">.</span><span class="n">getBytes</span><span class="o">())</span>
+<span class="c1">//val hexStrEnumerator = enumerator.through(byteHexStr)</span>
+<span class="k">val</span> <span class="n">hexStrEnumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]</span> <span class="k">=</span> <span class="n">enumerator</span> <span class="o">&amp;&gt;</span> <span class="n">byteToHexStr</span></code></pre></div>
+
+
+<h3>apply</h3>
+
+<p>元の <em>Iteratee</em> がすでに <code>EOF</code> を受けて完了していた場合、<code>Enumeratee#transform</code> で <em>Iteratee</em> を変換したところで、その後の入力は破棄されてしまう。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">sum</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">fold</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">](</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span> <span class="k">=&gt;</span>
+  <span class="n">acc</span> <span class="o">+</span> <span class="n">x</span>
+<span class="o">}</span>
+<span class="k">val</span> <span class="n">strToInt</span> <span class="k">=</span> <span class="nc">Enumeratee</span><span class="o">.</span><span class="n">map</span><span class="o">[</span><span class="kt">String</span><span class="o">](</span><span class="k">_</span><span class="o">.</span><span class="n">toInt</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">doneIt</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="nc">Enumerator</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">&gt;&gt;&gt;</span> <span class="nc">Enumerator</span><span class="o">.</span><span class="n">eof</span> <span class="o">|&gt;&gt;</span> <span class="n">sum</span><span class="o">)</span>
+<span class="c1">// The iteratee doneIt has been done,</span>
+<span class="nc">Iteratee</span><span class="o">.</span><span class="n">isDoneOrError</span><span class="o">(</span><span class="n">doneIt</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(true)</span>
+<span class="k">val</span> <span class="n">transformedIt</span> <span class="k">=</span> <span class="n">strToInt</span> <span class="o">&amp;&gt;&gt;</span> <span class="n">doneIt</span>
+<span class="c1">// so any inputs after that will be ignored.</span>
+<span class="o">(</span><span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;3&quot;</span><span class="o">,</span> <span class="s">&quot;4&quot;</span><span class="o">,</span> <span class="s">&quot;5&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">transformedIt</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(3)</span></code></pre></div>
+
+
+<p><code>Enumeratee#apply</code> は、変換前の <em>Iteratee</em> を出力とする <em>Iteratee</em> を生成する。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// The method apply returns Iteratee[String, Iteratee[Int, Int]],</span>
+<span class="k">val</span> <span class="n">adaptedIt</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="n">strToInt</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
+<span class="c1">// so we can get the original iteratee after the adaptedIt is done.</span>
+<span class="k">val</span> <span class="n">originalIt</span><span class="k">:</span> <span class="kt">Interatee</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span>
+    <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">adaptedIt</span><span class="o">)</span>
+<span class="c1">// The original iteratee has not been done yet because it&#39;s just</span>
+<span class="c1">// an output of the adaptedIt.</span>
+<span class="nc">Iteratee</span><span class="o">.</span><span class="n">isDoneOrError</span><span class="o">(</span><span class="n">originalIt</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(false)</span>
+<span class="o">(</span><span class="nc">Enumerator</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">originalIt</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(15)</span></code></pre></div>
+
+
+<p>変換した <em>Iteratee</em> を <code>EOF</code> で完了させた後でも、出力は変換元の <em>Iteratee</em> であるので、入力を継続できる。すなわち <em>Enumeratee</em> を切り替えながら、異なる <em>Enumerator</em> からの入力を <em>Iteratee</em> にまとめることができる。</p>
+
+<h3>Traversable</h3>
+
+<p><code>Enumeratee.(take|drop|takeWhile|dropWhile|...)</code> 等のヘルパーメゾッドは、他のコレクション API のように、要素を切り出す <em>Enumeratee</em> を生成できる。</p>
+
+<p>ただし切り出し位置は <em>Enumerator</em> から送信されるチャンク単位になる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">fold</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]</span>, <span class="kt">String</span><span class="o">](</span><span class="s">&quot;&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span> <span class="k">=&gt;</span>
+  <span class="n">acc</span> <span class="o">++</span> <span class="n">x</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">toChar</span><span class="o">).</span><span class="n">mkString</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">enumerator</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span>
+  <span class="s">&quot;123&quot;</span><span class="o">.</span><span class="n">getBytes</span><span class="o">(),</span>
+  <span class="s">&quot;456&quot;</span><span class="o">.</span><span class="n">getBytes</span><span class="o">(),</span>
+  <span class="s">&quot;789&quot;</span><span class="o">.</span><span class="n">getBytes</span><span class="o">()</span>
+<span class="o">)</span>
+
+<span class="k">def</span> <span class="n">limitChunks</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Enumeratee</span><span class="o">.</span><span class="n">take</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]](</span><span class="n">n</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="o">(</span><span class="n">enumerator</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">limitChunks</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span> <span class="o">&amp;&gt;&gt;</span> <span class="n">it</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(&quot;123456&quot;)</span></code></pre></div>
+
+
+<p>入力が <code>scala.collection.TraversableLike</code> を含んでいれば、<code>play.api.iteratee.Traversable</code> を使うことで、<code>TraversableLike</code> の実装に応じて切り出し位置を決定する。つまり <code>Array[Byte]</code> なら、配列インデックスでカウントされる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">limitBytes</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Traversable</span><span class="o">.</span><span class="n">take</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]](</span><span class="n">n</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="o">(</span><span class="n">enumerator</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">limitBytes</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span> <span class="o">&amp;&gt;&gt;</span> <span class="n">it</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(&quot;12345&quot;)</span></code></pre></div>
 
 
 
