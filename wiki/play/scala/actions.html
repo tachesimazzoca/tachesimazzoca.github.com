@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Actions | Play Framework</title>
+<link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="../index.html">Play Framework</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="../index.html">Play Framework</a></li><li><a href="./index.html">Scala</a></li><li>Actions</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./iteratees.html">Iteratees</a></li><li><a href="./http.html">HTTP</a></li><li class="active"><a href="./actions.html">Actions</a></li><li><a href="./forms.html">Forms</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/play/scala/actions.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/play/scala/actions.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/play/scala/actions.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Actions</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li>https://www.playframework.com/documentation/2.3.x/ScalaActions</li>
+<li>https://www.playframework.com/documentation/2.3.x/HttpApi</li>
+</ul>
+
+
+<h2>EssentialAction</h2>
+
+<p>トレイト<code>play.api.mvc.EssentialAction</code> の実体は、HTTP リクエストヘッダ <code>play.api.mvc.RequestHeader</code> を引数とし、<code>Iteratee[Array[Byte], Result]</code> を返す関数である。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">EssentialAction</span> <span class="k">extends</span> <span class="o">(</span><span class="nc">RequestHeader</span> <span class="k">=&gt;</span> <span class="nc">Iteratee</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]</span>, <span class="kt">Result</span><span class="o">])</span></code></pre></div>
+
+
+<p><code>Array[Byte]</code> は HTTP ボディ部のチャンクにあたる。ストリームとしてボディ部を受け取り、どのように <code>Result</code> を組み立てるかを <em>Iteratee</em> として定義する。</p>
+
+<h2>Action</h2>
+
+<p>トレイト <code>play.api.mvc.Action[A]</code> は <code>EssentialAction</code> を継承している。</p>
+
+<p>すなわち <code>RequestHeader</code> を受け取り <code>Iteratee[Array[Byte], Result]</code> を返す関数であり、実装は <code>play.api.mvc.BodyParser[+A]</code> を介して行なっている。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="nc">extends</span> <span class="nc">EssentialAction</span> <span class="o">{</span>
+  <span class="o">...</span>
+  <span class="k">def</span> <span class="n">parser</span><span class="k">:</span> <span class="kt">BodyParser</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+
+  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">]</span>
+
+  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">rh</span><span class="k">:</span> <span class="kt">RequestHeader</span><span class="o">)</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]</span>, <span class="kt">Result</span><span class="o">]</span> <span class="k">=</span> <span class="n">parser</span><span class="o">(</span><span class="n">rh</span><span class="o">).</span><span class="n">mapM</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="n">r</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="nc">Play</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="o">(</span><span class="s">&quot;Got direct result from the BodyParser: &quot;</span> <span class="o">+</span> <span class="n">r</span><span class="o">)</span>
+      <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span><span class="o">(</span><span class="n">r</span><span class="o">)</span>
+    <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="k">val</span> <span class="n">request</span> <span class="k">=</span> <span class="nc">Request</span><span class="o">(</span><span class="n">rh</span><span class="o">,</span> <span class="n">a</span><span class="o">)</span>
+      <span class="nc">Play</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="o">(</span><span class="s">&quot;Invoking action with request: &quot;</span> <span class="o">+</span> <span class="n">request</span><span class="o">)</span>
+      <span class="nc">Play</span><span class="o">.</span><span class="n">maybeApplication</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">app</span> <span class="k">=&gt;</span>
+        <span class="n">play</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="nc">Threads</span><span class="o">.</span><span class="n">withContextClassLoader</span><span class="o">(</span><span class="n">app</span><span class="o">.</span><span class="n">classloader</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">apply</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+        <span class="o">}</span>
+      <span class="o">}.</span><span class="n">getOrElse</span> <span class="o">{</span>
+        <span class="n">apply</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="o">...</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>BodyParser</code> の実体は <code>RequestHeader</code> を受け取り <code>Itereatee[Array[Byte], Either[Result, A]]</code> を返す関数である。</p>
+
+<ul>
+<li>失敗時の <code>Left</code> は、直接エラー応答の <code>Result</code> となる。</li>
+<li>成功時の <code>Right</code> は、ボディ部で、<code>Action#apply(request: Request[A])</code> を介して <code>Result</code> を得る。</li>
+</ul>
+
+
+<p><code>parser</code> に、ボディ部が渡っていないのが疑問に思いがちだが、返すのは <em>Iteratee</em> であって、どのようにボディ部 <code>Array[Byte]</code> から出力 <code>A</code> を組み立てるかの定義だけである。ボディ部は、然るべき <em>Enumerator</em> からストリーム送信されるのであって、<em>BodyParser</em>  が全てのボディ部を得るのではない。</p>
+
+<h3>Helper Methods</h3>
+
+<p>ヘルパーメゾッド <code>Action.apply</code> を使って <code>Action#apply(request: Request[A])</code> を実装できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">noRequest</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">AnyContent</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
+  <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;Hello&quot;</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="k">def</span> <span class="n">withDefaultContent</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">AnyContent</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span>
+  <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;Request: &quot;</span> <span class="o">+</span> <span class="n">request</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>明示的に <code>Future[Result]</code> で返したい場合は <code>Action.async</code> を使う。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.libs.ws._</span>
+
+<span class="k">def</span> <span class="n">wsAction</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">.</span><span class="n">async</span> <span class="o">{</span>
+  <span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="s">&quot;http://foo.example.net&quot;</span><span class="o">).</span><span class="n">get</span><span class="o">().</span><span class="n">map</span> <span class="o">{</span> <span class="n">response</span> <span class="k">=&gt;</span>
+    <span class="nc">Ok</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>Action.async</code> は非同期処理用ではなく、明示的に <code>Future[Result]</code> を返したい場合のヘルパーメゾッドである。いずれのヘルパーメゾッドを使ったとしても、実装される <code>Action#apply(request: Request)</code> が返すのは <code>Future[Result]</code> であり、どちらも非同期に実行されることに違いはない。</p>
+
+<p><code>Future</code> を使えば、自動的にノンブロッキングとなるのではない。ブロックする処理を書かなければいけない場合は、コアのスレッドを占有しないように、別の <code>ExecutionContext</code> を使う必要がある。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.libs.concurrent.Akka</span>
+
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">expensiveOperations</span> <span class="k">=</span>
+  <span class="nc">Akka</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">dispatchers</span><span class="o">.</span><span class="n">lookup</span><span class="o">(</span><span class="s">&quot;contexts.expensive-operations&quot;</span><span class="o">)</span>
+
+<span class="c1">// OK: To avoid blocking operation, use a separate execution context.</span>
+<span class="k">def</span> <span class="n">search</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">AnyContent</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">.</span><span class="n">async</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">job1</span> <span class="k">=</span> <span class="nc">Promise</span><span class="o">.</span><span class="n">timeout</span><span class="o">({</span> <span class="o">...</span> <span class="o">}</span> <span class="mf">5.</span><span class="n">second</span><span class="o">)</span>
+  <span class="k">val</span> <span class="n">job2</span> <span class="k">=</span> <span class="nc">Promise</span><span class="o">.</span><span class="n">timeout</span><span class="o">({</span> <span class="o">...</span> <span class="o">}</span> <span class="mf">5.</span><span class="n">second</span><span class="o">)</span>
+  <span class="nc">Future</span><span class="o">.</span><span class="n">firstCompleteOf</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">job1</span><span class="o">,</span> <span class="n">job2</span><span class="o">)</span> <span class="n">map</span> <span class="o">{</span> <span class="n">x</span> <span class="k">=&gt;</span>
+    <span class="o">...</span>
+    <span class="nc">Ok</span><span class="o">(...)</span>
+  <span class="o">})</span> <span class="o">(</span><span class="n">expensiveOperations</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// NG: The thread of defaultContext is going to block.</span>
+<span class="k">def</span> <span class="n">block</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">AnyContent</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">.</span><span class="n">async</span> <span class="o">{</span>
+  <span class="nc">Future</span> <span class="o">{</span>
+    <span class="nc">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mi">10000L</span><span class="o">)</span>
+    <span class="nc">Ok</span><span class="o">(...)</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
