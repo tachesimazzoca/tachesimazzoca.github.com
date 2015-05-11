@@ -200,6 +200,65 @@
 <span class="o">}</span></code></pre></div>
 
 
+<h2>BodyParser</h2>
+
+<p>基本的な <em>BodyParser</em> は、あらかじめ <code>play.api.mvc.BodyParsers.parse</code> に定義されている。</p>
+
+<p>デフォルトの <em>BodyParser</em> は <code>parse.anyContent</code> が使われる。ボディ部は <code>play.api.mvc.AnyContent</code> になる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">xmlFormat</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span>
+  <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">asXml</span> <span class="n">map</span> <span class="o">{</span> <span class="n">xml</span> <span class="k">=&gt;</span>
+    <span class="nc">Ok</span><span class="o">(...)</span>
+  <span class="o">}.</span><span class="n">getOrElse</span> <span class="o">{</span>
+    <span class="nc">BadRequest</span><span class="o">(..)</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>ヘルパーメゾッド <code>Action.apply[A](parser: BodyParser[A])(...)</code> を使うと、ボディ部を明示的に指定できる。 不正なリクエストの場合は、<em>Action</em> ブロックには渡らず、<em>BadReqeust</em> 400 エラーが直接応答される。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">xmlOnly</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">(</span><span class="n">parse</span><span class="o">.</span><span class="n">xml</span><span class="o">)</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span> <span class="o">...</span> <span class="o">}</span></code></pre></div>
+
+
+<p><code>tolerant</code> がついているものは、リクエストヘッダのチェックを行なわず、ボディ部がパースできればエラーとならない。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">xmlOnly</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">(</span><span class="n">parse</span><span class="o">.</span><span class="n">torelantXml</span><span class="o">)</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span> <span class="o">...</span> <span class="o">}</span></code></pre></div>
+
+
+<h3>file / temporaryFile / multipartFormData</h3>
+
+<p><code>parse.file</code> を用いるとボディ部をファイルに保存できる。指定した <code>java.io.File</code> がボディ部になる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">parser</span> <span class="k">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">file</span><span class="o">(</span><span class="n">to</span> <span class="k">=</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="nc">File</span><span class="o">(</span><span class="s">&quot;/path/to/a.txt&quot;</span><span class="o">))</span></code></pre></div>
+
+
+<p><code>parse.temporaryFile</code> は一時ファイルで保存できる。<code>play.api.libs.Files.TemporaryFile</code> がボディ部になる。<code>TemporaryFIle</code> のメゾッドは、旧 Java File API によるもののため <em>Deprecated</em> となっている。</p>
+
+<p>フォームからのファイルアップロード <code>multipart/form-data</code> 形式には、<code>parse.multipartFormData</code> を使う。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">upload</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">(</span><span class="n">parse</span><span class="o">.</span><span class="n">multipartFormData</span><span class="o">)</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span>
+  <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">file</span><span class="o">(</span><span class="s">&quot;pic&quot;</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">part</span> <span class="k">=&gt;</span>
+    <span class="k">val</span> <span class="n">temp</span><span class="k">:</span> <span class="kt">TemporaryFile</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span>
+    <span class="k">val</span> <span class="n">file</span><span class="k">:</span> <span class="kt">java.io.File</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">file</span>
+    <span class="o">...</span>
+    <span class="nc">Ok</span><span class="o">(...)</span>
+  <span class="o">}.</span><span class="n">getOrElse</span> <span class="o">{</span>
+    <span class="nc">BadRequest</span><span class="o">(...)</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>ファイルサイズに制限をかけたい場合は、ヘルパーメゾッド <code>parse.maxLength</code> を使う。ボディ部は <code>Either[MaxSizeexceeded, A]</code> となる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// up to 4096 bytes</span>
+<span class="k">val</span> <span class="n">upload</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">(</span><span class="n">parse</span><span class="o">.</span><span class="n">maxLength</span><span class="o">(</span><span class="mi">4096</span><span class="o">,</span> <span class="n">parse</span><span class="o">.</span><span class="n">multipartFormData</span><span class="o">))</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span>
+  <span class="n">request</span><span class="o">.</span><span class="n">body</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="nc">MaxSizeExceeded</span><span class="o">(</span><span class="n">len</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="o">...</span>
+    <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">multipartFormdata</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">...</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
 
 
           </div>
