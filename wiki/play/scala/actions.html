@@ -259,6 +259,84 @@
 <span class="o">}</span></code></pre></div>
 
 
+<h2>ActionBuilder</h2>
+
+<p>ヘルパーオブジェクト <code>Action</code> の実体は、トレイト <code>play.api.mvc.ActionBuilder[Request]</code> である。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Action</span> <span class="k">extends</span> <span class="nc">ActionBuilder</span><span class="o">[</span><span class="kt">Request</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">invokeBlock</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
+                     <span class="n">block</span><span class="k">:</span> <span class="o">(</span><span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">])</span> <span class="k">=</span> <span class="n">block</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>同様に <code>ActionBuilder</code> を実装すれば、独自のヘルパーオブジェクトを作成できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">AppAction</span> <span class="k">extends</span> <span class="nc">ActionBuilder</span><span class="o">[</span><span class="kt">Request</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">invokeBlock</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
+                              <span class="n">block</span><span class="k">:</span> <span class="o">(</span><span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="n">remoteAddress</span><span class="o">.</span><span class="n">equals</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">))</span> <span class="o">{</span>
+      <span class="n">block</span><span class="o">(</span><span class="n">request</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">withHeaders</span><span class="o">(</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Chrome=1&quot;</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span><span class="o">(</span><span class="nc">Forbidden</span><span class="o">)</span> <span class="c1">// localhost only</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">action</span> <span class="k">=</span> <span class="nc">AppAction</span> <span class="o">{</span>
+  <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;...&quot;</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><em>ActionBuilder</em> は <code>ActionBuilder#andThen</code> で連結できる。<code>Request</code> は外側から、<code>Future[Result]</code> は内側から伝播する。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">action</span> <span class="k">=</span> <span class="o">(</span><span class="nc">LoggingAction</span> <span class="n">andThen</span> <span class="nc">SecureAction</span><span class="o">)</span> <span class="o">{</span>
+  <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;...&quot;</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>以下の様に <em>Action</em> をラップしてもよい。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Logging</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">action</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="nc">Logger</span><span class="o">.</span><span class="n">info</span><span class="o">(</span><span class="s">&quot;...&quot;</span><span class="o">)</span>
+    <span class="n">action</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="k">lazy</span> <span class="k">val</span> <span class="n">parser</span> <span class="k">=</span> <span class="n">action</span><span class="o">.</span><span class="n">parser</span>
+<span class="o">}</span>
+
+<span class="k">def</span> <span class="n">action</span> <span class="k">=</span> <span class="nc">Logging</span> <span class="o">{</span>
+  <span class="nc">Action</span> <span class="o">{</span>
+    <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;...&quot;</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>Action.async</code> ブロック内で、元の <code>Action#apply</code> を呼ぶ方法でもよい。元の <em>BodyParser</em> もみ消さないように明示する必要がある。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">logging</span><span class="o">(</span><span class="n">action</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">Action</span><span class="o">.</span><span class="n">async</span><span class="o">(</span><span class="n">action</span><span class="o">.</span><span class="n">parser</span><span class="o">)</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span>
+    <span class="nc">Logger</span><span class="o">.</span><span class="n">info</span><span class="o">(</span><span class="s">&quot;...&quot;</span><span class="o">)</span>
+    <span class="n">action</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+  <span class="o">}</span></code></pre></div>
+
+
+<p><code>ActionBuilder#composeAction</code> に、<em>Action</em> をラップする関数を指定できる。共通の前後処理をパーツ化しておいて、組み替えることで、コードを再利用できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">onlyHttps</span><span class="o">(</span><span class="n">action</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span>
+<span class="k">def</span> <span class="n">loggingErrors</span><span class="o">(</span><span class="n">action</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span>
+
+<span class="k">object</span> <span class="nc">AppAction</span> <span class="k">extends</span> <span class="nc">ActionBuilder</span><span class="o">[</span><span class="kt">Request</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">invokeBlock</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
+                              <span class="n">block</span><span class="k">:</span> <span class="o">(</span><span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">])</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="n">block</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="k">override</span> <span class="k">protected</span> <span class="k">def</span> <span class="n">composeAction</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">action</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
+    <span class="n">onlyHttps</span><span class="o">(</span><span class="n">loggingErrors</span><span class="o">(</span><span class="n">action</span><span class="o">))</span>
+<span class="o">}</span></code></pre></div>
+
+
 
 
           </div>
