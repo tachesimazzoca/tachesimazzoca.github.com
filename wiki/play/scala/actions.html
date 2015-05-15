@@ -337,6 +337,67 @@
 <span class="o">}</span></code></pre></div>
 
 
+<h2>ActionRefiner</h2>
+
+<p><code>play.api.mvc.ActionRefiner[R, P]</code> により、<em>ActionBuilder</em> の <code>Request</code> 型を変換できる。</p>
+
+<p><code>Future[Either[Result, P[A]]]</code> を返す <code>ActionRefiner#refine[A](request: R[A])</code> を実装する。<code>UserRequest</code> のコンストラクタの第一引数 <code>Request[A]</code> は、継承元の <code>WrappedRequest</code> に引き渡す引数になるので、重複してインスタンス変数に持つ必要はない。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+
+<span class="k">object</span> <span class="nc">User</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">find</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+<span class="o">}</span>
+
+<span class="k">class</span> <span class="nc">UserRequest</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="k">val</span> <span class="n">user</span><span class="k">:</span> <span class="kt">User</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">WrappedRequest</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nc">UserAction</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">ActionRefiner</span><span class="o">[</span><span class="kt">Request</span>, <span class="kt">UserRequest</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">protected</span> <span class="k">def</span> <span class="n">refine</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Either</span><span class="o">[</span><span class="kt">Result</span>, <span class="kt">UserRequest</span><span class="o">]]</span> <span class="k">=</span>
+    <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span> <span class="o">{</span>
+      <span class="o">(</span><span class="k">for</span> <span class="o">{</span>
+        <span class="n">userid</span> <span class="k">&lt;-</span> <span class="n">request</span><span class="o">.</span><span class="n">sessions</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">&quot;userid&quot;</span><span class="o">)</span>
+        <span class="n">id</span> <span class="k">&lt;-</span> <span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="nc">Long</span><span class="o">.</span><span class="n">parseLong</span><span class="o">(</span><span class="n">userid</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>
+        <span class="n">user</span> <span class="k">&lt;-</span> <span class="nc">User</span><span class="o">.</span><span class="n">find</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
+      <span class="o">}</span> <span class="k">yield</span> <span class="k">new</span> <span class="nc">UserRequest</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">user</span><span class="o">)).</span><span class="n">toRight</span><span class="o">(</span><span class="nc">Forbidden</span><span class="o">)</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">action</span> <span class="k">=</span> <span class="o">(</span><span class="nc">Action</span> <span class="n">andThen</span> <span class="nc">UserAction</span><span class="o">)</span> <span class="o">{</span> <span class="n">userRequest</span> <span class="k">=&gt;</span>
+  <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;Hello &quot;</span> <span class="o">+</span> <span class="n">userRequest</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h3>ActionTransformer</h3>
+
+<p><code>Request</code> 型の変換に際して例外が起こらないなら、<code>play.api.mvc.ActionTransformer[R, P]</code> を使えばよい。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">UserRequest</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
+                     <span class="k">val</span> <span class="n">lang</span><span class="k">:</span> <span class="kt">Lang</span><span class="o">,</span>
+                     <span class="k">val</span> <span class="n">robot</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">WrappedRequest</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">UserAction</span> <span class="k">extends</span> <span class="nc">ActionTransformer</span><span class="o">[</span><span class="kt">Request</span>, <span class="kt">UserRequest</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">protected</span> <span class="k">def</span> <span class="n">transform</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">UserRequest</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=</span>
+    <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="n">lang</span><span class="k">:</span> <span class="kt">Lang</span> <span class="o">=</span> <span class="o">...</span>
+      <span class="k">val</span> <span class="n">robot</span><span class="k">:</span> <span class="kt">Booean</span> <span class="o">=</span> <span class="o">...</span>
+      <span class="k">new</span> <span class="nc">UserRequest</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">lang</span><span class="o">,</span> <span class="n">robot</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h3>ActionFilter</h3>
+
+<p>例外チェックのみを行ないたいなら <code>play.api.mvc.ActionFilter[R]</code> を使えばよい。例外時に <code>Some[Result]</code> を返すことで、<em>Action</em> ブロックを経由せずに直接応答する。正常時には <code>None</code> を返せばよい。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">RemoteAddressFilter</span> <span class="k">extends</span> <span class="nc">ActionFilter</span><span class="o">[</span><span class="kt">Request</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">protected</span> <span class="k">def</span> <span class="n">filter</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=</span>
+    <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="n">remoteAddress</span><span class="o">.</span><span class="n">equals</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">))</span> <span class="nc">None</span>
+      <span class="k">else</span> <span class="nc">Some</span><span class="o">(</span><span class="nc">Forbidden</span><span class="o">)</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
 
 
           </div>
