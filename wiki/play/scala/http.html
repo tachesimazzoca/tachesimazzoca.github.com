@@ -225,38 +225,18 @@
 <span class="o">}</span></code></pre></div>
 
 
-<p>テスト時にモックを作りたい場合は、<code>play.api.test.(FakeRequest|FakeHeaders)</code> を使う。テストがしやすいように <code>withHeaders</code> などのメゾッドが追加されている。</p>
+<p>テスト時にモックを作りたい場合は、<code>play.api.test.FakeRequest</code> を使う。テストがしやすいように <code>withHeaders</code> などのメゾッドが追加されている。</p>
 
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">body</span> <span class="k">=</span> <span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span><span class="n">bar</span><span class="o">&lt;/</span><span class="n">foo</span><span class="o">&gt;</span>
-<span class="k">val</span> <span class="n">headers</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span>
-  <span class="s">&quot;Content-type&quot;</span> <span class="o">-&gt;</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">&quot;application/xml&quot;</span><span class="o">)</span>
-<span class="o">)</span>
-<span class="k">val</span> <span class="n">rh</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">NodeSeq</span><span class="o">]</span> <span class="k">=</span> <span class="nc">FakeRequest</span><span class="o">(</span><span class="s">&quot;POST&quot;</span><span class="o">,</span> <span class="s">&quot;/create&quot;</span><span class="o">,</span> <span class="nc">FakeHeaders</span><span class="o">(</span><span class="n">headers</span><span class="o">),</span> <span class="n">body</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">withHeaders</span><span class="o">(</span><span class="s">&quot;X-Foo-Bar&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;yes&quot;</span><span class="o">)</span></code></pre></div>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">rh</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">NodeSeq</span><span class="o">]</span> <span class="k">=</span> <span class="nc">FakeRequest</span><span class="o">(</span><span class="s">&quot;POST&quot;</span><span class="o">,</span> <span class="s">&quot;/create&quot;</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">withHeaders</span><span class="o">(</span><span class="s">&quot;X-Requested-With&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;0123456789abcdef&quot;</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">withBody</span><span class="o">(&lt;</span><span class="n">foo</span><span class="o">&gt;</span><span class="n">bar</span><span class="o">&lt;/</span><span class="n">foo</span><span class="o">&gt;)</span></code></pre></div>
 
 
-<p><em>BodyParser</em> のテスト等で、<code>RequestHeader</code> だけのモックを作りたい場合は、以下のようなケースクラスを作っておくとよい。</p>
+<p><code>FakeRequest</code> ではボディ部も指定できるが、<em>BodyParser</em> で変換されたと仮定される <code>Request#body</code> である。HTTP リクエストのボディ部のバイト列や文字列ではない。<em>BodyParser</em> をテストするときは、<em>Enumerator</em> でボディ部を送る。</p>
 
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">DummyRequestHeader</span><span class="o">(</span><span class="n">headersMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Seq</span><span class="o">[</span><span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">())</span>
-    <span class="k">extends</span> <span class="nc">RequestHeader</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">id</span> <span class="k">=</span> <span class="mi">1</span>
-  <span class="k">def</span> <span class="n">tags</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">()</span>
-  <span class="k">def</span> <span class="n">uri</span> <span class="k">=</span> <span class="s">&quot;&quot;</span>
-  <span class="k">def</span> <span class="n">path</span> <span class="k">=</span> <span class="s">&quot;&quot;</span>
-  <span class="k">def</span> <span class="n">method</span> <span class="k">=</span> <span class="s">&quot;&quot;</span>
-  <span class="k">def</span> <span class="n">version</span> <span class="k">=</span> <span class="s">&quot;&quot;</span>
-  <span class="k">def</span> <span class="n">queryString</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">()</span>
-  <span class="k">def</span> <span class="n">remoteAddress</span> <span class="k">=</span> <span class="s">&quot;&quot;</span>
-  <span class="k">def</span> <span class="n">secure</span> <span class="k">=</span> <span class="kc">false</span>
-  <span class="k">lazy</span> <span class="k">val</span> <span class="n">headers</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Headers</span> <span class="o">{</span> <span class="k">val</span> <span class="n">data</span> <span class="k">=</span> <span class="n">headersMap</span><span class="o">.</span><span class="n">toSeq</span> <span class="o">}</span>
-<span class="o">}</span>
-
-<span class="k">val</span> <span class="n">rh</span> <span class="k">=</span> <span class="nc">DummyRequestHeader</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;Content-Type&quot;</span> <span class="o">-&gt;</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">&quot;application.xml&quot;</span><span class="o">)))</span>
-<span class="k">val</span> <span class="n">it</span> <span class="k">=</span> <span class="n">play</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">mvc</span><span class="o">.</span><span class="nc">BodyParsers</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">xml</span><span class="o">(</span><span class="n">rh</span><span class="o">)</span>
-<span class="o">(</span><span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;&lt;foo&gt;bar&lt;/xml&gt;&quot;</span><span class="o">.</span><span class="n">getBytes</span><span class="o">())</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span><span class="o">).</span><span class="n">onComplete</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Success</span><span class="o">(</span><span class="nc">Right</span><span class="o">(</span><span class="n">a</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="o">...</span>
-  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="o">...</span>
-<span class="o">}</span></code></pre></div>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span> <span class="k">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">xml</span><span class="o">(</span><span class="nc">FakeRequest</span><span class="o">().</span><span class="n">withHeaders</span><span class="o">(</span><span class="nc">CONTENT_TYPE</span> <span class="o">-&gt;</span> <span class="s">&quot;application/xml&quot;</span><span class="o">))</span>
+<span class="o">(</span><span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;&lt;foo&gt;bar&lt;/foo&gt;&quot;</span><span class="o">.</span><span class="n">getBytes</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(Right(&lt;foo&gt;bar&lt;/foo&gt;))</span></code></pre></div>
 
 
 
