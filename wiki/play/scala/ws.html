@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WS | Play Framework</title>
+<link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="../index.html">Play Framework</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="../index.html">Play Framework</a></li><li><a href="./index.html">Scala</a></li><li>WS</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./iteratees.html">Iteratees</a></li><li><a href="./http.html">HTTP</a></li><li><a href="./actions.html">Actions</a></li><li><a href="./filters.html">Filters</a></li><li><a href="./forms.html">Forms</a></li><li class="active"><a href="./ws.html">WS</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/play/scala/ws.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/play/scala/ws.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/play/scala/ws.md">History</a>
+          </div>
+          <div id="content">
+          <h1>WS</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li>https://www.playframework.com/documentation/2.3.x/ScalaWS</li>
+<li>https://github.com/AsyncHttpClient/async-http-client</li>
+</ul>
+
+
+<p><em>WS API</em> は非同期の HTTP クライアントを提供する。コアには含まれないため、パッケージの追加が必要になる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
+  <span class="n">ws</span>
+<span class="o">)</span></code></pre></div>
+
+
+<h2>WSClient</h2>
+
+<p>ヘルパーメゾッド <code>WS.client</code> より、アプリケーション内に <em>WSPlugin</em> 経由でロードされている HTTP クライアント <code>play.api.libs.ws.WSClient</code> が得られる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">client</span><span class="k">:</span> <span class="kt">WSClient</span> <span class="o">=</span> <span class="nc">WS</span><span class="o">.</span><span class="n">client</span></code></pre></div>
+
+
+<p>この HTTP クライアントはリクエスト毎に作られるのではない。アプリケーションが持つインスタンスは一つで、<code>WSClient#url</code> によりリクエストを表す <code>play.api.libs.ws.WSRequestHolder</code> を得て、リクエスト送信とレスポンス取得を非同期に行なう。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">client</span><span class="k">:</span> <span class="kt">WSClient</span> <span class="o">=</span> <span class="nc">WS</span><span class="o">.</span><span class="n">client</span>
+<span class="k">val</span> <span class="n">holder1</span><span class="k">:</span> <span class="kt">WSRequestHolder</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="s">&quot;http://sv1.example.net/feed&quot;</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">holder2</span><span class="k">:</span> <span class="kt">WSRequestHolder</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="s">&quot;http://sv2.example.net/feed&quot;</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">response1</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">WSResponse</span><span class="o">]</span> <span class="k">=</span> <span class="n">holder1</span><span class="o">.</span><span class="n">get</span><span class="o">()</span>
+<span class="k">val</span> <span class="n">response2</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">WSResponse</span><span class="o">]</span> <span class="k">=</span> <span class="n">holder2</span><span class="o">.</span><span class="n">get</span><span class="o">()</span>
+<span class="nc">Future</span><span class="o">.</span><span class="n">firstCompleteOf</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">response1</span><span class="o">,</span> <span class="n">response2</span><span class="o">))</span> <span class="o">{</span> <span class="n">response</span> <span class="k">=&gt;</span>
+  <span class="o">...</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>リクエストポリシー（タイムアウト/リトライ数等）の違いなどにより、複数の HTTP クライアントが必要なら、アプリケーションが管理する <code>WS.client</code> とは別にインスタンスを作成する。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">config</span><span class="k">:</span> <span class="kt">AsyncHttpClientConfig</span> <span class="o">=</span> <span class="o">...</span>
+<span class="k">val</span> <span class="n">customClient</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">NingWSClient</span><span class="o">(</span><span class="n">config</span><span class="o">)</span>
+<span class="o">...</span>
+<span class="n">customeClient</span><span class="o">.</span><span class="n">close</span><span class="o">()</span></code></pre></div>
+
+
+<p>注意すべき点として、プラグインによりロードされた <code>WS.client</code> は、アプリケーションの終了時 <code>WSPlugin#onStop</code> で閉じられるが、独自に作成した <em>WSClient</em> は各自で <code>WSClient#close</code> を行なう必要がある。</p>
+
+<h3>NingWSClient</h3>
+
+<p>デフォルトの <code>WSClient</code> は、<em>Java</em> ライブラリの <em>AsyncHttpClient</em> による実装の <code>play.api.libs.ws.ning.NingWSClient</code> になる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.libs.ws._</span>
+<span class="k">import</span> <span class="nn">play.api.libs.ws.ning.NingAsyncHttpClientConfigBuilder</span>
+
+<span class="k">val</span> <span class="n">clientConfig</span> <span class="k">=</span> <span class="nc">DefaultWSClientConfig</span><span class="o">(</span>
+  <span class="n">requestTimeout</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="mi">1000L</span><span class="o">),</span>
+  <span class="n">userAgent</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="s">&quot;Mozilla/5.0 (...&quot;</span><span class="o">)</span>
+<span class="o">)</span>
+<span class="k">val</span> <span class="n">builder</span> <span class="k">=</span> <span class="k">new</span> <span class="n">com</span><span class="o">.</span><span class="n">ning</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="nc">AsyncHttpClientConfig</span><span class="o">.</span><span class="nc">Builder</span><span class="o">()</span>
+  <span class="o">.</span><span class="n">setMaxRequestRetry</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">config</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">NingAsyncHttpClientConfigBuilder</span><span class="o">(</span><span class="n">clientConfig</span><span class="o">,</span> <span class="n">builder</span><span class="o">).</span><span class="n">build</span><span class="o">()</span>
+
+<span class="k">val</span> <span class="n">client</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">NingWSClient</span><span class="o">(</span><span class="n">config</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">response</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">WSResponse</span><span class="o">]</span> <span class="k">=</span> <span class="n">client</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="s">&quot;http://ws.example.net&quot;</span><span class="o">).</span><span class="n">get</span><span class="o">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="o">()</span></code></pre></div>
+
+
+<ul>
+<li><code>NingAsynHttpClientConfigBuilder</code> を使って <code>AsyncHttpClientConfig</code> を組み立てる。</li>
+<li><code>WSClientConfig</code> だけではカバーしていない <em>AsyncHttpClient</em> 独自のオプションを指定したい場合は、第二引数に <code>AsyncHttpClientConfig.Builder</code> を渡す。</li>
+</ul>
+
+
+<h2>WS</h2>
+
+<p>HTTP リクエスト <code>WSRequestHolder</code> を作成する場合、 通常はヘルパーメゾッド <code>WS.url</code> を使えばよい。HTTP クライアントはプラグインによりロードされた <code>WS.client</code> が使われる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">holderWithDefaultClient</span><span class="k">:</span> <span class="kt">WSRequestHolder</span> <span class="o">=</span> <span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="s">&quot;http://example.net&quot;</span><span class="o">)</span></code></pre></div>
+
+
+<p><code>WS.clientUrl</code> を使うと、暗黙パラメータで <code>WSClient</code> を指定できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">config</span><span class="k">:</span> <span class="kt">AsyncHttpClientConfig</span> <span class="o">=</span> <span class="o">...</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">implicitClient</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">NingWSClient</span><span class="o">(</span><span class="n">config</span><span class="o">)</span>
+<span class="o">...</span>
+<span class="k">val</span> <span class="n">holderWithImplicitClient</span><span class="k">:</span> <span class="kt">WSRequestHolder</span> <span class="o">=</span> <span class="nc">WS</span><span class="o">.</span><span class="n">clientUrl</span><span class="o">(</span><span class="s">&quot;http://example.net&quot;</span><span class="o">)</span></code></pre></div>
+
+
+<h3>WSRequestHolderMagnet</h3>
+
+<p><code>WSRequestholder</code> の生成に Magnet パターンが使える。</p>
+
+<p><code>WSRequestHolderManet</code> を引数に持つ <code>WS.url</code> が定義されている。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">url</span><span class="o">(</span><span class="n">magnet</span><span class="k">:</span> <span class="kt">WSRequestHolderMagnet</span><span class="o">)</span><span class="k">:</span> <span class="kt">WSRequestHolder</span> <span class="o">=</span> <span class="n">magnet</span><span class="o">()</span></code></pre></div>
+
+
+<p><code>WSRequestHolderMagnet</code> からの暗黙変換を定義しておけば、任意の引数で <code>WSRequestHolder</code> を作成できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">URLMagnet</span> <span class="o">{</span>
+  <span class="k">private</span> <span class="k">val</span> <span class="n">anotherClient</span> <span class="k">=</span> <span class="o">...</span>
+
+  <span class="k">implicit</span> <span class="k">def</span> <span class="n">fromURL</span><span class="o">(</span><span class="n">url</span><span class="k">:</span> <span class="kt">java.net.URL</span><span class="o">)</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">WSRequestHolderMagnet</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">apply</span><span class="o">()</span><span class="k">:</span> <span class="kt">WSRequestHolder</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="n">urlString</span> <span class="k">=</span> <span class="n">url</span><span class="o">.</span><span class="n">toString</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">urlString</span><span class="o">.</span><span class="n">startsWith</span><span class="o">(</span><span class="s">&quot;https://&quot;</span><span class="o">))</span>
+        <span class="n">anotherClient</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="n">urlString</span><span class="o">)</span>
+      <span class="k">else</span>
+        <span class="nc">WS</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="n">urlString</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">close</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">anotherClient</span><span class="o">.</span><span class="n">close</span><span class="o">()</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">import</span> <span class="nn">scala.language.implicitConversions</span>
+<span class="k">import</span> <span class="nn">URLMagnet._</span>
+
+<span class="c1">// via URLMagnet.anotherClient</span>
+<span class="k">val</span> <span class="n">httpsHolder</span> <span class="k">=</span> <span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="nc">URL</span><span class="o">(</span><span class="s">&quot;https://secure.exmaple.net&quot;</span><span class="o">))</span>
+<span class="c1">// via WS.client</span>
+<span class="k">val</span> <span class="n">httpHolder</span> <span class="k">=</span> <span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="nc">URL</span><span class="o">(</span><span class="s">&quot;http://exmaple.net&quot;</span><span class="o">))</span>
+<span class="o">...</span>
+<span class="nc">URLMagnet</span><span class="o">.</span><span class="n">close</span><span class="o">()</span></code></pre></div>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
