@@ -108,34 +108,44 @@
 
 <h2>WSClient</h2>
 
-<p>ヘルパーメゾッド <code>WS.client</code> より、アプリケーション内に <em>WSPlugin</em> 経由でロードされている HTTP クライアント <code>play.api.libs.ws.WSClient</code> が得られる。</p>
+<p>ヘルパーメゾッド <code>play.api.libs.ws.WS.client</code> より、アプリケーション内に <em>WSPlugin</em> 経由でロードされている HTTP クライアント <code>play.api.libs.ws.WSClient</code> が得られる。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">client</span><span class="k">:</span> <span class="kt">WSClient</span> <span class="o">=</span> <span class="nc">WS</span><span class="o">.</span><span class="n">client</span></code></pre></div>
 
 
-<p>この HTTP クライアントはリクエスト毎に作られるのではない。アプリケーションが持つインスタンスは一つで、<code>WSClient#url</code> によりリクエストを表す <code>play.api.libs.ws.WSRequestHolder</code> を得て、リクエスト送信とレスポンス取得を非同期に行なう。</p>
+<p>この HTTP クライアントはリクエスト毎に作られるのではない。アプリケーションが持つインスタンスは一つで、<code>WSClient#url</code> より <code>play.api.libs.ws.WSRequestHolder</code> をリクエスト毎に得る。一つの HTTP クライアントがアプリケーション上に常駐し、複数のリクエスト送信とレスポンス取得を非同期に行うと考えればよい。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">client</span><span class="k">:</span> <span class="kt">WSClient</span> <span class="o">=</span> <span class="nc">WS</span><span class="o">.</span><span class="n">client</span>
 <span class="k">val</span> <span class="n">holder1</span><span class="k">:</span> <span class="kt">WSRequestHolder</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="s">&quot;http://sv1.example.net/feed&quot;</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">holder2</span><span class="k">:</span> <span class="kt">WSRequestHolder</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="s">&quot;http://sv2.example.net/feed&quot;</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">response1</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">WSResponse</span><span class="o">]</span> <span class="k">=</span> <span class="n">holder1</span><span class="o">.</span><span class="n">get</span><span class="o">()</span>
 <span class="k">val</span> <span class="n">response2</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">WSResponse</span><span class="o">]</span> <span class="k">=</span> <span class="n">holder2</span><span class="o">.</span><span class="n">get</span><span class="o">()</span>
-<span class="nc">Future</span><span class="o">.</span><span class="n">firstCompleteOf</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">response1</span><span class="o">,</span> <span class="n">response2</span><span class="o">))</span> <span class="o">{</span> <span class="n">response</span> <span class="k">=&gt;</span>
+<span class="nc">Future</span><span class="o">.</span><span class="n">firstCompleteOf</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">response1</span><span class="o">,</span> <span class="n">response2</span><span class="o">)).</span><span class="n">map</span> <span class="o">{</span> <span class="n">response</span> <span class="k">=&gt;</span>
   <span class="o">...</span>
 <span class="o">}</span></code></pre></div>
 
 
-<p>リクエストポリシー（タイムアウト/リトライ数等）の違いなどにより、複数の HTTP クライアントが必要なら、アプリケーションが管理する <code>WS.client</code> とは別にインスタンスを作成する。</p>
+<p>複数の HTTP クライアントが必要なら、<code>WS.client</code> とは別にインスタンスを作成する。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">config</span><span class="k">:</span> <span class="kt">AsyncHttpClientConfig</span> <span class="o">=</span> <span class="o">...</span>
-<span class="k">val</span> <span class="n">customClient</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">NingWSClient</span><span class="o">(</span><span class="n">config</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">customClient</span><span class="k">:</span> <span class="kt">WSClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">NingWSClient</span><span class="o">(</span><span class="n">config</span><span class="o">)</span>
 <span class="o">...</span>
 <span class="n">customeClient</span><span class="o">.</span><span class="n">close</span><span class="o">()</span></code></pre></div>
 
 
-<p>注意すべき点として、プラグインによりロードされた <code>WS.client</code> は、アプリケーションの終了時 <code>WSPlugin#onStop</code> で閉じられるが、独自に作成した <em>WSClient</em> は各自で <code>WSClient#close</code> を行なう必要がある。</p>
+<p>注意すべき点として、プラグインによりロードされた <code>WS.client</code> は、アプリケーションの終了時に <code>WSPlugin#onStop</code> で自動的に閉じられるが、独自に作成した <em>WSClient</em> は各自で <code>WSClient#close</code> を行なう必要がある。</p>
 
-<h3>NingWSClient</h3>
+<h3>underlying</h3>
+
+<p><code>WSClient#underlying[T]</code> により、HTTP クライアントの実装元エンジンを取得できる。<code>WSRequestHolder</code> がカバーしていない機能を直接利用したい時に利用する。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">com.ning.http.client.AsyncHttpClient</span>
+<span class="o">...</span>
+<span class="k">val</span> <span class="n">asyncHttpClient</span> <span class="k">=</span> <span class="nc">WS</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">underlying</span><span class="o">[</span><span class="kt">AsyncHttpClient</span><span class="o">]</span>
+<span class="n">println</span><span class="o">(</span><span class="n">asyncHttpClient</span><span class="o">.</span><span class="n">getConfig</span><span class="o">.</span><span class="n">getMaxRequestRetry</span><span class="o">)</span></code></pre></div>
+
+
+<h2>NingWSClient</h2>
 
 <p>デフォルトの <code>WSClient</code> は、<em>Java</em> ライブラリの <em>AsyncHttpClient</em> による実装の <code>play.api.libs.ws.ning.NingWSClient</code> になる。</p>
 
@@ -163,7 +173,7 @@
 
 <h2>WS</h2>
 
-<p>HTTP リクエスト <code>WSRequestHolder</code> を作成する場合、 通常はヘルパーメゾッド <code>WS.url</code> を使えばよい。HTTP クライアントはプラグインによりロードされた <code>WS.client</code> が使われる。</p>
+<p>HTTP リクエスト <code>WSRequestHolder</code> を作成する場合、 通常はヘルパーメゾッド <code>WS.url</code> を使えばよい。HTTP クライアントは <code>WS.client</code> が使われる。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">holderWithDefaultClient</span><span class="k">:</span> <span class="kt">WSRequestHolder</span> <span class="o">=</span> <span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="s">&quot;http://example.net&quot;</span><span class="o">)</span></code></pre></div>
 
@@ -176,11 +186,9 @@
 <span class="k">val</span> <span class="n">holderWithImplicitClient</span><span class="k">:</span> <span class="kt">WSRequestHolder</span> <span class="o">=</span> <span class="nc">WS</span><span class="o">.</span><span class="n">clientUrl</span><span class="o">(</span><span class="s">&quot;http://example.net&quot;</span><span class="o">)</span></code></pre></div>
 
 
-<h3>WSRequestHolderMagnet</h3>
+<h2>WSRequestHolderMagnet</h2>
 
-<p><code>WSRequestholder</code> の生成に Magnet パターンが使える。</p>
-
-<p><code>WSRequestHolderManet</code> を引数に持つ <code>WS.url</code> が定義されている。</p>
+<p><code>WSRequestholder</code> の生成に <em>Magnet</em> パターンが使える。<code>WSRequestHolderManet</code> を引数とした <code>WS.url</code> がオーバーロードされている。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">url</span><span class="o">(</span><span class="n">magnet</span><span class="k">:</span> <span class="kt">WSRequestHolderMagnet</span><span class="o">)</span><span class="k">:</span> <span class="kt">WSRequestHolder</span> <span class="o">=</span> <span class="n">magnet</span><span class="o">()</span></code></pre></div>
 
