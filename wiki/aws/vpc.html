@@ -91,46 +91,126 @@
           <h1>VPC</h1>
           <div id="toc">
           </div>
-          <h2>Public Subnet の作成</h2>
+          <h2>VPC</h2>
 
-<p>CIDR Block <code>10.0.0.0/16</code> の VPC に <code>10.0.0.0/24</code> のアドレス範囲を持つ Public Subnet を作成する例です。</p>
-
-<h3>Your VPCs</h3>
+<p>VPC (Virtual Private Cloud) によりプライベートネットワークを作成できる。</p>
 
 <ul>
-<li><code>VPC &gt; Your VPCs</code> を選択します。</li>
-<li><code>Create VPC</code> ボタンを押下します。</li>
-<li>CIDR Block <code>10.0.0.0/16</code> を指定し VPC を作成します。</li>
+<li><em>VPC > Your VPCs</em> を選択</li>
+<li><em>Create VPC</em> ボタンを押下</li>
+<li>任意の CIDR Block を指定。範囲は <code>xxx.xxx.0.0/16</code> に制限されている。
+
+<ul>
+<li>クラスC <code>192.168.0.0/16</code> と同じ範囲だが、<code>10.0.0.0/16</code> のようにも指定できる。</li>
+</ul>
+</li>
 </ul>
 
+
+<p>CIDR Block は、以下のように割り当てて「最大 256 個の Subnet と、Subnet 内で 256 個のIPアドレスを持てる」と考えると管理しやすい。</p>
+
+<ul>
+<li>VPC: <code>10.0.0.0/16</code></li>
+<li>Subnets: <code>10.0.(0..255).0/24</code></li>
+</ul>
+
+
+<p>すなわち <code>256 * 256 = 65536</code> 個のプライベートIPアドレスを持てることになる。ただし、あくまで仕様上の個数であり、AWS 内で使える数には限りがある。</p>
+
+<ul>
+<li><code>http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html</code></li>
+</ul>
+
+
+<p>VPC 作成後はサイズ変更ができないため、最大の <code>10.0.0.0/16</code> を割り当てておくとよい。</p>
 
 <h3>Internet Gateways</h3>
 
+<p>VPC はそのままではインターネットとの通信経路が存在しない。Internet Gateway を VPC に紐付ける必要がある。</p>
+
 <ul>
-<li><code>VPC &gt; Internet Gateways</code> を選択します。</li>
-<li><code>Create Internet Gateway</code> ボタンを押下します。</li>
-<li>作成された Internet Gateway を選択します。</li>
-<li><code>Attache to VPC</code> ボタンを押下します。</li>
-<li>対象の VPC を選択し Internet Gateway と紐付けます。</li>
+<li><em>VPC > Internet Gateways</em> を選択</li>
+<li><em>Create Internet Gateway</em> ボタンを押下</li>
+<li>作成された Internet Gateway を選択</li>
+<li><em>Attach to VPC</em> ボタンを押下</li>
+<li>対象の VPC を選択し Internet Gateway と紐付ける</li>
 </ul>
 
 
-<h3>Subnets</h3>
+<p>通信経路が確保されただけであり、Elastic IP でグローバル IP アドレスを割り当てるまでは、インターネットからはアクセスはできない。</p>
+
+<h2>Subnets</h2>
+
+<p>VPC 内に、EC2 インスタンスと紐付ける Subnet と呼ばれるプライベートアドレス空間を作成する。</p>
 
 <ul>
-<li><code>VPC &gt; Subnets</code> を選択します。</li>
-<li><code>Create Subnet</code> ボタンを押下します。</li>
-<li>Public Subnet 用に CIDR Block <code>10.0.0.0/24</code> で作成します。</li>
+<li>Public Subnet
+
+<ul>
+<li>Internet Gateway とのルートを持つサブネット = インターネットにアクセス可</li>
+</ul>
+</li>
+<li>Private Subnet
+
+<ul>
+<li>Internet Gateway とのルートを持たないサブネット = インターネットにアクセス不可</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Subnet は以下の手順で作成する。</p>
+
+<ul>
+<li><em>VPC > Subnets</em> を選択</li>
+<li><em>Create Subnet</em> ボタンを押下</li>
+<li>任意の CIDR Block を指定。範囲は <code>xxx.xxx.xxx.0/24</code> に制限されている。</li>
+</ul>
+
+
+<p>VPC の CIDR Block が <code>10.0.0.0/16</code> である場合を例にすると、以下のように Subnet の CIDR Block を割り当てる。</p>
+
+<ul>
+<li>Subnet1: <code>10.0.0.0/24</code></li>
+<li>Subnet2: <code>10.0.1.0/24</code></li>
+<li>Subnet3: <code>10.0.2.0/24</code></li>
+<li>...</li>
 </ul>
 
 
 <h3>Route Tables</h3>
 
+<p>Subnet はそのままではインターネットとの通信経路が存在しない。Subnet 毎の Route Table で経路を指定する。</p>
+
 <ul>
-<li><code>VPC &gt; Route Tables</code> を選択します。</li>
-<li>作成した Public Subnet の Route Table を選択します。</li>
-<li><code>Routes</code> タブを選択します。</li>
-<li>Destination <code>0.0.0.0/0</code> Target に Internet Gateway (igw-*) を入力し、Add ボタンで追加します。</li>
+<li><em>VPC > Route Tables</em> を選択</li>
+<li>作成した Subnet の Route Table を選択 <code>rtb-*</code></li>
+<li><em>Routes</em> タブを選択</li>
+<li><em>Edit</em> を押下して、Route Table を編集</li>
+</ul>
+
+
+<p>1 行目の以下のエントリにより、VPC 内のインスタンスが相互接続できるようになる。もちろん変更や削除はできない。</p>
+
+<ul>
+<li>Destination: VPC の CIDR Block</li>
+<li>Target: <code>local</code></li>
+</ul>
+
+
+<p>Public Subnet とする場合は、Internet Gateway への経路を追加する。</p>
+
+<ul>
+<li>Destination: <code>0.0.0.0/0</code></li>
+<li>Target: Internet Gateway <code>igw-*</code> を指定</li>
+</ul>
+
+
+<p>Private Subnet の場合は、サブネット内からインターネットに接続できるように、後述の NAT インスタンスの ID を指定する。</p>
+
+<ul>
+<li>Destination: <code>0.0.0.0/0</code></li>
+<li>Target: NAT インスタンスのID <code>i-*</code> を指定</li>
 </ul>
 
 
