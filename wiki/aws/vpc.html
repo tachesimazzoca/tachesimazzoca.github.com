@@ -214,6 +214,75 @@
 </ul>
 
 
+<h3>NAT Instance</h3>
+
+<ul>
+<li><code>http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html</code></li>
+</ul>
+
+
+<p>Internet Gateway との経路を持たないサブネットは、インターネットに接続できない。パッケージのダウンロードなどでサブネット内からインターネットへのアクセスは必要になる。</p>
+
+<p>この場合は、Public サブネット内に、Private サブネットからの通信を外部ネットワークに中継する NAT インスタンスを立てる。</p>
+
+<p>Public AMI で <code>ami-vpc-nat</code> の名前で提供されているが、単に <code>rc.local</code> の起動スクリプトで IP マスカレードを設定しているのみなので、任意のインスタンスを NAT インスタンスとしたい場合は、同様のスクリプトを置けばよい。</p>
+
+<ul>
+<li><a href="https://gist.github.com/tachesimazzoca/6392900b3941d6de4665">https://gist.github.com/tachesimazzoca/6392900b3941d6de4665</a></li>
+</ul>
+
+
+<p><code>eth0</code> の MAC アドレスを取得する。</p>
+
+<pre><code>ETH0_MAC=`/sbin/ifconfig  | /bin/grep eth0 | awk '{print tolower($5)}' | grep '^[0-9a-f]\{2\}\(:[0-9a-f]\{2\}\)\{5\}$'`
+</code></pre>
+
+<p>MAC アドレスから Amazon 提供の Instance Metadata を使って、CIDR Block を得る。</p>
+
+<pre><code>VPC_CIDR_URI="http://169.254.169.254/latest/meta-data/network/interfaces/macs/${ETH0_MAC}/vpc-ipv4-cidr-block"
+...
+VPC_CIDR_RANGE=`curl --retry 3 --retry-delay 0 --silent --fail ${VPC_CIDR_URI}`
+</code></pre>
+
+<ul>
+<li>Instance Metadata: <code>http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html</code></li>
+</ul>
+
+
+<p>取得した CIDR を送信元にして、IP マスカレードを設定する。</p>
+
+<pre><code>echo 1 &gt;  /proc/sys/net/ipv4/ip_forward &amp;&amp; \
+   echo 0 &gt;  /proc/sys/net/ipv4/conf/eth0/send_redirects &amp;&amp; \
+   /sbin/iptables -t nat -A POSTROUTING -o eth0 -s ${VPC_CIDR_RANGE} -j MASQUERADE
+</code></pre>
+
+<h2>Security Groups</h2>
+
+<p>SecurityGroup は、EC2-Classic と VPC では異なる。</p>
+
+<ul>
+<li>EC2-Classic
+
+<ul>
+<li>EC2 インスタンスに対して Security Group を割り当てる。</li>
+<li>異なる EC2 イスタンス間で、同一の Security Group を共有できる。</li>
+<li>起動時に EC2 インスタンスに割り当てた Security Group は変更できない。</li>
+</ul>
+</li>
+<li>VPC
+
+<ul>
+<li>VPC 内で Security Group を定義する。</li>
+<li>異なる VPC 間で、Security Group を共有できない。</li>
+<li>VPC 内に定義された Security Group から EC2 インスタンスに割り当てる。</li>
+<li>EC2 インスタンス起動後も、割り当てる Security Group を変更できる。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>このため VPC では、サーバの役割に応じて、SSH / Web などのポート別で Security Group を作っておくとよい。</p>
+
           </div>
           
         </div>
