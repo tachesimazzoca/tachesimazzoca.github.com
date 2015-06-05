@@ -118,7 +118,7 @@
 <p>すなわち <code>256 * 256 = 65536</code> 個のプライベートIPアドレスを持てることになる。ただし、あくまで仕様上の個数であり、AWS 内で使える数には限りがある。</p>
 
 <ul>
-<li><code>http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html</code></li>
+<li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html">http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html</a></li>
 </ul>
 
 
@@ -137,23 +137,23 @@
 </ul>
 
 
-<p>通信経路が確保されただけであり、Elastic IP でグローバル IP アドレスを割り当てるまでは、インターネットからはアクセスはできない。</p>
+<p>通信経路が確保されただけであり、Elastic IP でグローバル IP アドレスを割り当てるまでは、インターネットからは VPC にアクセスはできない。</p>
 
 <h2>Subnets</h2>
 
-<p>VPC 内に、EC2 インスタンスと紐付ける Subnet と呼ばれるプライベートアドレス空間を作成する。</p>
+<p>VPC 内に、Subnet と呼ばれるプライベートアドレス空間を作成する。EC2 インスタンスはこの Subnet 内に置かれる。</p>
 
 <ul>
 <li>Public Subnet
 
 <ul>
-<li>Internet Gateway とのルートを持つサブネット = インターネットにアクセス可</li>
+<li>Internet Gateway とのルートを持つ Subnet = インターネットからアクセス可</li>
 </ul>
 </li>
 <li>Private Subnet
 
 <ul>
-<li>Internet Gateway とのルートを持たないサブネット = インターネットにアクセス不可</li>
+<li>Internet Gateway とのルートを持たない Subnet = インターネットからアクセス不可</li>
 </ul>
 </li>
 </ul>
@@ -168,7 +168,7 @@
 </ul>
 
 
-<p>VPC の CIDR Block が <code>10.0.0.0/16</code> である場合を例にすると、以下のように Subnet の CIDR Block を割り当てる。</p>
+<p>VPC の CIDR Block が <code>10.0.0.0/16</code> である場合、以下のように Subnet の CIDR Block を割り当てる。</p>
 
 <ul>
 <li>Subnet1: <code>10.0.0.0/24</code></li>
@@ -206,7 +206,7 @@
 </ul>
 
 
-<p>Private Subnet の場合は、サブネット内からインターネットに接続できるように、後述の NAT インスタンスの ID を指定する。</p>
+<p>Private Subnet の場合は、Subnet 内からインターネットに接続できるように、後述の NAT インスタンスの ID を指定する。</p>
 
 <ul>
 <li>Destination: <code>0.0.0.0/0</code></li>
@@ -217,13 +217,13 @@
 <h3>NAT Instance</h3>
 
 <ul>
-<li><code>http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html</code></li>
+<li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html</a></li>
 </ul>
 
 
-<p>Internet Gateway との経路を持たないサブネットは、インターネットに接続できない。パッケージのダウンロードなどでサブネット内からインターネットへのアクセスは必要になる。</p>
+<p>Internet Gateway との経路を持たない Subnet は、インターネットに接続できない。パッケージのダウンロードなどで Subnet 内からインターネットへのアクセスは必要になる。</p>
 
-<p>この場合は、Public サブネット内に、Private サブネットからの通信を外部ネットワークに中継する NAT インスタンスを立てる。</p>
+<p>この場合は、Public Subnet 内に、Private Subnet からの通信を外部ネットワークに中継する NAT インスタンスを立てる。</p>
 
 <p>Public AMI で <code>ami-vpc-nat</code> の名前で提供されているが、単に <code>rc.local</code> の起動スクリプトで IP マスカレードを設定しているのみなので、任意のインスタンスを NAT インスタンスとしたい場合は、同様のスクリプトを置けばよい。</p>
 
@@ -237,17 +237,12 @@
 <pre><code>ETH0_MAC=`/sbin/ifconfig  | /bin/grep eth0 | awk '{print tolower($5)}' | grep '^[0-9a-f]\{2\}\(:[0-9a-f]\{2\}\)\{5\}$'`
 </code></pre>
 
-<p>MAC アドレスから Amazon 提供の Instance Metadata を使って、CIDR Block を得る。</p>
+<p>MAC アドレスから Amazon 提供の <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html">Instance Metadata</a> を使って、CIDR Block を得る。</p>
 
 <pre><code>VPC_CIDR_URI="http://169.254.169.254/latest/meta-data/network/interfaces/macs/${ETH0_MAC}/vpc-ipv4-cidr-block"
 ...
 VPC_CIDR_RANGE=`curl --retry 3 --retry-delay 0 --silent --fail ${VPC_CIDR_URI}`
 </code></pre>
-
-<ul>
-<li>Instance Metadata: <code>http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html</code></li>
-</ul>
-
 
 <p>取得した CIDR を送信元にして、IP マスカレードを設定する。</p>
 
@@ -265,7 +260,7 @@ VPC_CIDR_RANGE=`curl --retry 3 --retry-delay 0 --silent --fail ${VPC_CIDR_URI}`
 
 <ul>
 <li>EC2 インスタンスに対して Security Group を割り当てる。</li>
-<li>異なる EC2 イスタンス間で、同一の Security Group を共有できる。</li>
+<li>異なる EC2 インスタンス間で、同一の Security Group を共有できる。</li>
 <li>起動時に EC2 インスタンスに割り当てた Security Group は変更できない。</li>
 </ul>
 </li>
@@ -273,9 +268,9 @@ VPC_CIDR_RANGE=`curl --retry 3 --retry-delay 0 --silent --fail ${VPC_CIDR_URI}`
 
 <ul>
 <li>VPC 内で Security Group を定義する。</li>
-<li>異なる VPC 間で、Security Group を共有できない。</li>
-<li>VPC 内に定義された Security Group から EC2 インスタンスに割り当てる。</li>
-<li>EC2 インスタンス起動後も、割り当てる Security Group を変更できる。</li>
+<li>異なる VPC 間で、Security Group を共有することはできない。</li>
+<li>VPC 内に定義した Security Group の中から、必要なものを EC2 インスタンスに割り当てる。</li>
+<li>EC2 インスタンス起動後も、割り当てた Security Group を変更できる。</li>
 </ul>
 </li>
 </ul>
