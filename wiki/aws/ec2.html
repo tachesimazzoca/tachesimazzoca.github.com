@@ -91,29 +91,63 @@
           <h1>EC2</h1>
           <div id="toc">
           </div>
-          <h2>EBS ボリュームのサイズアップ</h2>
+          <h2>Root Device Volume</h2>
 
-<h3>EC2 Management Console</h3>
+<h3>EBS vs. Instance Store</h3>
 
-<p>対象の EC2 インスタンスを Stop します。<strong>Terminate すると EBS Volume が失われますので注意してください。</strong></p>
-
-<p>以下の手順で EBS Volume を拡張します。</p>
+<h4>EBS-backed</h4>
 
 <ul>
-<li><code>EC2 &gt; ELASTIC BLOCK STORE &gt; Volumes</code> より対象の EBS Volume を選択します。</li>
-<li>下部のメッセージペインの Attachement: よりデバイス名を確認しておきます。例として <code>/dev/sda1</code> とします。</li>
-<li><code>Actions &gt; Detach Volume</code> で対象の EBS Volume を EC2 インスタンスから切り離します。</li>
-<li><code>Actions &gt; Create Sanpshot</code> で対象の EBS Volume のスナップショットを作成します。</li>
-<li><code>EC2 &gt; ELASTIC BLOCK STORE &gt; Snapshots</code> より作成したスナップショットを選択します。</li>
-<li><code>Actions &gt; Create Volume</code> で希望のサイズを指定して EBS Volume を作成します。</li>
-<li><code>EC2 &gt; ELASTIC BLOCK STORE &gt; Volumes</code> より作成された EBS Volume を選択します。</li>
-<li><code>Actions &gt; Attach Volume</code> で作成した EBS Volume を対象の EC2 インスタンスに接続します。デバイス名には事前に確認しておいた <code>/dev/sda1</code> を指定します。</li>
+<li>EBS ボリュームをルートデバイスとして起動する。</li>
+<li>インスタンスの <em>Stop</em> ができる。この場合は EBS ボリュームは破棄されない。</li>
+<li><em>Terminate</em> では、デフォルトの <code>DeleteOnTermination: True</code> なら EBS ボリュームが破棄される。</li>
+<li><code>DeleteOnTermination</code> は EC2 Management Console からは、インスタンス作成時にしか指定できない。AWS CLI を使えば、起動中でも変更できる。</li>
+<li>永続データは持てるが、Instance store と比較して、I/O 性能に劣る。</li>
+<li>EBS はネットワークを介するため、スループットはそのトラフィックに依存する。性能がでない場合は、<em>EBS-optimized</em> で帯域を確保する必要がある。</li>
+<li>永続データを持てるためデータベースサーバに適している。</li>
 </ul>
 
 
-<p>対象の EC2 インスタンスを Start します。起動後、<code>resize2fs</code> コマンドで論理ボリュームをサイズアップします。</p>
+<h4>Instance Store-backed</h4>
 
-<pre><code>% resize2fs /dev/sda1
+<ul>
+<li>S3 上の AMI から EC2 インスタンス上のルートデバイスにコピーして起動する。</li>
+<li>インスタンスの <em>Stop</em> はできない。</li>
+<li><em>Terminate</em> 時に EC2 上のディスクの全ての内容が破棄される。</li>
+<li>永続データは持てないが、EBS よりは I/O 性能が優れている。</li>
+<li>永続データを持たない中継サーバやアプリケーションサーバに適している。</li>
+</ul>
+
+
+<h3>Resizing EBS Volumes</h3>
+
+<p>EC2 にマウントした EBS ボリュームの容量を拡張する場合、一旦インスタンスを <em>Stop</em> する必要がある。</p>
+
+<ul>
+<li>対象の EC2 インスタンスを <em>Stop</em></li>
+<li><em>EC2 > ELASTIC BLOCK STORE > Volumes</em> より対象の EBS Volume を選択</li>
+<li>下部のメッセージペインの <em>Attachement:</em> よりデバイス名を確認しておく。例）<code>/dev/sda1</code></li>
+<li><em>Actions > Detach Volume</em> で対象の EBS Volume を EC2 インスタンスから切り離す</li>
+<li><em>Actions > Create Sanpshot</em> で対象の EBS Volume のスナップショットを作成</li>
+<li><em>EC2 > ELASTIC BLOCK STORE > Snapshots</em> より作成したスナップショットを選択</li>
+<li><em>Actions > Create Volume</em> で希望のサイズを指定して EBS Volume を作成</li>
+<li><em>EC2 > ELASTIC BLOCK STORE > Volumes</em> より作成された EBS Volume を選択</li>
+<li><em>Actions > Attach Volume</em> で作成した EBS Volume を対象の EC2 インスタンスに接続する。デバイス名には事前に確認しておいた <code>/dev/sda1</code> を指定</li>
+<li>対象の EC2 インスタンスを <em>Start</em></li>
+</ul>
+
+
+<p>起動後に <code>resize2fs</code> コマンドで論理ボリュームを拡張する。デバイス名は Management Console 上の表示が <code>/dev/sda1</code> の場合、<code>/dev/xfda1</code> のシンボリックリンクの場合がある。</p>
+
+<pre><code>% df
+Filesystem     1K-blocks     Used Available Use% Mounted on
+/dev/xvda1     ...
+...
+
+% ls -l /dev/sda1
+lrwxrwxrwx 1 ...  /dev/sda1 -&gt; xvda1
+
+% resize2fs /dev/xfda1
 </code></pre>
 
           </div>
