@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EC2 | Amazon Web Services</title>
+<title>S3 | Amazon Web Services</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
@@ -63,7 +63,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">Amazon Web Services</a></li><li>EC2</li>
+        <li><a href="./index.html">Amazon Web Services</a></li><li>S3</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./s3.html">S3</a></li><li class="active"><a href="./ec2.html">EC2</a></li><li><a href="./vpc.html">VPC</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./s3.html">S3</a></li><li><a href="./ec2.html">EC2</a></li><li><a href="./vpc.html">VPC</a></li></ul>
               </div>
             </div>
           </div>
@@ -83,71 +83,69 @@
         <div class="col-md-9 col-sm-8">
           
           <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/aws/ec2.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/aws/ec2.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/aws/ec2.md">History</a>
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/aws/s3.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/aws/s3.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/aws/s3.md">History</a>
           </div>
           <div id="content">
-          <h1>EC2</h1>
+          <h1>S3</h1>
           <div id="toc">
           </div>
-          <h2>Root Device Volume</h2>
+          <h2>Bucket</h2>
 
-<h3>EBS vs. Instance Store</h3>
+<p>S3 では Bucket と呼ばれる名前空間を作成する。URL アクセス時のサブドメイン部分となるため AWS 内ユニークである必要がある。作成後の Bucket 名の変更もできない。</p>
 
-<h4>EBS-backed</h4>
+<p>サブディレクトリかサブドメインの URL でアクセスできる。</p>
+
+<ol>
+<li><code>(http|https)://s3-&lt;region&gt;.amazonaws.com/&lt;bucket&gt;/</code></li>
+<li><code>(http|https)://&lt;bucket&gt;.s3-&lt;region&gt;.amazonaws.com/</code></li>
+</ol>
+
+
+<p>バケット名にはピリオドの使用を避けたほうが良い。S3 はワイルドカードの SSL 証明書を用いているので、HTTPS でサブドメインの URL を使うと、バケット名にピリオドが含まれているため、SSL 証明書エラーとなる。</p>
+
+<h2>REST API</h2>
 
 <ul>
-<li>EBS ボリュームをルートデバイスとして起動する。</li>
-<li>インスタンスの <em>Stop</em> ができる。この場合は EBS ボリュームは破棄されない。</li>
-<li><em>Terminate</em> では、デフォルトの <code>DeleteOnTermination: True</code> なら EBS ボリュームが破棄される。</li>
-<li><code>DeleteOnTermination</code> は EC2 Management Console からは、インスタンス作成時にしか指定できない。AWS CLI を使えば、起動中でも変更できる。</li>
-<li>永続データは持てるが、Instance store と比較して、I/O 性能に劣る。</li>
-<li>EBS はネットワークを介するため、スループットはそのトラフィックに依存する。性能がでない場合は、<em>EBS-optimized</em> で帯域を確保する必要がある。</li>
-<li>永続データを持てるためデータベースサーバに適している。</li>
+<li><a href="http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html">http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html</a></li>
 </ul>
 
 
-<h4>Instance Store-backed</h4>
+<p>S3 は REST API が提供されており、アクセスキーとシークレットキーを元に、リクエストヘッダ <code>Authorization</code> に所定の方法で暗号化したキーを含めれば、どこからでもアクセスできる。</p>
 
-<ul>
-<li>S3 上の AMI から EC2 インスタンス上のルートデバイスにコピーして起動する。</li>
-<li>インスタンスの <em>Stop</em> はできない。</li>
-<li><em>Terminate</em> 時に EC2 上のディスクの全ての内容が破棄される。</li>
-<li>永続データは持てないが、EBS よりは I/O 性能が優れている。</li>
-<li>永続データを持たない中継サーバやアプリケーションサーバに適している。</li>
-</ul>
+<p>コマンドラインからは <a href="http://s3tools.org/s3cmd">s3cmd</a> を使うとよい。</p>
 
+<pre><code>% yum --enablerepo=epel install s3cmd
 
-<h3>Resizing EBS Volumes</h3>
+% s3cmd --configure
+....
+Access key and Secret key are your identifiers for Amazon S3
+Access Key: &lt;Enter Your Access Key ....&gt;
+Secret Key: &lt;Enter Your Secret Key ....&gt;
+....
 
-<p>EC2 にマウントした EBS ボリュームの容量を拡張する場合、一旦インスタンスを <em>Stop</em> する必要がある。</p>
-
-<ul>
-<li>対象の EC2 インスタンスを <em>Stop</em></li>
-<li><em>EC2 > ELASTIC BLOCK STORE > Volumes</em> より対象の EBS Volume を選択</li>
-<li>下部のメッセージペインの <em>Attachement:</em> よりデバイス名を確認しておく。例）<code>/dev/sda1</code></li>
-<li><em>Actions > Detach Volume</em> で対象の EBS Volume を EC2 インスタンスから切り離す</li>
-<li><em>Actions > Create Sanpshot</em> で対象の EBS Volume のスナップショットを作成</li>
-<li><em>EC2 > ELASTIC BLOCK STORE > Snapshots</em> より作成したスナップショットを選択</li>
-<li><em>Actions > Create Volume</em> で希望のサイズを指定して EBS Volume を作成</li>
-<li><em>EC2 > ELASTIC BLOCK STORE > Volumes</em> より作成された EBS Volume を選択</li>
-<li><em>Actions > Attach Volume</em> で作成した EBS Volume を対象の EC2 インスタンスに接続する。デバイス名には事前に確認しておいた <code>/dev/sda1</code> を指定</li>
-<li>対象の EC2 インスタンスを <em>Start</em></li>
-</ul>
-
-
-<p>起動後に <code>resize2fs</code> コマンドで論理ボリュームを拡張する。デバイス名は Management Console 上の表示が <code>/dev/sda1</code> の場合、<code>/dev/xfda1</code> のシンボリックリンクの場合がある。</p>
-
-<pre><code>% df
-Filesystem     1K-blocks     Used Available Use% Mounted on
-/dev/xvda1     ...
+# The command will create a file ~/.s3cfg as the user's setting
+% cat  ~/.s3cfg
+[default]
+access_key = ...
+bucket_location = US
 ...
 
-% ls -l /dev/sda1
-lrwxrwxrwx 1 ...  /dev/sda1 -&gt; xvda1
+% s3cmd ls
+YYYY-mm-dd HH:MM  s3://example-bucket-foo
+....
 
-% resize2fs /dev/xfda1
+# The option -c allows to choose another configuration
+% s3cmd -c /path/to/another/s3cfg ls
+YYYY-mm-dd HH:MM  s3://example-bucket-bar
+....
+
+# The sub-command sync will synchronize a directory tree to S3
+% s3cmd sync /path/to/dir/ s3://example-bucket-foo/path/to/dir/
+
+# The option "--delete-removed" to delete files that are no longer present locally
+% s3cmd sync --delete-removed /path/to/dir/ s3://example-bucket-foo/path/to/dir/
 </code></pre>
 
           </div>
