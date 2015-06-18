@@ -104,6 +104,8 @@
 
 <pre><code>% git config user.name "Foo Bar"
 % git config user.email "foo@example.net"
+% git config -l
+...
 </code></pre>
 
 <h2>add</h2>
@@ -148,6 +150,18 @@ A  c.txt
 <p>The following is an one-liner to remove index entries that start with <code>^.D</code> as tracking status. (i.e. Each file tracked by the index entries has already been removed without using git-rm.)</p>
 
 <pre><code>% git status -s | grep ^'.D' | awk '{print $2}' | xargs git rm
+</code></pre>
+
+<h2>remote</h2>
+
+<pre><code>% git remote -v
+origin  ssh://gitolite-server/foo.git (fetch)
+origin  ssh://gitolite-server/foo.git (push)
+
+% git remote set-url origin ssh://gitolite-server/bar.git
+% git remote -v
+origin  ssh://gitolite-server/bar.git (fetch)
+origin  ssh://gitolite-server/bar.git (push)
 </code></pre>
 
 <h2>commit</h2>
