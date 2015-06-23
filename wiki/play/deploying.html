@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deploying | Play Framework</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Play Framework</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Play Framework</a></li><li>Deploying</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="scala/index.html">Scala</a></li><li class="active"><a href="./deploying.html">Deploying</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/play/deploying.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/play/deploying.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/play/deploying.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Deploying</h1>
+          <div id="toc">
+          </div>
+          <h2>Supervisor</h2>
+
+<ul>
+<li><a href="http://supervisord.org/">http://supervisord.org/</a></li>
+</ul>
+
+
+<p>CentOS なら epel パッケージに含まれている。</p>
+
+<pre><code>% yum install supervisor
+</code></pre>
+
+<ul>
+<li>アプリケーション: <code>play-app</code></li>
+<li>実行ユーザ: <code>app</code></li>
+<li><code>(9001|9002)</code> の複数プロセスで起動</li>
+</ul>
+
+
+<p>とすると以下のようになる。</p>
+
+<pre><code>% cat /etc/supervisord.conf
+...
+
+[program:play-app1]
+command=/path/to/play-app/bin/play-app -Dhttp.port=9001 -Dpidfile.path=/dev/null
+;priority=999
+autostart=true
+autorestart=true
+startsecs=10
+startretries=3
+exitcodes=0,2
+stopsignal=TERM
+stopwaitsecs=10
+user=app
+log_stdout=true
+log_stderr=true
+logfile=/path/to/cat.log
+logfile_maxbytes=1MB
+logfile_backups=10
+
+[program:play-app2]
+command=/path/to/play-app/bin/play-app -Dhttp.port=9002 -Dpidfile.path=/dev/null
+...
+</code></pre>
+
+<ul>
+<li><code>pidfile.path</code>  は <code>/dev/null</code> に送るようにする。 Supervisor がプロセスを管理するため不要。Play が生成する <code>RUNNING_PID</code> ファイルが残ってしまった場合に、自動再起動ができない。</li>
+<li><code>stopsignal</code> は <code>TERM</code> を送る。設定サンプルにある <code>QUIT</code> では終了しない。</li>
+</ul>
+
+
+<p>起動スクリプト <code>/etc/init.d/supervisord</code> を用いれば、設定したプロセスを一括してデーモン起動できる。</p>
+
+<pre><code>% service supervisord {start|stop|status|restart|reload|force-reload|condrestart}
+</code></pre>
+
+<p><code>supervisorctl</code> を使うことで、プロセス毎に管理できる。</p>
+
+<pre><code>% supervisorctl
+play-app1    RUNNING    pid 12345, uptime 0:00:10
+play-app2    RUNNING    pid 23456, uptime 0:00:10
+supervisor&gt; stop play-app2
+play-app2: stopped
+supervisor&gt;
+</code></pre>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
