@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installation | HAProxy</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">HAProxy</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">HAProxy</a></li><li>Installation</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./installation.html">Installation</a></li><li><a href="./configuration.html">Configuration</a></li><li><a href="./logging.html">Logging</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/haproxy/installation.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/haproxy/installation.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/haproxy/installation.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Installation</h1>
+          <div id="toc">
+          </div>
+          <h2>rpm-build</h2>
+
+<p>Make sure the following packages have already been installed.</p>
+
+<pre><code>% yum install rpm-build pcre-devel gcc
+</code></pre>
+
+<p>We assume that the <code>%{_topdir}</code> is <code>/usr/src/redhat</code> in this instruction.</p>
+
+<pre><code>% rpmbuild --showrc
+...
+-14: _builddir  %{_topdir}/BUILD
+-14: _rpmdir    %{_topdir}/RPMS
+-14: _sourcedir %{_topdir}/SOURCES
+-14: _specdir   %{_topdir}/SPECS
+-14: _srcrpmdir %{_topdir}/SRPMS
+-14: _topdir    %{_usrsrc}/redhat
+-14: _usr       /usr
+-14: _usrsrc    %{_usr}/src
+...
+</code></pre>
+
+<p>Download and extract the source .tar.gz and then copy the spec file <code>examples/haproxy.spec</code> into <code>%{_specdir}</code>.</p>
+
+<pre><code>% cd /usr/local/src
+% curl -LO "http://www.haproxy.org/download/1.4/src/haproxy-1.4.26.tar.gz"
+% tar xvfz haproxy-1.4.26.tar.gz
+% cp haproxy-1.4.26/examples/haproxy.spec /usr/src/redhat/SPECS/.
+% cp haproxy-1.4.26.tar.gz /usr/src/redhat/SOURCE/.
+</code></pre>
+
+<p>Missing <code>doc/proxy-protcol.txt</code> in haproxy-1.4.26, you may need to modify the spec file.</p>
+
+<pre><code>70c70
+&lt; %doc CHANGELOG README examples/*.cfg doc/haproxy-en.txt doc/haproxy-fr.txt doc/architecture.txt doc/configuration.txt doc/proxy-protocol.txt
+---
+&gt; %doc CHANGELOG README examples/*.cfg doc/haproxy-en.txt doc/haproxy-fr.txt doc/architecture.txt doc/configuration.txt
+</code></pre>
+
+<p>Run <code>rpmbuild</code> with the spec file to build a rpm package and then install it.</p>
+
+<pre><code>% cd /usr/src/redhat/SPECS
+% rpmbuild -bb haproxy.spec
+% cd RPMS/x86_64
+% ls
+haproxy-1.4.26-1.x86_64.rpm  haproxy-debuginfo-1.4.26-1.x86_64.rpm
+
+% rpm -ivh haproxy-1.4.26-1.x86_64.rpm
+</code></pre>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
