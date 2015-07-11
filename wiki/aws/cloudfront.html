@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CloudFront | Amazon Web Services</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Amazon Web Services</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Amazon Web Services</a></li><li>CloudFront</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./s3.html">S3</a></li><li><a href="./ec2.html">EC2</a></li><li><a href="./vpc.html">VPC</a></li><li class="active"><a href="./cloudfront.html">CloudFront</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/aws/cloudfront.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/aws/cloudfront.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/aws/cloudfront.md">History</a>
+          </div>
+          <div id="content">
+          <h1>CloudFront</h1>
+          <div id="toc">
+          </div>
+          <h2>Origin Settings</h2>
+
+<h3>Origin Domain Name</h3>
+
+<p>S3 Bucket あるいは Web サーバのドメインを指定する。</p>
+
+<h3>Origin Path</h3>
+
+<p>CloudFront URL のルートディレクトリとみなすサブディレクトリを指定する。</p>
+
+<ul>
+<li>同一ドメインで、サブディレクトリで複数の Origin を持つ</li>
+<li>S3 Bucket において、プライベートなファイルが含まれる場合に、CloudFront 用に公開するディレクトリのみを指定</li>
+</ul>
+
+
+<h3>Origin ID</h3>
+
+<p>Distribution 内でユニークな Origin ID を指定する。Origin 作成後は変更できない。</p>
+
+<h3>Origin Protocol Policy</h3>
+
+<p>Distribution と Origin 間の HTTPS のポリシーを選択する。</p>
+
+<ul>
+<li>HTTP Only</li>
+<li>Match Viewr</li>
+</ul>
+
+
+<p>Distribution と Viewer 間は <em>Cache Behavior Settings > Viewer Protocol Policy</em> になるので注意。</p>
+
+<h2>Cache Behavior Settings</h2>
+
+<p>Distribution 作成時は、すべてのパスに対する <code>Default(*)</code> のみ設定できる。Precedence は強制的に最大値となり、一番最後に評価される。</p>
+
+<h3>Path Pattern</h3>
+
+<p>Cache Behavior の設定数には 25 個までの制限があるため、多くの設定が当てはまるパターンを <code>Default(*)</code> に割り当てる必要がある。</p>
+
+<p>いったんキャッシュされてしまうと、Invalidation で削除するほかないので、<code>Default(*)</code> は Forward Headers を All にしてキャッシュしない設定にしておき、明らかにキャッシュ可能なコンテンツを指定していくほうが良い。</p>
+
+<p>Directory Index の機能は持たない。<code>/pages/*</code> なら <code>/pages/</code> も <code>/pages/index.html</code> どちらも Path Pattern にあてはまるが、キャッシュは別になる。</p>
+
+<h3>Origin</h3>
+
+<p>Distriibution は、複数の Origin を持てる。Cache Behavior ごとに、どの Origin を使うかを選択できる。　</p>
+
+<h3>Viewr Protocol Policy</h3>
+
+<p>Distribution と Viewer 間の HTTPS のポリシーを選択する。HTTP のみの設定はできない。</p>
+
+<ul>
+<li>HTTP and HTTPS</li>
+<li>Redirect HTTP to HTTPS</li>
+<li>HTTPS Only</li>
+</ul>
+
+
+<p>Distribution と Origin 間は <em>Origin Settings > Origin Protocol Policy</em> になるので注意。</p>
+
+<h3>HTTP Methods</h3>
+
+<ul>
+<li>GET/HEAD は常にキャッシュ対象となる。</li>
+<li>OPTIONS はキャッシュするかどうか選択できる。</li>
+<li>POST/PUT/PATCH/DELETE はキャッシュされない。</li>
+</ul>
+
+
+<h3>Forward Headers</h3>
+
+<ul>
+<li>None
+
+<ul>
+<li>すべての Viewer からのリクエストヘッダを破棄</li>
+</ul>
+</li>
+<li>Whitelist
+
+<ul>
+<li>Forward するリクエストヘッダ名を指定する。リクエストヘッダ値ごとにキャッシュされる。</li>
+</ul>
+</li>
+<li>All
+
+<ul>
+<li>すべてのリクエストヘッダを Forward する。この場合、リクエストは全てキャッシュされず、Object Caching や TTL の設定はできない。単に Edge Location を経由して Forward するコストがかかるだけなので、この設定が中心なら CloudFront を利用する意味はない。</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Host</h4>
+
+<p><code>Host</code> ヘッダを通しておくと、Origin のホスト名ではなく、Viewer のリクエストした <code>Host</code> ヘッダ値、すなわちリクエスト URL のドメイン名がそのまま渡る。VirtualHost や Proxy で <code>Host</code> ヘッダ値に応じて切り分けている場合に、CloudFront を通した場合と、そうでない場合で設定を変更せずに済む。</p>
+
+<p>Origin Domain Name はあくまで、サーバへのアドレスであり、それが <code>Host</code> ヘッダに渡るかどうかは Forward Headers の設定による。</p>
+
+<h4>User-Agent</h4>
+
+<p>Whiltelist で <code>User-Agent</code> ヘッダを指定することはできない。<code>User-Agent</code> 値を得たいときは All（キャッシュされない）とする必要がある。</p>
+
+<p>デバイスに応じた以下のヘッダ値が得られるので、デバイス別の出し分けに有効なヘッダを Forward すれば良い。</p>
+
+<ul>
+<li><code>CloudFront-Is-Desktop-Viewer</code></li>
+<li><code>CloudFront-Is-Mobile-Viewer</code></li>
+<li><code>CloudFront-Is-SmartTV-Viewer</code></li>
+<li><code>CloudFront-Is-Tablet-Viewer</code></li>
+</ul>
+
+
+<p>Forward しなければ、これらのヘッダを区別せずキャッシュされてしまうので Origin には渡らないことに注意する。</p>
+
+<h3>Object Caching</h3>
+
+<ul>
+<li><a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html">http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html</a></li>
+</ul>
+
+
+<p>デフォルトではキャッシュの有効期限は 24 時間になる。以下の方法で Origin から期限を調整できる。</p>
+
+<ul>
+<li>Use Origin Cache Headers
+
+<ul>
+<li>Origin の返すレスポンスヘッダ <code>Cache-Control</code> <code>Expire</code> を、そのままキャッシュの有効期限とみなす。</li>
+</ul>
+</li>
+<li>Customize
+
+<ul>
+<li>Origin の返すレスポンスヘッダと予め設定した Minimum TTL / Maximum TTL の条件を元に、キャッシュ方法を変更する。</li>
+<li><a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist">http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist</a></li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Forward Cookies</h3>
+
+<ul>
+<li>None
+
+<ul>
+<li>すべての Viewer からの Cookie を破棄</li>
+</ul>
+</li>
+<li>Whitelist
+
+<ul>
+<li>Forward する Cookie 名を指定する。Cookie 属性 (Path/Expire/etc.) は Forward されない。</li>
+<li>Whitelist に含まれない Cookie は Forward されず、Origin で参照できない。</li>
+<li>Set-Cookie ヘッダは Whitelist に含まれるかどうかに関わらず Viewer に渡る。ただし、Set-Cookie ヘッダを出力するページはキャッシュされるべきではない。</li>
+</ul>
+</li>
+<li>All
+
+<ul>
+<li>すべての Cookie を Forward する。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Forward される Cookie について勘違いしやすい点として、それらの Cookie 値があれば Origin に渡るわけではない。Cookie 値に応じてキャッシュが区別されるというだけである。</p>
+
+<p>Cookie にデータそのものが入っている場合には、レスポンス（キャッシュ）を切り分けることができる。</p>
+
+<ul>
+<li>利用言語</li>
+<li>フォントサイズやテーマなどのスタイル</li>
+</ul>
+
+
+<p>ただしキャッシュされてしまうと Origin には渡らない点に注意する。キャッシュされた後に Origin 側で出力を変更しても、キャッシュが切れるまでは、Origin で行なった変更は反映されない。</p>
+
+<p>Cookie がセッションIDなどのキーを保持して、Origin 側でセッションデータを保持する場合には、決してキャッシュしてはならない。同じセッションIDでも、Origin が保持しているセッションデータは同じではないためである。</p>
+
+<h3>Foward Query Strings</h3>
+
+<p>URLクエリは Whitelist の指定はできず、Forward するかしないかの設定しかできない。</p>
+
+<ul>
+<li>Viewer がURLクエリを指定できないわけではない。Viewer のブラウザの履歴やキャッシュのURLとしては区別される。</li>
+<li>Forward しない場合は、URLクエリは Origin には渡らず、キャッシュも同じになる。</li>
+</ul>
+
+
+<h2>Invalidations</h2>
+
+<p>いったん、キャッシュされてしまったコンテンツは Origin からはクリアできない。Invaldiation リクエストを登録して非同期にクリアされるのを待つしかない。</p>
+
+<ul>
+<li>同時に処理できるオブジェクト数は 3,000 に制限される。ワイルドカード指定であっても、実際にクリア対象となるオブジェクト数で算出される。</li>
+<li>1,000 objects / month までは無料だが、それ以上は課金される。</li>
+<li>リクエスト直後にクリアされるわけではない、Distribution の設定変更と同様に、各 Edge location に行き渡るまでに時間がかかる。</li>
+</ul>
+
+
+<h2>Caveat</h2>
+
+<ul>
+<li>Distribution の設定変更は、全ての Edge Location への反映を伴う。ステータスは <em>In-Progress</em> となり、15 分ほどの時間がかかる。</li>
+<li>利用にあたって制限がある点に注意する。Cache Behavior や Whitelist の上限はさほど多くない。
+
+<ul>
+<li><a href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_cloudfront">http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_cloudfront</a></li>
+</ul>
+</li>
+<li>Origin の返す <code>Cache-Control</code> ヘッダでキャッシュ期限の調整はできるが、キャッシュが残っているかぎり Origin から応答を返すことはできない（キャッシュ期限の変更はできない）点に注意する。キャッシュされてしまったものは Invalidation が必要になり、変更が行き渡るまでに時間を要する。
+
+<ul>
+<li>最初のうちは Maximum TTL を短くしておき、キャッシュが有効なら TTL を伸ばす。</li>
+</ul>
+</li>
+<li><code>Set-Cookie</code> を返すコンテンツは、決してキャッシュしてはならない。
+
+<ul>
+<li>セッションキーをセットする <code>Set-Cookie</code> がキャッシュされた。
+
+<ul>
+<li>同じキャッシュを参照した全ての Viewer が、同じセッションキーを共有</li>
+<li>同じログインセッションを共有した場合、別のユーザの情報が見えてしまう</li>
+<li>サイト自身が Session 固定攻撃を行なうのと同等</li>
+</ul>
+</li>
+<li>利用言語の選択を記憶する <code>Set-Cookie</code> がキャッシュされた。
+
+<ul>
+<li>キャッシュを参照するたび、キャッシュから返される言語設定に切り替わってしまう。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>HTTP ステータスエラーは 5 分間キャッシュされる。変更するには別途設定を行なう必要がある。
+
+<ul>
+<li><a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/HTTPStatusCodes.html">http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/HTTPStatusCodes.html</a></li>
+</ul>
+</li>
+<li>独自ドメインで SSL を使用する場合は、SSL 証明書が必要なことはもちろん、各 Edge Location 毎に、独自ドメインに対する固有の IP アドレスを AWS に割り当ててもらうことが必要になる。このための別途料金が月額 600 USD ほどかかる。
+
+<ul>
+<li><a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecureConnections.html#CNAMEsAndHTTPS">http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecureConnections.html#CNAMEsAndHTTPS</a></li>
+<li>利用可能な SSL 証明書の制限がある。</li>
+<li>AWS アカウント毎に最大 2 つまでしか SSL 証明書を登録できない。</li>
+</ul>
+</li>
+</ul>
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
