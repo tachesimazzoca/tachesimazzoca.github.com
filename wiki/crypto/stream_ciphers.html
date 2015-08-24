@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ciphers | Cryptography</title>
+<title>Stream Ciphers | Cryptography</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
@@ -63,7 +63,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">Cryptography</a></li><li>Ciphers</li>
+        <li><a href="./index.html">Cryptography</a></li><li>Stream Ciphers</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./ciphers.html">Ciphers</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li class="active"><a href="./stream_ciphers.html">Stream Ciphers</a></li><li><a href="./block_ciphers.html">Block Ciphers</a></li></ul>
               </div>
             </div>
           </div>
@@ -83,12 +83,12 @@
         <div class="col-md-9 col-sm-8">
           
           <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/crypto/ciphers.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/crypto/ciphers.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/crypto/ciphers.md">History</a>
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/crypto/stream_ciphers.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/crypto/stream_ciphers.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/crypto/stream_ciphers.md">History</a>
           </div>
           <div id="content">
-          <h1>Ciphers</h1>
+          <h1>Stream Ciphers</h1>
           <div id="toc">
           </div>
           <script type="text/x-mathjax-config">
@@ -101,78 +101,9 @@
 </script>
 
 
-<h2>Definition</h2>
+<h2>Pseudo Random Generators</h2>
 
-<p>暗号 <em>Cipher</em> は、メッセージを暗号文に変換する「暗号関数」と、暗号文を元メッセージに復元する「復号関数」のペアで成り立つ。</p>
-
-<ul>
-<li>E (Encrypt): 暗号関数</li>
-<li>D (Decrypt): 復号関数</li>
-<li>K (Key): 暗号キー</li>
-<li>M (Message): メッセージ</li>
-<li>C (Cipher): 暗号文</li>
-</ul>
-
-
-<p>を定義すると、以下の式がなりたつ。</p>
-
-<script type="math/tex; mode=display" id="MathJax-Element-cipher_definition">
-E: K \times M \to C \\
-D: K \times C \to M \\
-D(k, E(k, m)) = m \quad \text{for all $k \in K, m \in M$} \\
-</script>
-
-
-<h2>Information Theoretic Security</h2>
-
-<ul>
-<li><em>Shannon, Claude E. (October 1949). "Communication Theory of Secrecy Systems"</em></li>
-</ul>
-
-
-<p>暗号文から平文の違いを区別できなければ、解読不能な暗号である。</p>
-
-<p>ランダムに生成されるあらゆる暗号キーから、同じ長さの二つの異なるメッセージが、同じ暗号文となる確率が等しければ、どの平文であるかを判別できない。この条件を満たす暗号アルゴリズムは <em>Perfect secrecy</em> を持つと定義される。</p>
-
-<script type="math/tex; mode=display" id="MathJax-Element-cipher_perfect_secrecy">
-Pr[E(k, m_0) = c] = Pr[E(k, m_1) = c] \quad \text{for all $m_0, m_1 \in M, |m_0| = |m_1|$} \\
-k \gets^{random} K \\
-</script>
-
-
-<h2>The One Time Pad</h2>
-
-<p>一回限りの暗号キーを使って暗号化する方法を <em>One Time Pad (OTP)</em> と呼ぶ。</p>
-
-<p>メッセージと暗号キーの XOR 演算で暗号化する方法がある。</p>
-
-<pre><code>m: 01001000 01000101 01001100 01001100 01001111: HELLO
-k: 00100100 01001011 01000101 01011001 00100001: $KEY!
-c: 01101100 00001110 00001001 00010101 01101110: l...n
-</code></pre>
-
-<p>以下の式により XOR 演算だけで、暗号の定義を満たすことが証明できる。</p>
-
-<script type="math/tex; mode=display" id="MathJax-Element-cipher_otp">
-\begin{align}
-c := E(k, m) & = k \oplus m \\
-D(k, c) & = k \oplus c \\
-D(k, E(k, m)) & = k \oplus (k \oplus m) = (k \oplus k) \oplus m = 0 \oplus m = m \\
-\end{align}
-</script>
-
-
-<ul>
-<li>高速だが、メッセージよりも大きい暗号キーを持たなければならない欠点がある。</li>
-<li>同じ暗号文を生成できる暗号キーの数は 1 である。一回限りのキーであれば、同じ暗号文となる確率は <code>1/K</code> であり <em>Perfect secrecy</em> を持つ。</li>
-</ul>
-
-
-<h2>Stream Ciphers</h2>
-
-<h3>Pseudo Random Generators</h3>
-
-<p>OTP では、メッセージよりも大きい暗号キーを持つ必要がある。保有キーから無限長の暗号キーを生成する <em>Pseudo Random Generator (PRG)</em> を用いることで、保有キーのサイズを小さくできる。</p>
+<p><em>One Time Pad (OTP)</em> では、メッセージよりも大きい暗号キーを持つ必要がある。保有キーから無限長の暗号キーを生成する <em>Pseudo Random Generator (PRG)</em> を用いることで、保有キーのサイズを小さくできる。</p>
 
 <p>OTP とは異なり、保有キーの利用が１度限りであっても、PRG のアルゴリズムが予測可能であれば <em>Perfect secrecy</em> は持たない。例えば、単に保有キーを繰り返すだけのアルゴリズムであるとする。平文のヘッダ部が決まっており、保有キーがそのサイズ以下であると、暗号キーを特定できることが分かる。</p>
 
@@ -206,7 +137,7 @@ X_5 & := 1 \\
 
 <p>glibc の <code>random()</code> 関数等は、この LCG のアルゴリズムを用いているため、決して暗号化のために用いてはならない。</p>
 
-<h3>Attacks on Stream Ciphers</h3>
+<h2>Many Time Pad Attack</h2>
 
 <p>暗号キーは再利用されてはならない。同じキーの XOR 演算で作成された暗号文が二つあれば、暗号文の XOR により、平文の XOR に変換できる。</p>
 
@@ -218,6 +149,8 @@ C_2 & := m_2 \oplus k_0 \\
 C_1 \oplus C_2 = m_1 \oplus m_2
 </script>
 
+
+<p>二つの平文の XOR から分解するのは困難に思えるが、元メッセージが英文で成り立っている場合、スペースと <code>[a-zA-z]</code> の XOR を候補とすることができる。スペースが交錯するサンプルを集めて単語から推測し、XOR で逆算することでキーを抽出できる。</p>
 
 <p>サーバとクライアント間で同じ暗号キーを使った場合も、双方の通信の XOR により、平文のリクエストとレスポンスの XOR を得られる。サーバとクライアントで異なるキーが必要である。</p>
 
@@ -233,7 +166,7 @@ C_1 \oplus C_2 = m_1 \oplus m_2
 </ul>
 
 
-<h3>RC4</h3>
+<h2>RC4</h2>
 
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/RC4">https://en.wikipedia.org/wiki/RC4</a></li>
@@ -266,7 +199,7 @@ C_1 \oplus C_2 = m_1 \oplus m_2
 </ul>
 
 
-<h3>LFSR</h3>
+<h2>LFSR</h2>
 
 <p><em>Linear Feedback Shift Register (LFSR)</em> は、タップと呼ばれる任意の数ビットの XOR 出力を先頭ビットとし、ビットシフトを繰り返すレジスタを指す。DVD や Bluetooth のハードウェア用の PRG としても用いられている。</p>
 
@@ -283,110 +216,6 @@ C_1 \oplus C_2 = m_1 \oplus m_2
 
 
 <p>元データの先頭バイトが予測できれば、LFSR17 の初期状態を <code>2^17</code> 回の総当たりで試し、キーストリームの引き算で対応する LFSR25 を算出して、LFSR ペアの候補を取り出すことができる。候補を試し、二つの LFSR の初期状態がわかれば、以降のバイトは復元可能となる。</p>
-
-<h2>Block Ciphers</h2>
-
-<p>ブロック暗号 <em>Block cipher</em> は、メッセージを固定長ブロックに分けて、ブロック毎にキーを切り替えて暗号化を行なう。</p>
-
-<h3>DES</h3>
-
-<p><em>Data Encryption Standard (DES)</em> は、IBM により開発され、1976 年に U.S. の連邦規格として採用されたブロック暗号方式である。</p>
-
-<ul>
-<li><a href="http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf">http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf</a></li>
-</ul>
-
-
-<p>ブロックサイズは 64bits で以下の手順で暗号化する。</p>
-
-<ul>
-<li>Initial Permuation (IP) に従い、ビットを入れ替え
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Initial_permutation_.28IP.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Initial_permutation_.28IP.29</a></li>
-</ul>
-</li>
-<li>Feistel 構造を通して撹拌</li>
-<li>Final Permuation (IP^-1) に従い、ビットを入れ替え
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Final_permutation_.28IP.E2.88.921.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Final_permutation_.28IP.E2.88.921.29</a>
-
-<ul>
-<li>Initial Permuation の逆のマッピング</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h4>Feistel Network</h4>
-
-<p>DES では、Lucifer 暗号の発明者の <em>Horst Feistel</em> に由来する <em>Feistel network</em> と呼ばれる構造で、各ブロックを暗号化する。</p>
-
-<p>64bits のブロックを、半分 32bits の L/R 二つに分けて、以下の処理を 16 回繰り返す。</p>
-
-<ul>
-<li><code>L(i)</code> ブロックを、Feistel 関数を通し <code>R(i)</code> との XOR を、次の <code>R(i+1)</code> とする。</li>
-<li><code>R(i)</code> ブロックを、次の <code>L(i+1)</code> とする。</li>
-</ul>
-
-
-<p>復号は逆順に行なうだけでよい。</p>
-
-<h4>Feistel Function</h4>
-
-<p>Feistel 構造内では、以下の Feistel 関数により撹拌される。</p>
-
-<ul>
-<li>E: 32bits を 48bits に拡張する
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Expansion_function_.28E.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Expansion_function_.28E.29</a></li>
-</ul>
-</li>
-<li>S-box: 48bits のラウンド鍵との XOR を、6bits 毎に 8 つに分ける
-
-<ul>
-<li>8 つの S-box を通して、6bits ブロックを 4bits に置き換える</li>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Substitution_boxes_.28S-boxes.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Substitution_boxes_.28S-boxes.29</a></li>
-</ul>
-</li>
-<li>P: 4 x 8 = 32bits のビットを入れ替える
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permutation_.28P.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permutation_.28P.29</a></li>
-</ul>
-</li>
-</ul>
-
-
-<h4>Key Schedule</h4>
-
-<p>DES のキー長は 64bits で、実際には 56bits が使われる。48bits のラウンド鍵が生成される。</p>
-
-<ul>
-<li>PC-1: 64bits を 56bits に変換する
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29</a></li>
-</ul>
-</li>
-<li>PC-2: 56bits を 48bits に変換する
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29</a></li>
-<li>各ラウンドごとにビットシフトを行なう。ラウンド毎にシフトするビット数は異なる。
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule">https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
 
           </div>
           
