@@ -107,7 +107,7 @@
 
 <h2>DES</h2>
 
-<p><em>Data Encryption Standard (DES)</em> は、IBM により開発され、1976 年に U.S. の連邦規格として採用されたブロック暗号方式である。</p>
+<p><em>Data Encryption Standard (DES)</em> は、IBM により開発され、1976 年に U.S. の連邦規格として採用された共通鍵暗号方式である。</p>
 
 <ul>
 <li><a href="http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf">http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf</a></li>
@@ -138,6 +138,32 @@
 </ul>
 
 
+<h3>Key Schedule</h3>
+
+<p>DES のキー長は 64bits で、実際には 56bits が使われる。48bits のラウンド鍵が生成される。</p>
+
+<ul>
+<li>PC-1: 64bits を 56bits に変換する
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29</a></li>
+</ul>
+</li>
+<li>PC-2: 56bits を 48bits に変換する
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29</a></li>
+<li>各ラウンドごとにビットシフトを行なう。ラウンド毎にシフトするビット数は異なる。
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule">https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
 <h3>Feistel Network</h3>
 
 <p>DES では、Lucifer 暗号の発明者の <em>Horst Feistel</em> に由来する <em>Feistel network</em> と呼ばれる構造で、各ブロックを暗号化する。</p>
@@ -154,7 +180,7 @@
 
 <h3>Feistel Function</h3>
 
-<p>Feistel 構造内では、以下の Feistel 関数により撹拌される。</p>
+<p>Feistel network では、Feistel 関数により各ブロックが撹拌される。</p>
 
 <ul>
 <li>E: 32bits を 48bits に拡張する
@@ -179,27 +205,70 @@
 </ul>
 
 
+<h2>AES</h2>
+
+<p><em>Advanced Encryption Standard (AES)</em> は、DES の後継として、新たに U.S. の暗号規格として採用された共通鍵暗号方式である。</p>
+
+<p>ブロックサイズは 128bits で、Feistel 構造ではなく、Substitution-permutation Network (SPN) 構造を用いる。入力を 4x4 = 16 bytes の行列として扱い、ビットの撹拌と 128bits のラウンド鍵との XOR を繰り返して暗号化する。</p>
+
 <h3>Key Schedule</h3>
 
-<p>DES のキー長は 64bits で、実際には 56bits が使われる。48bits のラウンド鍵が生成される。</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Rijndael_key_schedule">https://en.wikipedia.org/wiki/Rijndael_key_schedule</a></li>
+</ul>
+
+
+<p>AES のキーサイズは、128/192/256 bits を選択できる。サイズに応じて SPN 構造での撹拌サイクル数が異なる。</p>
 
 <ul>
-<li>PC-1: 64bits を 56bits に変換する
+<li>AES-128: 128bits keys / 10 cycles</li>
+<li>AES-192: 192bits keys / 12 cycles</li>
+<li>AES-256: 256bits keys / 14 cycles</li>
+</ul>
+
+
+<p>撹拌サイクル数 + 1 回の 128bits(16bytes) のラウンド鍵が生成される。AES-128 の場合、合計で 16 x 11 = 176 bytes の鍵が生成される。</p>
+
+<h3>Substitution Permutation Network</h3>
 
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29</a></li>
+<li>Initial round
+
+<ul>
+<li>ラウンド鍵 <code>k(0)</code> と XOR</li>
 </ul>
 </li>
-<li>PC-2: 56bits を 48bits に変換する
+<li>Rounds
 
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29</a></li>
-<li>各ラウンドごとにビットシフトを行なう。ラウンド毎にシフトするビット数は異なる。
+<li>SubBytes: Rijndael S-box に従い 4x4 の全バイトを入れ替える
 
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule">https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Rijndael_S-box">https://en.wikipedia.org/wiki/Rijndael_S-box</a></li>
 </ul>
 </li>
+<li>ShiftRows: 各行を行番号分左へシフト
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_ShiftRows_step">https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_ShiftRows_step</a></li>
+</ul>
+</li>
+<li>MixColumns: Rijndael mix columns に従い、各列を変換する
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Rijndael_mix_columns">https://en.wikipedia.org/wiki/Rijndael_mix_columns</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_MixColumns_step">https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_MixColumns_step</a></li>
+</ul>
+</li>
+<li>ラウンド鍵 <code>k(i)</code> と XOR</li>
+</ul>
+</li>
+<li>Final round
+
+<ul>
+<li>SubBytes</li>
+<li>ShiftRows</li>
+<li>ラウンド鍵 <code>k(n)</code> と XOR</li>
 </ul>
 </li>
 </ul>
