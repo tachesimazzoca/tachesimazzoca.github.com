@@ -103,7 +103,7 @@
 
 <h2>Definition</h2>
 
-<p><em>Cipher</em> 暗号は、メッセージを暗号文に変換する「暗号関数」と、暗号文を元メッセージに復元する「復号関数」のペアで成り立つ。</p>
+<p>暗号 <em>Cipher</em> は、メッセージを暗号文に変換する「暗号関数」と、暗号文を元メッセージに復元する「復号関数」のペアで成り立つ。</p>
 
 <ul>
 <li>E (Encrypt): 暗号関数</li>
@@ -283,6 +283,110 @@ C_1 \oplus C_2 = m_1 \oplus m_2
 
 
 <p>元データの先頭バイトが予測できれば、LFSR17 の初期状態を <code>2^17</code> 回の総当たりで試し、キーストリームの引き算で対応する LFSR25 を算出して、LFSR ペアの候補を取り出すことができる。候補を試し、二つの LFSR の初期状態がわかれば、以降のバイトは復元可能となる。</p>
+
+<h2>Block Ciphers</h2>
+
+<p>ブロック暗号 <em>Block cipher</em> は、メッセージを固定長ブロックに分けて、ブロック毎にキーを切り替えて暗号化を行なう。</p>
+
+<h3>DES</h3>
+
+<p><em>Data Encryption Standard (DES)</em> は、IBM により開発され、1976 年に U.S. の連邦規格として採用されたブロック暗号方式である。</p>
+
+<ul>
+<li><a href="http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf">http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf</a></li>
+</ul>
+
+
+<p>ブロックサイズは 64bits で以下の手順で暗号化する。</p>
+
+<ul>
+<li>Initial Permuation (IP) に従い、ビットを入れ替え
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Initial_permutation_.28IP.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Initial_permutation_.28IP.29</a></li>
+</ul>
+</li>
+<li>Feistel 構造を通して撹拌</li>
+<li>Final Permuation (IP^-1) に従い、ビットを入れ替え
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Final_permutation_.28IP.E2.88.921.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Final_permutation_.28IP.E2.88.921.29</a>
+
+<ul>
+<li>Initial Permuation の逆のマッピング</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Feistel Network</h4>
+
+<p>DES では、Lucifer 暗号の発明者の <em>Horst Feistel</em> に由来する <em>Feistel network</em> と呼ばれる構造で、各ブロックを暗号化する。</p>
+
+<p>64bits のブロックを、半分 32bits の L/R 二つに分けて、以下の処理を 16 回繰り返す。</p>
+
+<ul>
+<li><code>L(i)</code> ブロックを、Feistel 関数を通し <code>R(i)</code> との XOR を、次の <code>R(i+1)</code> とする。</li>
+<li><code>R(i)</code> ブロックを、次の <code>L(i+1)</code> とする。</li>
+</ul>
+
+
+<p>復号は逆順に行なうだけでよい。</p>
+
+<h4>Feistel Function</h4>
+
+<p>Feistel 構造内では、以下の Feistel 関数により撹拌される。</p>
+
+<ul>
+<li>E: 32bits を 48bits に拡張する
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Expansion_function_.28E.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Expansion_function_.28E.29</a></li>
+</ul>
+</li>
+<li>S-box: 48bits のラウンド鍵との XOR を、6bits 毎に 8 つに分ける
+
+<ul>
+<li>8 つの S-box を通して、6bits ブロックを 4bits に置き換える</li>
+<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Substitution_boxes_.28S-boxes.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Substitution_boxes_.28S-boxes.29</a></li>
+</ul>
+</li>
+<li>P: 4 x 8 = 32bits のビットを入れ替える
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permutation_.28P.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permutation_.28P.29</a></li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Key Schedule</h4>
+
+<p>DES のキー長は 64bits で、実際には 56bits が使われる。48bits のラウンド鍵が生成される。</p>
+
+<ul>
+<li>PC-1: 64bits を 56bits に変換する
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29</a></li>
+</ul>
+</li>
+<li>PC-2: 56bits を 48bits に変換する
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29</a></li>
+<li>各ラウンドごとにビットシフトを行なう。ラウンド毎にシフトするビット数は異なる。
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule">https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
 
           </div>
           
