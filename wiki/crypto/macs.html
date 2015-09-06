@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Overview | Cryptography</title>
+<title>Message Authentication Code | Cryptography</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
@@ -63,7 +63,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">Cryptography</a></li><li>Overview</li>
+        <li><a href="./index.html">Cryptography</a></li><li>Message Authentication Code</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./overview.html">Overview</a></li><li><a href="./stream_ciphers.html">Stream Ciphers</a></li><li><a href="./block_ciphers.html">Block Ciphers</a></li><li><a href="./macs.html">Message Authentication Code</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./stream_ciphers.html">Stream Ciphers</a></li><li><a href="./block_ciphers.html">Block Ciphers</a></li><li class="active"><a href="./macs.html">Message Authentication Code</a></li></ul>
               </div>
             </div>
           </div>
@@ -83,12 +83,12 @@
         <div class="col-md-9 col-sm-8">
           
           <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/crypto/overview.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/crypto/overview.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/crypto/overview.md">History</a>
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/crypto/macs.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/crypto/macs.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/crypto/macs.md">History</a>
           </div>
           <div id="content">
-          <h1>Overview</h1>
+          <h1>Message Authentication Code</h1>
           <div id="toc">
           </div>
           <script type="text/x-mathjax-config">
@@ -101,76 +101,49 @@
 </script>
 
 
-<h2>Definition of Cipher</h2>
+<h2>Overview</h2>
 
-<p>暗号 <em>Cipher</em> は、メッセージを暗号文に変換する「暗号関数」と、暗号文を元メッセージに復元する「復号関数」のペアで成り立つ。</p>
+<p>メッセージ通信において、悪意を持った攻撃者は、通信内容を傍受することに加えて、通信内容を改ざんすることが可能である。傍受された通信内容を解読されないように暗号化するのと同じく、受け取った内容が第三者により改ざんされていないことを検出する仕組みが必要になる。</p>
 
-<ul>
-<li>E (Encrypt): 暗号関数</li>
-<li>D (Decrypt): 復号関数</li>
-<li>K (Key): 暗号キー</li>
-<li>M (Message): メッセージ</li>
-<li>C (Cipher): 暗号文</li>
-</ul>
+<p><em>Message Authentication Code (MAC)</em> は、メッセージの改ざんがないことを検出するアルゴリズムを指す。</p>
 
-
-<p>を定義すると、以下の式がなりたつ。</p>
-
-<script type="math/tex; mode=display" id="MathJax-Element-cipher_definition">
-E: K \times M \to C \\
-D: K \times C \to M \\
-D(k, E(k, m)) = m \quad \text{for all $k \in K, m \in M$} \\
-</script>
-
-
-<h2>Perfect Secrecy</h2>
-
-<ul>
-<li><em>Shannon, Claude E. (October 1949). "Communication Theory of Secrecy Systems"</em></li>
-</ul>
-
-
-<p>暗号文から平文の違いを区別できなければ、解読不能な暗号である。</p>
-
-<p>ランダムに生成されるあらゆる暗号キーから、同じ長さの二つの異なるメッセージが、同じ暗号文となる確率が等しければ、どの平文であるかを判別できない。この条件を満たす暗号アルゴリズムは <em>Perfect secrecy</em> を持つと定義される。</p>
-
-<script type="math/tex; mode=display" id="MathJax-Element-cipher_perfect_secrecy">
-Pr[E(k, m_0) = c] = Pr[E(k, m_1) = c] \quad \text{for all $m_0, m_1 \in M, |m_0| = |m_1|$} \\
-k \gets^{random} K \\
-</script>
-
-
-<h2>One Time Pad (OTP)</h2>
-
-<p>一回限りの暗号キーを使って暗号化する方法を <em>One Time Pad (OTP)</em> と呼ぶ。</p>
-
-<p>コンピュータ向けには、メッセージと暗号キーの XOR 演算による暗号化が用いられる。</p>
-
-<pre><code>m: 01001000 01000101 01001100 01001100 01001111: HELLO
-k: 00100100 01001011 01000101 01011001 00100001: $KEY!
-c: 01101100 00001110 00001001 00010101 01101110: l...n
-</code></pre>
-
-<p>以下の式により XOR 演算により暗号の定義を満たすことが証明できる。</p>
-
-<script type="math/tex; mode=display" id="MathJax-Element-cipher_otp">
-\begin{align}
-c := E(k, m) & = k \oplus m \\
-D(k, c) & = k \oplus c \\
-D(k, E(k, m)) & = k \oplus (k \oplus m) = (k \oplus k) \oplus m = 0 \oplus m = m \\
-\end{align}
+<script type="math/tex; mode=display" id="MathJax-Element-mac_algorithm">
+t \gets S(k, m) \\
+(0, 1) \gets V(k, m, t) \\
 </script>
 
 
 <ul>
-<li>メッセージよりも大きい暗号キーを持たなければならない欠点がある。</li>
-<li>同じ暗号文を生成できる暗号キーの数は 1 である。一回限りのキーであれば、同じ暗号文となる確率は <code>1/K</code> であり <em>Perfect secrecy</em> を持つ。</li>
+<li>Signing: キーとメッセージからタグを作成するアルゴリズム <code>S(k, m)</code></li>
+<li>Verification: キーとメッセージとタグから、改ざんされていないことを検査するアルゴリズム <code>V(k, m ,t)</code></li>
 </ul>
 
 
-<h2>Pseudo Random Function (PRF)</h2>
+<p>攻撃者は、通信内容からメッセージとタグ <code>(m, t)</code> を得ること <em>Chosen message attack</em> ができ、これらとは別の組み合わせを見つけること <em>Existential forgery</em> を目指す。</p>
 
-<h2>Pseudo Random Permutation (PRP)</h2>
+<ul>
+<li>得られたメッセージとタグ <code>(m, t)</code> とは別の正規タグ <code>(m, t')</code> を見つける</li>
+<li>得られたメッセージとタグ <code>(m, t)</code> と同じタグを生成できる別のメッセージ <code>(m', t)</code> を見つける</li>
+</ul>
+
+
+<p>同じタグとなる別のメッセージを見つけることができたとしても、意味のあるメッセージを選択できるわけではないが、改ざん検出という観点では破綻している。</p>
+
+<h2>CBC-MAC (Cipher Block Chaining MAC)</h2>
+
+<p><em>Encrypted Cipher Block Chaining (ECBC)</em></p>
+
+<h2>NMAC (Nested MAC)</h2>
+
+<h2>CMAC (Cihper-based MAC)</h2>
+
+<h2>PMAC (Parallel MAC)</h2>
+
+<h3>Carter-Wegman MAC</h3>
+
+<h2>HMAC (Hash-based MAC)</h2>
+
+<h2>Timing Attacks on Verification</h2>
 
           </div>
           
