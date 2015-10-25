@@ -18,7 +18,7 @@
 <url><loc>/wiki/haskell/cabal.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/hadoop/cdh3.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/linux/centos.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
-<url><loc>/wiki/git/cheatsheet.html</loc><lastmod>2015-06-18T22:05:51+09:00</lastmod></url>
+<url><loc>/wiki/git/cheatsheet.html</loc><lastmod>2015-10-26T04:29:04+09:00</lastmod></url>
 <url><loc>/wiki/oracle/cheatsheet.html</loc><lastmod>2015-05-31T17:59:31+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/clauses.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/aws/cloudfront.html</loc><lastmod>2015-07-11T17:45:43+09:00</lastmod></url>
@@ -80,7 +80,7 @@
 <url><loc>/wiki/pgsql/install.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/httpd/install.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/sbt/install.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
-<url><loc>/wiki/git/install.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/git/install.html</loc><lastmod>2015-10-26T04:32:45+09:00</lastmod></url>
 <url><loc>/wiki/postfix/install.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/mysql/install.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/scala/install.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
@@ -136,7 +136,7 @@
 <url><loc>/wiki/rvm/tips.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/postfix/tips.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/httpd/tips.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
-<url><loc>/wiki/git/tutorial.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/git/tutorial.html</loc><lastmod>2015-10-26T03:51:06+09:00</lastmod></url>
 <url><loc>/wiki/rails3/unicorn.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/verbs.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/rails3/tutorial/view.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
