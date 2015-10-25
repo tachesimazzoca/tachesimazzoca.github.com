@@ -105,6 +105,20 @@
 
 <p>ブロック暗号 <em>Block cipher</em> は、メッセージを固定長ブロックに分けて、ブロック毎にキーを切り替えて暗号化を行なう。</p>
 
+<h2>Pseudo Random Function (PRF)</h2>
+
+<p><em>Pseudo Random Function (PRF)</em> は、以下の二つの関数集合から成り立つ。</p>
+
+<ol>
+<li>入力 <code>X</code> から出力 <code>Y</code> に変換する関数 (Deterministic function) の集合 <code>Funs[X,Y]</code></li>
+<li><code>Funs[X,Y]</code> の関数集合のうち、キー <code>K</code> により導かれる関数集合 <code>S = { F(k,.), k in K }</code></li>
+</ol>
+
+
+<p>キーによりどの関数が決まり、その関数は決定的であるので、復号が可能になる。言い換えると、入力 <code>x</code> から、どの関数が使われたかを区別できなければ、セキュアな PRF である。</p>
+
+<h2>Pseudo Random Permutation (PRP)</h2>
+
 <h2>DES</h2>
 
 <p><em>Data Encryption Standard (DES)</em> は、IBM により開発され、1976 年に U.S. の連邦規格として採用された共通鍵暗号方式である。</p>
