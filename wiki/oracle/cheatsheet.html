@@ -109,16 +109,12 @@
 
 <pre><code>% sqlplus / as sysdba
 
-SQL&gt; CREATE ROLE &lt;role&gt;;
-SQL&gt; GRANT CREATE session, CREATE table, CREATE view,
-CREATE procedure, CREATE synonym TO &lt;role&gt;;
-
 SQL&gt; CREATE USER &lt;username&gt; IDENTIFIED BY &lt;password&gt;
 DEFAULT TABLESPACE users
 TEMPORARY TABLESPACE temp
 QUOTA UNLIMITED ON users;
 
-SQL&gt; GRANT &lt;role&gt; TO &lt;username&gt;;
+SQL&gt; GRANT CONNECT, RESOURCE TO &lt;user&gt;;
 </code></pre>
 
 <h2>Describing User Tables</h2>
@@ -128,19 +124,36 @@ SQL&gt; GRANT &lt;role&gt; TO &lt;username&gt;;
 
 <p>or issue the following SQL</p>
 
-<pre><code>SELECT * FROM USER_TAB_COLUMNS
+<pre><code>SELECT * FROM user_tab_columns
 WHERE
-    TABLE_NAME = &lt;table&gt; 
+    table_name = &lt;table&gt;
 ORDER BY
-    COLUMN_ID;
+    column_id;
 </code></pre>
 
-<p>The columns of <code>USER_TAB_COLUMNS</code> (except for OWNER) are the same as those in <code>ALL_TAB_COLUMNS</code>.</p>
+<p>The columns of <code>user_tab_columns</code> (except for OWNER) are the same as those in <code>all_tab_columns</code>.</p>
 
 <ul>
 <li><code>http://docs.oracle.com/cd/E11882_01/server.112/e40402/statviews_2103.htm#REFRN20277</code></li>
 </ul>
 
+
+<h2>Describing Roles</h2>
+
+<pre><code>SQL&gt; GRANT CONNECT, RESOURCE TO &lt;role&gt;;
+SQL&gt; GRANT &lt;role&gt; TO &lt;user&gt;;
+
+-- Select all role names
+SQL&gt; SELECT * FROM dba_roles;
+
+-- Select privileges of each role
+SQL&gt; SELECT * FROM role_sys_privs WHERE role = 'CONNECT';
+SQL&gt; SELECT * FROM role_sys_privs WHERE role = 'RESOURCE';
+
+-- Select granted roles of each grantee
+SQL&gt; SELECT * FROM dba_sys_privs WHERE grantee = &lt;role&gt;;
+SQL&gt; SELECT * FROM dba_role_privs WHERE grantee = &lt;user&gt;;
+</code></pre>
 
           </div>
           
