@@ -105,7 +105,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
 ...
 </code></pre>
 
-<p>Install <code>kernel-devel</code> and remove the old (mismatch) <code>kernel</code> package:</p>
+<p>Install <code>kernel-devel</code> and then restart the VM to load the updated kernel.</p>
 
 <pre><code>% yum list installed | grep kernel
 kernel.x86_64             2.6.18-308.el5
@@ -115,17 +115,16 @@ kernel.x86_64             2.6.18-308.el5
 kernel.x86_64             2.6.18-308.el5
 kernel.x86_64             2.6.18-308.24.1.el5
 kernel-devel.x86_64       2.6.18-308.24.1.el5
-% yum remove kernel-2.6.18-308.el5
-</code></pre>
 
-<p>and then restart the VM to load the updated kernel.</p>
-
-<pre><code>% uname -r
+% uname -r
 2.6.18-308.el5
 % shutdown -r now
 ...
 % uname -r
 2.6.18-308.24.1.el5
+
+# Remove the old (mismatch) `kernel` package.
+% yum remove kernel-2.6.18-308.el5
 </code></pre>
 
 <p>For versions prior to 6, add <code>divider=10</code> to the kernel boot options.</p>
