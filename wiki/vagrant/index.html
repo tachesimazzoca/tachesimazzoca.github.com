@@ -75,7 +75,7 @@
         </div>
         <h2>Creating a Base Box</h2>
 
-<p>Publicly available base boxes usually use a root password of "vagrant".</p>
+<p>Publicly available base boxes usually use <code>vagrant</code> as a password for the <code>root</code> user.</p>
 
 <pre><code>% passwd
 Changing password for user root.
@@ -126,6 +126,189 @@ UseDNS no
 <p>Use the <code>package</code> sub-command to create.</p>
 
 <pre><code>% vagrant package --base "CentOS-6.4-x86_64-minimal" --output /path/to/package.box
+</code></pre>
+
+<h2>Resizing a Volume</h2>
+
+<ul>
+<li>VirtualBox Manager
+
+<ol>
+<li>Extend the capacity of a virtual machine disk.</li>
+</ol>
+</li>
+<li>Virtual Machine
+
+<ol>
+<li>Add a new Linux LVM partition.</li>
+<li>Create a new physical volume in the new partition.</li>
+<li>Add the new physical volume to the volume group.</li>
+<li>Extend the logical volume.</li>
+<li>resize2fs the logical volume.</li>
+</ol>
+</li>
+</ul>
+
+
+<p>Halt the target box to be modified before you begin.</p>
+
+<pre><code>% cd /path/to/&lt;targetbox&gt;
+% vagrant halt
+</code></pre>
+
+<p>Vagrant uses the <code>.vmdk</code> format for virtual machine disks.</p>
+
+<pre><code>% cd "/path/to/VirtualBoxVMs/&lt;targetbox&gt;"
+% ls
+... &lt;current&gt;.vmdk
+</code></pre>
+
+<p>In order to resize the <code>.vmdk</code> file, clone into the <code>.vdi</code> file and then resize and clone it into another <code>.vmdk</code> file.</p>
+
+<pre><code>% VBoxManage clonehdd &lt;current&gt;.vmdk &lt;cloned&gt;.vdi --format vdi
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+
+% VBoxManage showhdinfo &lt;cloned&gt;.vdi
+...
+Capacity:       8192 MBytes
+
+% VBoxManage modifyhdd &lt;cloned&gt;.vdi --resize 16384
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+
+% VBoxManage showhdinfo &lt;cloned&gt;.vdi
+...
+Capacity:       16384 MBytes
+
+% VBoxManage clonehdd &lt;cloned&gt;.vdi &lt;resized&gt;.vmdk --format vmdk
+</code></pre>
+
+<p>Replace the current <code>.vmdk</code> with the resized <code>.vmdk</code>.</p>
+
+<pre><code>% VBoxManage showvminfo &lt;targetbox&gt;
+...
+SATA (0, 0): /path/to/VirtualBoxVMs/&lt;targetbox&gt;/&lt;current&gt;.vmdk (UUID: ...)
+...
+
+% VBoxManage storageattach &lt;targetbox&gt; \
+--storagectl "SATA" --port 0 --device 0 --type hdd --medium &lt;resized&gt;.vmdk
+</code></pre>
+
+<p>Wake up the target box again to do the following steps.</p>
+
+<pre><code>% vagrant up
+% vagrant ssh
+</code></pre>
+
+<p>Add a new Linux LVM partition using the command <code>fdisk</code>.</p>
+
+<pre><code>% fdisk -l
+Disk /dev/sda
+...
+/dev/sda1
+/dev/sda2
+...
+
+% fdisk /dev/sda
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 3  # Enter the last partition number as /dev/sda3
+First cylinder (1045-2088, default 1045):
+Using default value 1045
+Last sector, +sectors or +size{K,M,G} (1045-2088, default 2088):
+Using default value 2088
+
+Command (m for help): p
+...
+/dev/sda1 ... Linux
+/dev/sda2 ... Linux LVM
+/dev/sda3 ... Linux
+
+Command (m for help): t
+Partition number (1-4): 3
+Hex code (type L to list codes): 8e # Linux LVM
+
+Command (m for help): p
+...
+/dev/sda1 ... Linux
+/dev/sda2 ... Linux LVM
+/dev/sda3 ... Linux LVM
+
+Command (m for help): w
+
+% shutdown -r now
+</code></pre>
+
+<p>Create and add a new physical volume into the volume group.</p>
+
+<pre><code>% pvdisplay
+...
+PV Name               /dev/sda2
+
+% pvcreate /dev/sda3
+Physical volume "/dev/sda3" successfully created
+
+% pvdisplay
+...
+PV Name               /dev/sda2
+...
+PV Name               /dev/sda3
+...
+
+% vgdisplay
+--- Volume group ---
+VG Name               VolGroup
+...
+VG Size               7.51 GiB
+PE Size               4.00 MiB
+...
+Free  PE / Size       0 / 0
+
+% vgextend VolGroup /dev/sda3
+Volume group "VolGroup" successfully extended
+
+% vgdisplay
+--- Volume group ---
+VG Name               VolGroup
+...
+VG Size               15.50 GiB
+PE Size               4.00 MiB
+...
+Free  PE / Size       2046 / 7.99 GiB
+</code></pre>
+
+<p>Extend the logical volume to the size <code>Free PE * PE Size</code>.</p>
+
+<pre><code>% lvdisplay
+--- Logical volume ---
+LV Path                /dev/VolGroup/lv_root
+...
+LV Size                6.71 GiB
+
+# 2046(Free PE) * 4.00(PE Size) = 8184
+% lvextend -L +8184 /dev/VolGroup/lv_root
+Logical volume lv_root successfully resized
+
+% lvdisplay
+--- Logical volume ---
+LV Path                /dev/VolGroup/lv_root
+...
+LV Size                14.70 GiB
+</code></pre>
+
+<p>Use <code>resize2fs</code> to apply the logical volume size on the file system.</p>
+
+<pre><code>% resize2fs -f /dev/VolGroup/lv_root
+</code></pre>
+
+<h2>Closing Detached Media</h2>
+
+<pre><code>% VBoxManage list hdds
+...
+% VBoxManage closemedium disk &lt;UUID&gt;
 </code></pre>
 
 <h2>Links</h2>
