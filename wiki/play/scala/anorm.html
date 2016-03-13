@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anorm | Play Framework</title>
+<link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="../index.html">Play Framework</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="../index.html">Play Framework</a></li><li><a href="./index.html">Scala</a></li><li>Anorm</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./iteratees.html">Iteratees</a></li><li><a href="./http.html">HTTP</a></li><li><a href="./actions.html">Actions</a></li><li><a href="./filters.html">Filters</a></li><li><a href="./forms.html">Forms</a></li><li><a href="./ws.html">WS</a></li><li class="active"><a href="./anorm.html">Anorm</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/play/scala/anorm.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/play/scala/anorm.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/play/scala/anorm.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Anorm</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li>https://github.com/playframework/anorm/blob/master/docs/manual/working/scalaGuide/main/sql/ScalaAnorm.md</li>
+</ul>
+
+
+<p>v2.4 以降は、playframework とは別プロジェクトになっている。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
+  <span class="n">jdbc</span><span class="o">,</span>
+  <span class="c1">//anorm, // v2.3</span>
+  <span class="s">&quot;com.typesafe.play&quot;</span> <span class="o">%%</span> <span class="s">&quot;anorm&quot;</span> <span class="o">%</span> <span class="s">&quot;2.5.0&quot;</span> <span class="c1">// v2.4 or higher</span>
+<span class="o">)</span></code></pre></div>
+
+
+<h2>SQL</h2>
+
+<p>ヘルパーメゾッド <code>SQL</code> により、SQL文字列が <code>SqlQuery</code> に変換される。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="nc">SQL</span><span class="o">(</span><span class="n">stmt</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">SqlQuery</span> <span class="o">=</span>
+  <span class="nc">SqlStatementParser</span><span class="o">.</span><span class="n">parse</span><span class="o">(</span><span class="n">stmt</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">ts</span> <span class="k">=&gt;</span> <span class="nc">SqlQuery</span><span class="o">.</span><span class="n">prepare</span><span class="o">(</span><span class="n">ts</span><span class="o">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">names</span><span class="o">)).</span><span class="n">get</span></code></pre></div>
+
+
+<h3>SqlStatementParser</h3>
+
+<p><code>SqlStatementParser.parse</code> により、SQL文字列が <code>Try[TokenizedStatement]</code> に変換される。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">ts</span> <span class="k">=</span> <span class="nc">SqlStatementParser</span><span class="o">.</span><span class="n">parse</span><span class="o">(</span>
+  <span class="s">&quot;SELECT * FROM users WHERE id = {id} AND status = ?&quot;</span><span class="o">).</span><span class="n">get</span>
+
+<span class="n">println</span><span class="o">(</span><span class="n">ts</span><span class="o">.</span><span class="n">names</span><span class="o">)</span>
+<span class="c1">// List(&quot;id&quot;)</span>
+
+<span class="n">println</span><span class="o">(</span><span class="n">ts</span><span class="o">.</span><span class="n">tokens</span><span class="o">)</span>
+<span class="c1">// List(</span>
+<span class="c1">//   TokenGroup(List(StringToken(&quot;SELECT * FROM users WHERE id = &quot;)), Some(id)),</span>
+<span class="c1">//   TokenGroup(List(StringToken(&quot; AND status = ?&quot;)), None)</span>
+<span class="c1">// )</span></code></pre></div>
+
+
+<p><code>TokenizedStatement</code> は別モジュール <code>anorm-tokenizer</code> に含まれている。パッケージプライベート <code>private[anorm]</code> のため直接扱うことはない。</p>
+
+<h3>SqlQuery</h3>
+
+<p><code>SqlQuery</code> 自体は、単に <code>TokenizedStatement</code> を保持しておくだけの箱である。implicit conversion により<code>SqlQuery#asSimple</code> が呼ばれ <code>SimpleSql</code> のメゾッドが利用可能になる。</p>
+
+<p>都度、ヘルパーメゾッド <code>SQL</code> を呼ぶと変換コストがかかってしまうので、変換済みの <code>SqlQuery</code> インスタンスを保持しておくようにする。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">stmt</span> <span class="k">=</span> <span class="s">&quot;SELECT email FROM users WHERE id = {id}&quot;</span>
+<span class="k">val</span> <span class="n">sql</span> <span class="k">=</span> <span class="nc">SQL</span><span class="o">(</span><span class="n">stmt</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">parser</span> <span class="k">=</span> <span class="nc">SqlParser</span><span class="o">.</span><span class="n">str</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">).*</span>
+
+<span class="c1">// NG</span>
+<span class="k">for</span> <span class="o">(</span><span class="n">n</span> <span class="k">&lt;-</span> <span class="mi">1</span> <span class="n">to</span> <span class="mi">10000</span><span class="o">)</span> <span class="o">{</span>
+  <span class="nc">SQL</span><span class="o">(</span><span class="n">stmt</span><span class="o">).</span><span class="n">on</span><span class="o">(</span><span class="-Symbol">&#39;id</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">).</span><span class="n">as</span><span class="o">(</span><span class="n">parser</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// OK</span>
+<span class="k">for</span> <span class="o">(</span><span class="n">n</span> <span class="k">&lt;-</span> <span class="mi">1</span> <span class="n">to</span> <span class="mi">10000</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">sql</span><span class="o">.</span><span class="n">on</span><span class="o">(</span><span class="-Symbol">&#39;id</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">).</span><span class="n">as</span><span class="o">(</span><span class="n">parser</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h2>SimpleSql</h2>
+
+<h3>WithResult</h3>
+
+<p>パッケージプライベート <code>private[anorm]</code> のトレイト <code>WithResult</code> は、SELECT 結果を得るメゾッドを提供する。scala-arm の <code>resource.ManagedResource</code> により、自動的に <code>java.sql.ResultSet</code> がクローズされる。</p>
+
+<h4>withResult</h4>
+
+<p><code>WithResult#withResult</code> では、Loan pattern を用いて <code>Option[anorm.Cursor]</code> を受け取り、組み立て結果を返す関数を渡す。<code>List[anorm.Row]</code> を組み立てる場合、アキュムレータを使った再帰関数の Partial function を渡せば良い。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@annotation</span><span class="o">.</span><span class="n">tailrec</span>
+<span class="k">def</span> <span class="n">go</span><span class="o">(</span><span class="n">op</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Cursor</span><span class="o">],</span> <span class="n">acc</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Row</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Row</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">op</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">c</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">go</span><span class="o">(</span><span class="n">c</span><span class="o">.</span><span class="n">next</span><span class="o">,</span> <span class="n">acc</span> <span class="o">:+</span> <span class="n">c</span><span class="o">.</span><span class="n">row</span><span class="o">)</span>
+    <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span> <span class="n">acc</span>
+  <span class="o">}</span>
+
+<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Either</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Throwable</span><span class="o">]</span>, <span class="kt">List</span><span class="o">[</span><span class="kt">Row</span><span class="o">]]</span> <span class="k">=</span>
+  <span class="nc">SQL</span><span class="o">(</span><span class="s">&quot;SELECT * FROM users WHERE status = 1 ORDER BY id&quot;</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">withResult</span><span class="o">(</span><span class="n">go</span><span class="o">(</span><span class="k">_</span><span class="o">,</span> <span class="nc">List</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Row</span><span class="o">]))</span></code></pre></div>
+
+
+<p><code>(fold|foldWhile)</code> が用意されているので、通常はこれらを使うと良い。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Either</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Throwable</span><span class="o">]</span>, <span class="kt">List</span><span class="o">[</span><span class="kt">Row</span><span class="o">]]</span> <span class="k">=</span>
+  <span class="nc">SQL</span><span class="o">(</span><span class="s">&quot;SELECT * FROM users ORDER BY id&quot;</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">fold</span><span class="o">(</span><span class="nc">List</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Row</span><span class="o">])</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">row</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">acc</span> <span class="o">:+</span> <span class="n">row</span> <span class="o">}</span></code></pre></div>
+
+
+
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Either</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Throwable</span><span class="o">]</span>, <span class="kt">List</span><span class="o">[</span><span class="kt">Row</span><span class="o">]]</span> <span class="k">=</span>
+  <span class="nc">SQL</span><span class="o">(</span><span class="s">&quot;SELECT * FROM users ORDER BY id&quot;</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">foldWhile</span><span class="o">(</span><span class="nc">List</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Row</span><span class="o">])</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">row</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">acc</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">)</span> <span class="o">(</span><span class="n">acc</span> <span class="o">:+</span> <span class="n">row</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+      <span class="k">else</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="o">}</span></code></pre></div>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
