@@ -136,7 +136,7 @@
 
 <h3>SqlQuery</h3>
 
-<p><code>SqlQuery</code> 自体は、単に <code>TokenizedStatement</code> を保持しておくだけの箱である。implicit conversion により<code>SqlQuery#asSimple</code> が呼ばれ <code>SimpleSql</code> のメゾッドが利用可能になる。</p>
+<p><code>SqlQuery</code> 自体は、単に <code>TokenizedStatement</code> を保持しておくだけの箱である。Implicit conversion により<code>SqlQuery#asSimple</code> が呼ばれ <code>SimpleSql</code> のメゾッドが利用可能になる。</p>
 
 <p>都度、ヘルパーメゾッド <code>SQL</code> を呼ぶと変換コストがかかってしまうので、変換済みの <code>SqlQuery</code> インスタンスを保持しておくようにする。</p>
 
@@ -155,15 +155,13 @@
 <span class="o">}</span></code></pre></div>
 
 
-<h2>SimpleSql</h2>
+<h2>WithResult</h2>
 
-<h3>WithResult</h3>
+<p>パッケージプライベート <code>private[anorm]</code> のトレイト <code>WithResult</code> は、SELECT 結果を得るメゾッドを提供する。scala-arm の <code>resource.ManagedResource</code> により、自動的に <code>java.sql.(PreparedStatement|ResultSet)</code> がクローズされる。</p>
 
-<p>パッケージプライベート <code>private[anorm]</code> のトレイト <code>WithResult</code> は、SELECT 結果を得るメゾッドを提供する。scala-arm の <code>resource.ManagedResource</code> により、自動的に <code>java.sql.ResultSet</code> がクローズされる。</p>
+<h3>withResult</h3>
 
-<h4>withResult</h4>
-
-<p><code>WithResult#withResult</code> では、Loan pattern を用いて <code>Option[anorm.Cursor]</code> を受け取り、組み立て結果を返す関数を渡す。<code>List[anorm.Row]</code> を組み立てる場合、アキュムレータを使った再帰関数の Partial function を渡せば良い。</p>
+<p><code>withResult</code> メゾッドでは、Loan pattern を用いて <code>Option[anorm.Cursor]</code> を受け取り、組み立て結果を返す関数を渡す。<code>List[Row]</code> を組み立てる場合を例にすると、 アキュムレータを使った再帰の Partial function を渡せば良い。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@annotation</span><span class="o">.</span><span class="n">tailrec</span>
 <span class="k">def</span> <span class="n">go</span><span class="o">(</span><span class="n">op</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Cursor</span><span class="o">],</span> <span class="n">acc</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Row</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Row</span><span class="o">]</span> <span class="k">=</span>
@@ -177,14 +175,18 @@
     <span class="o">.</span><span class="n">withResult</span><span class="o">(</span><span class="n">go</span><span class="o">(</span><span class="k">_</span><span class="o">,</span> <span class="nc">List</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Row</span><span class="o">]))</span></code></pre></div>
 
 
-<p><code>(fold|foldWhile)</code> が用意されているので、通常はこれらを使うと良い。</p>
+<h3>fold</h3>
+
+<p>通常は <code>fold</code> メゾッドを使うと良い。内部で <code>withResult</code> を呼んでいる。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Either</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Throwable</span><span class="o">]</span>, <span class="kt">List</span><span class="o">[</span><span class="kt">Row</span><span class="o">]]</span> <span class="k">=</span>
   <span class="nc">SQL</span><span class="o">(</span><span class="s">&quot;SELECT * FROM users ORDER BY id&quot;</span><span class="o">)</span>
     <span class="o">.</span><span class="n">fold</span><span class="o">(</span><span class="nc">List</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Row</span><span class="o">])</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">row</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">acc</span> <span class="o">:+</span> <span class="n">row</span> <span class="o">}</span></code></pre></div>
 
 
+<h3>foldWhile</h3>
 
+<p><code>foldWhile</code> を使えば、カーソル走査を中断することができる。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Either</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Throwable</span><span class="o">]</span>, <span class="kt">List</span><span class="o">[</span><span class="kt">Row</span><span class="o">]]</span> <span class="k">=</span>
   <span class="nc">SQL</span><span class="o">(</span><span class="s">&quot;SELECT * FROM users ORDER BY id&quot;</span><span class="o">)</span>
