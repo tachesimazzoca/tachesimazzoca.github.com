@@ -159,9 +159,22 @@
 
 <p>パッケージプライベート <code>private[anorm]</code> のトレイト <code>WithResult</code> は、SELECT 結果を得るメゾッドを提供する。scala-arm の <code>resource.ManagedResource</code> により、自動的に <code>java.sql.(PreparedStatement|ResultSet)</code> がクローズされる。</p>
 
+<h3>as</h3>
+
+<p><code>as</code> メゾッドに <code>ResultSetParser</code> を渡すことで、結果セットを任意のモデルに変換できる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">parser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span>
+  <span class="nc">SqlParser</span><span class="o">.</span><span class="n">long</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="nc">SqlParser</span><span class="o">.</span><span class="n">str</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">)</span> <span class="n">map</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">id</span> <span class="o">~</span> <span class="n">email</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">id</span> <span class="o">-&gt;</span> <span class="n">email</span><span class="o">)</span>
+  <span class="o">}</span>
+
+<span class="k">val</span> <span class="n">usersList</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span>
+  <span class="nc">SQL</span><span class="o">(</span><span class="s">&quot;SELECT * FROM users WHERE status = 1 ORDER BY id&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">(</span><span class="n">parser</span><span class="o">.*)</span></code></pre></div>
+
+
 <h3>withResult</h3>
 
-<p><code>withResult</code> メゾッドでは、Loan pattern を用いて <code>Option[anorm.Cursor]</code> を受け取り、組み立て結果を返す関数を渡す。<code>List[Row]</code> を組み立てる場合を例にすると、 アキュムレータを使った再帰の Partial function を渡せば良い。</p>
+<p><code>withResult</code> メゾッドを使えば、結果を一度にメモリに入れることなく一行づつ処理できる。Loan pattern でカーソルを受け取る関数 <code>Option[Cursor] =&gt; T</code> を渡す。<code>List[Row]</code> を組み立てる場合を例にすると、 アキュムレータを使った再帰関数を部分適用して渡せば良い。</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@annotation</span><span class="o">.</span><span class="n">tailrec</span>
 <span class="k">def</span> <span class="n">go</span><span class="o">(</span><span class="n">op</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Cursor</span><span class="o">],</span> <span class="n">acc</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Row</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Row</span><span class="o">]</span> <span class="k">=</span>
