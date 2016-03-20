@@ -140,9 +140,12 @@
 
 <p>都度、ヘルパーメゾッド <code>SQL</code> を呼ぶと変換コストがかかってしまうので、変換済みの <code>SqlQuery</code> インスタンスを保持しておくようにする。</p>
 
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">stmt</span> <span class="k">=</span> <span class="s">&quot;SELECT email FROM users WHERE id = {id}&quot;</span>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">anorm._</span>
+<span class="k">import</span> <span class="nn">anorm.SqlParser._</span>
+
+<span class="k">val</span> <span class="n">stmt</span> <span class="k">=</span> <span class="s">&quot;SELECT email FROM users WHERE id = {id}&quot;</span>
 <span class="k">val</span> <span class="n">sql</span> <span class="k">=</span> <span class="nc">SQL</span><span class="o">(</span><span class="n">stmt</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">parser</span> <span class="k">=</span> <span class="nc">SqlParser</span><span class="o">.</span><span class="n">str</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">).*</span>
+<span class="k">val</span> <span class="n">parser</span> <span class="k">=</span> <span class="n">get</span><span class="o">[</span><span class="kt">String</span><span class="o">](</span><span class="s">&quot;email&quot;</span><span class="o">).*</span>
 
 <span class="c1">// NG</span>
 <span class="k">for</span> <span class="o">(</span><span class="n">n</span> <span class="k">&lt;-</span> <span class="mi">1</span> <span class="n">to</span> <span class="mi">10000</span><span class="o">)</span> <span class="o">{</span>
@@ -157,14 +160,17 @@
 
 <h2>WithResult</h2>
 
-<p>パッケージプライベート <code>private[anorm]</code> のトレイト <code>WithResult</code> は、SELECT 結果を得るメゾッドを提供する。scala-arm の <code>resource.ManagedResource</code> により、自動的に <code>java.sql.(PreparedStatement|ResultSet)</code> がクローズされる。</p>
+<p><code>WithResult</code> は、SELECT 結果を得るメゾッドを提供する。scala-arm の <code>resource.ManagedResource</code> により、自動的に <code>java.sql.(PreparedStatement|ResultSet)</code> がクローズされる。</p>
 
 <h3>as</h3>
 
 <p><code>as</code> メゾッドに <code>ResultSetParser</code> を渡すことで、結果セットを任意のモデルに変換できる。</p>
 
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">parser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span>
-  <span class="nc">SqlParser</span><span class="o">.</span><span class="n">long</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="nc">SqlParser</span><span class="o">.</span><span class="n">str</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">)</span> <span class="n">map</span> <span class="o">{</span>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">anorm._</span>
+<span class="k">import</span> <span class="nn">anorm.SqlParser._</span>
+
+<span class="k">val</span> <span class="n">parser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span>
+  <span class="n">get</span><span class="o">[</span><span class="kt">Long</span><span class="o">](</span><span class="s">&quot;id&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="n">get</span><span class="o">[</span><span class="kt">String</span><span class="o">](</span><span class="s">&quot;email&quot;</span><span class="o">)</span> <span class="n">map</span> <span class="o">{</span>
     <span class="k">case</span> <span class="n">id</span> <span class="o">~</span> <span class="n">email</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">id</span> <span class="o">-&gt;</span> <span class="n">email</span><span class="o">)</span>
   <span class="o">}</span>
 
@@ -209,7 +215,95 @@
     <span class="o">}</span></code></pre></div>
 
 
+<h2>RowParser</h2>
 
+<p><code>RowParser[+A]</code> の実体は、関数 <code>Row =&gt; SqlResult[A]</code> である。<code>~</code> で <code>RowParser</code> を連結することができる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">RowParser</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="nc">extends</span> <span class="o">(</span><span class="nc">Row</span> <span class="k">=&gt;</span> <span class="nc">SqlResult</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="o">{</span> <span class="n">parent</span> <span class="k">=&gt;</span>
+  <span class="o">...</span>
+  <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">~</span><span class="o">[</span><span class="kt">+A</span>, <span class="kt">+B</span><span class="o">](</span><span class="n">_1</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">_2</span><span class="k">:</span> <span class="kt">B</span><span class="o">)</span>
+  <span class="o">...</span>
+  <span class="k">def</span> <span class="o">~[</span><span class="kt">B</span><span class="o">](</span><span class="n">p</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">A</span> <span class="kt">~</span> <span class="kt">B</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nc">RowParser</span><span class="o">(</span><span class="n">row</span> <span class="k">=&gt;</span> <span class="n">parent</span><span class="o">(</span><span class="n">row</span><span class="o">).</span><span class="n">flatMap</span><span class="o">(</span><span class="n">a</span> <span class="k">=&gt;</span> <span class="n">p</span><span class="o">(</span><span class="n">row</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">new</span> <span class="o">~(</span><span class="n">a</span><span class="o">,</span> <span class="k">_</span><span class="o">))))</span>
+  <span class="o">...</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">parser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">Long</span> <span class="kt">~</span> <span class="kt">String</span> <span class="kt">~</span> <span class="kt">Int</span> <span class="kt">~</span> <span class="kt">java.util.Date</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">long</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="n">str</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="n">int</span><span class="o">(</span><span class="s">&quot;status&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="n">date</span><span class="o">(</span><span class="s">&quot;birthday&quot;</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">userParser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span> <span class="k">=</span> <span class="n">parser</span> <span class="n">map</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="n">id</span> <span class="o">~</span> <span class="n">email</span> <span class="o">~</span> <span class="n">status</span> <span class="o">~</span> <span class="n">birthday</span> <span class="k">=&gt;</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">email</span><span class="o">,</span> <span class="n">status</span><span class="o">,</span> <span class="n">birthday</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>正確には連結しているように見えるだけで、<code>case class ~[+A, +B](_1: A, _2: B)</code> がネストしているだけである。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">parser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">~</span><span class="o">[</span><span class="kt">~</span><span class="o">[</span><span class="kt">~</span><span class="o">[</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">]</span>, <span class="kt">Int</span><span class="o">]</span>, <span class="kt">java.util.Date</span><span class="o">]]</span> <span class="k">=</span>
+  <span class="o">~(~(~(</span><span class="n">long</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">),</span> <span class="n">str</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">)),</span> <span class="n">int</span><span class="o">(</span><span class="s">&quot;status&quot;</span><span class="o">)),</span> <span class="n">date</span><span class="o">(</span><span class="s">&quot;birthday&quot;</span><span class="o">))</span>
+<span class="k">val</span> <span class="n">userParser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span> <span class="k">=</span> <span class="n">parser</span> <span class="n">map</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="o">~(~(~(</span><span class="n">id</span><span class="o">,</span> <span class="n">email</span><span class="o">),</span> <span class="n">status</span><span class="o">,</span> <span class="n">birthday</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">email</span><span class="o">,</span> <span class="n">status</span><span class="o">,</span> <span class="n">birthday</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<h3>Row</h3>
+
+<p><code>Row</code> は、<code>java.sql.ResultSet</code> を内部に持つ <code>Cursor</code> を介して得られる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Cursor</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">row</span><span class="k">:</span> <span class="kt">Row</span>
+  <span class="k">def</span> <span class="n">next</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Cursor</span><span class="o">]</span>
+<span class="o">}</span>
+
+<span class="k">object</span> <span class="nc">Cursor</span> <span class="o">{</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">anorm</span><span class="o">]</span> <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">rs</span><span class="k">:</span> <span class="kt">ResultSet</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Cursor</span><span class="o">]</span> <span class="k">=</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">rs</span><span class="o">.</span><span class="n">next</span><span class="o">)</span> <span class="nc">None</span> <span class="k">else</span> <span class="nc">Some</span><span class="o">(</span><span class="k">new</span> <span class="nc">Cursor</span> <span class="o">{</span>
+      <span class="o">...</span>
+    <span class="o">})</span>
+  <span class="o">...</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>カラム情報 <code>MetaData</code> と SELECT 節の <code>List[Any]</code> を内部に持ち、<code>apply[T]</code> でカラム名か位置番号からカラム値を得ることができる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">Row</span> <span class="o">{</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">anorm</span><span class="o">]</span> <span class="k">def</span> <span class="n">metaData</span><span class="k">:</span> <span class="kt">MetaData</span>
+  <span class="k">private</span><span class="o">[</span><span class="kt">anorm</span><span class="o">]</span> <span class="k">val</span> <span class="n">data</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Any</span><span class="o">]</span>
+  <span class="o">...</span>
+  <span class="k">def</span> <span class="n">apply</span><span class="o">[</span><span class="kt">B</span><span class="o">](</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">c</span><span class="k">:</span> <span class="kt">Column</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">B</span> <span class="o">=</span> <span class="o">???</span>
+  <span class="k">def</span> <span class="n">apply</span><span class="o">[</span><span class="kt">B</span><span class="o">](</span><span class="n">position</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">c</span><span class="k">:</span> <span class="kt">Column</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">B</span> <span class="o">=</span> <span class="o">???</span>
+  <span class="o">...</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>Column[T]</code> が Any から指定した型への変換器で、<code>anorm.Column._</code> に implicit で変換可能なパターンが定義されている。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">Column</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="nc">extends</span> <span class="o">((</span><span class="nc">Any</span><span class="o">,</span> <span class="nc">MetaDataItem</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">MayErr</span><span class="o">[</span><span class="kt">SqlRequestError</span>, <span class="kt">A</span><span class="o">])</span></code></pre></div>
+
+
+<h3>SqlResult</h3>
+
+<p><code>SqlResult</code> は <code>Row</code> の指定カラムの解析結果となる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Success</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">SqlResult</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Error</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">SqlRequestError</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">SqlResult</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span></code></pre></div>
+
+
+<p>モナド則を満たしており、連結した RowParser で複数カラムを変換する過程で、いずれかに失敗するとエラーになる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">SqlParser</span> <span class="o">{</span>
+  <span class="o">...</span>
+  <span class="k">def</span> <span class="n">get</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">extractor</span><span class="k">:</span> <span class="kt">Column</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nc">RowParser</span> <span class="o">{</span> <span class="n">row</span> <span class="k">=&gt;</span>
+      <span class="o">(</span><span class="k">for</span> <span class="o">{</span>
+        <span class="c1">// Does the column exist?</span>
+        <span class="n">col</span> <span class="k">&lt;-</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="c1">// MayErr[SqlRequestError, (Any, MetaDataItem)]</span>
+        <span class="c1">// Can the extractor convert the column value?</span>
+        <span class="n">res</span> <span class="k">&lt;-</span> <span class="n">extractor</span><span class="o">.</span><span class="n">tupled</span><span class="o">(</span><span class="n">col</span><span class="o">)</span> <span class="c1">// (Any, MetaDataItem) =&gt; MayErr[SqlRequestError, A]</span>
+      <span class="o">}</span> <span class="k">yield</span> <span class="n">res</span><span class="o">).</span><span class="n">fold</span><span class="o">(</span><span class="nc">Error</span><span class="o">(</span><span class="k">_</span><span class="o">),</span> <span class="nc">Success</span><span class="o">(</span><span class="k">_</span><span class="o">))</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p><code>MayErr</code> についてはAPI公開されているが、すでに非推奨であり使うことはない。<em>for-comprehension</em> で記述するための内部クラスで <code>Either</code> の <code>RightProjection</code> のようなものと理解しておけばよい。</p>
 
           </div>
           
