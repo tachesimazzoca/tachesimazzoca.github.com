@@ -337,7 +337,7 @@
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">parser</span> <span class="k">=</span> <span class="nc">RowParser</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">Map</span><span class="o">)]</span> <span class="o">{</span>
   <span class="k">case</span> <span class="nc">Row</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">email</span><span class="k">:</span> <span class="kt">Some</span><span class="o">(</span><span class="kt">String</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="nc">Success</span><span class="o">(</span><span class="n">id</span> <span class="o">-&gt;</span> <span class="n">email</span><span class="o">)</span>
-  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Error</span><span class="o">(</span><span class="nc">TypeDoesNotMatch</span><span class="o">(</span><span class="s">&quot;The email must be not null&quot;</span><span class="o">))</span> 
+  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Error</span><span class="o">(</span><span class="nc">TypeDoesNotMatch</span><span class="o">(</span><span class="s">&quot;The email must be not null&quot;</span><span class="o">))</span>
 <span class="o">}</span>
 
 <span class="k">val</span> <span class="n">userMap</span> <span class="k">=</span> <span class="nc">SQL</span><span class="o">(</span><span class="s">&quot;SELECT id, email FROM users&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">(</span><span class="n">parser</span><span class="o">.*).</span><span class="n">toMap</span></code></pre></div>
@@ -368,6 +368,27 @@
 
 
 <p><code>MayErr</code> についてはAPI公開されているが、すでに非推奨であり使うことはない。<em>for-comprehension</em> で記述するための内部クラスで <code>Either</code> の <code>RightProjection</code> のようなものと理解しておけばよい。</p>
+
+<h2>ResultSetParser</h2>
+
+<p><code>ResultSetParser[+A]</code> の実体は 関数 <code>Option[Cursor] =&gt; SqlResult[A]</code> である。<code>RowParser</code> のメゾッドから得られる。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">parser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="n">long</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="n">str</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">)</span> <span class="n">map</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="n">id</span> <span class="o">~</span> <span class="n">email</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">id</span> <span class="o">-&gt;</span> <span class="n">email</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="c1">// Possibly empty list</span>
+<span class="k">val</span> <span class="n">userList</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="nc">SQL</span><span class="o">(</span><span class="s">&quot;SELECT * FROM users&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">(</span><span class="n">parser</span><span class="o">.*)</span>
+<span class="c1">// Raise error if there is no result</span>
+<span class="k">val</span> <span class="n">notEmptyList</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="nc">SQL</span><span class="o">(</span><span class="s">&quot;SELECT * FROM users&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">(</span><span class="n">parser</span><span class="o">.+)</span>
+<span class="c1">// Expecting exactly one row</span>
+<span class="k">val</span> <span class="n">user</span><span class="k">:</span> <span class="o">(</span><span class="kt">Long</span><span class="o">,</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="nc">SQL</span><span class="o">(</span><span class="s">&quot;SELECT * FROM users WHERE id = {id}&quot;</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">on</span><span class="o">(</span><span class="-Symbol">&#39;id</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="o">).</span><span class="n">as</span><span class="o">(</span><span class="n">parser</span><span class="o">.</span><span class="n">single</span><span class="o">)</span>
+<span class="c1">// Expecting none or one row</span>
+<span class="k">val</span> <span class="n">userOpt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="nc">SQL</span><span class="o">(</span><span class="s">&quot;SELECT * FROM users WHERE id = {id}&quot;</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">on</span><span class="o">(</span><span class="-Symbol">&#39;id</span> <span class="o">-&gt;</span> <span class="mi">2</span><span class="o">).</span><span class="n">as</span><span class="o">(</span><span class="n">parser</span><span class="o">.</span><span class="n">singleOpt</span><span class="o">)</span></code></pre></div>
+
+
+
 
           </div>
           
