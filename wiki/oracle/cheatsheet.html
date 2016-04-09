@@ -155,21 +155,6 @@ SQL&gt; SELECT * FROM dba_sys_privs WHERE grantee = &lt;role&gt;;
 SQL&gt; SELECT * FROM dba_role_privs WHERE grantee = &lt;user&gt;;
 </code></pre>
 
-<h2>Selecting Slow Queries</h2>
-
-<pre><code>SELECT * FROM (
-    SELECT
-        ROUND(cpu_time/executions/1000, 3) AS cpu_time_avg,
-        ROUND(elapsed_time/executions/1000, 3) AS elapsed_time_avg,
-        executions,
-        sql_text
-    FROM v$sqlstats
-    WHERE executions &gt; 0
-    ORDER BY cpu_time_avg DESC
-)
-WHERE rownum &lt;= 50;
-</code></pre>
-
           </div>
           
         </div>
