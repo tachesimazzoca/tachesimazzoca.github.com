@@ -170,6 +170,20 @@ SQL&gt; SELECT * FROM dba_role_privs WHERE grantee = &lt;user&gt;;
 WHERE rownum &lt;= 50;
 </code></pre>
 
+<h2>Selecting Locked Sessions</h2>
+
+<pre><code>SELECT
+  sid, serial#, sql_address, program, machine
+FROM
+  v$session
+WHERE sid IN (
+  SELECT sid FROM v$lock WHERE type IN ('TX', 'TM')
+);
+
+-- Display SQL from v$session.sql_address
+SELECT sql_text FROM v$sqlarea WHERE address = ?;
+</code></pre>
+
           </div>
           
         </div>
