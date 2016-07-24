@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Docker | </title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        
+        <div class="btn-group pull-right">
+          <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/docker/index.md">Raw</a>
+          <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/docker/index.md">Blame</a>
+          <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/docker/index.md">History</a>
+        </div>
+        <div id="content">
+        <h1>Docker</h1>
+        <div id="toc">
+        </div>
+        <h2>Installation</h2>
+
+<h3>CentOS7</h3>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>su -
+
+<span class="nv">$ </span>cat /etc/yum.repos.d/docker.repo
+<span class="o">[</span>dockerrepo<span class="o">]</span>
+<span class="nv">name</span><span class="o">=</span>Docker Repository
+<span class="nv">baseurl</span><span class="o">=</span>https://yum.dockerproject.org/repo/main/centos/<span class="nv">$releasever</span>/
+<span class="nv">enabled</span><span class="o">=</span>0
+<span class="nv">gpgcheck</span><span class="o">=</span>1
+<span class="nv">gpgkey</span><span class="o">=</span>https://yum.dockerproject.org/gpg
+
+<span class="nv">$ </span>yum install --enablerepo<span class="o">=</span>dockerrepo docker-engine
+<span class="nv">$ </span>systemctl start docker.service
+
+<span class="c"># When the docker daemon starts, it makes the ownership</span>
+<span class="c"># of the Unix socket read/writable by the docker group.</span>
+<span class="nv">$ </span>useradd -g docker docker
+
+<span class="nv">$ </span>su - docker
+<span class="nv">$ </span>docker run hello-world</code></pre></div>
+
+
+<h2>Docker CLI</h2>
+
+<ul>
+<li><a href="https://docs.docker.com/v1.11/engine/reference/commandline/cli/">Use the Docker command line</a></li>
+<li><a href="https://hub.docker.com/explore/">Explore Official Repositories</a></li>
+</ul>
+
+
+<h3>Images</h3>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>docker search centos
+...
+<span class="nv">$ </span>docker pull centos
+<span class="nv">$ </span>docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+centos              latest              05188b417f30        <span class="m">2</span> days ago          196.8 MB
+
+<span class="nv">$ </span>docker pull centos:5
+<span class="nv">$ </span>docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+centos              <span class="m">5</span>                   cfbd8d982733        <span class="m">2</span> days ago          284.7 MB
+centos              latest              05188b417f30        <span class="m">2</span> days ago          196.8 MB
+
+<span class="nv">$ </span>docker images --format <span class="s2">&quot;{{.ID}}: {{.Repository}}:{{.Tag}}&quot;</span>
+cfbd8d982733: centos:5
+05188b417f30: centos:latest
+
+<span class="c"># Remove the image &quot;centos:5&quot;</span>
+<span class="nv">$ </span>docker rmi centos:5
+<span class="nv">$ </span>docker images --format <span class="s2">&quot;{{.ID}}: {{.Repository}}:{{.Tag}}&quot;</span>
+05188b417f30: centos:latest</code></pre></div>
+
+
+<h4>Dockerfile</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>mkdir /path/to/your/own/image
+<span class="nv">$ </span><span class="nb">cd</span> /path/to/your/own/image
+<span class="nv">$ </span>vi Dockerfile
+FROM centos:6
+RUN yum update <span class="o">&amp;&amp;</span> yum install -y postgresql-server <span class="o">&amp;&amp;</span> service postgresql initdb
+<span class="nv">$ </span>docker build .
+...
+Successfully built d7fc31cb7cec
+<span class="nv">$ </span>docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+&lt;none&gt;              &lt;none&gt;              d7fc31cb7cec        About a minute ago   305.3 MB</code></pre></div>
+
+
+<h3>Containers</h3>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># -t: Allocate a pseudo-TTY</span>
+<span class="c"># -i: Keep STDIN open even if not attached</span>
+<span class="nv">$ </span>docker run -t -i centos /bin/bash
+<span class="o">[</span>root@2cbe4afe6840<span class="o">]</span><span class="c"># uname -r</span>
+3.10.0-327.22.2.el7.x86_64
+<span class="o">[</span>root@2cbe4afe6840<span class="o">]</span><span class="c"># exit</span>
+<span class="nb">exit</span>
+
+<span class="c"># List all conatainers</span>
+<span class="nv">$ </span>docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS ...
+2cbe4afe6840        centos              <span class="s2">&quot;/bin/bash&quot;</span>         <span class="m">36</span> seconds ago      Exited <span class="o">(</span>0<span class="o">)</span> <span class="m">12</span> seconds ago ...
+
+<span class="c"># Fetch logs of the container ID:2cbe4afe6840</span>
+<span class="nv">$ </span>docker logs 2cbe4afe6840
+<span class="o">[</span>root@2cbe4afe6840 /<span class="o">]</span><span class="c"># uname -r</span>
+3.10.0-327.22.2.el7.x86_64
+<span class="o">[</span>root@2cbe4afe6840 /<span class="o">]</span><span class="c"># exit</span>
+<span class="nb">exit</span>
+
+<span class="c"># Stop and then remove the container ID:2cbe4afe6840</span>
+<span class="nv">$ </span>docker stop 2cbe4afe6840
+<span class="nv">$ </span>docker rm 2cbe4afe6840</code></pre></div>
+
+
+<h2>Docker Machine</h2>
+
+<ul>
+<li><a href="https://docs.docker.com/v1.11/machine/reference/">Docker Machine CLI Reference</a></li>
+</ul>
+
+
+<p>On <a href="https://docs.docker.com/v1.11/engine/installation/mac/">Mac OS X</a> or <a href="https://docs.docker.com/v1.11/engine/installation/windows/">Windows</a>, you need to launch a Docker host on a virtual machine driver, such as Oracle VirtualBox. You can manage docker hosts with the <code>docker-machine</code> command in Docker Toolbox.</p>
+
+<h3>Mac OS X</h3>
+
+<p>Just Launching the <em>Docker Quickstart Terminal.app</em> starts the virtual machine <code>default</code> having a Docker host and then adds the ENV variables to use the docker command.</p>
+
+<p><code>/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh</code> is a nice example for beginners, which shows how to create and launch a Docker host with Oracle VirtualBox.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Create a VirtualBox machine named as &quot;default&quot; </span>
+<span class="nv">$ </span>docker-machine create -d virtualbox --virtualbox-memory <span class="m">2048</span> --virtualbox-disk-size <span class="m">204800</span> default
+<span class="nv">$ </span>docker-machine start default
+<span class="nv">$ </span>docker-machine ls
+NAME      ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER    ERRORS
+default   *        virtualbox   Running   tcp://192.168.99.100:2376           v1.10.2   
+
+<span class="c"># Before using the docker command, you need to add ENV variables referred to the docker machine.</span>
+<span class="nv">$ </span>docker info
+Cannot connect to the Docker daemon. Is the docker daemon running on this host?
+<span class="nv">$ </span>docker-machine env --shell<span class="o">=</span>bash default
+<span class="nb">export </span><span class="nv">DOCKER_TLS_VERIFY</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>
+<span class="nb">export </span><span class="nv">DOCKER_HOST</span><span class="o">=</span><span class="s2">&quot;tcp://192.168.99.100:2376&quot;</span>
+...
+<span class="nb">export </span><span class="nv">DOCKER_MACHINE_NAME</span><span class="o">=</span><span class="s2">&quot;default&quot;</span>
+...
+<span class="nv">$ </span><span class="nb">eval</span> <span class="s2">&quot;$(docker-machine env --shell=bash default)&quot;</span>
+
+<span class="nv">$ </span>docker info
+...
+
+<span class="c"># Explore the virtual machine with SSH</span>
+<span class="nv">$ </span>docker-machine ssh default
+
+<span class="c"># Stop the virtual machine &quot;default&quot;</span>
+<span class="nv">$ </span>docker-machine stop default
+
+<span class="c"># Clean up the virtual machine &quot;default&quot;</span>
+<span class="nv">$ </span>docker-machine rm -f default
+<span class="nv">$ </span>rm -rf ~/.docker/machine/machines/default</code></pre></div>
+
+
+<p>You would rather set the ENV variables in <code>~/.bash_profile</code>.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>cat ~/.bash_profile
+...
+<span class="nv">VM_STATUS</span><span class="o">=</span><span class="s2">&quot;$(docker-machine status default 2&gt;&amp;1)&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;${VM_STATUS}&quot;</span> <span class="o">==</span> <span class="s2">&quot;Running&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">eval</span> <span class="s2">&quot;$(docker-machine env --shell=bash default)&quot;</span>
+<span class="k">fi</span></code></pre></div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
