@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tachesimazzoca - Wiki | Chef</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        
+        <div class="btn-group pull-right">
+          <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/chef/index.md">Raw</a>
+          <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/chef/index.md">Blame</a>
+          <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/chef/index.md">History</a>
+        </div>
+        <div id="content">
+        <h1>Chef</h1>
+        <div id="toc">
+        </div>
+        <h2>Overview</h2>
+
+<ul>
+<li><a href="https://docs.chef.io/install_omnibus.html">About the Omnibus Installer</a></li>
+<li><a href="http://docs.chef.io/client/ctl_chef_solo.html">chef-solo (executable)</a></li>
+<li><a href="https://docs.chef.io/resource.html">About Resources and Providers</a></li>
+<li><a href="https://github.com/opscode-cookbooks">Opscode Public Cookbooks</a></li>
+</ul>
+
+
+<h2>Installation</h2>
+
+<h3>Omnibus Installer</h3>
+
+<pre><code>% curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -v 11.8.2
+...
+
+% chef-client -v
+Chef: 11.8.2
+
+# Use a stable version of Ruby as part of the omnibus installer (Optional)
+# echo 'export PATH="/opt/chef/embedded/bin:$PATH"' &gt;&gt; ~/.bash_profile
+# source ~/.bash_profile
+% which ruby
+/opt/chef/embedded/bin/ruby
+</code></pre>
+
+<h2>Setup</h2>
+
+<h3>Knife</h3>
+
+<p>Create a <code>knife.rb</code> file.</p>
+
+<pre><code>% knife configure
+...
+% ls ~/.chef
+knife.rb
+</code></pre>
+
+<h2>Chef Solo</h2>
+
+<pre><code># Clone the chef-repo on github
+% git clone git://github.com/opscode/chef-repo.git
+% cd chef-repo
+
+# Create a chef-solo configuration file
+% vi solo.rb
+file_cache_path "/tmp/chef-solo"
+cookbook_path ["./cookbooks"]
+
+# Create a cookbook for httpd
+% knife cookbook create httpd -o cookbooks
+% vi cookbooks/httpd/recipes/default.rb
+package 'httpd' do
+  action :install
+end
+
+service 'httpd' do
+supports :status =&gt; true, :restart =&gt; true, :reload =&gt; true
+  action [:enable, :start]
+end
+
+# Create a node configuration file
+% vi localhost.json
+{
+  "run_list": [
+    "recipe[httpd]"
+  ]
+}
+
+% sudo chef-solo -c solo.rb -j localhost.json
+</code></pre>
+
+<h2>Tips</h2>
+
+<h3>Checking .rb .erb syntax</h3>
+
+<pre><code>% ruby -c path/to/cookbook/recipe/default.rb
+% erb -x path/to/cookbook/templates/default/httpd.conf.erb | ruby -c
+</code></pre>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+
