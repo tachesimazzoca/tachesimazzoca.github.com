@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Cheat Sheet | Oracle Database</title>
+<title>tachesimazzoca - Wiki | Unit Testing | Oracle Database</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
@@ -63,7 +63,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">Oracle Database</a></li><li>Cheat Sheet</li>
+        <li><a href="./index.html">Oracle Database</a></li><li>Unit Testing</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./installation.html">Installation</a></li><li><a href="./tips.html">Tips</a></li><li class="active"><a href="./cheatsheet.html">Cheat Sheet</a></li><li><a href="./ut.html">Unit Testing</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li><a href="./installation.html">Installation</a></li><li><a href="./tips.html">Tips</a></li><li><a href="./cheatsheet.html">Cheat Sheet</a></li><li class="active"><a href="./ut.html">Unit Testing</a></li></ul>
               </div>
             </div>
           </div>
@@ -83,105 +83,85 @@
         <div class="col-md-9 col-sm-8">
           
           <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/oracle/cheatsheet.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/oracle/cheatsheet.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/oracle/cheatsheet.md">History</a>
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/oracle/ut.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/oracle/ut.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/oracle/ut.md">History</a>
           </div>
           <div id="content">
-          <h1>Cheat Sheet</h1>
+          <h1>Unit Testing</h1>
           <div id="toc">
           </div>
-          <h2>Official Documents</h2>
+          <h2>Oracle SQL Developer 4.0</h2>
+
+<h3>Add Roles to Unit Test Users</h3>
+
+<p>Grant the following privileges to each user.</p>
+
+<pre><code>grant connect, resource, create view to &lt;user&gt;;
+</code></pre>
+
+<p>And then create the <code>UT_REPO_(USER|ADMINISTORATOR)</code> role and grant it to each user. The wizard of the Oracle SQL Developer will do the same thing if the user doesn't have any privileges to create a new unit test repository.</p>
+
+<pre><code>create role UT_REPO_ADMINISTRATOR;
+create role UT_REPO_USER;
+grant create public synonym,drop public synonym to UT_REPO_ADMINISTRATOR;
+grant select on dba_role_privs to UT_REPO_USER;
+grant select on dba_role_privs to UT_REPO_ADMINISTRATOR;
+grant select on dba_roles to UT_REPO_ADMINISTRATOR;
+grant select on dba_roles to UT_REPO_USER;
+grant select on dba_tab_privs to UT_REPO_ADMINISTRATOR;
+grant select on dba_tab_privs to UT_REPO_USER;
+grant execute on dbms_lock to UT_REPO_ADMINISTRATOR;
+grant execute on dbms_lock to UT_REPO_USER;
+grant UT_REPO_USER to UT_REPO_ADMINISTRATOR with admin option;
+grant UT_REPO_ADMINISTRATOR to &lt;user&gt; with admin option;
+</code></pre>
+
+<p>Since the AWS Oracle RDS restricts the master user from using the SYS objects, you need to do the same thing with the <code>rdsadmin.rdsadmin_util</code> package if you choose it.</p>
+
+<pre><code>create role UT_REPO_ADMINISTRATOR;
+create role UT_REPO_USER;
+grant create public synonym,drop public synonym to UT_REPO_ADMINISTRATOR;
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBA_ROLE_PRIVS', 'UT_REPO_ADMINISTRATOR');
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBA_ROLE_PRIVS', 'UT_REPO_USER');
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBA_ROLES', 'UT_REPO_ADMINISTRATOR');
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBA_ROLES', 'UT_REPO_USER');
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBA_TAB_PRIVS', 'UT_REPO_ADMINISTRATOR');
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBA_TAB_PRIVS', 'UT_REPO_USER');
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBMS_LOCK', 'UT_REPO_ADMINISTRATOR');
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBMS_LOCK', 'UT_REPO_USER');
+grant UT_REPO_USER to UT_REPO_ADMINISTRATOR with admin option;
+grant UT_REPO_ADMINISTRATOR to &lt;user&gt; with admin option;
+</code></pre>
+
+<h2>utPLSQL</h2>
 
 <ul>
-<li><code>http://docs.oracle.com/en/database/database.html</code></li>
+<li><a href="http://utplsql.sourceforge.net/">http://utplsql.sourceforge.net/</a></li>
 </ul>
 
 
-<h3>Oracle Database Online Documentation 11g Release 2 (11.2)</h3>
-
-<ul>
-<li><code>http://docs.oracle.com/cd/E11882_01/nav/portal_4.htm</code></li>
-</ul>
-
-
-<h2>Creating Users</h2>
+<p>Each testing user needs the following privileges.</p>
 
 <pre><code>% sqlplus / as sysdba
+SQL&gt; GRANT execute ON UTL_FILE to public;
+SQL&gt; GRANT execute ON DBMS_PIPE to public;
 
-SQL&gt; CREATE USER &lt;username&gt; IDENTIFIED BY &lt;password&gt;
-DEFAULT TABLESPACE users
-TEMPORARY TABLESPACE temp
-QUOTA UNLIMITED ON users;
-
-SQL&gt; GRANT CONNECT, RESOURCE TO &lt;user&gt;;
+SQL&gt; GRANT connect, resource, create view TO &lt;user&gt;;
+SQL&gt; GRANT create public synonym, drop public synonym to &lt;user&gt;;
 </code></pre>
 
-<h2>Describing User Tables</h2>
+<p>Download and unzip <code>plsql-x-x-x.zip</code>. Then <code>cd</code> to the directory that contains the file <code>ut_i_do.sql</code>.</p>
 
-<pre><code>SQL&gt; DESCRIBE &lt;table&gt;
-</code></pre>
+<pre><code>% unzip -d plsql-2-3-0 plsql-2-3-0.zip
+% cd plsql-2-3-0/code
+% sqlplus &lt;user&gt;
+...
+-- The ut_i_do.sql must be in the current directory.
+SQL&gt; @ut_i_do install;
 
-<p>or issue the following SQL</p>
-
-<pre><code>SELECT * FROM user_tab_columns
-WHERE
-    table_name = &lt;table&gt;
-ORDER BY
-    column_id;
-</code></pre>
-
-<p>The columns of <code>user_tab_columns</code> (except for OWNER) are the same as those in <code>all_tab_columns</code>.</p>
-
-<ul>
-<li><code>http://docs.oracle.com/cd/E11882_01/server.112/e40402/statviews_2103.htm#REFRN20277</code></li>
-</ul>
-
-
-<h2>Describing Roles</h2>
-
-<pre><code>SQL&gt; GRANT CONNECT, RESOURCE TO &lt;role&gt;;
-SQL&gt; GRANT &lt;role&gt; TO &lt;user&gt;;
-
--- Select all role names
-SQL&gt; SELECT * FROM dba_roles;
-
--- Select privileges of each role
-SQL&gt; SELECT * FROM role_sys_privs WHERE role = 'CONNECT';
-SQL&gt; SELECT * FROM role_sys_privs WHERE role = 'RESOURCE';
-
--- Select granted roles of each grantee
-SQL&gt; SELECT * FROM dba_sys_privs WHERE grantee = &lt;role&gt;;
-SQL&gt; SELECT * FROM dba_role_privs WHERE grantee = &lt;user&gt;;
-</code></pre>
-
-<h2>Selecting Slow Queries</h2>
-
-<pre><code>SELECT * FROM (
-    SELECT
-        ROUND(cpu_time/executions/1000, 3) AS cpu_time_avg,
-        ROUND(elapsed_time/executions/1000, 3) AS elapsed_time_avg,
-        executions,
-        sql_text
-    FROM v$sqlstats
-    WHERE executions &gt; 0
-    ORDER BY cpu_time_avg DESC
-)
-WHERE rownum &lt;= 50;
-</code></pre>
-
-<h2>Selecting Locked Sessions</h2>
-
-<pre><code>SELECT
-  sid, serial#, sql_address, program, machine
-FROM
-  v$session
-WHERE sid IN (
-  SELECT sid FROM v$lock WHERE type IN ('TX', 'TM')
-);
-
--- Display SQL from v$session.sql_address
-SELECT sql_text FROM v$sqlarea WHERE address = ?;
+-- To uninstall, ...
+SQL&gt; @ut_i_do uninstall;
 </code></pre>
 
           </div>
