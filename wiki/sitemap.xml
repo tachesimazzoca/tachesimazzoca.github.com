@@ -6,6 +6,7 @@
 <url><loc>/wiki/android/tools/adb.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/adjectives.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/adverbs.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/anomaly_detection.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/play/scala/anorm.html</loc><lastmod>2016-03-28T00:00:23+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/determiners/articles.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/android/tools/avd.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
@@ -14,6 +15,7 @@
 <url><loc>/wiki/gitolite/basic.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/rvm/basic.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/sbt/basic.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/crypto/block_ciphers.html</loc><lastmod>2015-09-16T07:42:57+09:00</lastmod></url>
 <url><loc>/wiki/java/bookmarks.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/android/broadcast.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/haskell/cabal.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
@@ -23,6 +25,8 @@
 <url><loc>/wiki/oracle/cheatsheet.html</loc><lastmod>2016-07-24T16:21:17+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/clauses.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/aws/cloudfront.html</loc><lastmod>2015-07-11T17:45:43+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/clustering.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/collaborative_filtering.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/mahout/command.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/english/phrases/condition.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/haproxy/configuration.html</loc><lastmod>2015-07-11T11:13:27+09:00</lastmod></url>
@@ -37,6 +41,7 @@
 <url><loc>/wiki/english/grammar/tenses/future.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/gerunds.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/haskell/ghc.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/gradient_descent.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/virtualbox/guest_additions.html</loc><lastmod>2015-12-26T13:04:59+09:00</lastmod></url>
 <url><loc>/wiki/play/scala/http.html</loc><lastmod>2016-03-28T00:00:23+09:00</lastmod></url>
 <url><loc>/wiki/java/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
@@ -47,6 +52,7 @@
 <url><loc>/wiki/pgsql/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/haproxy/index.html</loc><lastmod>2015-07-11T11:13:27+09:00</lastmod></url>
 <url><loc>/wiki/gitolite/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/tenses/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/english/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/git/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
@@ -61,6 +67,7 @@
 <url><loc>/wiki/httpd/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/docker/index.html</loc><lastmod>2016-07-24T16:46:57+09:00</lastmod></url>
 <url><loc>/wiki/haskell/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/crypto/index.html</loc><lastmod>2015-08-15T14:11:14+09:00</lastmod></url>
 <url><loc>/wiki/postfix/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/scala/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/aws/index.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
@@ -72,7 +79,7 @@
 <url><loc>/wiki/sbt/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/sbt/plugins/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/android/tools/index.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
-<url><loc>/wiki/index.html</loc><lastmod>2016-07-24T16:35:27+09:00</lastmod></url>
+<url><loc>/wiki/index.html</loc><lastmod>2016-07-24T17:14:22+09:00</lastmod></url>
 <url><loc>/wiki/vagrant/index.html</loc><lastmod>2015-12-26T13:05:45+09:00</lastmod></url>
 <url><loc>/wiki/virtualbox/index.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/oracle/index.html</loc><lastmod>2015-05-31T17:26:24+09:00</lastmod></url>
@@ -95,20 +102,27 @@
 <url><loc>/wiki/java/basics/io.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/play/scala/iteratees.html</loc><lastmod>2016-03-28T00:00:23+09:00</lastmod></url>
 <url><loc>/wiki/java/jad.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/linear_regression.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/haskell/links.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/english/phrases/location.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/math/algebra/logarithms.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/haproxy/logging.html</loc><lastmod>2015-07-11T11:13:27+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/logistic_regression.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/crypto/macs.html</loc><lastmod>2015-09-07T00:10:58+09:00</lastmod></url>
 <url><loc>/wiki/virtualbox/manager.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/android/manifest.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/android/material.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/java/basics/math.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/modals.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/neural_networks.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/haskell/notations.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/android/notifications.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/nouns.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/crypto/overview.html</loc><lastmod>2015-09-15T06:51:30+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/overview.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/rails3/tutorial/page.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/passive.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/pca.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/android/preferences.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/prepositions.html</loc><lastmod>2016-04-11T02:06:23+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/tenses/present_continuous.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
@@ -120,6 +134,7 @@
 <url><loc>/wiki/rails3/pry.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/determiners/quantifiers.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/java/basics/reflection.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/regularization.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/mysql/replication.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/english/phrases/reported_speech.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/rails3/rspec.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
@@ -129,7 +144,10 @@
 <url><loc>/wiki/java/start.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/rails3/tutorial/static.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/android/storage.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
+<url><loc>/wiki/crypto/stream_ciphers.html</loc><lastmod>2015-09-15T06:51:41+09:00</lastmod></url>
 <url><loc>/wiki/english/grammar/subjunctive.html</loc><lastmod>2015-05-17T21:05:21+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/svm.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
+<url><loc>/wiki/machine_learning/testing.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/android/threads.html</loc><lastmod>2015-04-26T23:54:09+09:00</lastmod></url>
 <url><loc>/wiki/english/phrases/time.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
 <url><loc>/wiki/linux/tips.html</loc><lastmod>2015-04-26T23:54:10+09:00</lastmod></url>
