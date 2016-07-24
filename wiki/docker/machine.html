@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tachesimazzoca - Wiki | Docker Machine | Docker</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Docker</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Docker</a></li><li>Docker Machine</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./installation.html">Installation</a></li><li><a href="./cli.html">Docker CLI</a></li><li class="active"><a href="./machine.html">Docker Machine</a></li><li><a href="./dockerfile.html">Dockerfile</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/docker/machine.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/docker/machine.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/docker/machine.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Docker Machine</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<ul>
+<li><a href="https://docs.docker.com/v1.11/machine/reference/">Docker Machine CLI Reference</a></li>
+</ul>
+
+
+<p>On <a href="https://docs.docker.com/v1.11/engine/installation/mac/">Mac OS X</a> or <a href="https://docs.docker.com/v1.11/engine/installation/windows/">Windows</a>, you need to launch a Docker host on a virtual machine driver, such as Oracle VirtualBox. You can manage docker hosts with the <code>docker-machine</code> command in Docker Toolbox.</p>
+
+<h2>Mac OS X</h2>
+
+<p>Just Launching the <em>Docker Quickstart Terminal.app</em> starts the virtual machine <code>default</code> having a Docker host and then adds the ENV variables to use the <code>docker</code> command.</p>
+
+<p><code>/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh</code> is a nice example for beginners, which shows how to create and launch a Docker host with Oracle VirtualBox.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Create a VirtualBox machine named as &quot;default&quot;</span>
+<span class="nv">$ </span>docker-machine create -d virtualbox --virtualbox-memory <span class="m">2048</span> --virtualbox-disk-size <span class="m">204800</span> default
+<span class="nv">$ </span>docker-machine start default
+<span class="nv">$ </span>docker-machine ls
+NAME      ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER    ERRORS
+default   *        virtualbox   Running   tcp://192.168.99.100:2376           v1.10.2
+
+<span class="c"># Before using the docker command, you need to add ENV variables referred to the docker machine.</span>
+<span class="nv">$ </span>docker info
+Cannot connect to the Docker daemon. Is the docker daemon running on this host?
+<span class="nv">$ </span>docker-machine env --shell<span class="o">=</span>bash default
+<span class="nb">export </span><span class="nv">DOCKER_TLS_VERIFY</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>
+<span class="nb">export </span><span class="nv">DOCKER_HOST</span><span class="o">=</span><span class="s2">&quot;tcp://192.168.99.100:2376&quot;</span>
+...
+<span class="nb">export </span><span class="nv">DOCKER_MACHINE_NAME</span><span class="o">=</span><span class="s2">&quot;default&quot;</span>
+...
+<span class="nv">$ </span><span class="nb">eval</span> <span class="s2">&quot;$(docker-machine env --shell=bash default)&quot;</span>
+
+<span class="nv">$ </span>docker info
+...
+
+<span class="c"># Explore the virtual machine with SSH</span>
+<span class="nv">$ </span>docker-machine ssh default
+
+<span class="c"># Stop the virtual machine &quot;default&quot;</span>
+<span class="nv">$ </span>docker-machine stop default
+
+<span class="c"># Clean up the virtual machine &quot;default&quot;</span>
+<span class="nv">$ </span>docker-machine rm -f default
+<span class="nv">$ </span>rm -rf ~/.docker/machine/machines/default</code></pre></div>
+
+
+<p>You would rather set the ENV variables in <code>~/.bash_profile</code> than evaluates them manually each login.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>cat ~/.bash_profile
+...
+<span class="nv">VM_STATUS</span><span class="o">=</span><span class="s2">&quot;$(docker-machine status default 2&gt;&amp;1)&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;${VM_STATUS}&quot;</span> <span class="o">==</span> <span class="s2">&quot;Running&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">eval</span> <span class="s2">&quot;$(docker-machine env --shell=bash default)&quot;</span>
+<span class="k">fi</span></code></pre></div>
+
+
+<p>The command <code>docker-machine stop</code> stops the virtual machine managing the docker daemon, so that all the containers will be stopped. That means you need to restart each container even after restarting the docker machine or add some scripts to start containers.</p>
+
+<p>Fortunately, on the <code>virtualbox</code> driver, the VirtualBox Manager allows you to save the machine state.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Save the machine state for the sake of later use</span>
+<span class="nv">$ </span>VBoxManage controlvm default savestate
+<span class="c"># Restart the machine when needed</span>
+<span class="nv">$ </span>docker-machine start <span class="o">&amp;&amp;</span> <span class="nb">eval</span> <span class="s2">&quot;$(docker-machine env default)&quot;</span></code></pre></div>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+

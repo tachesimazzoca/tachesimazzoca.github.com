@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tachesimazzoca - Wiki | Dockerfile | Docker</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+        </div>
+        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.html">Docker</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon" style="background: transparent; border-color: #333">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="as_q" placeholder="Search">
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#header-->
+
+
+  <div id="main">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Docker</a></li><li>Dockerfile</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li><a href="./installation.html">Installation</a></li><li><a href="./cli.html">Docker CLI</a></li><li><a href="./machine.html">Docker Machine</a></li><li class="active"><a href="./dockerfile.html">Dockerfile</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+          
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/docker/dockerfile.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/docker/dockerfile.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/docker/dockerfile.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Dockerfile</h1>
+          <div id="toc">
+          </div>
+          <h2>Overview</h2>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>cat Dockerfile
+FROM nginx
+COPY html /usr/share/nginx/html
+
+<span class="nv">$ </span>mkdir html
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;&lt;html&gt;&lt;body&gt;Hello World&lt;body&gt;&lt;/html&gt;&#39;</span> &gt; html/index.html
+
+<span class="nv">$ </span>docker build -t <span class="nb">local</span>/nginx .
+
+...
+
+<span class="nv">$ </span>docker run -d -p 8080:80 --name web <span class="nb">local</span>/nginx
+<span class="nv">$ </span>curl <span class="s2">&quot;http://$(docker-machine ip default):8080&quot;</span>
+&lt;html&gt;&lt;body&gt;Hello World&lt;body&gt;&lt;/html&gt;</code></pre></div>
+
+
+<h2>mysql-server</h2>
+
+<div class="highlight"><pre><code class="language-dockerfile" data-lang="dockerfile"><span class="k">FROM</span> centos:6
+
+<span class="k">RUN</span> yum update -y
+<span class="k">RUN</span> yum -y install http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm <span class="o">&amp;&amp;</span> <span class="err">\</span>
+  yum install -y mysql-server
+
+<span class="c"># Simulate mysql_secure_installation</span>
+<span class="k">RUN</span> service mysqld start <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="err">&quot;\</span>
+  DELETE FROM mysql.user WHERE <span class="nv">user</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span> AND host NOT IN <span class="o">(</span><span class="s1">&#39;localhost&#39;</span>, <span class="s1">&#39;127.0.0.1&#39;</span>, <span class="s1">&#39;::1&#39;</span><span class="o">)</span><span class="p">;</span> <span class="err">\</span>
+  DELETE FROM mysql.user WHERE <span class="nv">user</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="err">\</span>
+  DELETE FROM mysql.db WHERE db LIKE <span class="s1">&#39;test%&#39;</span><span class="p">;</span> <span class="err">\</span>
+  FLUSH PRIVILEGES<span class="p">;</span><span class="err">&quot;</span> <span class="p">|</span> mysql -u root
+
+<span class="k">EXPOSE</span> <span class="m">3306</span>
+<span class="k">CMD</span> <span class="o">[</span> <span class="err">\</span>
+  <span class="s2">&quot;/usr/sbin/mysqld&quot;</span>, <span class="err">\</span>
+  <span class="s2">&quot;--datadir=/var/lib/mysql&quot;</span>, <span class="err">\</span>
+  <span class="s2">&quot;--socket=/var/lib/mysql/mysql.sock&quot;</span>, <span class="err">\</span>
+  <span class="s2">&quot;--pid-file=/var/run/mysqld/mysqld.pid&quot;</span>, <span class="err">\</span>
+  <span class="s2">&quot;--basedir=/usr&quot;</span>, <span class="err">\</span>
+  <span class="s2">&quot;--user=mysql&quot;</span> <span class="err">\</span>
+<span class="o">]</span></code></pre></div>
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/#main-->
+  <div id="footer">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal pull-right">
+        <dt><span class="muted">Repository</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+        <dt><span class="muted">Author</span></dt>
+        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<!--Google Analytics-->
+<script type="text/javascript">
+
+if ("tachesimazzoca.github.io" == location.hostname) {
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35398490-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+
+</script>
+<!--/Google Analytics-->
+
+</body>
+</html>
+

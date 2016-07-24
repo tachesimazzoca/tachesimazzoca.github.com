@@ -4,11 +4,24 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Docker</title>
+<title>tachesimazzoca - Wiki | Installation | Docker</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<script src="../assets/javascripts/jquery.toctree.js"></script>
+<script>
+
+(function($) {
+
+    $(function() {
+        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+    });
+
+})(window.jQuery);
+
+</script>
 </head>
 <body>
 <div id="wrapper">
@@ -26,7 +39,7 @@
         </div>
         <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
           <ul class="nav navbar-nav">
-            <li></li>
+            <li><a href="./index.html">Docker</a></li>
           </ul>
           <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
   <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
@@ -49,13 +62,62 @@
 
   <div id="main">
     <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li><a href="./index.html">Docker</a></li><li>Installation</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12">
-          <h1>Docker</h1>
+        <div class="col-md-3 col-sm-4 hidden-xs">
+          <div id="navigation">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+              </div>
+              <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./installation.html">Installation</a></li><li><a href="./cli.html">Docker CLI</a></li><li><a href="./machine.html">Docker Machine</a></li><li><a href="./dockerfile.html">Dockerfile</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
           
+          <div class="btn-group pull-right">
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/docker/installation.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/docker/installation.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/docker/installation.md">History</a>
+          </div>
+          <div id="content">
+          <h1>Installation</h1>
+          <div id="toc">
+          </div>
+          <h2>CentOS7</h2>
 
-          <h2>Index of Pages</h2>
-          <ul><li><a href="./installation.html">Installation</a></li><li><a href="./cli.html">Docker CLI</a></li><li><a href="./machine.html">Docker Machine</a></li><li><a href="./dockerfile.html">Dockerfile</a></li></ul>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>su -
+
+<span class="nv">$ </span>cat /etc/yum.repos.d/docker.repo
+<span class="o">[</span>dockerrepo<span class="o">]</span>
+<span class="nv">name</span><span class="o">=</span>Docker Repository
+<span class="nv">baseurl</span><span class="o">=</span>https://yum.dockerproject.org/repo/main/centos/<span class="nv">$releasever</span>/
+<span class="nv">enabled</span><span class="o">=</span>0
+<span class="nv">gpgcheck</span><span class="o">=</span>1
+<span class="nv">gpgkey</span><span class="o">=</span>https://yum.dockerproject.org/gpg
+
+<span class="nv">$ </span>yum install --enablerepo<span class="o">=</span>dockerrepo docker-engine
+<span class="nv">$ </span>systemctl start docker.service
+
+<span class="c"># When the docker daemon starts, it makes the ownership</span>
+<span class="c"># of the Unix socket read/writable by the docker group.</span>
+<span class="nv">$ </span>useradd -g docker docker
+
+<span class="nv">$ </span>su - docker
+<span class="nv">$ </span>docker run hello-world</code></pre></div>
+
+
+
+
+          </div>
+          
         </div>
       </div>
     </div>
