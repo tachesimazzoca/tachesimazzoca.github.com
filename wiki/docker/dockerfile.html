@@ -152,6 +152,64 @@ COPY files/etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 <span class="k">CMD</span> <span class="o">[</span><span class="s2">&quot;/usr/sbin/httpd&quot;</span>, <span class="s2">&quot;-D&quot;</span>, <span class="s2">&quot;FOREGROUND&quot;</span><span class="o">]</span></code></pre></div>
 
 
+<h2>LAMP + sshd</h2>
+
+<div class="highlight"><pre><code class="language-dockerfile" data-lang="dockerfile"><span class="k">FROM</span> centos:5
+
+<span class="c"># epel</span>
+<span class="k">RUN</span> rpm -ivh http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
+
+<span class="c"># yum</span>
+<span class="k">RUN</span> yum clean all <span class="o">&amp;&amp;</span> <span class="err">\</span>
+  yum update -y <span class="o">&amp;&amp;</span> <span class="err">\</span>
+  yum install -y supervisor openssh-server mysql-server httpd <span class="o">&amp;&amp;</span> <span class="err">\</span>
+  yum install -y php53 php53-devel php53-mbstring php53-mysql php53-xml php53-xmlrpc php-pear <span class="o">&amp;&amp;</span> <span class="err">\</span>
+  yum clean all
+
+<span class="c"># sshd</span>
+<span class="k">RUN</span> service sshd start
+
+<span class="c"># mysqld</span>
+<span class="k">RUN</span> service mysqld start <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="err">&quot;\</span>
+  DELETE FROM mysql.user WHERE <span class="nv">User</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span> AND Host NOT IN <span class="o">(</span><span class="s1">&#39;localhost&#39;</span>, <span class="s1">&#39;127.0.0.1&#39;</span>, <span class="s1">&#39;::1&#39;</span><span class="o">)</span><span class="p">;</span> <span class="err">\</span>
+  DELETE FROM mysql.user WHERE <span class="nv">User</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="err">\</span>
+  DELETE FROM mysql.db WHERE Db LIKE <span class="s1">&#39;test%&#39;</span><span class="p">;</span> <span class="err">\</span>
+  GRANT ALL PRIVILEGES ON *.* TO <span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;%&#39;</span> WITH GRANT OPTION<span class="p">;</span> <span class="err">\</span>
+  FLUSH PRIVILEGES<span class="p">;</span><span class="err">&quot;</span> <span class="p">|</span> mysql -u root <span class="o">&amp;&amp;</span> service mysqld stop
+
+<span class="c"># httpd</span>
+COPY files/etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
+
+<span class="c"># supervisor</span>
+COPY files/usr/bin/pidproxy /usr/bin/pidproxy
+COPY files/etc/supervisord.conf /etc/supervisord.conf
+
+<span class="c"># /root/.ssh/authorized_keys</span>
+<span class="k">RUN</span> mkdir -p /root/.ssh <span class="o">&amp;&amp;</span> chmod <span class="m">700</span> /root/.ssh
+COPY files/root/.ssh/authorized_keys /root/.ssh/authorized_keys
+<span class="k">RUN</span> chmod <span class="m">600</span> /root/.ssh/authorized_keys
+
+<span class="k">EXPOSE</span> <span class="m">22</span> <span class="m">80</span> <span class="m">3306</span>
+<span class="k">CMD</span> <span class="o">[</span><span class="s2">&quot;/usr/bin/supervisord&quot;</span><span class="o">]</span></code></pre></div>
+
+
+<p>Docker containers can manage only one process. Using supervisor is one of the solutions to allow us manage one or more processes.</p>
+
+<p><code>files/etc/supervisor.conf</code>:</p>
+
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="k">[supervisord]</span>
+<span class="na">nodaemon</span><span class="o">=</span><span class="s">true</span>
+
+<span class="k">[program:sshd]</span>
+<span class="na">command</span><span class="o">=</span><span class="s">/usr/sbin/sshd -D</span>
+
+<span class="k">[program:httpd]</span>
+<span class="na">command</span><span class="o">=</span><span class="s">/usr/sbin/httpd -DFOREGROUND</span>
+
+<span class="k">[program:mysqld]</span>
+<span class="na">command</span><span class="o">=</span><span class="s">/usr/libexec/mysqld</span></code></pre></div>
+
+
 
 
           </div>
