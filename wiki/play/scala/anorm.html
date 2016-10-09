@@ -271,16 +271,7 @@
 
 <p><code>~</code> で <code>RowParser</code> を連結することで、複数カラムの RowParser を作成できる。</p>
 
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">RowParser</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="nc">extends</span> <span class="o">(</span><span class="nc">Row</span> <span class="k">=&gt;</span> <span class="nc">SqlResult</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="o">{</span> <span class="n">parent</span> <span class="k">=&gt;</span>
-  <span class="o">...</span>
-  <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">~</span><span class="o">[</span><span class="kt">+A</span>, <span class="kt">+B</span><span class="o">](</span><span class="n">_1</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">_2</span><span class="k">:</span> <span class="kt">B</span><span class="o">)</span>
-  <span class="o">...</span>
-  <span class="k">def</span> <span class="o">~[</span><span class="kt">B</span><span class="o">](</span><span class="n">p</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">A</span> <span class="kt">~</span> <span class="kt">B</span><span class="o">]</span> <span class="k">=</span>
-    <span class="nc">RowParser</span><span class="o">(</span><span class="n">row</span> <span class="k">=&gt;</span> <span class="n">parent</span><span class="o">(</span><span class="n">row</span><span class="o">).</span><span class="n">flatMap</span><span class="o">(</span><span class="n">a</span> <span class="k">=&gt;</span> <span class="n">p</span><span class="o">(</span><span class="n">row</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">new</span> <span class="o">~(</span><span class="n">a</span><span class="o">,</span> <span class="k">_</span><span class="o">))))</span>
-  <span class="o">...</span>
-<span class="o">}</span>
-
-<span class="k">val</span> <span class="n">parser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">Long</span> <span class="kt">~</span> <span class="kt">String</span> <span class="kt">~</span> <span class="kt">Int</span> <span class="kt">~</span> <span class="kt">java.util.Date</span><span class="o">]</span> <span class="k">=</span>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">parser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">Long</span> <span class="kt">~</span> <span class="kt">String</span> <span class="kt">~</span> <span class="kt">Int</span> <span class="kt">~</span> <span class="kt">java.util.Date</span><span class="o">]</span> <span class="k">=</span>
   <span class="n">long</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="n">str</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="n">int</span><span class="o">(</span><span class="s">&quot;status&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="n">date</span><span class="o">(</span><span class="s">&quot;birthday&quot;</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">userParser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span> <span class="k">=</span> <span class="n">parser</span> <span class="n">map</span> <span class="o">{</span>
   <span class="k">case</span> <span class="n">id</span> <span class="o">~</span> <span class="n">email</span> <span class="o">~</span> <span class="n">status</span> <span class="o">~</span> <span class="n">birthday</span> <span class="k">=&gt;</span>
@@ -290,10 +281,53 @@
 
 <p>正確には連結しているように見えるだけで、<code>case class ~[+A, +B](_1: A, _2: B)</code> がネストしているだけである。</p>
 
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">~</span><span class="o">[</span><span class="kt">+A</span>, <span class="kt">+B</span><span class="o">](</span><span class="n">_1</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">_2</span><span class="k">:</span> <span class="kt">B</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">tupleLike</span><span class="k">:</span> <span class="kt">~</span><span class="o">[</span><span class="kt">~</span><span class="o">[</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">]</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="o">~(</span><span class="k">new</span> <span class="o">~(</span><span class="mi">123L</span><span class="o">,</span> <span class="s">&quot;foo@example.net&quot;</span><span class="o">),</span> <span class="mi">1</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">tuple</span><span class="k">:</span> <span class="o">(</span><span class="kt">Long</span><span class="o">,</span> <span class="kt">String</span><span class="o">,</span> <span class="nc">Int</span><span class="o">)</span> <span class="k">=</span> <span class="n">tupleLike</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="o">~(~(</span><span class="n">id</span><span class="o">,</span> <span class="n">email</span><span class="o">),</span> <span class="n">status</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">email</span><span class="o">,</span> <span class="n">status</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>ケースクラスとしての <code>anorm.~[+A, +B]</code> と、<code>RowParser</code> のメゾッド <code>~[B](p: RowParser[B]): RowParser[A ~ B]</code> を混同しがちである。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// NG: ~[RowParser[Long], RowParser[String]]</span>
+<span class="k">val</span> <span class="n">ng</span> <span class="k">=</span> <span class="k">new</span> <span class="o">~(</span><span class="nc">SqlParser</span><span class="o">.</span><span class="n">long</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">),</span> <span class="nc">SqlParser</span><span class="o">.</span><span class="n">long</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">))</span>
+<span class="c1">// OK: RowParser[~[Long, String]]</span>
+<span class="k">val</span> <span class="n">ok</span> <span class="k">=</span> <span class="nc">SqlParser</span><span class="o">.</span><span class="n">long</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="nc">SqlParser</span><span class="o">.</span><span class="n">long</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">)</span></code></pre></div>
+
+
+<ul>
+<li>前者は、単に擬似タプルとしての <code>~[A, B]</code> であり、<code>RowParser</code> ではない。</li>
+<li>後者は、<code>RowParser[A]</code> のメゾッドにより、別の <code>RowParser[B]</code> を加えて生成された、新たな <code>RowParser[A ~ B]</code> である。</li>
+</ul>
+
+
+<p><code>RowParser[+A]</code> の実体は、関数 <code>Row =&gt; SqlResult[A]</code> であるので</p>
+
+<ul>
+<li><code>Row =&gt; SqlResult[A]</code> が</li>
+<li>引数 <code>Row =&gt; SqlResult[B]</code> を得て</li>
+<li><code>Row =&gt; SqlResult[A ~ B]</code> を生成する</li>
+</ul>
+
+
+<p>と考えると理解しやすい。<code>SqlResult[+A]#map[B](f: A =&gt; B): SqlResult[B]</code> に対して、<code>case class ~[A, B](_1: A, _2: B)</code> を部分適用した関数 <code>new ~(a, _)</code> すなわち <code>B =&gt; [A ~ B]</code> を渡すことで、<code>Row =&gt; SqlResult[A ~ B]</code> に変換している。</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">RowParser</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="nc">extends</span> <span class="o">(</span><span class="nc">Row</span> <span class="k">=&gt;</span> <span class="nc">SqlResult</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="o">{</span> <span class="n">parent</span> <span class="k">=&gt;</span>
+  <span class="o">...</span>
+  <span class="k">def</span> <span class="o">~[</span><span class="kt">B</span><span class="o">](</span><span class="n">p</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">A</span> <span class="kt">~</span> <span class="kt">B</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nc">RowParser</span><span class="o">(</span><span class="n">row</span> <span class="k">=&gt;</span> <span class="n">parent</span><span class="o">(</span><span class="n">row</span><span class="o">).</span><span class="n">flatMap</span><span class="o">(</span><span class="n">a</span> <span class="k">=&gt;</span> <span class="n">p</span><span class="o">(</span><span class="n">row</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">new</span> <span class="o">~(</span><span class="n">a</span><span class="o">,</span> <span class="k">_</span><span class="o">))))</span>
+  <span class="o">...</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>ケースクラス <code>~</code> のパターンマッチによって得るのは、<code>RowParser</code> の match 式ではない。<code>map</code> に PartialFunction を渡して、パースされたカラム値を取り出し、新たな <code>RowParser</code> に変換するのである。</p>
+
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">parser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">~</span><span class="o">[</span><span class="kt">~</span><span class="o">[</span><span class="kt">~</span><span class="o">[</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">]</span>, <span class="kt">Int</span><span class="o">]</span>, <span class="kt">java.util.Date</span><span class="o">]]</span> <span class="k">=</span>
-  <span class="o">~(~(~(</span><span class="n">long</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">),</span> <span class="n">str</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">)),</span> <span class="n">int</span><span class="o">(</span><span class="s">&quot;status&quot;</span><span class="o">)),</span> <span class="n">date</span><span class="o">(</span><span class="s">&quot;birthday&quot;</span><span class="o">))</span>
+  <span class="n">long</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="n">str</span><span class="o">(</span><span class="s">&quot;email&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="n">int</span><span class="o">(</span><span class="s">&quot;status&quot;</span><span class="o">)</span> <span class="o">~</span> <span class="n">date</span><span class="o">(</span><span class="s">&quot;birthday&quot;</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">userParser</span><span class="k">:</span> <span class="kt">RowParser</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span> <span class="k">=</span> <span class="n">parser</span> <span class="n">map</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="o">~(~(~(</span><span class="n">id</span><span class="o">,</span> <span class="n">email</span><span class="o">),</span> <span class="n">status</span><span class="o">,</span> <span class="n">birthday</span><span class="o">)</span> <span class="k">=&gt;</span>
+  <span class="k">case</span> <span class="o">~(~(~(</span><span class="n">id</span><span class="o">,</span> <span class="n">email</span><span class="o">),</span> <span class="n">status</span><span class="o">),</span> <span class="n">birthday</span><span class="o">)</span> <span class="k">=&gt;</span>
     <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">email</span><span class="o">,</span> <span class="n">status</span><span class="o">,</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="nc">Date</span><span class="o">(</span><span class="n">birthday</span><span class="o">.</span><span class="n">getTime</span><span class="o">))</span>
 <span class="o">}</span></code></pre></div>
 
