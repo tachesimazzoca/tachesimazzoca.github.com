@@ -10,18 +10,47 @@
 <link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
+<script src="../../assets/javascripts/jquery.ajaxtable.js"></script>
+<script src="../../assets/javascripts/jquery.flashcard.js"></script>
+<script type="text/javascript">
 (function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
+  $(function() {
+    $('#jsFlashcardTable').ajaxtable({
+      dataUrl: 'data/transive_verbs.json'
     });
-
+    $('#jsJpEnFlashcardCarousel').flashcard({
+      title: 'Transive Verbs',
+      dataUrl: 'data/transive_verbs.json',
+      converter: function(data) {
+        var i;
+        var rows = data['rows'];
+        rows.sort(function(a, b) {
+          return Math.random() - 0.5;
+        });
+        var items = [];
+        for (i = 0; i < rows.length; i++) {
+          items.push(rows[i]['translation']);
+          items.push(rows[i]['content']);
+        }
+        return items;
+      }
+    });
+  });
 })(window.jQuery);
-
 </script>
+<style type="text/css">
+<!--
+.flashcard .carousel-inner .item {
+  padding: 30px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+.flashcard a.carousel-control {
+  background-image: none;
+}
+-->
+</style>
 </head>
 <body>
 <div id="wrapper">
@@ -88,29 +117,26 @@
             <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/english/vocabulary/transive_verbs.md">History</a>
           </div>
           <div id="content">
-          <h1>Transive Verbs</h1>
-          <div id="toc">
-          </div>
-          <table data-url="data/transive_verbs.json" class="table">
-</table>
+            <h1>Transive Verbs</h1>
+
+            
 
 
+            <button type="button" class="btn btn-default"
+                data-toggle="modal" data-target="#jsJpEnFlashcard">Flashcard</button>
+            <div id="jsJpEnFlashcard" class="modal fade" tabindex="-1" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div id="jsJpEnFlashcardCarousel" class="flashcard slide"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <table id="jsFlashcardTable" class="table">
+            </table>
+          </div><!--/#content-->
 
-
-<script src="../../assets/javascripts/jquery.ajaxtable.js"></script>
-
-
-<script type="text/javascript">
-(function($) {
-  $(function() {
-    $('[data-url]').ajaxtable();
-  });
-})(window.jQuery);
-</script>
-
-
-          </div>
-          
         </div>
       </div>
     </div>
