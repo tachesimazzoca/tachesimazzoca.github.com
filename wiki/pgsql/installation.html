@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | インストール | PostgreSQL</title>
+<title>tachesimazzoca - Wiki | Installation | PostgreSQL</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
@@ -63,7 +63,7 @@
   <div id="main">
     <div class="container-fluid">
       <ul class="breadcrumb">
-        <li><a href="./index.html">PostgreSQL</a></li><li>インストール</li>
+        <li><a href="./index.html">PostgreSQL</a></li><li>Installation</li>
       </ul>
     </div>
     <div class="container-fluid">
@@ -75,7 +75,7 @@
                 <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
               </div>
               <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./install.html">インストール</a></li><li><a href="./basic.html">基本操作</a></li></ul>
+              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./installation.html">Installation</a></li><li><a href="./basic.html">Basic</a></li></ul>
               </div>
             </div>
           </div>
@@ -83,18 +83,60 @@
         <div class="col-md-9 col-sm-8">
           
           <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/pgsql/install.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/pgsql/install.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/pgsql/install.md">History</a>
+            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/pgsql/installation.md">Raw</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/pgsql/installation.md">Blame</a>
+            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/pgsql/installation.md">History</a>
           </div>
           <div id="content">
-          <h1>インストール</h1>
+          <h1>Installation</h1>
           <div id="toc">
           </div>
           <h2>yum</h2>
 
 <pre><code>% yum install postgresql-server postgresql-devel
-% /etc/init.d/postgresql start
+% service postgresql initdb
+% service postgresql start
+</code></pre>
+
+<p>If you need another version of PostgreSQL .rpm, please consult the following URL:</p>
+
+<ul>
+<li><a href="https://wiki.postgresql.org/wiki/YUM_Installation">https://wiki.postgresql.org/wiki/YUM_Installation</a></li>
+</ul>
+
+
+<p>Let's say you install <em>PostgreSQL-9.6(-3) RHEL7 x86_64</em>.</p>
+
+<p>Exclude <code>postgresql.*</code> package from CentOS-Base.repo.</p>
+
+<pre><code># Add exclude option in each section
+$ cat /etc/yum.repos.d/CentOS-Base.repo
+[base]
+...
+exclude=postgresql*
+
+[updates]
+...
+exclude=postgresql*
+</code></pre>
+
+<p>And then add your specific PGDG RPM file into <code>/etc/yum.repos.d</code> with <code>yum</code> command. The list of PGDG RPM files can be found in <a href="https://yum.postgresql.org/">PostgreSQL yum repository</a>.</p>
+
+<pre><code>$ yum install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-redhat96-9.6-3.noarch.rpm
+
+$ cat /etc/yum.repos.d/pgdg-96-redhat.repo
+[pgdg96]
+name=PostgreSQL 9.6 $releasever - $basearch
+...
+
+$ yum list postgresql*
+$ yum install postgresql96-server
+
+# The binaries will be installed at /usr/pgsal-x.y
+$ ls /usr/pgsql-9.6
+$ /usr/pgsql-9.6/bin/postgresql96-setup initdb
+$ systemctl enable postgresql-9.6.service
+$ systemctl start postgresql-9.6.service
 </code></pre>
 
 <h2>postgresql-8.x</h2>
