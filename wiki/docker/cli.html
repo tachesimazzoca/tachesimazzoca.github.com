@@ -168,6 +168,18 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 5432/tcp -&gt; 0.0.0.0:32768</code></pre></div>
 
 
+<h2>Volume</h2>
+
+<p>The <code>dangling</code> filter matches on all volumes not referenced by any containers. With the <code>quiet</code> option, you can list only the unused volume names.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>docker volume ls -qf <span class="nv">dangling</span><span class="o">=</span><span class="nb">true</span></code></pre></div>
+
+
+<p>To clean up every unused volume, simply pass those names to the command <code>xargs docker volume rm</code>.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>docker volume ls -qf <span class="nv">dangling</span><span class="o">=</span><span class="nb">true</span> <span class="p">|</span> xargs docker volume rm</code></pre></div>
+
+
 
 
           </div>
