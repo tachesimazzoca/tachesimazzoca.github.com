@@ -299,12 +299,12 @@
       "definition": "癒しの"
     },
     {
-      "term": "{ healthy | nutritious }",
-      "definition": "健康的な / 栄養のある"
-    },
-    {
       "term": "{ holy | sacred }",
       "definition": "神聖な"
+    },
+    {
+      "term": "{ honest | upright | conscientious }",
+      "definition": "誠実な"
     },
     {
       "term": "{ horrible | horrific }",
@@ -337,10 +337,6 @@
     {
       "term": "{ intentional | deliberate }",
       "definition": "意図的な"
-    },
-    {
-      "term": "{ invaluable | precious }",
-      "definition": "貴重な"
     },
     {
       "term": "{ kind | thoughtful | considerate }",
@@ -471,7 +467,7 @@
       "definition": "満たされた"
     },
     {
-      "term": "{ selfish | arrogant | egoistic }",
+      "term": "{ selfish | arrogant | egoistic | haughty }",
       "definition": "傲慢な"
     },
     {
@@ -571,7 +567,7 @@
       "definition": "役立つ"
     },
     {
-      "term": "{ valuable | precious }",
+      "term": "{ valuable | invaluable | precious }",
       "definition": "貴重な"
     },
     {
@@ -765,10 +761,6 @@
     {
       "term": "congruent",
       "definition": "調和な"
-    },
-    {
-      "term": "conscientious",
-      "definition": "誠実な"
     },
     {
       "term": "conscious",
@@ -1143,8 +1135,8 @@
       "definition": "いまいましい"
     },
     {
-      "term": "haughty",
-      "definition": "高慢な"
+      "term": "healthy",
+      "definition": "健康的な"
     },
     {
       "term": "helpful",
@@ -1423,6 +1415,10 @@
       "definition": "忌々しい / 悪名高い"
     },
     {
+      "term": "nutritious",
+      "definition": "栄養のある"
+    },
+    {
       "term": "occasional",
       "definition": "時たまの"
     },
@@ -1665,10 +1661,6 @@
     {
       "term": "senior ! junior",
       "definition": "年上の ! 年下の"
-    },
-    {
-      "term": "sensible",
-      "definition": "賢明な"
     },
     {
       "term": "shabby",
