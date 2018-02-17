@@ -78,7 +78,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li><a href="../docker/dockerfile.html#overview" class="header">Overview</a></li>
     <li><a href="../docker/dockerfile.html#mysql-server" class="header">mysql-server</a></li>
     <li><a href="../docker/dockerfile.html#php53" class="header">php53</a></li>
-    <li><a href="../docker/dockerfile.html#lamp-sshd" class="header">LAMP + sshd</a></li>
   </ul></li>
 </ul>
 </div>
@@ -146,59 +145,6 @@ COPY files/etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
 EXPOSE 80
 CMD [&quot;/usr/sbin/httpd&quot;, &quot;-D&quot;, &quot;FOREGROUND&quot;]
-</code></pre>
-<h2><a href="#lamp-sshd" name="lamp-sshd" class="anchor"><span class="anchor-link"></span></a>LAMP + sshd</h2>
-<pre><code>FROM centos:5
-
-# epel
-RUN rpm -ivh http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
-
-# yum
-RUN yum clean all &amp;&amp; \
-  yum update -y &amp;&amp; \
-  yum install -y supervisor openssh-server mysql-server httpd &amp;&amp; \
-  yum install -y php53 php53-devel php53-mbstring php53-mysql php53-xml php53-xmlrpc php-pear &amp;&amp; \
-  yum clean all
-
-# sshd
-RUN service sshd start
-
-# mysqld
-RUN service mysqld start &amp;&amp; echo &quot;\
-  DELETE FROM mysql.user WHERE User = &#39;root&#39; AND Host NOT IN (&#39;localhost&#39;, &#39;127.0.0.1&#39;, &#39;::1&#39;); \
-  DELETE FROM mysql.user WHERE User = &#39;&#39;; \
-  DELETE FROM mysql.db WHERE Db LIKE &#39;test%&#39;; \
-  GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; WITH GRANT OPTION; \
-  FLUSH PRIVILEGES;&quot; | mysql -u root &amp;&amp; service mysqld stop
-
-# httpd
-COPY files/etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
-
-# supervisor
-COPY files/usr/bin/pidproxy /usr/bin/pidproxy
-COPY files/etc/supervisord.conf /etc/supervisord.conf
-
-# /root/.ssh/authorized_keys
-RUN mkdir -p /root/.ssh &amp;&amp; chmod 700 /root/.ssh
-COPY files/root/.ssh/authorized_keys /root/.ssh/authorized_keys
-RUN chmod 600 /root/.ssh/authorized_keys
-
-EXPOSE 22 80 3306
-CMD [&quot;/usr/bin/supervisord&quot;]
-</code></pre>
-<p>Docker containers can manage only one process. Using supervisor is one of the solutions to allow us manage one or more processes.</p>
-<p><code>files/etc/supervisor.conf</code>:</p>
-<pre><code>[supervisord]
-nodaemon=true
-
-[program:sshd]
-command=/usr/sbin/sshd -D
-
-[program:httpd]
-command=/usr/sbin/httpd -DFOREGROUND
-
-[program:mysqld]
-command=/usr/libexec/mysqld
 </code></pre>
 </div>
 </div>
