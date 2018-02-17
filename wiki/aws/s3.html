@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | S3 | Amazon Web Services</title>
+<title>tachesimazzoca - Wiki | S3</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,97 +20,90 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Amazon Web Services</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
-
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Amazon Web Services</a></li><li>S3</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./s3.html">S3</a></li><li><a href="./ec2.html">EC2</a></li><li><a href="./vpc.html">VPC</a></li><li><a href="./cloudfront.html">CloudFront</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/aws/s3.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/aws/s3.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/aws/s3.md">History</a>
-          </div>
-          <div id="content">
-          <h1>S3</h1>
-          <div id="toc">
-          </div>
-          <h2>Bucket</h2>
-
-<p>S3 では Bucket と呼ばれる名前空間を作成する。Bucket 名はAWS 内ユニークである必要があり、作成後の変更もできない。</p>
-
-<p>誰でも参照できるパーミッション設定となっていれば、サブディレクトリかサブドメインの URL でアクセスできる。</p>
-
-<ol>
-<li><code>(http|https)://s3-&lt;region&gt;.amazonaws.com/&lt;bucket&gt;/</code></li>
-<li><code>(http|https)://&lt;bucket&gt;.s3-&lt;region&gt;.amazonaws.com/</code></li>
-</ol>
-
-
-<p>バケット名にはピリオドの使用を避けたほうが良い。S3 はワイルドカードの SSL 証明書を用いているので、HTTPS でサブドメインの URL を使うと、バケット名にピリオドが含まれているため、SSL 証明書エラーとなる。</p>
-
-<h2>REST API</h2>
-
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
 <ul>
-<li><a href="http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html">http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html</a></li>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../aws/index.html">Amazon Web Services</a></li>
+  <li>S3</li>
 </ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../aws/s3.html#s3" class="header">S3</a>
+  <ul>
+    <li><a href="../aws/s3.html#bucket" class="header">Bucket</a></li>
+    <li><a href="../aws/s3.html#rest-api" class="header">REST API</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/aws/s3.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#s3" name="s3" class="anchor"><span class="anchor-link"></span></a>S3</h1>
+<h2><a href="#bucket" name="bucket" class="anchor"><span class="anchor-link"></span></a>Bucket</h2>
+<p>S3 では Bucket と呼ばれる名前空間を作成する。Bucket 名はAWS 内ユニークである必要があり、作成後の変更もできない。</p>
+<p>誰でも参照できるパーミッション設定となっていれば、サブディレクトリかサブドメインの URL でアクセスできる。</p>
+<ol>
+  <li><code>(http|https)://s3-&lt;region&gt;.amazonaws.com/&lt;bucket&gt;/</code></li>
+  <li><code>(http|https)://&lt;bucket&gt;.s3-&lt;region&gt;.amazonaws.com/</code></li>
+</ol>
+<p>バケット名にはピリオドの使用を避けたほうが良い。S3 はワイルドカードの SSL 証明書を用いているので、HTTPS でサブドメインの URL を使うと、バケット名にピリオドが含まれているため、SSL 証明書エラーとなる。</p>
+<h2><a href="#rest-api" name="rest-api" class="anchor"><span class="anchor-link"></span></a>REST API</h2>
+<ul>
+  <li><a href="http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html">http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html</a></li>
+</ul>
 <p>S3 は REST API が提供されており、アクセスキーとシークレットキーを元に、リクエストヘッダ <code>Authorization</code> に所定の方法で暗号化したキーを含めれば、どこからでもアクセスできる。</p>
-
 <p>コマンドラインからは <a href="http://s3tools.org/s3cmd">s3cmd</a> を使うとよい。</p>
-
 <pre><code>% yum --enablerepo=epel install s3cmd
 
 % s3cmd --configure
@@ -133,7 +113,7 @@ Access Key: &lt;Enter Your Access Key ....&gt;
 Secret Key: &lt;Enter Your Secret Key ....&gt;
 ....
 
-# The command will create a file ~/.s3cfg as the user's setting
+# The command will create a file ~/.s3cfg as the user&#39;s setting
 % cat  ~/.s3cfg
 [default]
 access_key = ...
@@ -152,35 +132,41 @@ YYYY-mm-dd HH:MM  s3://example-bucket-bar
 # The sub-command sync will synchronize a directory tree to S3
 % s3cmd sync /path/to/dir/ s3://example-bucket-foo/path/to/dir/
 
-# The option "--delete-removed" to delete files that are no longer present locally
+# The option &quot;--delete-removed&quot; to delete files that are no longer present locally
 % s3cmd sync --delete-removed /path/to/dir/ s3://example-bucket-foo/path/to/dir/
 </code></pre>
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tachesimazzoca - Wiki | Installation</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M96M8MG');</script>
+<!-- End Google Tag Manager -->
+
+</head>
+<body>
+<div id="wrapper">
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
+
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../sbt/index.html">SBT</a></li>
+  <li>Installation</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../sbt/installation.html#installation" class="header">Installation</a>
+  <ul>
+    <li><a href="../sbt/installation.html#universal-package" class="header">Universal Package</a></li>
+    <li><a href="../sbt/installation.html#manual-installation" class="header">Manual Installation</a></li>
+    <li><a href="../sbt/installation.html#links" class="header">Links</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/sbt/installation.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#installation" name="installation" class="anchor"><span class="anchor-link"></span></a>Installation</h1>
+<h2><a href="#universal-package" name="universal-package" class="anchor"><span class="anchor-link"></span></a>Universal Package</h2>
+<p><a href="https://bintray.com/sbt/native-packages/sbt/view">sbt 公式 の Universal package</a> を利用することを推奨します。<a href="https://bintray.com">Bintray</a> で配布されています。</p>
+<h3><a href="#unix" name="unix" class="anchor"><span class="anchor-link"></span></a>Unix</h3>
+<p>Universal package を <em>dotfiles</em> でインストールする例です。<code>~/.sbt</code> 以下にダウンロードし解凍します。</p>
+<pre><code>% mkdir ~/.sbt
+% cd .sbt
+% curl -LO &quot;http://dl.bintray.com/sbt/native-packages/sbt/0.13.5/sbt-0.13.5.zip&quot;
+% unzip sbt-0.13.5.zip
+</code></pre>
+<p><code>~/.sbt/sbt/bin/sbt</code> が <em>sbt</em> を起動する bash スクリプトになります。</p>
+<pre><code># -h オプションでヘルプを表示します
+% ~/.sbt/sbt/bin/sbt -h
+</code></pre>
+<p><code>~/.bash_profile</code> で、この <code>sbt</code> コマンドへのパスを通しておきます。</p>
+<pre><code>% vi ~/.bash_profile
+...
+export PATH=~/.sbt/sbt/bin:${PATH}
+...
+
+% source ~/.bash_profile
+% which sbt
+~/.sbt/sbt/bin/sbt
+</code></pre>
+<h2><a href="#manual-installation" name="manual-installation" class="anchor"><span class="anchor-link"></span></a>Manual Installation</h2>
+<p><code>sbt-launch.jar</code> を <a href="http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/">typesafe のリポジトリ</a> から取得します。</p>
+<pre><code>% curl -LO &quot;http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.5/sbt-launch.jar&quot;
+</code></pre>
+<p>同ディレクトリに、以下のシェルスクリプトで <code>sbt-launch.jar</code> を起動する <code>sbt</code> コマンドを作成します。</p>
+<pre><code>#!/bin/sh
+
+SBT_OPTS=&quot;java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M&quot;
+java $SBT_OPS -jar `dirname $0`/sbt-launch.jar &quot;$@&quot;
+</code></pre>
+<p>32bit OS で JavaVM のメモリ制限にかかる場合は -Xmx (ヒープの最大サイズ) を下げます。</p>
+<pre><code>SBT_OPS=&quot;-Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M&quot;
+</code></pre>
+<h2><a href="#links" name="links" class="anchor"><span class="anchor-link"></span></a>Links</h2>
+<ul>
+  <li><a href="http://www.scala-sbt.org/download.html">sbt - Download</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
+</body>
+</html>

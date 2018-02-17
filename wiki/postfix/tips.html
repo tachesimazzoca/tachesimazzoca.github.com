@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | TIPS | Postfix</title>
+<title>tachesimazzoca - Wiki | TIPS</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,84 +20,85 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Postfix</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../postfix/index.html">Postfix</a></li>
+  <li>TIPS</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../postfix/tips.html#tips" class="header">TIPS</a>
+  <ul>
+    <li><a href="../postfix/tips.html#設定更新" class="header">設定更新</a></li>
+    <li><a href="../postfix/tips.html#バーチャルなメールアドレス" class="header">バーチャルなメールアドレス</a></li>
+    <li><a href="../postfix/tips.html#ハイフンで始まるメールアドレス" class="header">ハイフンで始まるメールアドレス</a></li>
+    <li><a href="../postfix/tips.html#外部smtpサーバへの中継" class="header">外部SMTPサーバへの中継</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Postfix</a></li><li>TIPS</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./install.html">Install</a></li><li class="active"><a href="./tips.html">TIPS</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/postfix/tips.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/postfix/tips.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/postfix/tips.md">History</a>
-          </div>
-          <div id="content">
-          <h1>TIPS</h1>
-          <div id="toc">
-          </div>
-          <h2>設定更新</h2>
-
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/postfix/tips.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#tips" name="tips" class="anchor"><span class="anchor-link"></span></a>TIPS</h1>
+<h2><a href="#設定更新" name="設定更新" class="anchor"><span class="anchor-link"></span></a>設定更新</h2>
 <p><code>main.cf</code> を変更した場合、設定をすぐに反映させるには <code>reload</code> を行います。</p>
-
 <pre><code>% postfix reload
 postfix/postfix-script: refreshing the Postfix mail system
 </code></pre>
-
 <p><code>reload</code> を行わなくても、<code>main.cf</code> の変更は反映されるため、更新の際には注意してください。設定が不正な状態で保存されていると問題が起こります。</p>
-
 <p><code>reload</code> では更新されない設定項目があります。この場合は <code>stop/start</code> で更新を行います。</p>
-
 <pre><code>% postfix reload
 postfix/postfix-script: refreshing the Postfix mail system
 
@@ -129,41 +117,27 @@ postfix/postfix-script: refreshing the Postfix mail system
 .... postfix/postfix-script[xxxx]: starting the Postfix mail system
 .... postfix/master[xxxx]: daemon started -- version 2.6.6, configuration /etc/postfix
 </code></pre>
-
-<h2>バーチャルなメールアドレス</h2>
-
+<h2><a href="#バーチャルなメールアドレス" name="バーチャルなメールアドレス" class="anchor"><span class="anchor-link"></span></a>バーチャルなメールアドレス</h2>
 <p>実ユーザを作成しなくても、<code>virtual_alias_maps</code> を用いて、バーチャルなメールアドレスでのメール受信ができます。</p>
-
-<h3>エイリアスマップの作成</h3>
-
-<h4>hash</h4>
-
+<h3><a href="#エイリアスマップの作成" name="エイリアスマップの作成" class="anchor"><span class="anchor-link"></span></a>エイリアスマップの作成</h3>
+<h4><a href="#hash" name="hash" class="anchor"><span class="anchor-link"></span></a>hash</h4>
 <p>ハッシュテーブルを用いる方法です。<code>/etc/postfix/virtual</code> に作成する例です。</p>
-
 <pre><code>% cat /etc/postfix/virtual
 example.net anything
 support@example.net username
 info@example.net username
 </code></pre>
-
 <p><code>postmap</code> コマンドで、ハッシュテーブルを作成します。</p>
-
 <pre><code># /etc/postfix/virtual.db が作成されます。
 % postmap /etc/postfix/virtual
 </code></pre>
-
-<h4>regexp</h4>
-
+<h4><a href="#regexp" name="regexp" class="anchor"><span class="anchor-link"></span></a>regexp</h4>
 <p>正規表現で設定を記述します。<code>/etc/postfix/virtual_regexp</code> に作成する例です。</p>
-
 <pre><code>% cat /etc/postfix/virtual_regexp
 /^[0-9a-z]{16}@example\.net$/ username@example.net
 </code></pre>
-
-<h3>エイリアスマップの指定</h3>
-
+<h3><a href="#エイリアスマップの指定" name="エイリアスマップの指定" class="anchor"><span class="anchor-link"></span></a>エイリアスマップの指定</h3>
 <p><code>main.cf</code> でエイリアスマップを指定します。</p>
-
 <pre><code>% cat /etc/postfix/main.cf
 ....
 # 外部ホストからの配送を許可
@@ -175,27 +149,17 @@ mydestination = $myhostname, localhost.$mydomain, localhost, example.net
 # エイリアスマップを指定
 virtual_alias_maps = hash:/etc/postfix/virtual, regexp:/etc/postfix/virtual_regexp
 </code></pre>
-
-<h2>ハイフンで始まるメールアドレス</h2>
-
+<h2><a href="#ハイフンで始まるメールアドレス" name="ハイフンで始まるメールアドレス" class="anchor"><span class="anchor-link"></span></a>ハイフンで始まるメールアドレス</h2>
 <p>ハイフンで始まるメールアドレスは、コマンドオプションと認識される危険性があるため送信されません。危険性を了承した上で送信を行う場合は、<code>main.cf</code> で <code>allow_min_user</code> の値を設定することで送信されるようになります。</p>
-
 <pre><code>allow_min_user = yes
 </code></pre>
-
-<h2>外部SMTPサーバへの中継</h2>
-
-<h3>クライアント（中継元）側の設定</h3>
-
+<h2><a href="#外部smtpサーバへの中継" name="外部smtpサーバへの中継" class="anchor"><span class="anchor-link"></span></a>外部SMTPサーバへの中継</h2>
+<h3><a href="#クライアント-中継元-側の設定" name="クライアント-中継元-側の設定" class="anchor"><span class="anchor-link"></span></a>クライアント（中継元）側の設定</h3>
 <p><code>relayhost</code> に中継先のホストを指定します。ローカル外のメールは全て指定したホストに中継されます。</p>
-
 <pre><code>relayhost = [smtp.example.net]:25
 </code></pre>
-
-<h3>サーバ（中継先）側の設定</h3>
-
+<h3><a href="#サーバ-中継先-側の設定" name="サーバ-中継先-側の設定" class="anchor"><span class="anchor-link"></span></a>サーバ（中継先）側の設定</h3>
 <p>外部ホストからの配送を許可します。</p>
-
 <pre><code># 外部ホストからの配送を許可
 inet_interfaces = all
 
@@ -203,26 +167,18 @@ inet_interfaces = all
 #mynetworks_style = subnet
 mynetworks = 127.0.0.0/8, 192.168.56.0/24
 </code></pre>
-
 <ul>
-<li><code>mynetworks</code> が指定された場合には、<code>mynetworks_style</code> は無視されます。</li>
-<li><code>mynetworks</code> は CIDR 形式でカンマ切りで複数指定します。</li>
-<li><code>mynetworks_style</code> のデフォルト値は <code>subnet</code> です。ローカルLAN内のみに制限する際には便利ですが、公衆 LAN 内等で有効にしてしまうと、同一 LAN 内にいる全てのMTAを許可してしまいます。</li>
-<li><code>mynetworks_style = class</code> は同一アドレスクラスを許可します。インターネット接続にプロバイダを介している場合、全ての同一プロバイダ上のMTAから中継を受け付けてしまうため、スパムメールの踏み台となってしまいます。通常 <code>class</code> とすることはありません。</li>
+  <li><code>mynetworks</code> が指定された場合には、<code>mynetworks_style</code> は無視されます。</li>
+  <li><code>mynetworks</code> は CIDR 形式でカンマ切りで複数指定します。</li>
+  <li><code>mynetworks_style</code> のデフォルト値は <code>subnet</code> です。ローカルLAN内のみに制限する際には便利ですが、公衆 LAN 内等で有効にしてしまうと、同一 LAN 内にいる全てのMTAを許可してしまいます。</li>
+  <li><code>mynetworks_style = class</code> は同一アドレスクラスを許可します。インターネット接続にプロバイダを介している場合、全ての同一プロバイダ上のMTAから中継を受け付けてしまうため、スパムメールの踏み台となってしまいます。通常 <code>class</code> とすることはありません。</li>
 </ul>
-
-
 <p><code>myhostname</code> が重複していると中継時にエラーとなります。ローカルLAN内で中継する際に、インストール時デフォルトのホスト名 <code>localdomain.localhost</code> のままとなっている場合があります。マシン毎に適切なホスト名を設定するか、<code>myhostname</code> を設定します。</p>
-
 <pre><code>myhostname = smtp.localdomain
 </code></pre>
-
-<h3>SMTP認証の設定</h3>
-
+<h3><a href="#smtp認証の設定" name="smtp認証の設定" class="anchor"><span class="anchor-link"></span></a>SMTP認証の設定</h3>
 <p>Postfix-2.x 以降であれば、<a href="http://ja.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer">SASL</a> によるSMTP認証 <em>SMTP-AUTH</em> に対応しています。</p>
-
 <p>あらかじめ <code>postmap</code> コマンドでパスワードデータベースを作成します。</p>
-
 <pre><code># relayhost の値は main.cf と完全一致している必要があります。
 % cat /etc/postfix/sasl_password
 [smtp.example.net]:587   username:password
@@ -232,9 +188,7 @@ mynetworks = 127.0.0.0/8, 192.168.56.0/24
 % ls /etc/postfix/sasl_password.*
 sasl_password.db
 </code></pre>
-
 <p><code>main.cf</code> に、SMTP認証の設定を追記します。作成しておいたパスワードデータベース <code>sasl_password.db</code> を指定します。</p>
-
 <pre><code>relayhost = [smtp.example.net]:587
 
 smtp_sasl_auth_enable = yes
@@ -248,21 +202,15 @@ smtp_tls_CAfile = /etc/pki/tls/cert.pem
 smtp_tls_security_level = may
 smtp_tls_loglevel = 1
 </code></pre>
-
 <p>設定を読み込み、送信確認を行ないます。</p>
-
 <pre><code>% postfix reload
-% echo "test sasl" | mail -s "Tesing SMTP-AUTH" foo@example.net
+% echo &quot;test sasl&quot; | mail -s &quot;Tesing SMTP-AUTH&quot; foo@example.net
 </code></pre>
-
 <p><code>SASL authentication failure: No worthy mechs found</code> となる場合には、必要な認証方式に対応していません。</p>
-
 <pre><code>% less /var/log/maillog
 ... SASL authentication failure: No worthy mechs found ...
 </code></pre>
-
 <p>RHEL系の yum では <code>cyrus-sasl</code> パッケージを利用するようになっていますが、特に追加インストールしていない場合、必要なライブラリがインストールされていない場合があります。</p>
-
 <pre><code>% postconf -a
 cyrus
 ...
@@ -271,17 +219,12 @@ cyrus
 % ls /usr/lib/sasl2
 libanonymous.la  libanonymous.so  libanonymous.so.2  libanonymous.so.2.0.22
 </code></pre>
-
 <p><code>cyrus-sasl-*</code> パッケージで認証方式を追加できます。</p>
-
 <ul>
-<li>cyrus-sasl-plain: <code>PLAIN|LOGIN</code></li>
-<li>cyrus-sasl-md5: <code>CRAM-MD5|DIGEST-MD5</code></li>
+  <li>cyrus-sasl-plain: <code>PLAIN|LOGIN</code></li>
+  <li>cyrus-sasl-md5: <code>CRAM-MD5|DIGEST-MD5</code></li>
 </ul>
-
-
 <p>利用可能な認証方法が不明な場合 <code>telnet</code> で <code>EHLO</code> コマンドを送信して調べる事ができます。</p>
-
 <pre><code>% telnet smtp.example.net 587
 ...
 EHLO localhost.localdomain
@@ -291,37 +234,41 @@ EHLO localhost.localdomain
 ...
 QUIT
 </code></pre>
-
 <p>上記の応答の場合 <code>AUTH PLAIN</code> または <code>AUTH LOGIN</code> です。<code>cyrus-sasl-plain</code> を追加インストールします。</p>
-
 <pre><code>% yum install cyrus-sasl-plain
 </code></pre>
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

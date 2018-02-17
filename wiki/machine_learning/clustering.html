@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Clustering | Machine Learning</title>
+<title>tachesimazzoca - Wiki | Clustering</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,118 +20,104 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Machine Learning</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../machine_learning/index.html">Machine Learning</a></li>
+  <li>Clustering</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../machine_learning/clustering.html#clustering" class="header">Clustering</a>
+  <ul>
+    <li><a href="../machine_learning/clustering.html#overview" class="header">Overview</a></li>
+    <li><a href="../machine_learning/clustering.html#k-means-algorithm" class="header">K-means Algorithm</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Machine Learning</a></li><li>Clustering</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./gradient_descent.html">Gradient Descent</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./testing.html">Testing</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./svm.html">Support Vector Machine</a></li><li class="active"><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li><li><a href="./anomaly_detection.html">Anomaly Detection</a></li><li><a href="./collaborative_filtering.html">Collaborative Filtering</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/clustering.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/clustering.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/clustering.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Clustering</h1>
-          <div id="toc">
-          </div>
-          <script type="text/x-mathjax-config">
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/machine_learning/clustering.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#clustering" name="clustering" class="anchor"><span class="anchor-link"></span></a>Clustering</h1>
+<script type="text/x-mathjax-config">
   MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
 </script>
-
-
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
 </script>
-
-
-<h2>Overview</h2>
-
+<h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
 <p>クラスタリング <em>Clustering</em> は、教師なし学習 <em>Unsupervised Learning</em> の一つで、サンプルデータのメンバー間の類似性を見つけて、部分集合に振り分ける。サンプル毎にどの分類になるかの解答は必要としない。</p>
-
-<h2>K-means Algorithm</h2>
-
+<h2><a href="#k-means-algorithm" name="k-means-algorithm" class="anchor"><span class="anchor-link"></span></a>K-means Algorithm</h2>
 <p>サンプルデータを、<code>K</code> 個のクラスタ <em>Cluster</em> に振り分けるとする。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-k_means_step1">
 {\scriptsize \text{$K = $ number of clusters}} \\
 {\scriptsize \text{$n = $ number of features}} \\
 {\scriptsize \text{$m = $ number of examples}} \\
 x^{(i)} = x^{(1)},x^{(2)}, \ldots,x^{(m)} \in \mathbb{R}^{n} \\
 </script>
-
-
 <p>任意の <code>K</code> 個の重心 <em>Centroid</em> を置く。各重心はサンプルと同サイズ（パラメータ数） <code>n</code> のベクトルになる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-k_means_step2">
 {\scriptsize \text{$\mu = $ cluster centroids}} \\
 \left\{ \mu_{1},\mu_{2}, \ldots,\mu_{K} \right\} = \mu_k  \in \mathbb{R}^{n}\\
 </script>
-
-
 <p>各サンプル <code>x(i)</code> 毎に、最も距離が近い重心に紐づける。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-k_means_step3">
 {\scriptsize \text{$c = $ index of cluster to each example}} \\
 c^{(i)} := \text{$j$ that minimizes} \begin{Vmatrix}
 x^{(i)} - \mu_{j}
 \end{Vmatrix}^{2}
 </script>
-
-
-
-
 <script type="math/tex; mode=display" id="MathJax-Element-k_means_step4_ex">
 {\scriptsize \text{$C = $ set of examples that are assigned to each centroid}} \\
 \text{ex. $c = $} \left\{ 2, 1, 1, 3, 3, 2, 1, 2 \right\} \\
@@ -154,102 +127,81 @@ C_{2} & = \left\{ x^{(1)}, x^{(6)}, x^{(8)} \right\} \\
 C_{3} & = \left\{ x^{(4)}, x^{(5)} \right\} \\
 \end{align}
 </script>
-
-
 <p>重心を、紐づいたサンプルの平均ベクトルに移動する。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-k_means_step4">
 \mu_{k} := \frac{1}{ \begin{vmatrix} C_k \end{vmatrix} } { \sum_{i \in C_k} x^{(i)} } \\
 </script>
-
-
 <p>この重心移動を安定するまで繰り返す。</p>
-
 <ul>
-<li>プログラムに誤りがなければ、重心の移動範囲は必ず小さくなる。</li>
-<li>一つも割り振られない重心が出てきた場合は、取り除くか、新たに初期化しなおせばよい。</li>
+  <li>プログラムに誤りがなければ、重心の移動範囲は必ず小さくなる。</li>
+  <li>一つも割り振られない重心が出てきた場合は、取り除くか、新たに初期化しなおせばよい。</li>
 </ul>
-
-
-<h3>Cost Function</h3>
-
+<h3><a href="#cost-function" name="cost-function" class="anchor"><span class="anchor-link"></span></a>Cost Function</h3>
 <p>収束した重心に対しての全データの距離の平均値をコスト関数として定義できる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-k_means_cost">
 J(c, \mu) = \frac{1}{m} \sum_{i = 1}^{m} \begin{Vmatrix}
 x^{(i)} - \mu_{c^{(i)}}
 \end{Vmatrix}^{2}
 </script>
-
-
 <p>この値が小さい程、分類形状の歪み具合 <em>Distortion</em> が少なくなるので、最適化（バランス良く振り分けられたかどうか）の目安になる。</p>
-
-<h3>Random Initialization</h3>
-
-<p>アルゴリズムの性質上、重心の初期値が重複していたり偏っていたりすると、<em>Local optima</em> に収束しやすい。</p>
-
+<h3><a href="#random-initialization" name="random-initialization" class="anchor"><span class="anchor-link"></span></a>Random Initialization</h3>
+<p>アルゴリズムの性質上、重心の初期値が重複していたり偏っていたりすると <em>Local optima</em> に収束しやすい。</p>
 <ul>
-<li><code>X = [0,0; 0,2; 0,10; 0,12]</code> を、二つのクラスタに分けるとする。</li>
-<li>期待される最終の重心は <code>centroids = [0,1; 0;11]</code></li>
-<li>初期値 <code>centroids = [0,0; 0,0]</code> の場合、<code>[0,6; 0,0]</code> に収束してしまう。
-
-<ul>
-<li><code>c = [1; 1; 1; 1], centroids = [(0/4),(24/4); 0,0] = [0,6; 0,0]</code></li>
+  <li><code>X = [0,0; 0,2; 0,10; 0,12]</code> を、二つのクラスタに分けるとする。</li>
+  <li>期待される最終の重心は <code>centroids = [0,1; 0;11]</code></li>
+  <li>初期値 <code>centroids = [0,0; 0,0]</code> の場合、<code>[0,6; 0,0]</code> に収束してしまう。
+    <ul>
+      <li><code>c = [1; 1; 1; 1], centroids = [(0/4),(24/4); 0,0] = [0,6; 0,0]</code></li>
+    </ul>
+  </li>
 </ul>
-</li>
-</ul>
-
-
 <p>このため、重心の初期値は、学習データからランダムに選択したユニークなサンプルと同値に置く。</p>
-
 <ul>
-<li>初期値 <code>centroids = [0,0; 0,2]</code> の場合、期待値 <code>[0,1; 0,11]</code> に収束する。
-
-<ul>
-<li><code>c = [1; 2; 2; 2], centroids = [(0/1),(0/1); (0/3),(24/3)] = [0,0; 0,8]</code></li>
-<li><code>c = [1; 1; 2; 2], centroids = [(0/2),(2/2); (0/2),(22/2)] = [0,1; 0,11]</code></li>
+  <li>初期値 <code>centroids = [0,0; 0,2]</code> の場合、期待値 <code>[0,1; 0,11]</code> に収束する。
+    <ul>
+      <li><code>c = [1; 2; 2; 2], centroids = [(0/1),(0/1); (0/3),(24/3)] = [0,0; 0,8]</code></li>
+      <li><code>c = [1; 1; 2; 2], centroids = [(0/2),(2/2); (0/2),(22/2)] = [0,1; 0,11]</code></li>
+    </ul>
+  </li>
 </ul>
-</li>
-</ul>
-
-
 <p>いくつかの初期値で試し、最適な重心を見つけることも重要になる。分類完了後にコスト <code>J(c, mu)</code> を計算し、最も小さいコストになる結果（初期値）を採用する。</p>
-
-<h3>Elbow Method</h3>
-
-<p><em>K-means algorithm</em> では、初めに重心数 <code>K</code> を決めなければいけない。サンプルデータに適した重心数を見つけるには、<em>Elbow method</em> が使える。</p>
-
+<h3><a href="#elbow-method" name="elbow-method" class="anchor"><span class="anchor-link"></span></a>Elbow Method</h3>
+<p><em>K-means algorithm</em> では、初めに重心数 <code>K</code> を決めなければいけない。サンプルデータに適した重心数を見つけるには <em>Elbow method</em> が使える。</p>
 <p><code>K</code> を x 軸、コスト関数 <code>J(c, mu)</code> を y 軸にプロットすると、<code>K = 1</code> を最大として、ある時点の <code>K</code> を境に、目立ってコスト値が下がらなくなる。この肘 <em>Elbow</em> の支点のように見える <code>K</code> が、最適な重心数になる。</p>
-
 <p>もちろん、利用用途によりクラスタ数の範囲が決まっているのであれば、常に最適値を取るという訳ではない。</p>
-
 <p>未開の場所に食事店を出すとして「並 / 大盛 / 特盛」のような <code>K = 3</code> のバリエーションが有効かを判断したい時、近辺住民の行動データから計測した最適なクラスタ数が <code>K = 5</code> であっても、バリエーションを増やすことが良いかは状況次第である。</p>
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

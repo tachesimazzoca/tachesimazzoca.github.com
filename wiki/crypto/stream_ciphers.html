@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Stream Ciphers | Cryptography</title>
+<title>tachesimazzoca - Wiki | Stream Ciphers</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,88 +20,87 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Cryptography</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../crypto/index.html">Cryptography</a></li>
+  <li>Stream Ciphers</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../crypto/stream_ciphers.html#stream-ciphers" class="header">Stream Ciphers</a>
+  <ul>
+    <li><a href="../crypto/stream_ciphers.html#pseudo-random-generator-prg-" class="header">Pseudo Random Generator (PRG)</a></li>
+    <li><a href="../crypto/stream_ciphers.html#many-time-pad-attack" class="header">Many Time Pad Attack</a></li>
+    <li><a href="../crypto/stream_ciphers.html#rc4" class="header">RC4</a></li>
+    <li><a href="../crypto/stream_ciphers.html#lfsr" class="header">LFSR</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Cryptography</a></li><li>Stream Ciphers</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li class="active"><a href="./stream_ciphers.html">Stream Ciphers</a></li><li><a href="./block_ciphers.html">Block Ciphers</a></li><li><a href="./macs.html">Message Authentication Code</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/crypto/stream_ciphers.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/crypto/stream_ciphers.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/crypto/stream_ciphers.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Stream Ciphers</h1>
-          <div id="toc">
-          </div>
-          <script type="text/x-mathjax-config">
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/crypto/stream_ciphers.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#stream-ciphers" name="stream-ciphers" class="anchor"><span class="anchor-link"></span></a>Stream Ciphers</h1>
+<script type="text/x-mathjax-config">
   MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
 </script>
-
-
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
 </script>
-
-
-<h2>Pseudo Random Generator (PRG)</h2>
-
+<h2><a href="#pseudo-random-generator-prg-" name="pseudo-random-generator-prg-" class="anchor"><span class="anchor-link"></span></a>Pseudo Random Generator (PRG)</h2>
 <p><em>One Time Pad (OTP)</em> では、メッセージよりも大きい暗号キーを持つ必要がある。保有キーから無限長の暗号キーを生成する <em>Pseudo Random Generator (PRG)</em> を用いることで、保有キーのサイズを小さくできる。</p>
-
 <p>OTP とは異なり、保有キーの利用が１度限りであっても、PRG のアルゴリズムが予測可能であれば <em>Perfect secrecy</em> は持たない。例えば、単に保有キーを繰り返すだけのアルゴリズムであるとする。平文のヘッダ部が決まっており、保有キーがそのサイズ以下であると、暗号キーを特定できることが分かる。</p>
-
 <pre><code>(The header block of PT is always 1111 1111)
 KEY                 : 0110 1001
 PRG-KEY             : 0110 1001 0110 1001 0110 1001 0110
@@ -125,9 +111,7 @@ Predictable KEY     : 0110 1001                          : m = c ^ k = 10010110 
 Predictable PRG-KEY : 0110 1001|0110 1001|0110 1001|0110 ....
 Revealed PT         : 1111 1111 0110 0101 1101 0111 1011
 </code></pre>
-
-<p>たとえランダムであっても、乱数生成に周期性があると同様に予測可能である。<em>Linear Congruential Generator (LCG)</em> のアルゴリズムでは周期性がある。</p>
-
+<p>たとえランダムであっても、乱数生成に周期性があると同様に予測可能である。 <em>Linear Congruential Generator (LCG)</em> のアルゴリズムでは周期性がある。</p>
 <script type="math/tex; mode=display" id="MathJax-Element-cipher_lcg">
 X_{n+1} := (A \cdot X_n + B) \bmod M \\
 A = 3, B = 5, M = 13 \\
@@ -141,14 +125,9 @@ X_5 & := 1 \\
 \ldots
 \end{align}
 </script>
-
-
 <p>glibc の <code>random()</code> 関数等は、この LCG のアルゴリズムを用いているため、決して暗号化のために用いてはならない。</p>
-
-<h2>Many Time Pad Attack</h2>
-
+<h2><a href="#many-time-pad-attack" name="many-time-pad-attack" class="anchor"><span class="anchor-link"></span></a>Many Time Pad Attack</h2>
 <p>暗号キーは再利用されてはならない。同じキーの XOR 演算で作成された暗号文が二つあれば、暗号文の XOR により、平文の XOR に変換できる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-attack_on_ttp">
 \begin{align}
 C_1 & := m_1 \oplus k_0 \\
@@ -156,100 +135,77 @@ C_2 & := m_2 \oplus k_0 \\
 \end{align} \\
 C_1 \oplus C_2 = m_1 \oplus m_2
 </script>
-
-
 <p>二つの平文の XOR から分解するのは困難に思えるが、元メッセージが英文で成り立っている場合、スペースと <code>[a-zA-z]</code> の XOR を候補とすることができる。スペースが交錯するサンプルを集めて単語から推測し、XOR で逆算することでキーを抽出できる。</p>
-
 <p>サーバとクライアント間で同じ暗号キーを使った場合も、双方の通信の XOR により、平文のリクエストとレスポンスの XOR を得られる。サーバとクライアントで異なるキーが必要である。</p>
-
 <ul>
-<li>WindowsNT MS-PPTP は、サーバとクライアント間で同じ PRG キーを使うため安全ではない。</li>
+  <li>WindowsNT MS-PPTP は、サーバとクライアント間で同じ PRG キーを使うため安全ではない。</li>
 </ul>
-
-
 <p>キー生成のヒントになる情報も（何番目のキーであるか？等）通信に含めてはならない。同じヒントである暗号文は、同じ暗号キーを使った暗号文である。</p>
-
 <ul>
-<li>802.11b WEP は 24bit のフレーム番号をキー生成に使うため安全ではない。16Mフレーム毎に同じ PRG キーが用いられる。</li>
+  <li>802.11b WEP は 24bit のフレーム番号をキー生成に使うため安全ではない。16Mフレーム毎に同じ PRG キーが用いられる。</li>
 </ul>
-
-
-<h2>RC4</h2>
-
+<h2><a href="#rc4" name="rc4" class="anchor"><span class="anchor-link"></span></a>RC4</h2>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/RC4">https://en.wikipedia.org/wiki/RC4</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/RC4">https://en.wikipedia.org/wiki/RC4</a></li>
 </ul>
-
-
 <p>256個の 0-255 の順列である 256bytes の状態配列 <code>S</code> を元に、キーを生成する。</p>
-
 <ul>
-<li><em>Key-scheduling Algorithm (KSA)</em>
-
-<ul>
-<li>5-16byte 程度のシードを与えて、初期の状態配列 <code>S</code> を生成する。</li>
+  <li><em>Key-scheduling Algorithm (KSA)</em>
+    <ul>
+      <li>5-16byte 程度のシードを与えて、初期の状態配列 <code>S</code> を生成する。</li>
+    </ul>
+  </li>
+  <li><em>Pseudo Random Generation Algorithm (PRGA)</em></li>
+  <li>1byte 毎に、状態配列 <code>S</code> の要素を入れ替えながら、キー生成を行なう。</li>
 </ul>
-</li>
-<li><em>Pseudo Random Generation Algorithm (PRGA)</em>
-
-<ul>
-<li>1byte 毎に、状態配列 <code>S</code> の要素を入れ替えながら、キー生成を行なう。</li>
-</ul>
-</li>
-</ul>
-
-
 <p>SSL/TLS や 802.11b WEP で用いられているが、以下の欠点がある。</p>
-
 <ul>
-<li>キーストリームの 2byte 目が 0 となる確率が 2/256 であり、識別攻撃が可能</li>
-<li>WEP のように、何番目に生成されたキーであるかがわかれば、Two time pad 攻撃で平文を復元可能</li>
+  <li>キーストリームの 2byte 目が 0 となる確率が 2/256 であり、識別攻撃が可能</li>
+  <li>WEP のように、何番目に生成されたキーであるかがわかれば、Two time pad 攻撃で平文を復元可能</li>
 </ul>
-
-
-<h2>LFSR</h2>
-
+<h2><a href="#lfsr" name="lfsr" class="anchor"><span class="anchor-link"></span></a>LFSR</h2>
 <p><em>Linear Feedback Shift Register (LFSR)</em> は、タップと呼ばれる任意の数ビットの XOR 出力を先頭ビットとし、ビットシフトを繰り返すレジスタを指す。DVD や Bluetooth のハードウェア用の PRG としても用いられている。</p>
-
 <p>レジスタの初期シードが同じであれば、必ず同じ状態になるため、初期シードが小さいと総当たりで復元可能である。</p>
-
 <p>DVD に用いられている <em>Content Scrambling System (CSS)</em> のシードは、40bit(5byte) と非常に小さい。PRG アルゴリズムは以下のようになる。</p>
-
 <ul>
-<li>LFSR17: <code>1 || 16bit(seed[0..1])</code> を初期シードとする 17bit LFSR 出力から 8bit を抽出</li>
-<li>LFSR25: <code>1 || 24bit(seed[2..4])</code> を初期シードとする 25bit LFSR 出力から 8bit を抽出</li>
-<li>二つの LFSR を可算し下位 8bit をキーとする。 <code>(LFSR17 + LFSR25) mod 256</code></li>
-<li>1byte 毎に繰り返す</li>
+  <li>LFSR17: <code>1 || 16bit(seed[0..1])</code> を初期シードとする 17bit LFSR 出力から 8bit を抽出</li>
+  <li>LFSR25: <code>1 || 24bit(seed[2..4])</code> を初期シードとする 25bit LFSR 出力から 8bit を抽出</li>
+  <li>二つの LFSR を可算し下位 8bit をキーとする。 <code>(LFSR17 + LFSR25) mod 256</code></li>
+  <li>1byte 毎に繰り返す</li>
 </ul>
-
-
 <p>元データの先頭バイトが予測できれば、LFSR17 の初期状態を <code>2^17</code> 回の総当たりで試し、キーストリームの引き算で対応する LFSR25 を算出して、LFSR ペアの候補を取り出すことができる。候補を試し、二つの LFSR の初期状態がわかれば、以降のバイトは復元可能となる。</p>
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Support Vector Machine | Machine Learning</title>
+<title>tachesimazzoca - Wiki | Support Vector Machine</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,97 +20,95 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Machine Learning</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../machine_learning/index.html">Machine Learning</a></li>
+  <li>Support Vector Machine</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../machine_learning/svm.html#support-vector-machine" class="header">Support Vector Machine</a>
+  <ul>
+    <li><a href="../machine_learning/svm.html#vs-sigmoid-function" class="header">vs. Sigmoid Function</a></li>
+    <li><a href="../machine_learning/svm.html#vector-inner-product" class="header">Vector Inner Product</a></li>
+    <li><a href="../machine_learning/svm.html#linear-decision-boundary" class="header">Linear Decision Boundary</a></li>
+    <li><a href="../machine_learning/svm.html#gaussian-kernel" class="header">Gaussian Kernel</a></li>
+    <li><a href="../machine_learning/svm.html#non-linear-decision-boundary" class="header">Non-linear Decision Boundary</a></li>
+    <li><a href="../machine_learning/svm.html#vs-logistic-regression-neural-network" class="header">vs. Logistic Regression / Neural Network</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Machine Learning</a></li><li>Support Vector Machine</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./gradient_descent.html">Gradient Descent</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./testing.html">Testing</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li class="active"><a href="./svm.html">Support Vector Machine</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li><li><a href="./anomaly_detection.html">Anomaly Detection</a></li><li><a href="./collaborative_filtering.html">Collaborative Filtering</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/svm.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/svm.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/svm.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Support Vector Machine</h1>
-          <div id="toc">
-          </div>
-          <script type="text/x-mathjax-config">
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/machine_learning/svm.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#support-vector-machine" name="support-vector-machine" class="anchor"><span class="anchor-link"></span></a>Support Vector Machine</h1>
+<script type="text/x-mathjax-config">
   MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
 </script>
-
-
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
 </script>
-
-
-<h2>vs. Sigmoid Function</h2>
-
+<h2><a href="#vs-sigmoid-function" name="vs-sigmoid-function" class="anchor"><span class="anchor-link"></span></a>vs. Sigmoid Function</h2>
 <p>ロジスティック回帰により、二値に分類することができるが、その決定境界 <em>Decision boundary</em> はシグモイド関数による一つの変曲点 <code>(0. 0.5)</code> になる。</p>
-
 <p>変曲点が一つであることは、決定境界が必ずしも最適な結果にならないことも意味する。</p>
-
 <ul>
-<li><code>x = [0 10; 0 -10], y = [1; 0]</code> という学習データを例にする。</li>
-<li>直感では、決定境界は <code>(0, -N)..(0, N)</code> のような、y 軸に沿う直線が考えられる。</li>
-<li>ロジスティック回帰においては、正解値のマージンが少ない <code>(-10, -1)..(10, 1)</code> を通る決定境界を与えることもある。</li>
+  <li><code>x = [0 10; 0 -10], y = [1; 0]</code> という学習データを例にする。</li>
+  <li>直感では、決定境界は <code>(0, -N)..(0, N)</code> のような、y 軸に沿う直線が考えられる。</li>
+  <li>ロジスティック回帰においては、正解値のマージンが少ない <code>(-10, -1)..(10, 1)</code> を通る決定境界を与えることもある。</li>
 </ul>
-
-
-<p>これに対し、<em>SVM (Support Vector Machine)</em> は、より最適なマージンをもつ決定境界を見つけようとする。目的関数はロジスティク回帰と似ており、<code>y = (0|1)</code> の値に応じてコスト算出アルゴリズムを切り替える。</p>
-
+<p>これに対し <em>SVM (Support Vector Machine)</em> は、より最適なマージンをもつ決定境界を見つけようとする。目的関数はロジスティク回帰と似ており、<code>y = (0|1)</code> の値に応じてコスト算出アルゴリズムを切り替える。</p>
 <script type="math/tex; mode=display" id="MathJax-Element-svm_linear_boundary">
 \min_{\theta} C \sum_{i = 1}^{m} \begin{bmatrix}
   y^{(i)} \text{cost}_{1}(\theta^{T} x^{(i)}) + (1 - y^{(i)}) \text{cost}_{0}(\theta^{T} x^{(i)})
@@ -136,38 +121,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   \end{array} \\
 \right.
 </script>
-
-
 <ul>
-<li><code>cost1</code> 関数は <code>y = 1</code> である時のコストを返す。<code>θ^T x</code> が 1 以上であればコスト無し 0 となり、そうでなければ 1 から減少するごとにコストが比例して増える。</li>
-<li><code>cost0</code> 関数は <code>y = 0</code> である時のコストを返す。<code>θ^T x</code> が -1 以下であればコスト無し 0 となり、そうでなければ -1 から増加するごとにコストが比例して増える。</li>
-<li><code>C</code> は定数で、大きくするごとに誤差への感度が上がり、決定境界を正解値にフィットしようとする。小さくすると誤差への感度が下がり、決定境界が正解値から外れることを許容する。</li>
-<li><code>θ</code> の二乗和を取っている項は、ロジスティック回帰でのペナルティ項のように思えるが、<em>SVM</em> においては、役目が反対になる。すなわち <code>θ</code> の値を最小にすることが目的になる。</li>
+  <li><code>cost1</code> 関数は <code>y = 1</code> である時のコストを返す。<code>θ^T x</code> が 1 以上であればコスト無し 0 となり、そうでなければ 1 から減少するごとにコストが比例して増える。</li>
+  <li><code>cost0</code> 関数は <code>y = 0</code> である時のコストを返す。<code>θ^T x</code> が -1 以下であればコスト無し 0 となり、そうでなければ -1 から増加するごとにコストが比例して増える。</li>
+  <li><code>C</code> は定数で、大きくするごとに誤差への感度が上がり、決定境界を正解値にフィットしようとする。小さくすると誤差への感度が下がり、決定境界が正解値から外れることを許容する。</li>
+  <li><code>θ</code> の二乗和を取っている項は、ロジスティック回帰でのペナルティ項のように思えるが <em>SVM</em> においては、役目が反対になる。すなわち <code>θ</code> の値を最小にすることが目的になる。</li>
 </ul>
-
-
 <p><code>θ</code> が小さいほど決定境界のマージンが保たれるとするならば、目的関数を最小化することは</p>
-
 <ul>
-<li>決定境界を見つける: <code>cost</code> 関数を 0 に近づける。</li>
-<li>決定境界のマージンを保つ: <code>θ</code> を出来る限り最小にする。</li>
+  <li>決定境界を見つける: <code>cost</code> 関数を 0 に近づける。</li>
+  <li>決定境界のマージンを保つ: <code>θ</code> を出来る限り最小にする。</li>
 </ul>
-
-
 <p>この二つが両立するパラメータ <code>θ</code> を見つけることになる。</p>
-
-<h2>Vector Inner Product</h2>
-
+<h2><a href="#vector-inner-product" name="vector-inner-product" class="anchor"><span class="anchor-link"></span></a>Vector Inner Product</h2>
 <p>直角三角形の斜辺の長さは、ピタゴラスの定理により「斜辺の長さ <em>c</em> の二乗は、残りの二辺（底辺 / 高さ） <em>a, b</em> それぞれの二乗の和と等しい」</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-pythagrean_theorem">
 a^2 + b^2 = c^2 \\
 c = \sqrt{a^2 + b^2} \\
 </script>
-
-
 <p>直角三角形の斜辺は、ベクトルに置き換えるとその距離に等しく、ノルム <em>Norm</em> という表記 <code>||u||</code> で表す。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-norm">
 u = \begin{bmatrix}
 3 \\
@@ -176,41 +148,26 @@ u = \begin{bmatrix}
 
 \| u \| = \sqrt{ u_1^{2} + u_2^{2} } = \sqrt{ 3^2 + 5^2 } = \sqrt{ 31 } = 5.5678
 </script>
-
-
 <p>ベクトルの内積 <em>Vector inner product</em> は、以下の公式がなりたつ。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-vector_inner_product">
 \vec{u} \cdot \vec{v} = u^{T}v = \| u \| \cdot \| v \| \cos \theta \\
 </script>
-
-
 <p>すなわち、ベクトル <code>v</code> から、ベクトル <code>u</code> への射影 <em>Projection</em> を <code>p</code> とすると</p>
-
 <ul>
-<li>ベクトル <code>v</code> の距離は、直角三角形の斜辺</li>
-<li>射影 <code>p</code> の距離は、直角三角形の底辺 <code>||v|| cosθ</code></li>
+  <li>ベクトル <code>v</code> の距離は、直角三角形の斜辺</li>
+  <li>射影 <code>p</code> の距離は、直角三角形の底辺 <code>||v|| cosθ</code></li>
 </ul>
-
-
 <p>である。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-vector_projection">
 \begin{align}
 u^{T}v & = p \cdot \| u \| \\
 u_1 v_1 + u_2 v_2  & = p \cdot \sqrt{u_1^{2} + u_2^{2}} \\
 \end{align}
 </script>
-
-
 <p>射影 <code>p</code> は、ベクトル <code>u, v</code> 間の角度が 90 度以上になると、負の値になる。</p>
-
-<h2>Linear Decision Boundary</h2>
-
+<h2><a href="#linear-decision-boundary" name="linear-decision-boundary" class="anchor"><span class="anchor-link"></span></a>Linear Decision Boundary</h2>
 <p><em>SVM</em> が、どのように決定境界のマージンを確保するかは、ベクトルの内積の公式からイメージできる。</p>
-
 <p>簡略化のために、二次元に制限して <code>(θ1, θ2), (x1, x2)</code> 、線形の決定境界 <em>Linear decision boundary</em> を持つケースで考えてみる。<code>θ^T x</code> を、ベクトルの内積 <code>u^T v</code> に置き換えると、目的関数内の <code>cost</code> 関数の条件を以下のように言い換えることができる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-svm_linear_kernel_cost">
 \theta^{T} x = u^{T}v = p \cdot \| u \| \\
 \left\{
@@ -220,27 +177,19 @@ u_1 v_1 + u_2 v_2  & = p \cdot \sqrt{u_1^{2} + u_2^{2}} \\
   \end{array} \\
 \right.
 </script>
-
-
 <ul>
-<li><code>p</code> は、斜辺ベクトル <code>x</code> から、底辺ベクトル <code>θ</code> への射影の長さ</li>
-<li><code>||u||</code> は底辺ベクトル <code>θ</code> の長さ</li>
-<li><code>y = 1</code> である時、射影 <code>p</code> がより大きければ（正の方向に十分な長さがあれば）ベクトル <code>θ</code> はより小さくなれる。</li>
-<li><code>y = 0</code> である時、射影 <code>p</code> がより小さければ（負の方向に十分な長さがあれば）ベクトル <code>θ</code> はより小さくなれる。</li>
+  <li><code>p</code> は、斜辺ベクトル <code>x</code> から、底辺ベクトル <code>θ</code> への射影の長さ</li>
+  <li><code>||u||</code> は底辺ベクトル <code>θ</code> の長さ</li>
+  <li><code>y = 1</code> である時、射影 <code>p</code> がより大きければ（正の方向に十分な長さがあれば）ベクトル <code>θ</code> はより小さくなれる。</li>
+  <li><code>y = 0</code> である時、射影 <code>p</code> がより小さければ（負の方向に十分な長さがあれば）ベクトル <code>θ</code> はより小さくなれる。</li>
 </ul>
-
-
 <p>決定境界を <code>(0, 0)</code> を通過する直線とした時、以下のように視覚化できる。</p>
-
 <ul>
-<li>ベクトル <code>x</code> を直角三角形の斜辺と捉えると、決定境界はその直角三角形の高さに平行な直線となる。</li>
-<li><code>cost</code> 関数への引数 <code>θ^T x</code> を、直角三角形の斜辺 <code>x</code> と底辺ベクトル <code>θ</code> の内積を取ることと考えれば、<code>θ</code> は決定境界（直角三角形の高さと平行の直線）に対して、正方向に 90 度の角度を持つベクトルになる。</li>
-<li>ベクトル <code>x</code> から、ベクトル <code>θ</code> への 射影 <code>p</code> の長さは、決定境界と <code>(x1, x2)</code> のマージンになる。</li>
+  <li>ベクトル <code>x</code> を直角三角形の斜辺と捉えると、決定境界はその直角三角形の高さに平行な直線となる。</li>
+  <li><code>cost</code> 関数への引数 <code>θ^T x</code> を、直角三角形の斜辺 <code>x</code> と底辺ベクトル <code>θ</code> の内積を取ることと考えれば、<code>θ</code> は決定境界（直角三角形の高さと平行の直線）に対して、正方向に 90 度の角度を持つベクトルになる。</li>
+  <li>ベクトル <code>x</code> から、ベクトル <code>θ</code> への 射影 <code>p</code> の長さは、決定境界と <code>(x1, x2)</code> のマージンになる。</li>
 </ul>
-
-
 <p>決定境界が完全に正解値に分類できているならば、<code>cost</code> 関数が 0 となるので、目的関数は以下に簡略化できる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-svm_linear_kernel_theta">
 \begin{align}
 \min_{\theta} C \cdot 0 + \frac{1}{2} \sum_{j = 1}^{n} \theta_{j}^{2} & = \frac{1}{2} \sum_{j = 1}^{n} \theta_{j}^{2} \\
@@ -249,32 +198,20 @@ u_1 v_1 + u_2 v_2  & = p \cdot \sqrt{u_1^{2} + u_2^{2}} \\
 & = \frac{1}{2} \| \theta \| ^{2} \\
 \end{align}
 </script>
-
-
 <p>つまり <code>θ</code> を最小化しつつ、<code>cost</code> 関数が 0 となる条件を満たすには、射影 <code>p</code> の長さが十分であることが必要で、このことは <em>SVM</em> が、決定境界を正解値にフィットさせつつ、よりマージンを取ろうとすることに繋がる。</p>
-
-<h2>Gaussian Kernel</h2>
-
+<h2><a href="#gaussian-kernel" name="gaussian-kernel" class="anchor"><span class="anchor-link"></span></a>Gaussian Kernel</h2>
 <p>二値間の類似度を計る関数を <em>Kernel (Similarity) function</em> と呼ぶ。一つに、ガウス関数 <em>Gaussian Function (Kernel)</em> がある。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-svm_gaussian_function">
 \text{similarity} (a, b) = K_{gaussian} (a, b) = \exp \left( - \frac{ \| a - b \|^{2} }{2 \sigma^{2}} \right) \\
 </script>
-
-
 <ul>
-<li><code>| a - b |</code> が小さいほど（類似度が高いほど）1</li>
-<li><code>| a - b |</code> が大きいほど（類似度が低いほど）0</li>
-<li><code>σ</code> により、類似度の曖昧さを調整する。この値を増やすほど勾配（類似度への感度）がなだらかになり、減らすほど勾配が急激になる。</li>
+  <li><code>| a - b |</code> が小さいほど（類似度が高いほど）1</li>
+  <li><code>| a - b |</code> が大きいほど（類似度が低いほど）0</li>
+  <li><code>σ</code> により、類似度の曖昧さを調整する。この値を増やすほど勾配（類似度への感度）がなだらかになり、減らすほど勾配が急激になる。</li>
 </ul>
-
-
-<h2>Non-linear Decision Boundary</h2>
-
+<h2><a href="#non-linear-decision-boundary" name="non-linear-decision-boundary" class="anchor"><span class="anchor-link"></span></a>Non-linear Decision Boundary</h2>
 <p>決定境界が直線でない場合、一般式に高次の多項式のパラメータを取る方法があるが、どのような項を追加すればよいかということは直感的に判断が難しい。また画像ピクセルのように入力が多すぎる場合、計算量も高くつく。</p>
-
 <p>学習データの入力に対して、多項式のパラメータを取るのではなく、いったん学習データ間の類似度データに変換し、それに対して線形パラメータを取る方法がある。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-svm_similarity">
 \begin{array}{l l}
 x \in \mathbb{R}^{m} & {\scriptsize \text{$m = $ number of examples}} \\
@@ -286,76 +223,69 @@ f_{2}^{(i)} = \text{similarity} (x^{(i)}, x^{(2)}) \\
 f_{n}^{(i)} = \text{similarity} (x^{(i)}, x^{(n)}) \\
 h_{\theta}(f) = \theta^{T} f = \theta_0 + \theta_1 f_1 + \theta_2 f_2 + \ldots + \theta_{n} f_n \\
 </script>
-
-
 <ul>
-<li>学習データの入力 <code>x</code> を交差させた類似度を持つデータ <code>f</code> を作成する。</li>
-<li>類似度データ <code>f</code> のパラメータ数 <code>n</code> は、学習データ数 <code>m</code> に等しく、大きさ <code>m</code> の正方行列になる。</li>
+  <li>学習データの入力 <code>x</code> を交差させた類似度を持つデータ <code>f</code> を作成する。</li>
+  <li>類似度データ <code>f</code> のパラメータ数 <code>n</code> は、学習データ数 <code>m</code> に等しく、大きさ <code>m</code> の正方行列になる。</li>
 </ul>
-
-
-<p><em>SVM</em> においても、類似度データからコストを取れば、非線形の決定境界 <em>Non-linear decison boundary</em> に対してもマージンを調整できる。<em>Kernel function</em> にガウス関数を用いると以下のようになる。</p>
-
+<p><em>SVM</em> においても、類似度データからコストを取れば、非線形の決定境界 <em>Non-linear decison boundary</em> に対してもマージンを調整できる。 <em>Kernel function</em> にガウス関数を用いると以下のようになる。</p>
 <script type="math/tex; mode=display" id="MathJax-Element-svm_non_linear_boundary">
 f_{j}^{(i)} = \text{similarity} (x(i), x(j)) = \exp \left( - \frac{ \| x^{(i)} - x^{(j)} \|^{2} }{2 \sigma^{2}} \right) = \exp \left( - \frac{ \sum_{k = 1}^{n} ( x_k^{(i)} - x_k^{(j)} )^{2} }{2 \sigma^{2}} \right) \\
 \min_{\theta} C \sum_{i = 1}^{m} \begin{bmatrix}
   y^{(i)} \text{cost}_{1}(\theta^{T} f^{(i)}) + (1 - y^{(i)}) \text{cost}_{0}(\theta^{T} f^{(i)})
 \end{bmatrix} + \frac{1}{2} \sum_{j = 1}^{n} \theta_{j}^{2}  \\
 </script>
-
-
 <ul>
-<li>類似度データ <code>f</code> に変換する前に、学習データの入力 <code>x</code> は <em>Feature scaling</em> を行なっておく必要がある。</li>
-<li>目的関数は、学習データの入力 <code>x</code> からではなく、類似度データ <code>f</code> から取る。</li>
-<li>パラメータ数 <code>n</code> は、学習データ数 <code>m</code> に等しい <code>n = m</code></li>
-<li><code>C</code> と <code>σ</code> の役目は反対になる。
-
-<ul>
-<li>Increase <code>C</code>: 予測誤差に対する感度を上げ、マージンを許容しない。 <em>Low bias / High variance</em></li>
-<li>Decrease <code>C</code>: 予測誤差に対する感度を下げ、マージンを許容する。 <em>High bias / Low variance</em></li>
-<li>Increase <code>σ</code>: 類似度に対する感度を下げ、マージンを許容する。 <em>High bias / Low variance</em></li>
-<li>Decrease <code>σ</code>: 類似度に対する感度を上げ、マージンを許容しない。 <em>Low bias / High variance</em></li>
+  <li>類似度データ <code>f</code> に変換する前に、学習データの入力 <code>x</code> は <em>Feature scaling</em> を行なっておく必要がある。</li>
+  <li>目的関数は、学習データの入力 <code>x</code> からではなく、類似度データ <code>f</code> から取る。</li>
+  <li>パラメータ数 <code>n</code> は、学習データ数 <code>m</code> に等しい <code>n = m</code></li>
+  <li><code>C</code> と <code>σ</code> の役目は反対になる。
+    <ul>
+      <li>Increase <code>C</code>: 予測誤差に対する感度を上げ、マージンを許容しない。 <em>Low bias / High variance</em></li>
+      <li>Decrease <code>C</code>: 予測誤差に対する感度を下げ、マージンを許容する。 <em>High bias / Low variance</em></li>
+      <li>Increase <code>σ</code>: 類似度に対する感度を下げ、マージンを許容する。 <em>High bias / Low variance</em></li>
+      <li>Decrease <code>σ</code>: 類似度に対する感度を上げ、マージンを許容しない。 <em>Low bias / High variance</em></li>
+    </ul>
+  </li>
 </ul>
-</li>
-</ul>
-
-
-<h2>vs. Logistic Regression / Neural Network</h2>
-
+<h2><a href="#vs-logistic-regression-neural-network" name="vs-logistic-regression-neural-network" class="anchor"><span class="anchor-link"></span></a>vs. Logistic Regression / Neural Network</h2>
 <p><em>Kernel</em> を用いた <em>SVM</em> が万能のように思えるが、必ずしもそうではない。</p>
-
 <ul>
-<li>パラメータ数 <code>n</code> が十分に得られている（i.e. 学習データ数よりも大きい）なら、ロジスティック回帰か、<em>Kernel</em> なしの <em>SVM</em> を用いればよく、あえて <em>Kernel function</em> を介す必要はない。</li>
-<li>パラメータ数 <code>n</code> が少ないのであれば、<em>Kernel</em> を用いた <em>SVM</em> を用いることを検討できるが、類似データ作成の処理時間は学習データ数 <code>m</code> に対して <em>O(N^2)</em> で増加し、一般式のパラメータ数も <code>m</code> になる。これらがインパクトを与える場合には選択できない。この場合は、パラメータ数 <code>n</code> を増やして、ロジスティック回帰か、<em>Kernel</em> なしの <em>SVM</em> を用いる。</li>
-<li>ニューラルネットワークは、複雑なケースにもうまくフィットするが、学習処理においては、各ユニットへ伝播を繰り返すため、総じて時間がかかる。画像認識 / 音声認識など入力ソースからパラメータを見つけることが直感的に捉えづらい場合には、潤沢なリソースをかけて学習させる価値はあるが、テキスト/数値データなどの単純な入力に際しては、最初に選択すべきではない。</li>
+  <li>パラメータ数 <code>n</code> が十分に得られている（i.e. 学習データ数よりも大きい）なら、ロジスティック回帰か <em>Kernel</em> なしの <em>SVM</em> を用いればよく、あえて <em>Kernel function</em> を介す必要はない。</li>
+  <li>パラメータ数 <code>n</code> が少ないのであれば <em>Kernel</em> を用いた <em>SVM</em> を用いることを検討できるが、類似データ作成の処理時間は学習データ数 <code>m</code> に対して <em>O(N^2)</em> で増加し、一般式のパラメータ数も <code>m</code> になる。これらがインパクトを与える場合には選択できない。この場合は、パラメータ数 <code>n</code> を増やして、ロジスティック回帰か <em>Kernel</em> なしの <em>SVM</em> を用いる。</li>
+  <li>ニューラルネットワークは、複雑なケースにもうまくフィットするが、学習処理においては、各ユニットへ伝播を繰り返すため、総じて時間がかかる。画像認識 / 音声認識など入力ソースからパラメータを見つけることが直感的に捉えづらい場合には、潤沢なリソースをかけて学習させる価値はあるが、テキスト/数値データなどの単純な入力に際しては、最初に選択すべきではない。</li>
 </ul>
-
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

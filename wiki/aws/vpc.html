@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | VPC | Amazon Web Services</title>
+<title>tachesimazzoca - Wiki | VPC</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,284 +20,233 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Amazon Web Services</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../aws/index.html">Amazon Web Services</a></li>
+  <li>VPC</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../aws/vpc.html#vpc" class="header">VPC</a>
+  <ul>
+    <li><a href="../aws/vpc.html#vpc" class="header">VPC</a></li>
+    <li><a href="../aws/vpc.html#subnets" class="header">Subnets</a></li>
+    <li><a href="../aws/vpc.html#security-groups" class="header">Security Groups</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Amazon Web Services</a></li><li>VPC</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./s3.html">S3</a></li><li><a href="./ec2.html">EC2</a></li><li class="active"><a href="./vpc.html">VPC</a></li><li><a href="./cloudfront.html">CloudFront</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/aws/vpc.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/aws/vpc.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/aws/vpc.md">History</a>
-          </div>
-          <div id="content">
-          <h1>VPC</h1>
-          <div id="toc">
-          </div>
-          <h2>VPC</h2>
-
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/aws/vpc.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#vpc" name="vpc" class="anchor"><span class="anchor-link"></span></a>VPC</h1>
+<h2><a href="#vpc" name="vpc" class="anchor"><span class="anchor-link"></span></a>VPC</h2>
 <p>VPC (Virtual Private Cloud) によりプライベートネットワークを作成できる。</p>
-
 <ul>
-<li><em>VPC > Your VPCs</em> を選択</li>
-<li><em>Create VPC</em> ボタンを押下</li>
-<li>任意の CIDR Block を指定。範囲は <code>xxx.xxx.0.0/16</code> に制限されている。
-
-<ul>
-<li>クラスC <code>192.168.0.0/16</code> と同じ範囲だが、<code>10.0.0.0/16</code> のようにも指定できる。</li>
+  <li><em>VPC &gt; Your VPCs</em> を選択</li>
+  <li><em>Create VPC</em> ボタンを押下</li>
+  <li>任意の CIDR Block を指定。範囲は <code>xxx.xxx.0.0/16</code> に制限されている。
+    <ul>
+      <li>クラスC <code>192.168.0.0/16</code> と同じ範囲だが、<code>10.0.0.0/16</code> のようにも指定できる。</li>
+    </ul>
+  </li>
 </ul>
-</li>
-</ul>
-
-
 <p>CIDR Block は、以下のように割り当てて「最大 256 個の Subnet と、Subnet 内で 256 個のIPアドレスを持てる」と考えると管理しやすい。</p>
-
 <ul>
-<li>VPC: <code>10.0.0.0/16</code></li>
-<li>Subnets: <code>10.0.(0..255).0/24</code></li>
+  <li>VPC: <code>10.0.0.0/16</code></li>
+  <li>Subnets: <code>10.0.(0..255).0/24</code></li>
 </ul>
-
-
 <p>すなわち <code>256 * 256 = 65536</code> 個のプライベートIPアドレスを持てることになる。ただし、あくまで仕様上の個数であり、AWS 内で使える数には限りがある。</p>
-
 <ul>
-<li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html">http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html</a></li>
+  <li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html">http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html</a></li>
 </ul>
-
-
 <p>VPC 作成後はサイズ変更ができないため、最大の <code>10.0.0.0/16</code> を割り当てておくとよい。</p>
-
-<h3>Internet Gateways</h3>
-
+<h3><a href="#internet-gateways" name="internet-gateways" class="anchor"><span class="anchor-link"></span></a>Internet Gateways</h3>
 <p>VPC はそのままではインターネットとの通信経路が存在しない。Internet Gateway を VPC に紐付ける必要がある。</p>
-
 <ul>
-<li><em>VPC > Internet Gateways</em> を選択</li>
-<li><em>Create Internet Gateway</em> ボタンを押下</li>
-<li>作成された Internet Gateway を選択</li>
-<li><em>Attach to VPC</em> ボタンを押下</li>
-<li>対象の VPC を選択し Internet Gateway と紐付ける</li>
+  <li><em>VPC &gt; Internet Gateways</em> を選択</li>
+  <li><em>Create Internet Gateway</em> ボタンを押下</li>
+  <li>作成された Internet Gateway を選択</li>
+  <li><em>Attach to VPC</em> ボタンを押下</li>
+  <li>対象の VPC を選択し Internet Gateway と紐付ける</li>
 </ul>
-
-
 <p>通信経路が確保されただけであり、Elastic IP でグローバル IP アドレスを割り当てるまでは、インターネットからは VPC にアクセスはできない。</p>
-
-<h2>Subnets</h2>
-
+<h2><a href="#subnets" name="subnets" class="anchor"><span class="anchor-link"></span></a>Subnets</h2>
 <p>VPC 内に、Subnet と呼ばれるプライベートアドレス空間を作成する。EC2 インスタンスはこの Subnet 内に置かれる。</p>
-
 <ul>
-<li>Public Subnet
-
-<ul>
-<li>Internet Gateway とのルートを持つ Subnet = インターネットからアクセス可</li>
+  <li>Public Subnet
+    <ul>
+      <li>Internet Gateway とのルートを持つ Subnet = インターネットからアクセス可</li>
+    </ul>
+  </li>
+  <li>Private Subnet
+    <ul>
+      <li>Internet Gateway とのルートを持たない Subnet = インターネットからアクセス不可</li>
+    </ul>
+  </li>
 </ul>
-</li>
-<li>Private Subnet
-
-<ul>
-<li>Internet Gateway とのルートを持たない Subnet = インターネットからアクセス不可</li>
-</ul>
-</li>
-</ul>
-
-
 <p>Subnet は以下の手順で作成する。</p>
-
 <ul>
-<li><em>VPC > Subnets</em> を選択</li>
-<li><em>Create Subnet</em> ボタンを押下</li>
-<li>任意の CIDR Block を指定。範囲は <code>xxx.xxx.xxx.0/24</code> に制限されている。</li>
+  <li><em>VPC &gt; Subnets</em> を選択</li>
+  <li><em>Create Subnet</em> ボタンを押下</li>
+  <li>任意の CIDR Block を指定。範囲は <code>xxx.xxx.xxx.0/24</code> に制限されている。</li>
 </ul>
-
-
 <p>VPC の CIDR Block が <code>10.0.0.0/16</code> である場合、以下のように Subnet の CIDR Block を割り当てる。</p>
-
 <ul>
-<li>Subnet1: <code>10.0.0.0/24</code></li>
-<li>Subnet2: <code>10.0.1.0/24</code></li>
-<li>Subnet3: <code>10.0.2.0/24</code></li>
-<li>...</li>
+  <li>Subnet1: <code>10.0.0.0/24</code></li>
+  <li>Subnet2: <code>10.0.1.0/24</code></li>
+  <li>Subnet3: <code>10.0.2.0/24</code></li>
+  <li>&hellip;</li>
 </ul>
-
-
-<h3>Route Tables</h3>
-
+<h3><a href="#route-tables" name="route-tables" class="anchor"><span class="anchor-link"></span></a>Route Tables</h3>
 <p>Subnet はそのままではインターネットとの通信経路が存在しない。Subnet 毎の Route Table で経路を指定する。</p>
-
 <ul>
-<li><em>VPC > Route Tables</em> を選択</li>
-<li>作成した Subnet の Route Table を選択 <code>rtb-*</code></li>
-<li><em>Routes</em> タブを選択</li>
-<li><em>Edit</em> を押下して、Route Table を編集</li>
+  <li><em>VPC &gt; Route Tables</em> を選択</li>
+  <li>作成した Subnet の Route Table を選択 <code>rtb-*</code></li>
+  <li><em>Routes</em> タブを選択</li>
+  <li><em>Edit</em> を押下して、Route Table を編集</li>
 </ul>
-
-
 <p>1 行目の以下のエントリにより、VPC 内のインスタンスが相互接続できるようになる。もちろん変更や削除はできない。</p>
-
 <ul>
-<li>Destination: VPC の CIDR Block</li>
-<li>Target: <code>local</code></li>
+  <li>Destination: VPC の CIDR Block</li>
+  <li>Target: <code>local</code></li>
 </ul>
-
-
 <p>Public Subnet とする場合は、Internet Gateway への経路を追加する。</p>
-
 <ul>
-<li>Destination: <code>0.0.0.0/0</code></li>
-<li>Target: Internet Gateway <code>igw-*</code> を指定</li>
+  <li>Destination: <code>0.0.0.0/0</code></li>
+  <li>Target: Internet Gateway <code>igw-*</code> を指定</li>
 </ul>
-
-
 <p>Private Subnet の場合は、Subnet 内からインターネットに接続できるように、後述の NAT インスタンスの ID を指定する。</p>
-
 <ul>
-<li>Destination: <code>0.0.0.0/0</code></li>
-<li>Target: NAT インスタンスのID <code>i-*</code> を指定</li>
+  <li>Destination: <code>0.0.0.0/0</code></li>
+  <li>Target: NAT インスタンスのID <code>i-*</code> を指定</li>
 </ul>
-
-
-<h3>NAT Instance</h3>
-
+<h3><a href="#nat-instance" name="nat-instance" class="anchor"><span class="anchor-link"></span></a>NAT Instance</h3>
 <ul>
-<li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html</a></li>
+  <li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html</a></li>
 </ul>
-
-
 <p>Internet Gateway との経路を持たない Subnet は、インターネットに接続できない。パッケージのダウンロードなどで Subnet 内からインターネットへのアクセスは必要になる。</p>
-
 <p>この場合は、Public Subnet 内に、Private Subnet からの通信を外部ネットワークに中継する NAT インスタンスを立てる。</p>
-
 <p>Public AMI で <code>ami-vpc-nat</code> の名前で提供されているが、単に <code>rc.local</code> の起動スクリプトで IP マスカレードを設定しているのみなので、任意のインスタンスを NAT インスタンスとしたい場合は、同様のスクリプトを置けばよい。</p>
-
 <ul>
-<li><a href="https://gist.github.com/tachesimazzoca/6392900b3941d6de4665">https://gist.github.com/tachesimazzoca/6392900b3941d6de4665</a></li>
+  <li><a href="https://gist.github.com/tachesimazzoca/6392900b3941d6de4665">https://gist.github.com/tachesimazzoca/6392900b3941d6de4665</a></li>
 </ul>
-
-
 <p><code>eth0</code> の MAC アドレスを取得する。</p>
-
-<pre><code>ETH0_MAC=`/sbin/ifconfig  | /bin/grep eth0 | awk '{print tolower($5)}' | grep '^[0-9a-f]\{2\}\(:[0-9a-f]\{2\}\)\{5\}$'`
+<pre><code>ETH0_MAC=`/sbin/ifconfig  | /bin/grep eth0 | awk &#39;{print tolower($5)}&#39; | grep &#39;^[0-9a-f]\{2\}\(:[0-9a-f]\{2\}\)\{5\}$&#39;`
 </code></pre>
-
 <p>MAC アドレスから Amazon 提供の <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html">Instance Metadata</a> を使って、CIDR Block を得る。</p>
-
-<pre><code>VPC_CIDR_URI="http://169.254.169.254/latest/meta-data/network/interfaces/macs/${ETH0_MAC}/vpc-ipv4-cidr-block"
+<pre><code>VPC_CIDR_URI=&quot;http://169.254.169.254/latest/meta-data/network/interfaces/macs/${ETH0_MAC}/vpc-ipv4-cidr-block&quot;
 ...
 VPC_CIDR_RANGE=`curl --retry 3 --retry-delay 0 --silent --fail ${VPC_CIDR_URI}`
 </code></pre>
-
 <p>取得した CIDR を送信元にして、IP マスカレードを設定する。</p>
-
 <pre><code>echo 1 &gt;  /proc/sys/net/ipv4/ip_forward &amp;&amp; \
    echo 0 &gt;  /proc/sys/net/ipv4/conf/eth0/send_redirects &amp;&amp; \
    /sbin/iptables -t nat -A POSTROUTING -o eth0 -s ${VPC_CIDR_RANGE} -j MASQUERADE
 </code></pre>
-
-<h2>Security Groups</h2>
-
+<h2><a href="#security-groups" name="security-groups" class="anchor"><span class="anchor-link"></span></a>Security Groups</h2>
 <p>SecurityGroup は、EC2-Classic と VPC では異なる。</p>
-
 <ul>
-<li>EC2-Classic
-
-<ul>
-<li>EC2 インスタンスに対して Security Group を割り当てる。</li>
-<li>異なる EC2 インスタンス間で、同一の Security Group を共有できる。</li>
-<li>起動時に EC2 インスタンスに割り当てた Security Group は変更できない。</li>
+  <li>EC2-Classic
+    <ul>
+      <li>EC2 インスタンスに対して Security Group を割り当てる。</li>
+      <li>異なる EC2 インスタンス間で、同一の Security Group を共有できる。</li>
+      <li>起動時に EC2 インスタンスに割り当てた Security Group は変更できない。</li>
+    </ul>
+  </li>
+  <li>VPC
+    <ul>
+      <li>VPC 内で Security Group を定義する。</li>
+      <li>異なる VPC 間で、Security Group を共有することはできない。</li>
+      <li>VPC 内に定義した Security Group の中から、必要なものを EC2 インスタンスに割り当てる。</li>
+      <li>EC2 インスタンス起動後も、割り当てた Security Group を変更できる。</li>
+    </ul>
+  </li>
 </ul>
-</li>
-<li>VPC
-
-<ul>
-<li>VPC 内で Security Group を定義する。</li>
-<li>異なる VPC 間で、Security Group を共有することはできない。</li>
-<li>VPC 内に定義した Security Group の中から、必要なものを EC2 インスタンスに割り当てる。</li>
-<li>EC2 インスタンス起動後も、割り当てた Security Group を変更できる。</li>
-</ul>
-</li>
-</ul>
-
-
 <p>このため VPC では、サーバの役割に応じて、SSH / Web などのポート別で Security Group を作っておくとよい。</p>
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

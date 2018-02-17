@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Material Design | Android</title>
+<title>tachesimazzoca - Wiki | Material Design</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,214 +20,191 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Android</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
-
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Android</a></li><li>Material Design</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./manifest.html">Manifest</a></li><li><a href="./activity.html">Activity</a></li><li><a href="./threads.html">Threads</a></li><li><a href="./broadcast.html">Broadcast Receivers</a></li><li><a href="./notifications.html">Notifications</a></li><li><a href="./storage.html">Storage</a></li><li><a href="./providers.html">Content Providers</a></li><li><a href="./preferences.html">Preferences</a></li><li class="active"><a href="./material.html">Material Design</a></li><li><a href="ui/index.html">User Interface</a></li><li><a href="tools/index.html">Tools</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/material.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/material.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/material.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Material Design</h1>
-          <div id="toc">
-          </div>
-          <h2>v7 Support Libraries</h2>
-
-<ul>
-<li><a href="http://android-developers.blogspot.jp/2014/10/appcompat-v21-material-design-for-pre.html">http://android-developers.blogspot.jp/2014/10/appcompat-v21-material-design-for-pre.html</a></li>
-</ul>
-
-
-<p>v7 Support Libraries r21 を使うことで、Android 5.0 以前の端末にも、Material Design を適用することができる。</p>
-
-<ul>
-<li><code>Theme.AppCompat</code> : 黒地に白文字</li>
-<li><code>Theme.AppCompat.Light</code> : 白地に黒文字</li>
-</ul>
-
-
-<p>のいずれかをベースに、スタイルを定義していく。</p>
-
-<p><a href="https://developer.android.com/training/material/theme.html#ColorPalette">Color Palette</a> にも対応しているので、<a href="http://www.google.com/design/spec/style/color.html">Material Design の Color ガイドライン</a> を参考に、Color Palette の属性を指定すると良い。</p>
-
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- Material.Light.DarkActionBar (Blue Gray) --&gt;</span>
-<span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&quot;AppTheme&quot;</span> <span class="na">parent=</span><span class="s">&quot;Theme.AppCompat.Light&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;colorPrimary&quot;</span><span class="nt">&gt;</span>#37474F<span class="nt">&lt;/item&gt;</span>
-    <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;colorPrimaryDark&quot;</span><span class="nt">&gt;</span>#263238<span class="nt">&lt;/item&gt;</span>
-    <span class="c">&lt;!--</span>
-<span class="c">    &lt;item name=&quot;colorAccent&quot;&gt;@color/accent_material_light&lt;/item&gt;</span>
-<span class="c">    --&gt;</span>
-<span class="nt">&lt;/style&gt;</span></code></pre></div>
-
-
-<ul>
-<li><code>colorPrimary</code>: Action Bar の背景色</li>
-<li><code>colorPrimaryDark</code>: Status Bar の背景色（Android 5.0 以降のみ）</li>
-<li><code>colorAccent</code>: チェックボックス等のアクセント色</li>
-</ul>
-
-
-<h3>Use Toolbar as an Action Bar</h3>
-
-<p><code>android.support.v7.widget.Toolbar</code> という Widget が追加されている。</p>
-
-<ul>
-<li>Action Bar</li>
-<li>単体のツールバー</li>
-</ul>
-
-
-<p>として使うことができる。</p>
-
-<p>Action Bar として使うには、<code>Theme.AppCompat(.Light).NoActionBar</code> のテーマを使い、Action Bar を無効にする。</p>
-
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&quot;AppTheme&quot;</span> <span class="na">parent=</span><span class="s">&quot;Theme.AppCompat.Light.NoActionBar&quot;</span><span class="nt">&gt;</span>
-    ...
-<span class="nt">&lt;/style&gt;</span></code></pre></div>
-
-
-<p>Toolbar は、単なる ViewGroup なので、レイアウトファイルに View として定義する。</p>
-
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
-    <span class="na">xmlns:app=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span>
-    <span class="err">...</span> <span class="nt">&gt;</span>
-    <span class="nt">&lt;android.support.v7.widget.Toolbar</span>
-            <span class="na">android:id=</span><span class="s">&quot;@+id/toolbar&quot;</span>
-            <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
-            <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
-            <span class="na">android:background=</span><span class="s">&quot;?attr/colorPrimary&quot;</span>
-            <span class="na">android:minHeight=</span><span class="s">&quot;?attr/actionBarSize&quot;</span>
-            <span class="na">app:popupTheme=</span><span class="s">&quot;@style/Theme.AppCompat.Light&quot;</span>
-            <span class="na">app:theme=</span><span class="s">&quot;@style/ThemeOverlay.AppCompat.Dark.ActionBar&quot;</span>
-            <span class="na">app:title=</span><span class="s">&quot;@string/app_name&quot;</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;/LinearLayout&gt;</span></code></pre></div>
-
-
-<p>Toolbar を <code>Activity#setSupportActionBar</code> にセットすれば、Action Bar として機能し、同様のコールバックがそのまま使える。</p>
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-    <span class="o">...</span>
-    <span class="n">Toolbar</span> <span class="n">toolbar</span> <span class="o">=</span> <span class="o">(</span><span class="n">Toolbar</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">toolbar</span><span class="o">);</span>
-    <span class="n">setSupportActionBar</span><span class="o">(</span><span class="n">toolbar</span><span class="o">);</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h4>app:theme</h4>
-
-<p>Toolbar のテーマ <code>app:theme</code> には、以下のいずれかを指定する。</p>
-
-<ul>
-<li><code>ThemeOverlay.AppCompat.Dark.ActionBar</code>: 透明地に白文字</li>
-<li><code>ThemeOverlay.AppCompat.ActionBar</code>: 透明地に黒文字</li>
-</ul>
-
-
-<p>いずれも背景色が透明なので、変更するには、<code>android:background</code> を指定する。ガイドラインに沿って、Color Palette の属性 <code>colorPrimary</code> を指定するとよい。</p>
-
-<p>Toolbar のテーマを継承して <code>android:background</code> を指定してしまうと、内包するポップアップメニューの背景も変更されてしまう。以下の方法は誤りである。</p>
-
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- NG: This overrides android:background of app:popupTheme. --&gt;</span>
-<span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&quot;AppTheme.Toolbar&quot;</span> <span class="na">parent=</span><span class="s">&quot;ThemeOverlay.AppCompat.Dark.ActionBar&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;android:background&quot;</span><span class="nt">&gt;</span>?attr/colorPrimary<span class="nt">&lt;/item&gt;</span>
-    ...
-<span class="nt">&lt;/style&gt;</span></code></pre></div>
-
-
-<p>Toolbar のテーマ内ではなく、View の <code>android:background</code> で指定する。</p>
-
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- OK: --&gt;</span>
-<span class="nt">&lt;android.support.v7.widget.Toolbar</span>
-        <span class="err">...</span>
-        <span class="na">android:background=</span><span class="s">&quot;?attr/colorPrimary&quot;</span>
-        <span class="na">android:theme=</span><span class="s">&quot;ThemeOverlay.AppCompat.Dark.ActionBar&quot;</span>
-        <span class="err">...</span> <span class="nt">/&gt;</span></code></pre></div>
-
-
-<h4>app:popupTheme</h4>
-
-<p>Toolbar 内のポップアップメニューのテーマを変更するには <code>app:popupTheme</code> を指定する。Toolbar のテーマと連動しているが、Material Design では、メインのテーマに合わせているケースが多い。</p>
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+<div id="main">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../android/index.html">Android</a></li>
+  <li>Material Design</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../android/material.html#material-design" class="header">Material Design</a>
+  <ul>
+    <li><a href="../android/material.html#v7-support-libraries" class="header">v7 Support Libraries</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/android/material.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#material-design" name="material-design" class="anchor"><span class="anchor-link"></span></a>Material Design</h1>
+<h2><a href="#v7-support-libraries" name="v7-support-libraries" class="anchor"><span class="anchor-link"></span></a>v7 Support Libraries</h2>
+<ul>
+  <li><a href="http://android-developers.blogspot.jp/2014/10/appcompat-v21-material-design-for-pre.html">http://android-developers.blogspot.jp/2014/10/appcompat-v21-material-design-for-pre.html</a></li>
+</ul>
+<p>v7 Support Libraries r21 を使うことで、Android 5.0 以前の端末にも、Material Design を適用することができる。</p>
+<ul>
+  <li><code>Theme.AppCompat</code> : 黒地に白文字</li>
+  <li><code>Theme.AppCompat.Light</code> : 白地に黒文字</li>
+</ul>
+<p>のいずれかをベースに、スタイルを定義していく。</p>
+<p><a href="https://developer.android.com/training/material/theme.html#ColorPalette">Color Palette</a> にも対応しているので、<a href="http://www.google.com/design/spec/style/color.html">Material Design の Color ガイドライン</a> を参考に、Color Palette の属性を指定すると良い。</p>
+<pre class="prettyprint"><code class="language-xml">&lt;!-- Material.Light.DarkActionBar (Blue Gray) --&gt;
+&lt;style name=&quot;AppTheme&quot; parent=&quot;Theme.AppCompat.Light&quot;&gt;
+    &lt;item name=&quot;colorPrimary&quot;&gt;#37474F&lt;/item&gt;
+    &lt;item name=&quot;colorPrimaryDark&quot;&gt;#263238&lt;/item&gt;
+    &lt;!--
+    &lt;item name=&quot;colorAccent&quot;&gt;@color/accent_material_light&lt;/item&gt;
+    --&gt;
+&lt;/style&gt;
+</code></pre>
+<ul>
+  <li><code>colorPrimary</code>: Action Bar の背景色</li>
+  <li><code>colorPrimaryDark</code>: Status Bar の背景色（Android 5.0 以降のみ）</li>
+  <li><code>colorAccent</code>: チェックボックス等のアクセント色</li>
+</ul>
+<h3><a href="#use-toolbar-as-an-action-bar" name="use-toolbar-as-an-action-bar" class="anchor"><span class="anchor-link"></span></a>Use Toolbar as an Action Bar</h3>
+<p><code>android.support.v7.widget.Toolbar</code> という Widget が追加されている。</p>
+<ul>
+  <li>Action Bar</li>
+  <li>単体のツールバー</li>
+</ul>
+<p>として使うことができる。</p>
+<p>Action Bar として使うには、<code>Theme.AppCompat(.Light).NoActionBar</code> のテーマを使い、Action Bar を無効にする。</p>
+<pre class="prettyprint"><code class="language-xml">&lt;style name=&quot;AppTheme&quot; parent=&quot;Theme.AppCompat.Light.NoActionBar&quot;&gt;
+    ...
+&lt;/style&gt;
+</code></pre>
+<p>Toolbar は、単なる ViewGroup なので、レイアウトファイルに View として定義する。</p>
+<pre class="prettyprint"><code class="language-xml">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    ... &gt;
+    &lt;android.support.v7.widget.Toolbar
+            android:id=&quot;@+id/toolbar&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:background=&quot;?attr/colorPrimary&quot;
+            android:minHeight=&quot;?attr/actionBarSize&quot;
+            app:popupTheme=&quot;@style/Theme.AppCompat.Light&quot;
+            app:theme=&quot;@style/ThemeOverlay.AppCompat.Dark.ActionBar&quot;
+            app:title=&quot;@string/app_name&quot; /&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>Toolbar を <code>Activity#setSupportActionBar</code> にセットすれば、Action Bar として機能し、同様のコールバックがそのまま使える。</p>
+<pre class="prettyprint"><code class="language-java">@Override
+protected void onCreate(Bundle savedInstanceState) {
+    ...
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
+}
+</code></pre>
+<h4><a href="#app-theme" name="app-theme" class="anchor"><span class="anchor-link"></span></a>app:theme</h4>
+<p>Toolbar のテーマ <code>app:theme</code> には、以下のいずれかを指定する。</p>
+<ul>
+  <li><code>ThemeOverlay.AppCompat.Dark.ActionBar</code>: 透明地に白文字</li>
+  <li><code>ThemeOverlay.AppCompat.ActionBar</code>: 透明地に黒文字</li>
+</ul>
+<p>いずれも背景色が透明なので、変更するには、<code>android:background</code> を指定する。ガイドラインに沿って、Color Palette の属性 <code>colorPrimary</code> を指定するとよい。</p>
+<p>Toolbar のテーマを継承して <code>android:background</code> を指定してしまうと、内包するポップアップメニューの背景も変更されてしまう。以下の方法は誤りである。</p>
+<pre class="prettyprint"><code class="language-xml">&lt;!-- NG: This overrides android:background of app:popupTheme. --&gt;
+&lt;style name=&quot;AppTheme.Toolbar&quot; parent=&quot;ThemeOverlay.AppCompat.Dark.ActionBar&quot;&gt;
+    &lt;item name=&quot;android:background&quot;&gt;?attr/colorPrimary&lt;/item&gt;
+    ...
+&lt;/style&gt;
+</code></pre>
+<p>Toolbar のテーマ内ではなく、View の <code>android:background</code> で指定する。</p>
+<pre class="prettyprint"><code class="language-xml">&lt;!-- OK: --&gt;
+&lt;android.support.v7.widget.Toolbar
+        ...
+        android:background=&quot;?attr/colorPrimary&quot;
+        android:theme=&quot;ThemeOverlay.AppCompat.Dark.ActionBar&quot;
+        ... /&gt;
+</code></pre>
+<h4><a href="#app-popuptheme" name="app-popuptheme" class="anchor"><span class="anchor-link"></span></a>app:popupTheme</h4>
+<p>Toolbar 内のポップアップメニューのテーマを変更するには <code>app:popupTheme</code> を指定する。Toolbar のテーマと連動しているが、Material Design では、メインのテーマに合わせているケースが多い。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

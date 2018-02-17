@@ -7,21 +7,8 @@
 <title>tachesimazzoca - Wiki | Chef</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,68 +20,87 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
-
-  <div id="main">
-    <div class="container-fluid">
-      <div class="row-fluid">
-        
-        <div class="btn-group pull-right">
-          <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/chef/index.md">Raw</a>
-          <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/chef/index.md">Blame</a>
-          <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/chef/index.md">History</a>
-        </div>
-        <div id="content">
-        <h1>Chef</h1>
-        <div id="toc">
-        </div>
-        <h2>Overview</h2>
-
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
 <ul>
-<li><a href="https://docs.chef.io/install_omnibus.html">About the Omnibus Installer</a></li>
-<li><a href="http://docs.chef.io/client/ctl_chef_solo.html">chef-solo (executable)</a></li>
-<li><a href="https://docs.chef.io/resource.html">About Resources and Providers</a></li>
-<li><a href="https://github.com/opscode-cookbooks">Opscode Public Cookbooks</a></li>
+  <li><a href="../index.html">Home</a></li>
+  <li>Chef</li>
 </ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../chef/index.html#chef" class="header">Chef</a>
+  <ul>
+    <li><a href="../chef/index.html#overview" class="header">Overview</a></li>
+    <li><a href="../chef/index.html#installation" class="header">Installation</a></li>
+    <li><a href="../chef/index.html#chef-zero-vs-chef-solo" class="header">chef-zero vs. chef-solo</a></li>
+    <li><a href="../chef/index.html#knife" class="header">knife</a></li>
+    <li><a href="../chef/index.html#tips" class="header">Tips</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-
-<h2>Installation</h2>
-
-<h3>Omnibus Installer</h3>
-
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/chef/index.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#chef" name="chef" class="anchor"><span class="anchor-link"></span></a>Chef</h1>
+<h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
+<ul>
+  <li><a href="https://docs.chef.io/install_omnibus.html">About the Omnibus Installer</a></li>
+  <li><a href="http://docs.chef.io/client/ctl_chef_solo.html">chef-solo (executable)</a></li>
+  <li><a href="https://docs.chef.io/resource.html">About Resources and Providers</a></li>
+  <li><a href="https://github.com/opscode-cookbooks">Opscode Public Cookbooks</a></li>
+</ul>
+<h2><a href="#installation" name="installation" class="anchor"><span class="anchor-link"></span></a>Installation</h2>
+<h3><a href="#omnibus-installer" name="omnibus-installer" class="anchor"><span class="anchor-link"></span></a>Omnibus Installer</h3>
 <pre><code>% curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -v 12.16.42
 ...
 
@@ -102,16 +108,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 Chef: 12.16.42
 
 # Use a stable version of Ruby as part of the omnibus installer (Optional)
-# echo 'export PATH="/opt/chef/embedded/bin:$PATH"' &gt;&gt; ~/.bash_profile
+# echo &#39;export PATH=&quot;/opt/chef/embedded/bin:$PATH&quot;&#39; &gt;&gt; ~/.bash_profile
 # source ~/.bash_profile
 % which ruby
 /opt/chef/embedded/bin/ruby
 </code></pre>
-
-<h2>chef-zero vs. chef-solo</h2>
-
+<h2><a href="#chef-zero-vs-chef-solo" name="chef-zero-vs-chef-solo" class="anchor"><span class="anchor-link"></span></a>chef-zero vs. chef-solo</h2>
 <p>The command <code>chef-solo</code> has been deprecated. Use the command <code>chef-client -z</code>, instead.</p>
-
 <pre><code>$ mkdir chef-repo
 $ cd chef-repo
 
@@ -120,11 +123,11 @@ $ cd chef-repo
 
 # Define a recipe
 $ vi cookbooks/httpd/recipes/default.rb
-package 'httpd' do
+package &#39;httpd&#39; do
   action :install
 end
 
-service 'httpd' do
+service &#39;httpd&#39; do
 supports :status =&gt; true, :restart =&gt; true, :reload =&gt; true
   action [:enable, :start]
 end
@@ -132,69 +135,54 @@ end
 # Add the recipe to the run_list
 % vi nodes/localhost.json
 {
-  "run_list": [
-    "recipe[httpd]"
+  &quot;run_list&quot;: [
+    &quot;recipe[httpd]&quot;
   ]
 }
 
 # Execute chef-client in local mode
 % sudo chef-client -z -N localhost -j nodes/localhost.json
 </code></pre>
-
 <p>The option <code>-z</code> means that the client runs in local mode. The client will load the cookbooks on localhost (i.e. the same machine). The chef-zero server, which serves the local chef-repo, will be launching in memory during applying cookbooks.</p>
-
 <ul>
-<li><a href="https://docs.chef.io/ctl_chef_client.html#run-in-local-mode">chef-client (executable) Run in Local Mode</a></li>
+  <li><a href="https://docs.chef.io/ctl_chef_client.html#run-in-local-mode">chef-client (executable) Run in Local Mode</a></li>
 </ul>
-
-
-<h2>knife</h2>
-
+<h2><a href="#knife" name="knife" class="anchor"><span class="anchor-link"></span></a>knife</h2>
 <p>The command <code>knife</code> is useful to manage nodes even in local mode.</p>
-
 <p>I would rather create the configuration file <code>chef-repo/knife.rb</code> so as not to specify the same options every time.</p>
-
 <pre><code>$ cd chef-repo
 $ cat knife.rb
 local_mode true
-chef_repo_path File.expand_path('../' , __FILE__)
+chef_repo_path File.expand_path(&#39;../&#39; , __FILE__)
 
-knife[:ssh_attribute] = 'ipaddress'
+knife[:ssh_attribute] = &#39;ipaddress&#39;
 knife[:sudo] = true
 </code></pre>
-
 <p>The <code>nodes/*.json</code> files must be created. Each file contains each target node information.</p>
-
 <pre><code># create nodes/&lt;hostname&gt;.json
 $ knife node create &lt;hostname&gt; --disable-editing
 {
-  "name": "&lt;hostname&gt;"
+  &quot;name&quot;: &quot;&lt;hostname&gt;&quot;
 }
 </code></pre>
-
 <p>You can specify another node name with the real IP address.</p>
-
 <pre><code>$ vi nodes/&lt;node-name&gt;.json
 {
-  "name": "&lt;node-name&gt;",
-  "normal": {
-    "ipaddress": "192.168.33.101"
+  &quot;name&quot;: &quot;&lt;node-name&gt;&quot;,
+  &quot;normal&quot;: {
+    &quot;ipaddress&quot;: &quot;192.168.33.101&quot;
   }
 }
 </code></pre>
-
 <p>Assume that the following nodes exist.</p>
-
 <pre><code>$ tree nodes
 nodes
 ├── development-ap.json
 └── production-ap1.json
 └── production-ap2.json
 </code></pre>
-
 <p>The <code>knife search</code> command shows the nodes that match a search query.</p>
-
-<pre><code>$ knife search node "name:*"
+<pre><code>$ knife search node &quot;name:*&quot;
 Node Name:   development-ap
 ...
 Node Name:   production-ap1
@@ -202,9 +190,7 @@ Node Name:   production-ap1
 Node Name:   production-ap2
 ...
 </code></pre>
-
 <p>The <code>knife environment</code> command can manage <code>environments/*.json</code></p>
-
 <pre><code>$ knife environment create development --disable-editing
 $ knife environment create production --disable-editing
 $ tree environments
@@ -212,93 +198,87 @@ environments
 ├── development.json
 └── production.json
 </code></pre>
-
 <p>Specifying the <code>chef_environment</code> of each node is helpful to pick up nodes with environment names.</p>
-
 <pre><code>$ knife node enviroment set development-ap development
 $ cat nodes/development-ap.json
 {
-  "name": "development-ap",
-  "chef_environment": "development",
+  &quot;name&quot;: &quot;development-ap&quot;,
+  &quot;chef_environment&quot;: &quot;development&quot;,
   ...
 }
 $ knife node enviroment set production-ap1 production
 $ knife node enviroment set production-ap2 production
 
-$ knife search node "chef_environment:production"
+$ knife search node &quot;chef_environment:production&quot;
 Node Name:   production-ap1
 ...
 Node Name:   production-ap2
 ...
 </code></pre>
-
 <p>The <code>knife ssh</code> command can execute any command on each node via. SSH.</p>
-
-<pre><code>$ knife ssh "name:production-*" "sudo systemctl is-active httpd"
+<pre><code>$ knife ssh &quot;name:production-*&quot; &quot;sudo systemctl is-active httpd&quot;
 production-ap1 active
 production-ap2 active
 </code></pre>
-
 <p>The <code>knife exec</code> command can execute a ruby script under the knife configuration.</p>
-
-<pre><code>$ knife exec -E 'nodes.all {|n| p n }'
+<pre><code>$ knife exec -E &#39;nodes.all {|n| p n }&#39;
 $ cat chec_chef_version.rb
 nodes.all do |n|
-  system "ssh #{n['ipaddress']} 'sudo chef-client -v'"
+  system &quot;ssh #{n[&#39;ipaddress&#39;]} &#39;sudo chef-client -v&#39;&quot;
 end
 $ knife exec -z check_chef_version.rb
 </code></pre>
-
-<h2>Tips</h2>
-
-<h3>Checking .rb .erb Syntax</h3>
-
+<h2><a href="#tips" name="tips" class="anchor"><span class="anchor-link"></span></a>Tips</h2>
+<h3><a href="#checking-rb-erb-syntax" name="checking-rb-erb-syntax" class="anchor"><span class="anchor-link"></span></a>Checking .rb .erb Syntax</h3>
 <pre><code>$ ruby -c path/to/cookbook/recipe/default.rb
 $ erb -x path/to/cookbook/templates/default/httpd.conf.erb | ruby -c
 </code></pre>
-
-<h3>Converge Nodes via. SSH Port Forwarding</h3>
-
+<h3><a href="#converge-nodes-via-ssh-port-forwarding" name="converge-nodes-via-ssh-port-forwarding" class="anchor"><span class="anchor-link"></span></a>Converge Nodes via. SSH Port Forwarding</h3>
 <pre><code>$ cat converge.rb
 nodes.all do |n|
-  system "ssh -R8889:127.0.0.1:8889 #{n['ipaddress']}" &lt;&lt;
-      " sudo chef-client -S http://127.0.0.1:8889 -N #{n.name}"
+  system &quot;ssh -R8889:127.0.0.1:8889 #{n[&#39;ipaddress&#39;]}&quot; &lt;&lt;
+      &quot; sudo chef-client -S http://127.0.0.1:8889 -N #{n.name}&quot;
 end
 $ knife exec converge.rb
 </code></pre>
-
 <ol>
-<li>Launch a chef-zero server on the local chef-repo.</li>
-<li>Connect to each node with SSH port forwarding (local) 8889 -> (node) 127.0.0.1:8889</li>
-<li>Execute chef-client in server mode on each node to connect the local chef-zero server.</li>
+  <li>Launch a chef-zero server on the local chef-repo.</li>
+  <li>Connect to each node with SSH port forwarding (local) 8889 -&gt; (node) 127.0.0.1:8889</li>
+  <li>Execute chef-client in server mode on each node to connect the local chef-zero server.</li>
 </ol>
-
-
 <p>Make sure that the chef-zero server launches on the local chef-repo (i.e. your working directory). Those who can access the remote nodes can also communicate with your chef-repo via the bound port. In other words, any OS users on the nodes can send arbitrary TCP/IP packets to the working machine.</p>
-
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

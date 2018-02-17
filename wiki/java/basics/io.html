@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | I/O | Java</title>
+<title>tachesimazzoca - Wiki | I/O</title>
 <link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,174 +20,163 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="../index.html">Java</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
-
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="../index.html">Java</a></li><li><a href="./index.html">Basics</a></li><li>I/O</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./io.html">I/O</a></li><li><a href="./math.html">Math</a></li><li><a href="./reflection.html">Reflection</a></li><li><a href="./servlet.html">Servlet</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/java/basics/io.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/java/basics/io.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/java/basics/io.md">History</a>
-          </div>
-          <div id="content">
-          <h1>I/O</h1>
-          <div id="toc">
-          </div>
-          <h2>Apache Commons IO</h2>
-
-<p>実際のプログラミングでは、<a href="http://commons.apache.org/proper/commons-io/">Apache Commons IO</a> を利用、あるいは参考にするとよいでしょう。</p>
-
-<p><em>java.io</em> の基本が詰まっているので、ぜひソースを読んでおく事を推奨します。</p>
-
-<ul>
-<li><a href="http://grepcode.com/file/repo1.maven.org/maven2/commons-io/commons-io/2.4/org/apache/commons/io/IOUtils.java">org.apache.commons.io.IOUtils</a></li>
-<li><a href="http://grepcode.com/file/repo1.maven.org/maven2/commons-io/commons-io/2.4/org/apache/commons/io/FileUtils.java">org.apache.commons.io.FileUtils</a></li>
-</ul>
-
-
-<h2>InputStream / OutputStream</h2>
-
-<ul>
-<li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/InputStream.html">java.io.InputStream</a></li>
-<li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/OutputStream.html">java.io.OutputStream</a></li>
-</ul>
-
-
-<p>により <code>byte</code> 単位での入出力を行うことができます。</p>
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">copy</span><span class="o">(</span>
-        <span class="n">InputStream</span> <span class="n">input</span><span class="o">,</span> <span class="n">OutputStream</span> <span class="n">output</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-    <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">4096</span><span class="o">];</span>
-    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-    <span class="k">while</span> <span class="o">(-</span><span class="mi">1</span> <span class="o">!=</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">)))</span> <span class="o">{</span>
-        <span class="n">output</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">n</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<ul>
-<li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedInputStream.html">java.io.BufferedInputStream</a></li>
-<li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedOutputStream.html">java.io.BufferedOutputStream</a></li>
-</ul>
-
-
-<p>は内部バッファを持ちます。都度、ストリームを介すのではなく、内部バッファにデータを溜め込んでおくことで、効率的にストリームにアクセスします。</p>
-
-<p><code>BufferedOutputStream#write</code> ではバッファに溜め込むだけで、実際に出力が行われるわけではありません。以下の条件で出力が行われます。</p>
-
-<ul>
-<li>バッファがいっぱいになった時</li>
-<li><code>BufferedOutputStream#flush</code> メゾッドにより、任意のタイミングでバッファを出力</li>
-<li><code>BufferedOutputStream#close</code> メゾッドにより、ストリームを閉じる際にバッファを出力</li>
-</ul>
-
-
-<h2>Reader / Writer</h2>
-
-<ul>
-<li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/Reader.html">java.io.Reader</a></li>
-<li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/Writer.html">java.io.Writer</a></li>
-</ul>
-
-
-<p>により <code>char</code> 単位での入出力を行うことができます。</p>
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">copy</span><span class="o">(</span>
-        <span class="n">Reader</span> <span class="n">input</span><span class="o">,</span> <span class="n">Writer</span> <span class="n">output</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-    <span class="kt">char</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="mi">4096</span><span class="o">];</span>
-    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-    <span class="k">while</span> <span class="o">(-</span><span class="mi">1</span> <span class="o">!=</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">)))</span> <span class="o">{</span>
-        <span class="n">output</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">n</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<ul>
-<li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedReader.html">java.io.BufferedReader</a></li>
-<li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedWriter.html">java.io.BufferedWriter</a></li>
-</ul>
-
-
-<p>は、バイトストリーム同様、<code>char</code> 型の内部バッファを持ち、効率的にストリームにアクセスします。</p>
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+<div id="main">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="pankuzu">
+<ul>
+  <li><a href="../../index.html">Home</a></li>
+  <li><a href="../../java/index.html">Java</a></li>
+  <li><a href="../../java/basics/index.html">Basics</a></li>
+  <li>I/O</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../../java/basics/io.html#i-o" class="header">I/O</a>
+  <ul>
+    <li><a href="../../java/basics/io.html#apache-commons-io" class="header">Apache Commons IO</a></li>
+    <li><a href="../../java/basics/io.html#inputstream-outputstream" class="header">InputStream / OutputStream</a></li>
+    <li><a href="../../java/basics/io.html#reader-writer" class="header">Reader / Writer</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/java/basics/io.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#i-o" name="i-o" class="anchor"><span class="anchor-link"></span></a>I/O</h1>
+<h2><a href="#apache-commons-io" name="apache-commons-io" class="anchor"><span class="anchor-link"></span></a>Apache Commons IO</h2>
+<p>実際のプログラミングでは、<a href="http://commons.apache.org/proper/commons-io/">Apache Commons IO</a> を利用、あるいは参考にするとよいでしょう。</p>
+<p><em>java.io</em> の基本が詰まっているので、ぜひソースを読んでおく事を推奨します。</p>
+<ul>
+  <li><a href="http://grepcode.com/file/repo1.maven.org/maven2/commons-io/commons-io/2.4/org/apache/commons/io/IOUtils.java">org.apache.commons.io.IOUtils</a></li>
+  <li><a href="http://grepcode.com/file/repo1.maven.org/maven2/commons-io/commons-io/2.4/org/apache/commons/io/FileUtils.java">org.apache.commons.io.FileUtils</a></li>
+</ul>
+<h2><a href="#inputstream-outputstream" name="inputstream-outputstream" class="anchor"><span class="anchor-link"></span></a>InputStream / OutputStream</h2>
+<ul>
+  <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/InputStream.html">java.io.InputStream</a></li>
+  <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/OutputStream.html">java.io.OutputStream</a></li>
+</ul>
+<p>により <code>byte</code> 単位での入出力を行うことができます。</p>
+<pre class="prettyprint"><code class="language-java">public static void copy(
+        InputStream input, OutputStream output) throws IOException {
+    byte[] buffer = new byte[4096];
+    int n = 0;
+    while (-1 != (n = input.read(buffer))) {
+        output.write(buffer, 0, n);
+    }
+}
+</code></pre>
+<ul>
+  <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedInputStream.html">java.io.BufferedInputStream</a></li>
+  <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedOutputStream.html">java.io.BufferedOutputStream</a></li>
+</ul>
+<p>は内部バッファを持ちます。都度、ストリームを介すのではなく、内部バッファにデータを溜め込んでおくことで、効率的にストリームにアクセスします。</p>
+<p><code>BufferedOutputStream#write</code> ではバッファに溜め込むだけで、実際に出力が行われるわけではありません。以下の条件で出力が行われます。</p>
+<ul>
+  <li>バッファがいっぱいになった時</li>
+  <li><code>BufferedOutputStream#flush</code> メゾッドにより、任意のタイミングでバッファを出力</li>
+  <li><code>BufferedOutputStream#close</code> メゾッドにより、ストリームを閉じる際にバッファを出力</li>
+</ul>
+<h2><a href="#reader-writer" name="reader-writer" class="anchor"><span class="anchor-link"></span></a>Reader / Writer</h2>
+<ul>
+  <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/Reader.html">java.io.Reader</a></li>
+  <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/Writer.html">java.io.Writer</a></li>
+</ul>
+<p>により <code>char</code> 単位での入出力を行うことができます。</p>
+<pre class="prettyprint"><code class="language-java">public static void copy(
+        Reader input, Writer output) throws IOException {
+    char[] buffer = new char[4096];
+    int n = 0;
+    while (-1 != (n = input.read(buffer))) {
+        output.write(buffer, 0, n);
+    }
+}
+</code></pre>
+<ul>
+  <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedReader.html">java.io.BufferedReader</a></li>
+  <li><a href="http://docs.oracle.com/javase/6/docs/api/java/io/BufferedWriter.html">java.io.BufferedWriter</a></li>
+</ul>
+<p>は、バイトストリーム同様、<code>char</code> 型の内部バッファを持ち、効率的にストリームにアクセスします。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

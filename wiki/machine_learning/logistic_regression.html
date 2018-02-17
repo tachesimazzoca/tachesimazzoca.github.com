@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Logistic Regression | Machine Learning</title>
+<title>tachesimazzoca - Wiki | Logistic Regression</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,137 +20,118 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Machine Learning</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../machine_learning/index.html">Machine Learning</a></li>
+  <li>Logistic Regression</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../machine_learning/logistic_regression.html#logistic-regression" class="header">Logistic Regression</a>
+  <ul>
+    <li><a href="../machine_learning/logistic_regression.html#sigmoid-function" class="header">Sigmoid Function</a></li>
+    <li><a href="../machine_learning/logistic_regression.html#cost-function" class="header">Cost Function</a></li>
+    <li><a href="../machine_learning/logistic_regression.html#decision-boundary" class="header">Decision Boundary</a></li>
+    <li><a href="../machine_learning/logistic_regression.html#multi-class-classification" class="header">Multi-class Classification</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Machine Learning</a></li><li>Logistic Regression</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li class="active"><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./gradient_descent.html">Gradient Descent</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./testing.html">Testing</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./svm.html">Support Vector Machine</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li><li><a href="./anomaly_detection.html">Anomaly Detection</a></li><li><a href="./collaborative_filtering.html">Collaborative Filtering</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/logistic_regression.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/logistic_regression.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/logistic_regression.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Logistic Regression</h1>
-          <div id="toc">
-          </div>
-          <script type="text/x-mathjax-config">
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/machine_learning/logistic_regression.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#logistic-regression" name="logistic-regression" class="anchor"><span class="anchor-link"></span></a>Logistic Regression</h1>
+<script type="text/x-mathjax-config">
   MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
 </script>
-
-
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
 </script>
-
-
-<h2>Sigmoid Function</h2>
-
+<h2><a href="#sigmoid-function" name="sigmoid-function" class="anchor"><span class="anchor-link"></span></a>Sigmoid Function</h2>
 <p><em>Classification problem</em> において、<code>(0|1)</code> の二つの値 <em>Binomial</em> に分類することを考えてみる。</p>
-
 <p>仮説 <code>h(x)</code> の範囲を <code>0 &lt; h(x) &lt; 1</code> に制限し、境界値 <code>0.5</code> を境に <code>(0|1)</code> に分類すればよい。シグモイド関数 <em>Sigmoid (Logistic) function</em> により、<code>(0, 0.5)</code> に変曲点をもち <code>(-Inf, Inf) -&gt; (0, 1)</code> となる関数を実現できる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-sigmoid">
 g(z) = \frac{1}{1 + e^{-z}} \\
 \lim_{z \to \infty} g(z) = 1 \\
 \lim_{z \to -{\infty}} g(z) = 0 \\
 </script>
-
-
 <ul>
-<li><code>z = 0</code> のときに <code>1/(1+exp(0)) = 1/(1+1) = 0.5</code> となる。</li>
-<li><code>z &gt;= 0</code> の場合、分母が指数的に減少し、<code>1</code> に限りなく近づく。</li>
-<li><code>z &lt; 0</code> の場合、分母が指数的に増加し、<code>0</code> に限りなく近づく。</li>
+  <li><code>z = 0</code> のときに <code>1/(1+exp(0)) = 1/(1+1) = 0.5</code> となる。</li>
+  <li><code>z &gt;= 0</code> の場合、分母が指数的に減少し、<code>1</code> に限りなく近づく。</li>
+  <li><code>z &lt; 0</code> の場合、分母が指数的に増加し、<code>0</code> に限りなく近づく。</li>
 </ul>
-
-
 <p>学習データ入力のベクトルを <code>x</code> とし、パラメータを <code>θ</code> とすると、<code>h(x)</code> は以下のようになる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-sigimoid_hypothesis">
 h_{\theta}(x) = g({\theta}_0 + {\theta}_1 x_1 + {\theta}_2 x_2 + ...) \\
 h_{\theta}(x) = g({\theta}^T x) = \frac{1}{1 + e^{- { {\theta}^T x } } } \\
 </script>
-
-
 <p>この <code>h(x)</code> の最適式を見つけることを、ロジスティック回帰 <em>Logistic regression</em> と呼ぶ。</p>
-
 <p>結果値を <code>y</code> とした時、<code>h(x)</code> は <code>y = 1</code> になる確率であると解釈できる。<code>y = (1|0)</code> となる確率を <code>P(y = 1), P(y = 0)</code> とした時、<code>P(y = 1) + P(y = 0) = 1</code> が成り立つ。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-sigmoid_probability">
 P(y = 1) + P(y = 0) = 1 \\
 h_{\theta}(x) = P(y = 1) = 0.5 \ldots P(y = 0) = 1 - 0.5 = 0.5 \\
 h_{\theta}(x) = P(y = 1) = 0.3 \ldots P(y = 0) = 1 - 0.3 = 0.7 \\
 </script>
-
-
-<h2>Cost Function</h2>
-
+<h2><a href="#cost-function" name="cost-function" class="anchor"><span class="anchor-link"></span></a>Cost Function</h2>
 <p>ロジスティック回帰の場合も、線形回帰と同様にコスト関数を定義し、最急降下法で最適値に収束させれば良い。</p>
-
 <p>ロジスティック回帰での誤差は</p>
-
 <ul>
-<li><code>h(x)</code> が、期待値 <code>(0|1)</code> に近づくほどに <code>0</code></li>
-<li><code>h(x)</code> が、期待値 <code>(0|1)</code> から離れるほどに無限大</li>
+  <li><code>h(x)</code> が、期待値 <code>(0|1)</code> に近づくほどに <code>0</code></li>
+  <li><code>h(x)</code> が、期待値 <code>(0|1)</code> から離れるほどに無限大</li>
 </ul>
-
-
 <p>となればよい。</p>
-
 <p><code>(-log(1), -log(0)) = (0, Inf)</code> であることを利用して、誤差の算出方法を以下のように定義できる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-logistic_function_error_def">
 \left\{
   \begin{array}{l l}
@@ -172,25 +140,16 @@ h_{\theta}(x) = P(y = 1) = 0.3 \ldots P(y = 0) = 1 - 0.3 = 0.7 \\
   \end{array} \\
 \right.
 </script>
-
-
 <p><code>y = (0|1)</code> で式が異なるので、コスト関数は <code>y</code> の値によって打ち消す係数 <code>y, 1-y</code> をかければよい。最急降下法での偏微分の項は線形回帰と違いはない。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-logistic_function_cost">
 J(\theta) = \frac{1}{m} {\sum_{i=1}^{m} [ -log(h_{\theta}(x^{(i)}))(y^{(i)}) - log(1 - h_{\theta}(x^{(i)})) (1 - y^{(i)}) ] } \\
 \theta_{j} := \theta_{j} - \alpha \left( \frac{\partial}{\partial \theta_{j}} J(\theta) \right) \\
 {\partial J(\theta) \over \partial \theta_{j}} = \frac{1}{m} {\sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})x_{j}^{(i)} } \\
 </script>
-
-
-<h2>Decision Boundary</h2>
-
+<h2><a href="#decision-boundary" name="decision-boundary" class="anchor"><span class="anchor-link"></span></a>Decision Boundary</h2>
 <p>シグモイド関数を <code>g(z)</code> とした時、学習データの入力 <code>(x1, x2)</code> を二次元グラフにプロットすると、<code>z = 0</code> を境界線として、<code>y = (1|0)</code> の領域で区分される。</p>
-
-<h3>Linear Decision Boundary</h3>
-
+<h3><a href="#linear-decision-boundary" name="linear-decision-boundary" class="anchor"><span class="anchor-link"></span></a>Linear Decision Boundary</h3>
 <p><code>z = -2 + x1 + x2</code> の線形の仮説を例にすると、<code>z = 0</code> すなわち <code>x1 + x2 = 2</code> を満たす直線が境界線になることが分かる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-decision_boundary_linear">
 \theta = \begin{bmatrix}
   -2 \\
@@ -205,30 +164,20 @@ y = 0.5 & x_1 + x_2 = 2 & (0, 2), (1, 1), (2, 0), \ldots \\
 y = 0 & x_1 + x_2 < 2 & (0, 1), (1, 0) \ldots \\
 \end{array}
 </script>
-
-
 <p>直線なので、プロットするには両端の <code>(x1, x2)</code> を求めるだけでよい。<code>x1</code> に対する <code>x2</code> は以下で求められる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-decision_boundary_linear_plotting">
 \begin{align}
 {\theta}_0 + {\theta}_1 x_1 + {\theta}_1 x_2 & = 0 \\
 x_2 & = -{ \frac{1}{ {\theta}_2 } } ( {\theta}_0 + {\theta}_1 x_1 ) \\
 \end{align}
 </script>
-
-
-
-
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">theta</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">;</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">1</span><span class="p">];</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">x1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">];</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">x2</span> <span class="p">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">./</span> <span class="n">theta</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="o">.*</span> <span class="p">(</span><span class="n">theta</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">.*</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">theta</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="nb">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">);</span></code></pre></div>
-
-
-<h3>Non-linear Decision Boundary</h3>
-
+<pre class="prettyprint"><code class="language-octave">octave&gt; theta = [-2; 1; 1];
+octave&gt; x1 = [0 2];
+octave&gt; x2 = (-1 ./ theta(3)) .* (theta(2) .* x1 + theta(1));
+octave&gt; plot(x1, x2);
+</code></pre>
+<h3><a href="#non-linear-decision-boundary" name="non-linear-decision-boundary" class="anchor"><span class="anchor-link"></span></a>Non-linear Decision Boundary</h3>
 <p>多項式 <em>Polynomial</em> の場合、<code>z = -1 + x1^2 + x2^2</code> を例にすると、<code>x1^2 + x^2 = 1</code> を満たす曲線（この場合円形）が境界線になることがわかる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-decision_boundary_nonlinear">
 \theta = \begin{bmatrix}
   -1 \\
@@ -246,122 +195,112 @@ y = 0.5 & x_{1}^2 + x_{2}^2 = 1 & (-1, 0), (0, -1), (1, 0), (0, 1), \ldots \\
 y = 0 & x_{1}^2 + x_{2}^2 < 1 & (-0.5, 0), (0, -0.5), (0.5, 0), (0, 0.5), \ldots \\
 \end{array}
 </script>
-
-
 <p>二次元グラフに境界線をプロットするには、<code>(x1, x2, z)</code> の <code>z</code> 軸を等高線でプロットすればよい。</p>
-
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">n</span> <span class="p">=</span> <span class="mi">50</span><span class="p">;</span>
-<span class="n">x1</span> <span class="p">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
-<span class="n">x2</span> <span class="p">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
-<span class="n">z</span> <span class="p">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
-<span class="k">for</span> <span class="n">i</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span>
-  <span class="k">for</span> <span class="n">j</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span>
-    <span class="n">z</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">x1</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x2</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-<span class="nb">contour</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">z</span><span class="o">&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]);</span></code></pre></div>
-
-
-<h2>Multi-class Classification</h2>
-
+<pre class="prettyprint"><code class="language-octave">n = 50;
+x1 = linspace(-2, 2, n);
+x2 = linspace(-2, 2, n);
+z = zeros(n, n);
+for i = 1:n
+  for j = 1:n
+    z(i, j) = -1 + x1(i).^2 + x2(j).^2
+  end
+end
+contour(x1, x2, z&#39;, [0 0]);
+</code></pre>
+<h2><a href="#multi-class-classification" name="multi-class-classification" class="anchor"><span class="anchor-link"></span></a>Multi-class Classification</h2>
 <p>３つ以上の複数の値に分類するには、分類ごとにロジスティック回帰を行い、それぞれの分類の回帰パラメータを保持しておく。</p>
-
 <p><code>1:4</code> の分類に振り分けるとして、学習データの正解値のベクトルが <code>y = [1; 2; 3; 2; 4; 1; 3]</code> の場合</p>
-
 <ul>
-<li><code>y1 = [1; 0; 0; 0; 0; 1; 0]</code></li>
-<li><code>y2 = [0; 1; 0; 1; 0; 0; 0]</code></li>
-<li><code>y3 = [0; 0; 1; 0; 0; 0; 1]</code></li>
-<li><code>y4 = [0; 0; 0; 0; 1; 0; 0]</code></li>
+  <li><code>y1 = [1; 0; 0; 0; 0; 1; 0]</code></li>
+  <li><code>y2 = [0; 1; 0; 1; 0; 0; 0]</code></li>
+  <li><code>y3 = [0; 0; 1; 0; 0; 0; 1]</code></li>
+  <li><code>y4 = [0; 0; 0; 0; 1; 0; 0]</code></li>
 </ul>
-
-
 <p>のように各分類ごとに、<code>(0|1)</code> の正解に変換して、分類毎に回帰パラメータを抽出する。</p>
-
 <p>予測する際に、<code>y1, y2, y3, y4</code> それぞれの分類の回帰パラメータ毎に計算を行ない、最も値が大きい（i.e. 最もフィットする）分類が、予測分類となる。</p>
-
 <p><code>costFunction.m</code></p>
+<pre class="prettyprint"><code class="language-octave">function [J, grad] = costFunction(theta, X, y)
+  [m, n] = size(X);
 
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="k">function</span><span class="w"> </span>[J, grad] <span class="p">=</span><span class="w"> </span><span class="nf">costFunction</span><span class="p">(</span>theta, X, y<span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span> <span class="p">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
+  % Apply sigmoid function
+  z = X * theta;
+  h = 1.0 ./ (1.0 + exp(-z));
 
-  <span class="c">% Apply sigmoid function</span>
-  <span class="n">z</span> <span class="p">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">theta</span><span class="p">;</span>
-  <span class="n">h</span> <span class="p">=</span> <span class="mf">1.0</span> <span class="o">./</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">));</span>
+  % Create another theta for penalty term
+  t = theta;
+  t(1) = 0;
 
-  <span class="c">% Create another theta for penalty term</span>
-  <span class="n">t</span> <span class="p">=</span> <span class="n">theta</span><span class="p">;</span>
-  <span class="n">t</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+  % The regularized cost
+  J = sum(-y .* log(h) - (1 .- y) .* log(1 - h)) / m;
+  J = J + (t&#39; * t) / (2 * m);
 
-  <span class="c">% The regularized cost</span>
-  <span class="n">J</span> <span class="p">=</span> <span class="nb">sum</span><span class="p">(</span><span class="o">-</span><span class="n">y</span> <span class="o">.*</span> <span class="nb">log</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="p">.</span><span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">.*</span> <span class="nb">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h</span><span class="p">))</span> <span class="o">/</span> <span class="n">m</span><span class="p">;</span>
-  <span class="n">J</span> <span class="p">=</span> <span class="n">J</span> <span class="o">+</span> <span class="p">(</span><span class="n">t</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m</span><span class="p">);</span>
-
-  <span class="c">% The regularized gradient of the cost</span>
-  <span class="n">grad</span> <span class="p">=</span> <span class="p">((</span><span class="n">h</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span> <span class="o">/</span> <span class="n">m</span><span class="p">)</span><span class="o">&#39;</span><span class="p">;</span>
-  <span class="n">grad</span> <span class="p">=</span> <span class="n">grad</span> <span class="o">+</span> <span class="p">(</span><span class="n">t</span> <span class="o">./</span> <span class="n">m</span><span class="p">);</span>
-<span class="k">end</span></code></pre></div>
-
-
+  % The regularized gradient of the cost
+  grad = ((h - y)&#39; * X / m)&#39;;
+  grad = grad + (t ./ m);
+end
+</code></pre>
 <p><code>main.m</code></p>
+<pre class="prettyprint"><code class="language-octave">% Number of labels
+%   1: short &amp; skinny
+%   2: short &amp; fat
+%   3: tall &amp; skinny
+%   4: tall &amp; fat
+N = 4;
 
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="c">% Number of labels</span>
-<span class="c">%   1: short &amp; skinny</span>
-<span class="c">%   2: short &amp; fat</span>
-<span class="c">%   3: tall &amp; skinny</span>
-<span class="c">%   4: tall &amp; fat</span>
-<span class="n">N</span> <span class="p">=</span> <span class="mi">4</span><span class="p">;</span>
+% Training set
+X = [1 160 45; 1 160 75; 1 180 63; 1 180 105];
+y = [1; 2; 3; 4];
 
-<span class="c">% Training set</span>
-<span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">160</span> <span class="mi">45</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">160</span> <span class="mi">75</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">180</span> <span class="mi">63</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">180</span> <span class="mi">105</span><span class="p">];</span>
-<span class="n">y</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">3</span><span class="p">;</span> <span class="mi">4</span><span class="p">];</span>
+[m, n] = size(X);
 
-<span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span> <span class="p">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
+% The parameters of each label: N x (n)
+Fvec = zeros(N, n);
 
-<span class="c">% The parameters of each label: N x (n)</span>
-<span class="n">Fvec</span> <span class="p">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+for c = 1:N
+  [fvec] = fminunc(
+      @(a)(costFunction(a, X, y == c)),
+      zeros(n, 1),
+      optimset(&#39;GradObj&#39;, &#39;on&#39;, &#39;MaxIter&#39;, 100));
+  Fvec(c, :) = fvec(:);
+end
 
-<span class="k">for</span> <span class="n">c</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">N</span>
-  <span class="p">[</span><span class="n">fvec</span><span class="p">]</span> <span class="p">=</span> <span class="n">fminunc</span><span class="p">(</span>
-      <span class="p">@(</span><span class="n">a</span><span class="p">)(</span><span class="n">costFunction</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">==</span> <span class="n">c</span><span class="p">)),</span>
-      <span class="nb">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-      <span class="nb">optimset</span><span class="p">(</span><span class="s">&#39;GradObj&#39;</span><span class="p">,</span> <span class="s">&#39;on&#39;</span><span class="p">,</span> <span class="s">&#39;MaxIter&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">));</span>
-  <span class="n">Fvec</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="p">:)</span> <span class="p">=</span> <span class="n">fvec</span><span class="p">(:);</span>
-<span class="k">end</span>
-
-<span class="c">% Examine new data</span>
-<span class="n">Data</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">175</span> <span class="mi">95</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">176</span> <span class="mi">62</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">158</span> <span class="mi">48</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">163</span> <span class="mi">78</span><span class="p">];</span>
-<span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">actual</span><span class="p">]</span> <span class="p">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">Data</span> <span class="o">*</span> <span class="n">Fvec</span><span class="o">&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="mi">2</span><span class="p">);</span>
-<span class="n">actual</span> <span class="c">% expected [4; 3; 1; 2];</span></code></pre></div>
-
-
-
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+% Examine new data
+Data = [1 175 95; 1 176 62; 1 158 48; 1 163 78];
+[p, actual] = max(Data * Fvec&#39;, [], 2);
+actual % expected [4; 3; 1; 2];
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

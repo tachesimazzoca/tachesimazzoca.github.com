@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tachesimazzoca - Wiki | Basics</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M96M8MG');</script>
+<!-- End Google Tag Manager -->
+
+</head>
+<body>
+<div id="wrapper">
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
+
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../pgsql/index.html">PostgreSQL</a></li>
+  <li>Basics</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../pgsql/basics.html#basics" class="header">Basics</a>
+  <ul>
+    <li><a href="../pgsql/basics.html#createuser" class="header">createuser</a></li>
+    <li><a href="../pgsql/basics.html#createdb" class="header">createdb</a></li>
+    <li><a href="../pgsql/basics.html#psql" class="header">psql</a></li>
+    <li><a href="../pgsql/basics.html#pg-dump" class="header">pg_dump</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/pgsql/basics.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#basics" name="basics" class="anchor"><span class="anchor-link"></span></a>Basics</h1>
+<h2><a href="#createuser" name="createuser" class="anchor"><span class="anchor-link"></span></a>createuser</h2>
+<p>ユーザ作成は <code>postgres</code> ユーザで行い、データベースのみを作成できるユーザを作成しておくとよいでしょう。</p>
+<pre><code>% su - postgres
+% createuser dev
+Shall the new role be a superuser? (y/n) n
+Shall the new role be allowed to create databases? (y/n) y
+Shall the new role be allowed to create more new roles? (y/n) n
+CREATE ROLE
+</code></pre>
+<h2><a href="#createdb" name="createdb" class="anchor"><span class="anchor-link"></span></a>createdb</h2>
+<pre><code>% su - postgres
+% createdb -U dev (データベース名)
+CREATE DATABASE
+</code></pre>
+<p><code>pg_hba.conf</code> での設定が <code>ident sameuser</code> となっていると、同名のOSユーザが存在しなければ作成できません。ポリシーに応じて <code>trust</code> や <code>password</code> 等に変更します。</p>
+<h2><a href="#psql" name="psql" class="anchor"><span class="anchor-link"></span></a>psql</h2>
+<p>ログイン:</p>
+<pre><code>#
+# -W : パスワード認証を要求
+# -U : ユーザ名
+# -d : データベース名。オプションでなく最後の引数としても指定可
+#
+% psql -W -U (ユーザ名) -d (データベース名)
+Password for user dev:
+....
+</code></pre>
+<p>SELECT 結果を CSV 形式で出力:</p>
+<pre><code>#
+# -A : 位置揃え無しの出力モード
+# -F : 区切り文字
+#
+% echo &quot;SELECT * FROM emp LIMIT 5&quot; | psql -A -F &quot;,&quot; ...
+</code></pre>
+<h2><a href="#pg-dump" name="pg-dump" class="anchor"><span class="anchor-link"></span></a>pg_dump</h2>
+<pre><code>#
+# -O : 所有権を元のデータベースに一致させるためのコマンドを出力しない
+# -x : アクセス権限のダンプを抑制
+# -s : テーブル定義のみをダンプ
+#
+% pg_dump -O -x -U dev (データベース名) &gt; dump.sql
+</code></pre>
+<p>SQL ダンプからのレストアは <code>psql</code> コマンド経由で行います。</p>
+<pre><code># シェルからの入力リダイレクトの場合は、手入力を行った場合と同等です。
+% psql .... -d (データベース名) &lt; dump.sql
+
+# -f オプションでのファイル名指定であれば、行番号付でエラーメッセージが確認できます。
+% psql .... -d (データベース名) -f dump.sql
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
+</body>
+</html>

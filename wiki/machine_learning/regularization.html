@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Regularization | Machine Learning</title>
+<title>tachesimazzoca - Wiki | Regularization</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,147 +20,137 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Machine Learning</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../machine_learning/index.html">Machine Learning</a></li>
+  <li>Regularization</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../machine_learning/regularization.html#regularization" class="header">Regularization</a>
+  <ul>
+    <li><a href="../machine_learning/regularization.html#overfitting" class="header">Overfitting</a></li>
+    <li><a href="../machine_learning/regularization.html#cost-function-and-gradient" class="header">Cost Function and Gradient</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Machine Learning</a></li><li>Regularization</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./gradient_descent.html">Gradient Descent</a></li><li class="active"><a href="./regularization.html">Regularization</a></li><li><a href="./testing.html">Testing</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./svm.html">Support Vector Machine</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li><li><a href="./anomaly_detection.html">Anomaly Detection</a></li><li><a href="./collaborative_filtering.html">Collaborative Filtering</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/regularization.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/regularization.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/regularization.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Regularization</h1>
-          <div id="toc">
-          </div>
-          <script type="text/x-mathjax-config">
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/machine_learning/regularization.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#regularization" name="regularization" class="anchor"><span class="anchor-link"></span></a>Regularization</h1>
+<script type="text/x-mathjax-config">
   MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
 </script>
-
-
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
 </script>
-
-
-<h2>Overfitting</h2>
-
+<h2><a href="#overfitting" name="overfitting" class="anchor"><span class="anchor-link"></span></a>Overfitting</h2>
 <p>回帰パラメータが少なすぎると、学習データに大まかにしか一致しない。例えば、線形回帰において、多項式が望ましいケースで、一次式で回帰を行なっても、良い近似値が得られない。</p>
-
 <p>パラメータを増やす事で、学習データには一致するが、分散した正解値に過剰に一致する複雑な曲線となり、新規データに対して、良い予測値が得られない。この状態を、過剰適合 <em>Overfitting</em> または 過学習 <em>Overtraining</em> と呼ぶ。</p>
-
-<h2>Cost Function and Gradient</h2>
-
+<h2><a href="#cost-function-and-gradient" name="cost-function-and-gradient" class="anchor"><span class="anchor-link"></span></a>Cost Function and Gradient</h2>
 <p>コスト関数において、回帰パラメータへのペナルティ値を加えることで、過剰適合を中和することができる。最急降下法で用いる偏微分の項にも、ペナルティを加える必要がある。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-overfitting_cost">
 J(\theta) = J(\theta) + \frac{\lambda}{m} { \sum_{j=1}^{n} {\theta}_{j}^2 } \\
 \frac{\partial}{\partial \theta_{j}} J(\theta) = \left( \frac{1}{m} {\sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})x_{j}^{(i)} } \right) + \frac{\lambda}{m} {\theta}_{j} \\
 </script>
-
-
 <ul>
-<li>この例では、回帰パラメータ <code>θ</code> の二乗平均を誤差の総和に加えている。つまりパラメータが適合に大きく作用する時に、ペナルティが増えて中和されることになる。</li>
-<li><code>λ</code> はペナルティ強度で、この値が小さいほどペナルティ値が減り、過剰適合となる。</li>
-<li>ペナルティ強度 <code>λ</code> が大きすぎると、全ての回帰パラメータが <code>0</code> に限りなく近づき、あらゆる入力に対し、コストが同じ値になってしまう。</li>
-<li>入力値 <code>X</code> に作用しないパラメータについては、ペナルティから除外しなければならない。</li>
+  <li>この例では、回帰パラメータ <code>θ</code> の二乗平均を誤差の総和に加えている。つまりパラメータが適合に大きく作用する時に、ペナルティが増えて中和されることになる。</li>
+  <li><code>λ</code> はペナルティ強度で、この値が小さいほどペナルティ値が減り、過剰適合となる。</li>
+  <li>ペナルティ強度 <code>λ</code> が大きすぎると、全ての回帰パラメータが <code>0</code> に限りなく近づき、あらゆる入力に対し、コストが同じ値になってしまう。</li>
+  <li>入力値 <code>X</code> に作用しないパラメータについては、ペナルティから除外しなければならない。</li>
 </ul>
-
-
-<h3>Linear Regression</h3>
-
+<h3><a href="#linear-regression" name="linear-regression" class="anchor"><span class="anchor-link"></span></a>Linear Regression</h3>
 <script type="math/tex; mode=display" id="MathJax-Element-regularization_linear">
 J(\theta) = \frac{1}{2m} {\sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})^2 } + \frac{\lambda}{2m} { \sum_{j=1}^{n} {\theta}_{j}^2 } \\
 </script>
-
-
-<h3>Logistic Regression</h3>
-
+<h3><a href="#logistic-regression" name="logistic-regression" class="anchor"><span class="anchor-link"></span></a>Logistic Regression</h3>
 <script type="math/tex; mode=display" id="MathJax-Element-regularization_logistic">
 J(\theta) = \frac{1}{m} {\sum_{i=1}^{m} [ -log(h_{\theta}(x^{(i)}))(y^{(i)}) - log(1 - h_{\theta}(x^{(i)})) (1 - y^{(i)}) ] } + \frac{\lambda}{2m} { \sum_{j=1}^{n} {\theta}_{j}^2 } \\
 </script>
-
-
-
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

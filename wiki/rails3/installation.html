@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tachesimazzoca - Wiki | Installation</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M96M8MG');</script>
+<!-- End Google Tag Manager -->
+
+</head>
+<body>
+<div id="wrapper">
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
+
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../rails3/index.html">Rails3</a></li>
+  <li>Installation</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../rails3/installation.html#installation" class="header">Installation</a>
+  <ul>
+    <li><a href="../rails3/installation.html#rvm-ruby-1-9-x" class="header">rvm + ruby-1.9.x</a></li>
+    <li><a href="../rails3/installation.html#bundler" class="header">bundler</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/rails3/installation.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#installation" name="installation" class="anchor"><span class="anchor-link"></span></a>Installation</h1>
+<h2><a href="#rvm-ruby-1-9-x" name="rvm-ruby-1-9-x" class="anchor"><span class="anchor-link"></span></a>rvm + ruby-1.9.x</h2>
+<p>Rails3 には Ruby 1.9 が必要です。rvm でインストールする手順です。</p>
+<pre><code>% curl -L &quot;get.rvm.io&quot; | bash -s stable
+
+# rvm requirements:
+% yum install gcc-c++ patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison
+
+# nokogiri:
+% yum install libxml2-devel libxslt-devel
+
+% rvm install 1.9.3 -C --with-opt-dir=$HOME/.rvm/usr
+% rvm use 1.9.3
+</code></pre>
+<h2><a href="#bundler" name="bundler" class="anchor"><span class="anchor-link"></span></a>bundler</h2>
+<p>bundler を使って Rails 環境を作る手順です。gem パッケージをプロジェクトディレクトリ内に持ちます。</p>
+<p>Rails プロジェクトのディレクトリ直下に <code>.rvmrc</code> を置いておきます。この方法で常に ruby-1.9.x に切り替わるようにしておきます。</p>
+<pre><code>% mkdir /path/to/rails/sandbox
+% cd /path/to/rails/sandbox
+% vi .rvmrc
+rvm use 1.9.3
+
+# cd . した時に .rvmrc が読み込まれます。初回は Warning が表示されます。
+% cd .
+...
+y[es], n[o], v[iew], c[ancel]&gt; y
+Using .../.rvm/gems/ruby-1.9.3-p286
+</code></pre>
+<p><code>Gemfile</code> を作成します。</p>
+<pre><code>source &#39;https://rubygems.org&#39;
+
+gem &#39;therubyracer&#39;, &#39;0.10.2&#39;
+gem &#39;unicorn&#39;, &#39;4.4.0&#39;
+
+gem &#39;rails&#39;, &#39;3.2.8&#39;
+
+gem &#39;mysql2&#39;, &#39;0.3.11&#39;
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem &#39;sass-rails&#39;, &#39;3.2.5&#39;
+  gem &#39;coffee-rails&#39;, &#39;3.2.2&#39;
+  gem &#39;uglifier&#39;, &#39;1.2.3&#39;
+end
+
+gem &#39;jquery-rails&#39;, &#39;2.0.2&#39;
+
+group :development, :test do
+  gem &#39;rspec-rails&#39;, &#39;2.11.0&#39;
+  gem &#39;spork&#39;, &#39;0.9.2&#39;
+end
+
+group :development do
+  gem &#39;pry-rails&#39;, &#39;0.2.2&#39;
+end
+</code></pre>
+<p>上記例は以下のパッケージ構成になります。</p>
+<ul>
+  <li>JavaScript runtime に <code>therubyracer</code> を利用</li>
+  <li>アプリケーションサーバに <code>unicorn</code> を利用</li>
+  <li>データベースに <code>mysql2</code> を利用</li>
+  <li>テストツールに <code>rspec-rails</code> <code>spork</code> を利用</li>
+  <li>コンソールに <code>pry-rails</code> を利用</li>
+</ul>
+<p><code>bundle install</code> で gem パッケージをインストールします。<code>--path</code> オプションで <code>vendor/bundle</code> 以下にインストールするようにします。</p>
+<pre><code>% ls -a
+. .. .rvmrc Gemfile
+
+% cd /path/to/rails/sandbox
+% bundle install --path vendor/bundle
+...
+Installing railties (3.2.6)
+Installing rails (3.2.6)
+Your bundle is complete! It was installed into ./vendor/bundle
+...
+
+% ls -a
+. .. .bundle/ .rvmrc Gemfile Gemfile.lock vendor/
+</code></pre>
+<p><code>rails</code> コマンドは <code>bundle exec</code> を付与して実行できます。</p>
+<pre><code>% rails --version
+/usr/bin/which: no rails in ..
+# bundle exec 経由で rails コマンドが実行できます。
+% bundle exec rails --version
+Rails 3.2.8
+</code></pre>
+<p>カレントディレクトリに Rails プロジェクトを作成します。</p>
+<pre><code># -d 利用するデータベースを指定
+# --skip-test-unit テストツールに Test::Unit を利用しない
+% bundle exec rails new . -d mysql --skip-test-unit
+       exist
+      create  README.rdoc
+      create  Rakefile
+      create  config.ru
+      create  .gitignore
+</code></pre>
+<p><code>Gemfile</code> の上書きが確認されますが <code>n - No</code> を選択します。</p>
+<pre><code>    conflict  Gemfile
+Overwrite /path/to/rails/sandbox/Gemfile? (enter &quot;h&quot; for help) [Ynaqdh]
+</code></pre>
+<p><code>rails server</code> でサーバを起動します。<code>http://(ホスト名):3000</code> で確認できます。</p>
+<pre><code>% bundle exec rails server
+</code></pre>
+<p><code>CTRL-C</code> でサーバを停止します。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
+</body>
+</html>

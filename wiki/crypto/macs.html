@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Message Authentication Code | Cryptography</title>
+<title>tachesimazzoca - Wiki | Message Authentication Code</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,151 +20,144 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Cryptography</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../crypto/index.html">Cryptography</a></li>
+  <li>Message Authentication Code</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../crypto/macs.html#message-authentication-code" class="header">Message Authentication Code</a>
+  <ul>
+    <li><a href="../crypto/macs.html#overview" class="header">Overview</a></li>
+    <li><a href="../crypto/macs.html#cbc-mac-cipher-block-chaining-mac-" class="header">CBC-MAC (Cipher Block Chaining MAC)</a></li>
+    <li><a href="../crypto/macs.html#nmac-nested-mac-" class="header">NMAC (Nested MAC)</a></li>
+    <li><a href="../crypto/macs.html#cmac-cihper-based-mac-" class="header">CMAC (Cihper-based MAC)</a></li>
+    <li><a href="../crypto/macs.html#pmac-parallel-mac-" class="header">PMAC (Parallel MAC)</a></li>
+    <li><a href="../crypto/macs.html#hmac-hash-based-mac-" class="header">HMAC (Hash-based MAC)</a></li>
+    <li><a href="../crypto/macs.html#timing-attacks-on-verification" class="header">Timing Attacks on Verification</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Cryptography</a></li><li>Message Authentication Code</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./stream_ciphers.html">Stream Ciphers</a></li><li><a href="./block_ciphers.html">Block Ciphers</a></li><li class="active"><a href="./macs.html">Message Authentication Code</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/crypto/macs.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/crypto/macs.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/crypto/macs.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Message Authentication Code</h1>
-          <div id="toc">
-          </div>
-          <script type="text/x-mathjax-config">
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/crypto/macs.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#message-authentication-code" name="message-authentication-code" class="anchor"><span class="anchor-link"></span></a>Message Authentication Code</h1>
+<script type="text/x-mathjax-config">
   MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
 </script>
-
-
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
 </script>
-
-
-<h2>Overview</h2>
-
+<h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
 <p>メッセージ通信において、悪意を持った攻撃者は、通信内容を傍受することに加えて、通信内容を改ざんすることが可能である。傍受された通信内容を解読されないように暗号化するのと同じく、受け取った内容が第三者により改ざんされていないことを検出する仕組みが必要になる。</p>
-
 <p><em>Message Authentication Code (MAC)</em> は、メッセージの改ざんがないことを検出するアルゴリズムを指す。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-mac_algorithm">
 t \gets S(k, m) \\
 (0, 1) \gets V(k, m, t) \\
 </script>
-
-
 <ul>
-<li>Signing: キーとメッセージからタグを作成するアルゴリズム <code>S(k, m)</code></li>
-<li>Verification: キーとメッセージとタグから、改ざんされていないことを検査するアルゴリズム <code>V(k, m ,t)</code></li>
+  <li>Signing: キーとメッセージからタグを作成するアルゴリズム <code>S(k, m)</code></li>
+  <li>Verification: キーとメッセージとタグから、改ざんされていないことを検査するアルゴリズム <code>V(k, m ,t)</code></li>
 </ul>
-
-
 <p>攻撃者は、通信内容からメッセージとタグ <code>(m, t)</code> を得ること <em>Chosen message attack</em> ができ、これらとは別の組み合わせを見つけること <em>Existential forgery</em> を目指す。</p>
-
 <ul>
-<li>得られたメッセージとタグ <code>(m, t)</code> とは別の正規タグ <code>(m, t')</code> を見つける</li>
-<li>得られたメッセージとタグ <code>(m, t)</code> と同じタグを生成できる別のメッセージ <code>(m', t)</code> を見つける</li>
+  <li>得られたメッセージとタグ <code>(m, t)</code> とは別の正規タグ <code>(m, t&#39;)</code> を見つける</li>
+  <li>得られたメッセージとタグ <code>(m, t)</code> と同じタグを生成できる別のメッセージ <code>(m&#39;, t)</code> を見つける</li>
 </ul>
-
-
 <p>同じタグとなる別のメッセージを見つけることができたとしても、意味のあるメッセージを選択できるわけではないが、改ざん検出という観点では破綻している。</p>
-
-<h2>CBC-MAC (Cipher Block Chaining MAC)</h2>
-
+<h2><a href="#cbc-mac-cipher-block-chaining-mac-" name="cbc-mac-cipher-block-chaining-mac-" class="anchor"><span class="anchor-link"></span></a>CBC-MAC (Cipher Block Chaining MAC)</h2>
 <p><em>Encrypted Cipher Block Chaining (ECBC)</em></p>
-
-<h2>NMAC (Nested MAC)</h2>
-
-<h2>CMAC (Cihper-based MAC)</h2>
-
-<h2>PMAC (Parallel MAC)</h2>
-
-<h3>Carter-Wegman MAC</h3>
-
-<h2>HMAC (Hash-based MAC)</h2>
-
-<h2>Timing Attacks on Verification</h2>
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+<h2><a href="#nmac-nested-mac-" name="nmac-nested-mac-" class="anchor"><span class="anchor-link"></span></a>NMAC (Nested MAC)</h2>
+<h2><a href="#cmac-cihper-based-mac-" name="cmac-cihper-based-mac-" class="anchor"><span class="anchor-link"></span></a>CMAC (Cihper-based MAC)</h2>
+<h2><a href="#pmac-parallel-mac-" name="pmac-parallel-mac-" class="anchor"><span class="anchor-link"></span></a>PMAC (Parallel MAC)</h2>
+<h3><a href="#carter-wegman-mac" name="carter-wegman-mac" class="anchor"><span class="anchor-link"></span></a>Carter-Wegman MAC</h3>
+<h2><a href="#hmac-hash-based-mac-" name="hmac-hash-based-mac-" class="anchor"><span class="anchor-link"></span></a>HMAC (Hash-based MAC)</h2>
+<h2><a href="#timing-attacks-on-verification" name="timing-attacks-on-verification" class="anchor"><span class="anchor-link"></span></a>Timing Attacks on Verification</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

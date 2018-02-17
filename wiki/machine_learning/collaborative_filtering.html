@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Collaborative Filtering | Machine Learning</title>
+<title>tachesimazzoca - Wiki | Collaborative Filtering</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,88 +20,87 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Machine Learning</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../machine_learning/index.html">Machine Learning</a></li>
+  <li>Collaborative Filtering</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../machine_learning/collaborative_filtering.html#collaborative-filtering" class="header">Collaborative Filtering</a>
+  <ul>
+    <li><a href="../machine_learning/collaborative_filtering.html#optimization-objective" class="header">Optimization Objective</a></li>
+    <li><a href="../machine_learning/collaborative_filtering.html#cost-function" class="header">Cost Function</a></li>
+    <li><a href="../machine_learning/collaborative_filtering.html#matrix-factorization" class="header">Matrix Factorization</a></li>
+    <li><a href="../machine_learning/collaborative_filtering.html#mean-normalization" class="header">Mean Normalization</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Machine Learning</a></li><li>Collaborative Filtering</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./gradient_descent.html">Gradient Descent</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./testing.html">Testing</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./svm.html">Support Vector Machine</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li><li><a href="./anomaly_detection.html">Anomaly Detection</a></li><li class="active"><a href="./collaborative_filtering.html">Collaborative Filtering</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/collaborative_filtering.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/collaborative_filtering.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/collaborative_filtering.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Collaborative Filtering</h1>
-          <div id="toc">
-          </div>
-          <script type="text/x-mathjax-config">
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/machine_learning/collaborative_filtering.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#collaborative-filtering" name="collaborative-filtering" class="anchor"><span class="anchor-link"></span></a>Collaborative Filtering</h1>
+<script type="text/x-mathjax-config">
   MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
 </script>
-
-
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
 </script>
-
-
-<h2>Optimization Objective</h2>
-
+<h2><a href="#optimization-objective" name="optimization-objective" class="anchor"><span class="anchor-link"></span></a>Optimization Objective</h2>
 <p>商品に対してユーザ評価が与えられたデータセットを持っているとする。このデータを元にユーザの評価を予測したい。</p>
-
 <p>商品の特性が得られていると仮定して、これを学習データの入力 <code>x</code> とし、パラメータ <code>θ</code> をユーザ特性と考えれば、正解値 <code>y</code> をユーザ評価として、以下の目的関数を定義できる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-content_based_cost">
 {\scriptsize \text{$n = $ number of features}} \\
 {\scriptsize \text{$x = $ items, $\theta = $ users}} \\
@@ -123,18 +109,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 \min_{\theta^{(j)}} \frac{1}{2} \sum_{i;r(i,j) = 1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)})^{2} + \frac{\lambda}{2} \sum_{k = 1}^{n} (\theta_{k}^{(j)})^{2} \\
 </script>
-
-
 <ul>
-<li><code>x</code>: 商品特性（すでに得られていると仮定する）</li>
-<li><code>θ</code>: ユーザ特性</li>
-<li><code>r(i, j) = (0|1)</code>: ユーザ <code>j</code> が商品 <code>i</code> を評価したかどうか？ 評価なしと未評価は異なる。すべての商品ではなく、ユーザが評価を行なった商品 <code>r(i, j) = 1</code> のみ誤差をとる。</li>
-<li><code>y</code>: 商品 <code>i</code> に対する、ユーザ <code>j</code> の評価</li>
+  <li><code>x</code>: 商品特性（すでに得られていると仮定する）</li>
+  <li><code>θ</code>: ユーザ特性</li>
+  <li><code>r(i, j) = (0|1)</code>: ユーザ <code>j</code> が商品 <code>i</code> を評価したかどうか？ 評価なしと未評価は異なる。すべての商品ではなく、ユーザが評価を行なった商品 <code>r(i, j) = 1</code> のみ誤差をとる。</li>
+  <li><code>y</code>: 商品 <code>i</code> に対する、ユーザ <code>j</code> の評価</li>
 </ul>
-
-
 <p>ユーザ毎に特性は異なるので、すべてのユーザに対して適用するコスト関数は、以下のようになる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-content_based_cost_grad">
 {\scriptsize \text{$n_{u} = $ number of users}} \\
 \min_{\theta^{(1)} \ldots \theta^{(n_{u})}} J(\theta) = \frac{1}{2} \sum_{j = 1}^{n_{u}} \sum_{i;r(i,j) = 1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)})^{2} + \frac{\lambda}{2} \sum_{j = 1}^{n_{u}} \sum_{k = 1}^{n} (\theta_{k}^{(j)})^{2} \\
@@ -144,86 +125,54 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 \theta_{k}^{(j)} & := \theta_{k}^{(j)} - \alpha (\sum_{i:r(i, j)=1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)}) x_{k}^{(i)} + \lambda \theta_{k}^{(j)}) & \text{(for $k \ne 0$)} \\
 \end{align}
 </script>
-
-
-<h2>Cost Function</h2>
-
+<h2><a href="#cost-function" name="cost-function" class="anchor"><span class="anchor-link"></span></a>Cost Function</h2>
 <p>商品特性からユーザ特性を見つける場合と逆の発想で、ユーザ特性 <code>θ</code> がすでに得られていると仮定すると、商品特性 <code>x</code> を予測することができる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-user_based_cost_grad">
 {\scriptsize \text{$n_{m} = $ number of items}} \\
 \min_{x^{(1)} \ldots x^{(n_{m})}} J(x) = \frac{1}{2} \sum_{i = 1}^{n_{m}} \sum_{i;r(i,j) = 1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)})^{2} + \frac{\lambda}{2} \sum_{i = 1}^{n_{m}} \sum_{k = 1}^{n} (x_{k}^{(i)})^{2} \\
 </script>
-
-
 <p>協調フィルタリング <em>Collaborative filtering</em> では</p>
-
 <ul>
-<li>与えられた商品特性から、ユーザ特性を予測する。</li>
-<li>与えられたユーザ特性から、商品特性を予測する。</li>
+  <li>与えられた商品特性から、ユーザ特性を予測する。</li>
+  <li>与えられたユーザ特性から、商品特性を予測する。</li>
 </ul>
-
-
 <p>この二つの目的関数を同時に最小化していくことで、ユーザ特性と商品特性が互いに協調して最適値に収束する。これにより、予測解だけではなく、予測を導く特性そのものを学習 <em>Feature learning</em> することができる。</p>
-
 <p>ユーザ特性と商品特性の目的関数は、二乗誤差の項は実質同じである。</p>
-
 <ul>
-<li>ユーザ特性: 全ユーザ <code>j</code> のうち、ユーザが評価 <code>r(i, j) = 1</code> した商品 <code>x(i)</code> の予測評価と実評価 <code>y</code> との誤差</li>
-<li>商品特性: 全商品 <code>i</code> のうち、ユーザに評価 <code>r(i, j) = 1</code> された商品 <code>x(i)</code> の予測評価と実評価 <code>y</code> との誤差</li>
+  <li>ユーザ特性: 全ユーザ <code>j</code> のうち、ユーザが評価 <code>r(i, j) = 1</code> した商品 <code>x(i)</code> の予測評価と実評価 <code>y</code> との誤差</li>
+  <li>商品特性: 全商品 <code>i</code> のうち、ユーザに評価 <code>r(i, j) = 1</code> された商品 <code>x(i)</code> の予測評価と実評価 <code>y</code> との誤差</li>
 </ul>
-
-
 <p>このことから、正規化項が異なるだけなので、コスト関数は同一式にまとめることができる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-collaborative_filtering_cost">
 J(x, \theta) = \frac{1}{2} \sum_{(i, j);r(i,j) = 1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)})^{2} + \frac{\lambda}{2} \sum_{j = 1}^{n_{n}} \sum_{k = 1}^{n} (\theta_{k}^{(j)})^{2} + \frac{\lambda}{2} \sum_{i = 1}^{n_{m}} \sum_{k = 1}^{n} (x_{k}^{(i)})^{2} \\
 </script>
-
-
 <p><em>Gradient descent</em> は、<code>x(i)</code> と <code>θ(j)</code> それぞれに偏微分を取り個別に行なう。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-collaborative_filtering_grad">
 \begin{align}
 x_{k}^{(i)} & := x_{k}^{(i)} - \alpha \frac{\partial J}{\partial x_{k}^{(i)}} & \frac{\partial J}{\partial x_{k}^{(i)}} & = \sum_{j:r(i, j)=1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)}) \theta_{k}^{(j)} + \lambda x_{k}^{(i)} \\
 \theta_{k}^{(j)} & := \theta_{k}^{(j)} - \alpha \frac{\partial J}{\partial \theta_{k}^{(j)}} & \frac{\partial J}{\partial \theta_{k}^{(j)}} & = \sum_{i:r(i, j)=1} ((\theta^{(j)})^{T} x^{(i)} - y^{(i, j)}) x_{k}^{(i)} + \lambda \theta_{k}^{(j)} \\
 \end{align}
 </script>
-
-
 <p>パラメータ自体を予測するので、切片項に対するパラメータ <code>x0 = 1, θ0 = 1</code> は不要である。もしそのような項が必要な時には、アルゴリズム自体でそのように収束する。よって、切片項用の偏微分も必要ない。</p>
-
 <p>これらをふまえて、協調フィルタリングを用いたアルゴリズムを整理すると以下のような手順になる。</p>
-
 <ol>
-<li>ニューラルネットワークの場合と同じように、初期値が同一値であると協調動作が起こらない。商品特性 <code>x</code> とユーザ特性 <code>θ</code> のランダムな極小値で初期化する <em>= Symmetry breaking</em></li>
-<li>最急降下法により、最小コストとなる商品特性 <code>x</code> とユーザ特性 <code>θ</code> を見つける。</li>
-<li><code>θ(j)^T * x(i)</code> により、商品 <code>i</code> に対してユーザ <code>j</code> が下す評価（の予測）が得られる。</li>
+  <li>ニューラルネットワークの場合と同じように、初期値が同一値であると協調動作が起こらない。商品特性 <code>x</code> とユーザ特性 <code>θ</code> のランダムな極小値で初期化する <em>= Symmetry breaking</em></li>
+  <li>最急降下法により、最小コストとなる商品特性 <code>x</code> とユーザ特性 <code>θ</code> を見つける。</li>
+  <li><code>θ(j)^T * x(i)</code> により、商品 <code>i</code> に対してユーザ <code>j</code> が下す評価（の予測）が得られる。</li>
 </ol>
-
-
 <p>予測した評価の高いものが、ユーザにとって有意義な商品であろうと言える。加えて</p>
-
 <ul>
-<li>任意の二つの商品特性 <code>x</code> の間の距離 <code>||x(i) - x(j)||</code> が小さいほど似ている商品</li>
-<li>任意の二つのユーザ特性 <code>θ</code> の間の距離 <code>||θ(i) - θ(j)||</code> が小さいほど似ているユーザ</li>
+  <li>任意の二つの商品特性 <code>x</code> の間の距離 <code>||x(i) - x(j)||</code> が小さいほど似ている商品</li>
+  <li>任意の二つのユーザ特性 <code>θ</code> の間の距離 <code>||θ(i) - θ(j)||</code> が小さいほど似ているユーザ</li>
 </ul>
-
-
 <p>と予測することもできる。</p>
-
-<h2>Matrix Factorization</h2>
-
+<h2><a href="#matrix-factorization" name="matrix-factorization" class="anchor"><span class="anchor-link"></span></a>Matrix Factorization</h2>
 <p>「商品数 x ユーザ数」のサイズの、ユーザ評価の行列 <code>Y</code> を考えてみる。各要素は予測評価値は <code>θ^T * x</code> に置き換えて考えてみると、行列 <code>Y</code> は</p>
-
 <ul>
-<li>商品特性の行列 <code>X</code></li>
-<li>ユーザ特性の行列 <code>Θ</code></li>
+  <li>商品特性の行列 <code>X</code></li>
+  <li>ユーザ特性の行列 <code>Θ</code></li>
 </ul>
-
-
 <p>の二つの行列の積 <code>X * Θ^T</code> である。すなわち、行列 <code>Y</code> から全商品特性と全ユーザ特性の行列に分解できる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-low_rank_matrix_factorization">
 X = \begin{bmatrix}
 (x^{(1)})^{T} \\
@@ -242,28 +191,18 @@ Y = X \Theta^{T} = \begin{bmatrix}
 (\theta^{(1)})^{T}(x^{(n_{m})}) & \ldots & (\theta^{(n_{u})})^{T}(x^{(n_{m})}) \\
 \end{bmatrix} \\
 </script>
-
-
 <p>行列 <code>Y</code> に対して特異値分解 <em>SVD</em> を行なうと、特異値の対角行列は、ユーザと商品を結びつけるために、どのような係数があるのかということを示している。実際にどのような特徴を表しているのかは判別できないが、何かしらの関連があることを表している。</p>
-
 <p>特異値分解は、欠損値の意味（未評価と評価 0）を区別できないので、ユーザ評価を行列分解する目的には向いていない。ユーザがすべての商品に対して評価を与えていることはなく、欠損値がほとんどになる。数学的に言い換えると、ユーザ評価の行列 <code>Y</code> の階数は低くなる（低ランク行列となる）傾向にある。</p>
-
 <p>低ランク行列分解 <em>(Low rank) Matrix Factorization = MF</em> と呼ばれている手法は、欠損値を考慮して行列分解を行なうが、本質的には協調フィルタリングと同じことを行なっている。</p>
-
-<h2>Mean Normalization</h2>
-
+<h2><a href="#mean-normalization" name="mean-normalization" class="anchor"><span class="anchor-link"></span></a>Mean Normalization</h2>
 <p>全く評価を行なっていないユーザに対しては、工夫が必要になる。</p>
-
 <ul>
-<li>コスト関数では、評価を行なったもの <code>r(i, j) = 1</code> のみの二乗誤差を取る。</li>
-<li>全く評価を行なっていないとすると誤差の項は 0 になる。</li>
-<li>最小化に影響があるのは、ユーザ特性 <code>θ</code> による正規化項のみとなり、<code>θ</code> の要素は全て 0 に収束する。</li>
-<li>評価予測式は <code>θ^T * x</code> のため、全ての評価が 0 になる。</li>
+  <li>コスト関数では、評価を行なったもの <code>r(i, j) = 1</code> のみの二乗誤差を取る。</li>
+  <li>全く評価を行なっていないとすると誤差の項は 0 になる。</li>
+  <li>最小化に影響があるのは、ユーザ特性 <code>θ</code> による正規化項のみとなり、<code>θ</code> の要素は全て 0 に収束する。</li>
+  <li>評価予測式は <code>θ^T * x</code> のため、全ての評価が 0 になる。</li>
 </ul>
-
-
 <p>このため、協調フィルタリングでのコスト関数においては、正解評価値 <code>y</code> との誤差を取るのではなく、平均値との差との誤差を取る。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-cofi_mean_normalization">
 {\scriptsize \text{$m^{(i)} = $ number of ratings given to item $i$}} \\
 \mu^{(i)} = \frac{1}{m^{(i)}} \sum_{j; r(i, j)=1} y^{(i, j)} \\
@@ -297,42 +236,42 @@ Y = Y - \begin{bmatrix}
 -0.5 & 0.5 & 0.5 & -0.5 & ? \\
 \end{bmatrix} \\
 </script>
-
-
 <p>予測評価値を求める時に、平均値を加えるようにする。<code>θ^T * x = 0</code> の場合には、平均値が予測評価となる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-cofi_mean_normalization_rating">
 (\theta^{(j)})^{T} x^{(i)} + \mu^{(i)} = \text{rating given to item $i$ by user $j$}  \\
 </script>
-
-
-
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Forms | Play Framework</title>
+<title>tachesimazzoca - Wiki | Forms</title>
 <link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,571 +20,496 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="../index.html">Play Framework</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
-
-
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="../index.html">Play Framework</a></li><li><a href="./index.html">Scala</a></li><li>Forms</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./iteratees.html">Iteratees</a></li><li><a href="./http.html">HTTP</a></li><li><a href="./actions.html">Actions</a></li><li><a href="./filters.html">Filters</a></li><li class="active"><a href="./forms.html">Forms</a></li><li><a href="./ws.html">WS</a></li><li><a href="./anorm.html">Anorm</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/play/scala/forms.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/play/scala/forms.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/play/scala/forms.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Forms</h1>
-          <div id="toc">
-          </div>
-          <h2>Overview</h2>
-
-<ul>
-<li>https://www.playframework.com/documentation/2.3.x/ScalaForms</li>
-</ul>
-
-
-<h2>Mapping</h2>
-
-<p><code>play.api.data.Mapping[T]</code> により、フォーム入力 <code>Map[String, String]</code> とデータオブジェクトの変換ルールを定義し、相互に変換を行なうことができる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.data._</span>
-<span class="k">import</span> <span class="nn">play.api.data.Forms._</span>
-<span class="k">import</span> <span class="nn">play.api.data.format.Formats._</span>
-<span class="k">import</span> <span class="nn">play.api.data.validation.Constraints._</span>
-
-<span class="k">case</span> <span class="k">class</span> <span class="nc">Item</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Long</span><span class="o">],</span> <span class="n">code</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">price</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="n">m</span><span class="k">:</span> <span class="kt">Mapping</span><span class="o">[</span><span class="kt">Item</span><span class="o">]</span> <span class="k">=</span> <span class="n">mapping</span><span class="o">(</span>
-  <span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="n">optional</span><span class="o">(</span><span class="n">longNumber</span><span class="o">),</span>
-  <span class="s">&quot;code&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span><span class="o">.</span><span class="n">verifying</span><span class="o">(</span><span class="n">pattern</span><span class="o">(</span> <span class="s">&quot;&quot;&quot;[A-Z][0-9]{5}&quot;&quot;&quot;</span><span class="o">.</span><span class="n">r</span><span class="o">)),</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
-  <span class="s">&quot;price&quot;</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="o">(</span><span class="n">min</span> <span class="k">=</span> <span class="mi">1</span><span class="o">,</span> <span class="n">max</span> <span class="k">=</span> <span class="mi">100000</span><span class="o">)</span>
-<span class="o">)(</span><span class="nc">Item</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Item</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span></code></pre></div>
-
-
-<p><code>play.api.data.Forms._</code> に、ほとんどのフォーム入力のフォーマットに対応したヘルパー関数が定義されているので、基本的にはそれらを使えばよい。</p>
-
-<h3>ObjectMapping</h3>
-
-<p><code>play.api.data.Forms.mapping</code> 関数を用いて、<code>play.api.data.ObjectMapping</code> を生成する。フィールド型を保つために、フィールド数（最大 18）に応じた <code>ObjectMapping(1..18)</code> が定義されている。</p>
-
-<ul>
-<li>引数 1..n は <code>(String, Mapping)</code> で、フィールド毎のキーと変換ルールのペアを指定する。</li>
-<li>引数 n+1 は <code>(A1, A2, ...) =&gt; R</code> で、タプルからデータオブジェクトを生成する関数を指定する。</li>
-<li>引数 n+2 は <code>(R) =&gt; Option[(A1, A2, ...)]</code> で、データオブジェクトからタプルを抽出する関数を指定する。</li>
-</ul>
-
-
-<p>データオブジェクトをタプルとするには <code>play.api.data.Forms.tuple</code> 関数を使えばよい。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// The following code should be replaced with using &quot;tuple&quot;.</span>
-<span class="c1">//</span>
-<span class="c1">//   val m: Mapping[(Long, String)] = mapping(</span>
-<span class="c1">//     &quot;id&quot; -&gt; of[Long],</span>
-<span class="c1">//     &quot;name&quot; -&gt; of[String]</span>
-<span class="c1">//   )((a1: Long, a2: String) =&gt; (a1, a2))((t: (Long, String)) =&gt; Some(t))</span>
-<span class="c1">//</span>
-<span class="k">val</span> <span class="n">m</span><span class="k">:</span> <span class="kt">Mapping</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="n">tuple</span><span class="o">(</span>
-  <span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="n">of</span><span class="o">[</span><span class="kt">Long</span><span class="o">],</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">of</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
-<span class="o">)</span>
-<span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;123&quot;</span><span class="o">,</span> <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">))</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">t</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="n">assert</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="n">_1</span> <span class="o">==</span> <span class="mi">123L</span><span class="o">)</span>
-    <span class="n">assert</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="n">_2</span> <span class="o">==</span> <span class="s">&quot;Foo&quot;</span><span class="o">)</span>
-  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p>ただし <code>Tuple1</code> の <code>tuple</code> 関数は提供されていないので、<code>play.api.data.Forms.single</code> を使う。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">m</span><span class="k">:</span> <span class="kt">Mapping</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">single</span><span class="o">(</span><span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">of</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
-<span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">))</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">v</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">assert</span><span class="o">(</span><span class="n">v</span> <span class="o">==</span> <span class="s">&quot;Foo&quot;</span><span class="o">)</span>
-  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h4>Maximum Number of Fields</h4>
-
-<p><code>ObjectMapping</code> は最大 18 フィールドまでしか定義できないが、<code>Mapping</code> 型を持つので変換ルールとなりうるので、住所や確認入力などのグループで入れ子にすればよい。</p>
-
-<p>入れ子に対するフォーム入力のキーは、<code>address.street</code> のようにドットで区切る。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Address</span><span class="o">(</span><span class="n">street</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">city</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
-<span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">address</span><span class="k">:</span> <span class="kt">Address</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">mapping</span><span class="o">(</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span><span class="o">,</span>
-  <span class="s">&quot;address&quot;</span> <span class="o">-&gt;</span> <span class="n">mapping</span><span class="o">(</span>
-    <span class="s">&quot;street&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span><span class="o">,</span>
-    <span class="s">&quot;city&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span>
-  <span class="o">)(</span><span class="nc">Address</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Address</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span>
-<span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span>
-
-<span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Nested Values&quot;</span><span class="o">,</span>
-  <span class="s">&quot;address.street&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;1-2-3&quot;</span><span class="o">,</span>
-  <span class="s">&quot;address.city&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Fukuoka&quot;</span>
-<span class="o">))</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">user</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="n">assert</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&quot;Nested Values&quot;</span><span class="o">)</span>
-    <span class="n">assert</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="n">address</span><span class="o">.</span><span class="n">street</span> <span class="o">==</span> <span class="s">&quot;1-2-3&quot;</span><span class="o">)</span>
-    <span class="n">assert</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="n">address</span><span class="o">.</span><span class="n">city</span> <span class="o">==</span> <span class="s">&quot;Fukuoka&quot;</span><span class="o">)</span>
-  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p>入れ子になっているからといって、階層毎にデータ型が必要なわけではない。<code>(apply|unapply)</code> 関数を調整すれば、単一のデータオブジェクトに変換できる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Item</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">price</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">description</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">mapping</span><span class="o">(</span>
-  <span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="n">longNumber</span><span class="o">,</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span><span class="o">,</span>
-  <span class="s">&quot;meta&quot;</span> <span class="o">-&gt;</span> <span class="n">tuple</span><span class="o">(</span>
-    <span class="s">&quot;price&quot;</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="o">,</span>
-    <span class="s">&quot;description&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span>
-  <span class="o">)</span>
-<span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">meta</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="nc">Item</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">meta</span><span class="o">.</span><span class="n">_1</span><span class="o">,</span> <span class="n">meta</span><span class="o">.</span><span class="n">_2</span><span class="o">)</span>
-<span class="o">}</span> <span class="o">{</span> <span class="o">(</span><span class="n">item</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="nc">Some</span><span class="o">((</span><span class="n">item</span><span class="o">.</span><span class="n">id</span><span class="o">,</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="o">,</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="n">price</span><span class="o">,</span> <span class="n">item</span><span class="o">.</span><span class="n">description</span><span class="o">)))</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h3>FieldMapping</h3>
-
-<p><code>play.api.data.FiledMapping</code> は単一値のマッピングを行なう。</p>
-
-<p><code>play.api.data.Forms.of[T](implicit binder: Formatter[T])</code> を用いる事で、型パラメータ <code>T</code> に応じた <code>FieldMapping</code> を生成できる。基本的な <code>Formatter</code> は <code>play.api.data.format.Formats._</code> に暗黙パラメータとして定義されている。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.data._</span>
-<span class="k">import</span> <span class="nn">play.api.data.Forms._</span>
-<span class="k">import</span> <span class="nn">play.api.data.format.Formats._</span>
-
-<span class="k">val</span> <span class="n">m</span><span class="k">:</span> <span class="kt">Mapping</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="n">tuple</span><span class="o">(</span>
-  <span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="n">of</span><span class="o">[</span><span class="kt">Long</span><span class="o">],</span>    <span class="c1">// play.api.data.format.Formats.longFormat</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">of</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="c1">// play.api.data.format.Formats.stringFormat</span>
-<span class="o">)</span></code></pre></div>
-
-
-<p>固定値には <code>play.api.data.Forms.ignored</code> を使う。<code>bind</code> で上書きはされない。<code>unbind</code> 時には除外される。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">m</span><span class="k">:</span> <span class="kt">Mapping</span><span class="o">[(</span><span class="kt">Long</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="n">tuple</span><span class="o">(</span>
-  <span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="n">ignored</span><span class="o">(</span><span class="mi">123L</span><span class="o">),</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span>
-<span class="o">)</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Right</span><span class="o">((</span><span class="mi">123L</span><span class="o">,</span> <span class="s">&quot;Foo&quot;</span><span class="o">))</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">)))</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Right</span><span class="o">((</span><span class="mi">123L</span><span class="o">,</span> <span class="s">&quot;Foo&quot;</span><span class="o">))</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;999&quot;</span><span class="o">,</span> <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">)))</span> <span class="c1">// id:999 ignored</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">unbind</span><span class="o">((</span><span class="mi">123L</span><span class="o">,</span> <span class="s">&quot;Foo&quot;</span><span class="o">)))</span> <span class="c1">// id:123 removed</span></code></pre></div>
-
-
-<h3>RepeatedMapping</h3>
-
-<p><code>play.api.data.RepeatedMapping</code> は、<code>(List|Seq)</code> へのマッピングを行なう。<code>FieldMapping</code> を <code>play.api.data.Forms.(list|seq)</code> 関数で括ればよい。</p>
-
-<p>リスト値のフォーム入力のキーは <code>tags[0], tags[1], tags[2], ...</code> のように、インデックス文字列 <code>[i]</code> を付与する。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">tuple</span><span class="o">(</span>
-  <span class="s">&quot;numbers&quot;</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="o">(</span><span class="n">of</span><span class="o">[</span><span class="kt">Int</span><span class="o">]),</span>
-  <span class="s">&quot;tags&quot;</span> <span class="o">-&gt;</span> <span class="n">seq</span><span class="o">(</span><span class="n">of</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
-<span class="o">)</span>
-
-<span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span>
-  <span class="s">&quot;numbers[0]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;123&quot;</span><span class="o">,</span>
-  <span class="s">&quot;numbers[1]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;456&quot;</span><span class="o">,</span>
-  <span class="s">&quot;tags[0]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;scala&quot;</span><span class="o">,</span>
-  <span class="s">&quot;tags[1]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;play&quot;</span><span class="o">,</span>
-  <span class="s">&quot;tags[2]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;framework&quot;</span>
-<span class="o">))</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="n">assert</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="n">_1</span> <span class="o">==</span> <span class="nc">List</span><span class="o">(</span><span class="mi">123</span><span class="o">,</span> <span class="mi">456</span><span class="o">))</span>
-    <span class="n">assert</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="n">_2</span> <span class="o">==</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">&quot;scala&quot;</span><span class="o">,</span> <span class="s">&quot;play&quot;</span><span class="o">,</span> <span class="s">&quot;framework&quot;</span><span class="o">))</span>
-  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p>ユーティリィティメゾッドの <code>RepeatedMapping.indexes</code> により、<code>Map[String, String]</code> から、指定キーのインデックス値のリスト <code>Seq[Int]</code> を得る事ができる。キーは昇順ソートされ、重複キーは削除される。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">data</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">(</span>
-  <span class="s">&quot;tags[0]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;foo&quot;</span><span class="o">,</span>
-  <span class="s">&quot;tags[1]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;bar&quot;</span><span class="o">,</span>
-  <span class="s">&quot;tags[2]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;baz&quot;</span>
-<span class="o">)</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">==</span> <span class="nc">RepeatedMapping</span><span class="o">.</span><span class="n">indexes</span><span class="o">(</span><span class="s">&quot;tags&quot;</span><span class="o">,</span> <span class="n">data</span><span class="o">))</span></code></pre></div>
-
-
-<h3>OptionalMapping</h3>
-
-<p><code>play.api.data.OptionalMapping</code> は <code>Option</code> へのマッピングを行なう。<code>Mapping</code> を <code>play.api.data.Forms.option</code> 関数で括ればよい。</p>
-
-<p><code>play.api.data.Forms.default</code> 関数を使うとデフォルト値を指定できる。内部的には <code>Mapping#transform</code> で <code>Option#getOrElse</code> から変換しているので、<code>FieldMapping</code> ではない点に注意する。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Long</span><span class="o">],</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">activated</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">mapping</span><span class="o">(</span>
-  <span class="s">&quot;id&quot;</span> <span class="o">-&gt;</span> <span class="n">optional</span><span class="o">(</span><span class="n">of</span><span class="o">[</span><span class="kt">Long</span><span class="o">]),</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">of</span><span class="o">[</span><span class="kt">String</span><span class="o">],</span>
-  <span class="s">&quot;activated&quot;</span> <span class="o">-&gt;</span> <span class="n">default</span><span class="o">(</span><span class="n">of</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">],</span> <span class="kc">true</span><span class="o">)</span>
-<span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span></code></pre></div>
-
-
-<h2>Constraint</h2>
-
-<p><code>play.api.data.validation.Constraint[T]</code> により、バリデータを作成できる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.data.validation._</span>
-
-<span class="k">val</span> <span class="n">yesOrNo</span> <span class="k">=</span> <span class="nc">Constraint</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="o">{</span> <span class="n">s</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=&gt;</span>
-  <span class="n">s</span> <span class="k">match</span> <span class="o">{</span>
-    <span class="k">case</span> <span class="s">&quot;yes&quot;</span> <span class="o">|</span> <span class="s">&quot;no&quot;</span> <span class="k">=&gt;</span> <span class="nc">Valid</span>
-    <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;The string must be (yes|no).&quot;</span><span class="o">)</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Valid</span> <span class="o">==</span> <span class="n">yesOrNo</span><span class="o">(</span><span class="s">&quot;yes&quot;</span><span class="o">))</span>
-
-<span class="k">def</span> <span class="n">range</span><span class="o">(</span><span class="n">min</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">max</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="nc">Constraint</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="s">&quot;constraint.range&quot;</span><span class="o">,</span> <span class="n">min</span><span class="o">,</span> <span class="n">max</span><span class="o">)</span> <span class="o">{</span> <span class="n">v</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=&gt;</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">v</span> <span class="o">&gt;=</span> <span class="n">min</span> <span class="o">&amp;&amp;</span> <span class="n">v</span> <span class="o">&lt;=</span> <span class="n">max</span><span class="o">)</span> <span class="nc">Valid</span>
-  <span class="k">else</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;error.range&quot;</span><span class="o">,</span> <span class="n">min</span><span class="o">,</span> <span class="n">max</span><span class="o">)</span>
-<span class="o">}</span>
-<span class="k">val</span> <span class="n">validator</span> <span class="k">=</span> <span class="n">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="s">&quot;constraint.range&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="n">validator</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span> <span class="o">==</span> <span class="n">validator</span><span class="o">.</span><span class="n">args</span><span class="o">)</span>
-<span class="n">validator</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Invalid</span><span class="o">(</span><span class="n">errors</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="n">assert</span><span class="o">(</span><span class="mi">1</span> <span class="o">==</span> <span class="n">errors</span><span class="o">.</span><span class="n">size</span><span class="o">)</span>
-    <span class="n">assert</span><span class="o">(</span><span class="s">&quot;error.range&quot;</span> <span class="o">==</span> <span class="n">errors</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">message</span><span class="o">)</span>
-    <span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span> <span class="o">==</span> <span class="n">errors</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">args</span><span class="o">)</span>
-  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span>
-    <span class="n">assert</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<ul>
-<li><code>Constraint[T].apply</code> を使ってバリデータを作成する。引数には、値をチェックする関数 <code>T =&gt; play.api.data.validation.ValidationResult</code> を渡す。
-
-<ul>
-<li>正常時には <code>Valid</code> を返す。</li>
-<li>エラー時には <code>Invalid</code> を返す。</li>
-</ul>
-</li>
-<li><code>Constraint[T]#apply</code> メゾッドで値をチェックして <code>ValidationResult</code> を受け取る。</li>
-<li>バリデータのメタ情報を外部から参照できるように、<code>Constraint[T].apply</code> でバリデーション名と引数 <code>Any*</code> を定義することができる。入力のヒント文字列の組み立て等のために、外部用に提供する属性であって、バリデーションを行なう関数内から参照はできない。設定が冗長になるのを回避するには、<code>Constraint[T]</code> インスタンスを生成するヘルパー関数を定義するとよい。</li>
-</ul>
-
-
-<p><code>Invalid</code> は <code>apply</code> メゾッドに <code>play.api.data.validation.ValidationError</code> を渡して作成する。メッセージと引数だけの <code>apply</code> も提供されている。インスタンスは <code>Invalid#++</code> でマージできる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">result1</span> <span class="k">=</span> <span class="nc">Invalid</span><span class="o">(</span><span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.foo&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">))</span>
-<span class="k">val</span> <span class="n">result2</span> <span class="k">=</span> <span class="nc">Invalid</span><span class="o">(</span><span class="s">&quot;error.bar&quot;</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">result3</span> <span class="k">=</span> <span class="n">result1</span> <span class="o">++</span> <span class="n">result2</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span>
-  <span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.foo&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span>
-  <span class="nc">ValidationError</span><span class="o">(</span><span class="s">&quot;error.bar&quot;</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
-<span class="o">)</span> <span class="o">==</span> <span class="n">result3</span><span class="o">.</span><span class="n">errors</span><span class="o">)</span></code></pre></div>
-
-
-<p><code>play.api.data.validation.Constraints._</code> に、基本的なバリデータは定義されているので、不足する場合に独自に作成すればよい。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.data.validation.Constraints.pattern</span>
-
-<span class="k">val</span> <span class="n">alnum</span> <span class="k">=</span> <span class="n">pattern</span><span class="o">(</span><span class="n">regex</span> <span class="k">=</span> <span class="s">&quot;&quot;&quot;^[A-Z0-9]+$&quot;&quot;&quot;</span><span class="o">.</span><span class="n">r</span><span class="o">,</span> <span class="n">error</span> <span class="k">=</span> <span class="s">&quot;must be alphanumeric&quot;</span><span class="o">)</span></code></pre></div>
-
-
-<h3>Working with Mapping</h3>
-
-<p><code>Mapping#verifying</code> メゾッドで、フィールド値の制約を定義できる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">tuple</span><span class="o">(</span>
-  <span class="s">&quot;username&quot;</span> <span class="o">-&gt;</span> <span class="n">tuple</span><span class="o">(</span>
-    <span class="s">&quot;main&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span><span class="o">.</span><span class="n">verifying</span><span class="o">(</span><span class="n">pattern</span><span class="o">(</span> <span class="s">&quot;&quot;&quot;[a-z][a-z0-9]{4,31}&quot;&quot;&quot;</span><span class="o">.</span><span class="n">r</span><span class="o">)),</span>
-    <span class="s">&quot;sub&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span>
-  <span class="o">).</span><span class="n">verifying</span><span class="o">(</span><span class="s">&quot;error.username.sub&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="n">v</span> <span class="k">=&gt;</span>
-    <span class="n">v</span><span class="o">.</span><span class="n">_1</span> <span class="o">==</span> <span class="n">v</span><span class="o">.</span><span class="n">_2</span>
-  <span class="o">}),</span>
-  <span class="s">&quot;age&quot;</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="o">.</span><span class="n">verifying</span><span class="o">(</span><span class="n">min</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">max</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span>
-<span class="o">)</span>
-<span class="n">m</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span>
-  <span class="s">&quot;username.main&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;abc123&quot;</span><span class="o">,</span>
-  <span class="s">&quot;username.sub&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;abc12&quot;</span><span class="o">,</span>
-  <span class="s">&quot;age&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;26&quot;</span>
-<span class="o">))</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="n">errors</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="n">assert</span><span class="o">(</span><span class="mi">1</span> <span class="o">===</span> <span class="n">errors</span><span class="o">.</span><span class="n">size</span><span class="o">)</span>
-    <span class="n">assert</span><span class="o">(</span><span class="s">&quot;error.username.sub&quot;</span> <span class="o">===</span> <span class="n">errors</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">message</span><span class="o">)</span>
-  <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
-<span class="o">}</span></code></pre></div>
-
-
-<ul>
-<li><code>Constraint[T]</code> のインスタンスを可変長引数で渡す。</li>
-<li><code>Constraint[T]</code> の代わりに、<code>T =&gt; Boolean</code> の関数を渡すこともできる。値の制約は <code>Constraint[T]</code> を作るのがよいが、入力確認フィールドの状態など、マッピング全体の制約にはこの方法が良いだろう。</li>
-<li><code>Constraint#apply</code> で得られるエラーは <code>ValidationError</code> だが、<code>Mapping#bind</code> でのエラーは、エラーが起こったフィールドキーと共に、<code>play.api.data.FormError</code> に移し替えられる。</li>
-</ul>
-
-
-<h2>Form</h2>
-
-<p><code>play.api.data.Form</code> は、<code>Mapping</code> をラップした HTTP フォームのモデルを提供する。<code>Mapping</code> はマッピングのみで状態を持たないが、<code>Form</code> は入力値やエラーを保持する。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">userForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(</span><span class="n">mapping</span><span class="o">(</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
-  <span class="s">&quot;age&quot;</span> <span class="o">-&gt;</span> <span class="n">number</span><span class="o">.</span><span class="n">verifying</span><span class="o">(</span><span class="n">min</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">max</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span>
-<span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">User</span><span class="o">.</span><span class="n">unapply</span><span class="o">))</span>
-<span class="k">val</span> <span class="n">boundForm</span> <span class="k">=</span> <span class="n">userForm</span><span class="o">.</span><span class="n">bind</span><span class="o">(</span><span class="nc">Map</span><span class="o">(</span><span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Foo&quot;</span><span class="o">,</span> <span class="s">&quot;age&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;26&quot;</span><span class="o">))</span>
-<span class="n">assert</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="nc">User</span><span class="o">(</span><span class="s">&quot;Foo&quot;</span><span class="o">,</span> <span class="mi">26</span><span class="o">))</span> <span class="o">==</span> <span class="n">boundForm</span><span class="o">.</span><span class="n">value</span><span class="o">)</span>
-<span class="n">assert</span><span class="o">(</span><span class="kc">false</span> <span class="o">==</span> <span class="n">boundForm</span><span class="o">.</span><span class="n">hasErrors</span><span class="o">)</span></code></pre></div>
-
-
-<p>状態は持つが <code>Form</code> はケースクラス、すなわちイミュータブルであり、副作用のメゾッドは持たない。言い換えると <code>Form#(bind|fill)</code> 等で状態を更新する度にコピーされるので、スレッドセーフについては考慮しなくてよい。</p>
-
-<p><code>Controller</code> 内で利用する際、リクエスト毎に <code>Mapping</code> から <code>Form</code> を毎回組み立てるのはコストがかかるので、<code>Controller</code> のメンバー変数などに、初期値でインスタンス化したものを保持しておくとよい。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">models.Contact</span>
-<span class="k">import</span> <span class="nn">play.api.data._</span>
-<span class="k">import</span> <span class="nn">play.api.mvc._</span>
-
-<span class="k">object</span> <span class="nc">ContactsController</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="n">contactForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(</span><span class="n">mapping</span><span class="o">(</span>
-    <span class="o">...</span>
-  <span class="o">)(</span><span class="nc">Contact</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Contact</span><span class="o">.</span><span class="n">unapply</span><span class="o">))</span>
-
-  <span class="k">def</span> <span class="n">entry</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
-    <span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">contacts</span><span class="o">.</span><span class="n">entry</span><span class="o">(</span><span class="n">contactForm</span><span class="o">))</span>
-  <span class="o">}</span>
-
-  <span class="k">def</span> <span class="n">submit</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">request</span> <span class="k">=&gt;</span>
-    <span class="n">contactForm</span><span class="o">.</span><span class="n">bindFromRequest</span><span class="o">.</span><span class="n">fold</span><span class="o">(</span>
-      <span class="n">formWithErrors</span> <span class="k">=&gt;</span> <span class="nc">BadRequest</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">contacts</span><span class="o">.</span><span class="n">entry</span><span class="o">(</span><span class="n">formWithErrors</span><span class="o">)),</span>
-      <span class="n">contact</span> <span class="k">=&gt;</span> <span class="o">{</span>
-        <span class="c1">// TODO: Do something with the value contact.</span>
-        <span class="nc">Redirect</span><span class="o">(</span><span class="n">routes</span><span class="o">.</span><span class="nc">ContactController</span><span class="o">.</span><span class="n">done</span><span class="o">())</span>
-      <span class="o">}</span>
-    <span class="o">)</span>
-  <span class="o">}</span>
-
-  <span class="k">def</span> <span class="n">done</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
-    <span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">contacts</span><span class="o">.</span><span class="n">done</span><span class="o">())</span>
-  <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p>送信されるフォームデータは、<code>Form#bindFromRequest</code> で暗黙パラメータの <code>Request</code> からバインドし、<code>Form#fold</code> で、エラー時と正常時の関数を定義しておくと簡潔に書ける。</p>
-
-<h3>Field</h3>
-
-<p><code>Form#apply</code> メゾッドを介して、指定フィールドのモデル <code>play.api.data.Field</code> を得ることができる。フィールド状態の取得の他、HTMLの組み立てを想定した API が提供されている。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">itemForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(</span><span class="n">mapping</span><span class="o">(</span>
-  <span class="s">&quot;name&quot;</span> <span class="o">-&gt;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
-  <span class="s">&quot;tags&quot;</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="o">(</span><span class="n">text</span><span class="o">)</span>
-<span class="o">)(</span><span class="nc">Item</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Item</span><span class="o">.</span><span class="n">unapply</span><span class="o">)).</span><span class="n">bind</span><span class="o">(</span>
-  <span class="nc">Map</span><span class="o">(</span>
-    <span class="s">&quot;tags[0]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;foo&quot;</span><span class="o">,</span>
-    <span class="s">&quot;tags[1]&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;bar&quot;</span>
-  <span class="o">)</span>
-<span class="o">)</span>
-
-<span class="n">assert</span><span class="o">(</span><span class="s">&quot;tags_0&quot;</span> <span class="o">==</span> <span class="n">itemForm</span><span class="o">(</span><span class="s">&quot;tags[0]&quot;</span><span class="o">).</span><span class="n">id</span><span class="o">)</span>
-<span class="n">assert</span><span class="o">(</span><span class="s">&quot;tags.0&quot;</span> <span class="o">==</span> <span class="n">itemForm</span><span class="o">(</span><span class="s">&quot;tags[0]&quot;</span><span class="o">).</span><span class="n">label</span><span class="o">)</span></code></pre></div>
-
-
-<ul>
-<li><code>Field#id</code> により、入力 HTML 要素のid 属性文字列を得る。フィールド名と同じだが <code>foo.bar[0]</code> は <code>foo_bar_0</code>  に変換される。</li>
-<li><code>Field#label</code> により、フィールド名のラベルに対応する<code>play.api.i18n.Messages</code> のキーを得る。フィールド名と同じだが <code>foo[0]</code> は <code>foo.0</code>  に変換される。</li>
-</ul>
-
-
-<h2>FieldConstructor</h2>
-
-<h3>views.html.helper.input</h3>
-
-<p>HTMLフォームフィールドのヘルパーとして <code>views.html.helper.input</code> が提供されている。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="o">@(</span><span class="n">field</span><span class="k">:</span> <span class="kt">play.api.data.Field</span><span class="o">,</span> <span class="n">args</span><span class="k">:</span> <span class="o">(</span><span class="kt">Symbol</span><span class="o">,</span> <span class="kt">Any</span><span class="o">)*)</span>
-<span class="o">(</span><span class="n">inputDef</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span> <span class="kt">String</span><span class="o">,</span> <span class="nc">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">],</span> <span class="nc">Map</span><span class="o">[</span><span class="kt">Symbol</span>, <span class="kt">Any</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Html</span><span class="o">)</span>
-<span class="o">(</span><span class="k">implicit</span> <span class="n">handler</span><span class="k">:</span> <span class="kt">FieldConstructor</span><span class="o">,</span> <span class="n">messages</span><span class="k">:</span> <span class="kt">play.api.i18n.Messages</span><span class="o">)</span></code></pre></div>
-
-
-<p><code>views.html.helper.FieldConstructor</code> を暗黙パラメータに持ち、ラベルやエラーメッセージを含めたフィールドブロックの HTML を組み立てることができる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@helper</span><span class="o">.</span><span class="n">input</span><span class="o">(</span>
-  <span class="n">userForm</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">),</span>
-  <span class="-Symbol">&#39;id</span> <span class="o">-&gt;</span> <span class="s">&quot;userNameInput&quot;</span><span class="o">,</span>
-  <span class="-Symbol">&#39;size</span> <span class="o">-&gt;</span> <span class="mi">30</span><span class="o">,</span>
-  <span class="-Symbol">&#39;_id</span> <span class="o">-&gt;</span> <span class="s">&quot;userNameBlock&quot;</span><span class="o">,</span>
-  <span class="-Symbol">&#39;_showConstraints</span> <span class="o">-&gt;</span> <span class="kc">false</span>
-<span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="n">args</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;@name&quot;</span> <span class="n">id</span><span class="o">=</span><span class="s">&quot;@id&quot;</span> <span class="nd">@toHtmlArgs</span><span class="o">(</span><span class="n">args</span><span class="o">)&gt;</span>
-<span class="o">}</span></code></pre></div>
-
-
-<ul>
-<li><code>field: play.api.data.Field</code>: 出力対象の <code>field:Field</code> オブジェクト</li>
-<li><code>args: (Symbol, Any)*</code>
-
-<ul>
-<li><code>'_id -&gt; String</code>: フィールドブロック要素の id 属性。入力要素の id 属性ではない点に注意。</li>
-<li><code>'_label -&gt; String</code>: label 属性。<code>messages</code> のキーとしては参照されない。</li>
-<li><code>'_help -&gt; String</code>: 入力ガイド文字列。<code>messages</code> のキーとしても参照される。</li>
-<li><code>'_showConstraints -&gt; Boolean</code>: 入力ガイドを表示するかどうか？</li>
-<li><code>'_error -&gt; String</code>: エラーメッセージ文字列。<code>messages</code> のキーとしても参照される。</li>
-<li><code>'_showErrors -&gt; Boolean</code>: エラーメッセージを表示するかどうか？</li>
-<li><code>'_(.+) -&gt; Any</code>: 独自 <code>FieldConstructor</code> へのパラメータ</li>
-<li><code>id -&gt; String</code>: 入力 HTML 要素 (input/select/textarea) の id 属性</li>
-<li><code>[^_](.+) -&gt; Any</code>: 入力 HTML 要素の追加属性</li>
-</ul>
-</li>
-<li><code>inputDef</code>: 入力 HTML 要素の <code>play.twirl.api.Html</code> を返す関数
-
-<ul>
-<li><code>id: String</code>: id 属性</li>
-<li><code>name: String</code>: name 属性</li>
-<li><code>value: Option[String]</code>: フィールド値</li>
-<li><code>args: (Symbol, Any)</code>: <code>'id</code> および <code>'_*</code> のエントリを除く追加属性の <code>Map</code></li>
-</ul>
-</li>
-</ul>
-
-
-<p>暗黙パラメータの <code>handler: FieldConstructor</code> に対し、<code>views.html.helper.FieldElements</code> を渡してフィールドブロックの HTML 得る流れになる。</p>
-
-<h3>defaultFieldConstructor</h3>
-
-<p><code>FieldConstructor</code> はデフォルトで、<code>views.html.helper.defaultFieldConstructor</code> を暗黙値として持っている。</p>
-
-<p>独自の <code>FieldConstructor</code> を作成したい場合は、まず <code>FieldElements</code> から <code>Html</code> を返すヘルパーを作成する。</p>
-
-<p><code>views/_helpers/customFieldConstructor.scala.html</code>:</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="o">@(</span><span class="n">elements</span><span class="k">:</span> <span class="kt">helper.FieldElements</span><span class="o">)</span>
-
-<span class="o">&lt;</span><span class="n">dl</span> <span class="n">class</span><span class="o">=</span><span class="s">&quot;@elements.args.get(&#39;_class) @if(elements.hasErrors) {error}&quot;</span>
-    <span class="n">id</span><span class="o">=</span><span class="s">&quot;@elements.args.get(&#39;_id).getOrElse(elements.id + &quot;</span><span class="nc">_field</span><span class="s">&quot;)&quot;</span><span class="o">&gt;</span>
-    <span class="nd">@if</span><span class="o">(</span><span class="n">elements</span><span class="o">.</span><span class="n">hasName</span><span class="o">)</span> <span class="o">{</span>
-    <span class="o">&lt;</span><span class="n">dt</span><span class="o">&gt;@</span><span class="n">elements</span><span class="o">.</span><span class="n">name</span><span class="o">(</span><span class="n">elements</span><span class="o">.</span><span class="n">lang</span><span class="o">)&lt;/</span><span class="n">dt</span><span class="o">&gt;</span>
-    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-    <span class="o">&lt;</span><span class="n">dt</span><span class="o">&gt;&lt;</span><span class="n">label</span> <span class="k">for</span><span class="o">=</span><span class="s">&quot;@elements.id&quot;</span><span class="o">&gt;@</span><span class="n">elements</span><span class="o">.</span><span class="n">label</span><span class="o">(</span><span class="n">elements</span><span class="o">.</span><span class="n">lang</span><span class="o">)&lt;/</span><span class="n">label</span><span class="o">&gt;&lt;/</span><span class="n">dt</span><span class="o">&gt;</span>
-    <span class="o">}</span>
-    <span class="o">&lt;</span><span class="n">dd</span><span class="o">&gt;@</span><span class="n">elements</span><span class="o">.</span><span class="n">input</span><span class="o">&lt;/</span><span class="n">dd</span><span class="o">&gt;</span>
-    <span class="nd">@elements</span><span class="o">.</span><span class="n">errors</span><span class="o">(</span><span class="n">elements</span><span class="o">.</span><span class="n">lang</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">error</span> <span class="k">=&gt;</span>
-        <span class="o">&lt;</span><span class="n">dd</span> <span class="n">class</span><span class="o">=</span><span class="s">&quot;error&quot;</span><span class="o">&gt;@</span><span class="n">error</span><span class="o">&lt;/</span><span class="n">dd</span><span class="o">&gt;</span>
-    <span class="o">}</span>
-    <span class="nd">@elements</span><span class="o">.</span><span class="n">infos</span><span class="o">(</span><span class="n">elements</span><span class="o">.</span><span class="n">lang</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">info</span> <span class="k">=&gt;</span>
-        <span class="o">&lt;</span><span class="n">dd</span> <span class="n">class</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span class="o">&gt;@</span><span class="n">info</span><span class="o">&lt;/</span><span class="n">dd</span><span class="o">&gt;</span>
-    <span class="o">}</span>
-<span class="o">&lt;/</span><span class="n">dl</span><span class="o">&gt;</span></code></pre></div>
-
-
-<p>任意のパッケージ内で <code>FieldConstructor</code> の暗黙値を定義し <code>@import</code> すれば良い。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@import</span> <span class="n">views</span><span class="o">.</span><span class="nc">_helpers</span><span class="o">.</span><span class="n">fieldConstructor</span></code></pre></div>
-
-
-<p><code>views/_helpers/package.scala</code>:</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">package</span> <span class="nn">views</span>
-
-<span class="k">import</span> <span class="nn">views.html.helper.FieldConstructor</span>
-
-<span class="k">package</span> <span class="nn">object</span> <span class="nc">_helpers</span> <span class="o">{</span>
-  <span class="k">implicit</span> <span class="k">val</span> <span class="n">fieldConstructor</span> <span class="k">=</span> <span class="nc">FieldConstructor</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="nc">_helpers</span><span class="o">.</span><span class="n">customFieldConstructor</span><span class="o">.</span><span class="n">f</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p>Twirl では <code>@implicit*</code> で始まる Reusable block を暗黙値として定義してくれるので、動的に組み込む方法もある。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nd">@implicitField</span> <span class="k">=</span> <span class="o">@{</span> <span class="n">helper</span><span class="o">.</span><span class="nc">FieldConstructor</span><span class="o">(</span><span class="nc">_helpers</span><span class="o">.</span><span class="n">customFieldConstructor</span><span class="o">.</span><span class="n">f</span><span class="o">)</span> <span class="o">}</span></code></pre></div>
-
-
-<p>明示的にフィールド単位で指定することもできる。この場合は <code>play.api.i18n.Lang</code> も必要になる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="o">@(</span><span class="n">userForm</span><span class="k">:</span> <span class="kt">Form</span><span class="o">[</span><span class="kt">User</span><span class="o">])(</span><span class="k">implicit</span> <span class="n">lang</span><span class="k">:</span> <span class="kt">play.api.i18n.Lang</span><span class="o">)</span>
-<span class="o">...</span>
-<span class="nd">@helper</span><span class="o">.</span><span class="n">inputText</span><span class="o">(</span><span class="n">userForm</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">))(</span>
-  <span class="n">helper</span><span class="o">.</span><span class="nc">FieldConstructor</span><span class="o">(</span><span class="nc">_helpers</span><span class="o">.</span><span class="n">customFieldConstructor</span><span class="o">.</span><span class="n">f</span><span class="o">),</span>
-  <span class="n">lang</span>
-<span class="o">)</span></code></pre></div>
-
-
-
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
+
+<div id="main">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="pankuzu">
+<ul>
+  <li><a href="../../index.html">Home</a></li>
+  <li><a href="../../play/index.html">Play Framework</a></li>
+  <li><a href="../../play/scala/index.html">Scala</a></li>
+  <li>Forms</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../../play/scala/forms.html#forms" class="header">Forms</a>
+  <ul>
+    <li><a href="../../play/scala/forms.html#overview" class="header">Overview</a></li>
+    <li><a href="../../play/scala/forms.html#mapping" class="header">Mapping</a></li>
+    <li><a href="../../play/scala/forms.html#constraint" class="header">Constraint</a></li>
+    <li><a href="../../play/scala/forms.html#form" class="header">Form</a></li>
+    <li><a href="../../play/scala/forms.html#fieldconstructor" class="header">FieldConstructor</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/play/scala/forms.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#forms" name="forms" class="anchor"><span class="anchor-link"></span></a>Forms</h1>
+<h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
+<ul>
+  <li><a href="https://www.playframework.com/documentation/2.3.x/ScalaForms">https://www.playframework.com/documentation/2.3.x/ScalaForms</a></li>
+</ul>
+<h2><a href="#mapping" name="mapping" class="anchor"><span class="anchor-link"></span></a>Mapping</h2>
+<p><code>play.api.data.Mapping[T]</code> により、フォーム入力 <code>Map[String, String]</code> とデータオブジェクトの変換ルールを定義し、相互に変換を行なうことができる。</p>
+<pre class="prettyprint"><code class="language-scala">import play.api.data._
+import play.api.data.Forms._
+import play.api.data.format.Formats._
+import play.api.data.validation.Constraints._
+
+case class Item(id: Option[Long], code: String, name: String, price: Int)
+
+val m: Mapping[Item] = mapping(
+  &quot;id&quot; -&gt; optional(longNumber),
+  &quot;code&quot; -&gt; text.verifying(pattern( &quot;&quot;&quot;[A-Z][0-9]{5}&quot;&quot;&quot;.r)),
+  &quot;name&quot; -&gt; nonEmptyText,
+  &quot;price&quot; -&gt; number(min = 1, max = 100000)
+)(Item.apply)(Item.unapply)
+</code></pre>
+<p><code>play.api.data.Forms._</code> に、ほとんどのフォーム入力のフォーマットに対応したヘルパー関数が定義されているので、基本的にはそれらを使えばよい。</p>
+<h3><a href="#objectmapping" name="objectmapping" class="anchor"><span class="anchor-link"></span></a>ObjectMapping</h3>
+<p><code>play.api.data.Forms.mapping</code> 関数を用いて、<code>play.api.data.ObjectMapping</code> を生成する。フィールド型を保つために、フィールド数（最大 18）に応じた <code>ObjectMapping(1..18)</code> が定義されている。</p>
+<ul>
+  <li>引数 1..n は <code>(String, Mapping)</code> で、フィールド毎のキーと変換ルールのペアを指定する。</li>
+  <li>引数 n+1 は <code>(A1, A2, ...) =&gt; R</code> で、タプルからデータオブジェクトを生成する関数を指定する。</li>
+  <li>引数 n+2 は <code>(R) =&gt; Option[(A1, A2, ...)]</code> で、データオブジェクトからタプルを抽出する関数を指定する。</li>
+</ul>
+<p>データオブジェクトをタプルとするには <code>play.api.data.Forms.tuple</code> 関数を使えばよい。</p>
+<pre class="prettyprint"><code class="language-scala">// The following code should be replaced with using &quot;tuple&quot;.
+//
+//   val m: Mapping[(Long, String)] = mapping(
+//     &quot;id&quot; -&gt; of[Long],
+//     &quot;name&quot; -&gt; of[String]
+//   )((a1: Long, a2: String) =&gt; (a1, a2))((t: (Long, String)) =&gt; Some(t))
+//
+val m: Mapping[(Long, String)] = tuple(
+  &quot;id&quot; -&gt; of[Long],
+  &quot;name&quot; -&gt; of[String]
+)
+m.bind(Map(&quot;id&quot; -&gt; &quot;123&quot;, &quot;name&quot; -&gt; &quot;Foo&quot;)) match {
+  case Right(t) =&gt;
+    assert(t._1 == 123L)
+    assert(t._2 == &quot;Foo&quot;)
+  case Left(_) =&gt;
+}
+</code></pre>
+<p>ただし <code>Tuple1</code> の <code>tuple</code> 関数は提供されていないので、<code>play.api.data.Forms.single</code> を使う。</p>
+<pre class="prettyprint"><code class="language-scala">val m: Mapping[String] = single(&quot;name&quot; -&gt; of[String])
+m.bind(Map(&quot;name&quot; -&gt; &quot;Foo&quot;)) match {
+  case Right(v) =&gt; assert(v == &quot;Foo&quot;)
+  case Left(_) =&gt;
+}
+</code></pre>
+<h4><a href="#maximum-number-of-fields" name="maximum-number-of-fields" class="anchor"><span class="anchor-link"></span></a>Maximum Number of Fields</h4>
+<p><code>ObjectMapping</code> は最大 18 フィールドまでしか定義できないが、<code>Mapping</code> 型を持つので変換ルールとなりうるので、住所や確認入力などのグループで入れ子にすればよい。</p>
+<p>入れ子に対するフォーム入力のキーは、<code>address.street</code> のようにドットで区切る。</p>
+<pre class="prettyprint"><code class="language-scala">case class Address(street: String, city: String)
+case class User(name: String, address: Address)
+
+val m = mapping(
+  &quot;name&quot; -&gt; text,
+  &quot;address&quot; -&gt; mapping(
+    &quot;street&quot; -&gt; text,
+    &quot;city&quot; -&gt; text
+  )(Address.apply)(Address.unapply)
+)(User.apply)(User.unapply)
+
+m.bind(Map(
+  &quot;name&quot; -&gt; &quot;Nested Values&quot;,
+  &quot;address.street&quot; -&gt; &quot;1-2-3&quot;,
+  &quot;address.city&quot; -&gt; &quot;Fukuoka&quot;
+)) match {
+  case Right(user) =&gt;
+    assert(user.name == &quot;Nested Values&quot;)
+    assert(user.address.street == &quot;1-2-3&quot;)
+    assert(user.address.city == &quot;Fukuoka&quot;)
+  case Left(_) =&gt;
+}
+</code></pre>
+<p>入れ子になっているからといって、階層毎にデータ型が必要なわけではない。<code>(apply|unapply)</code> 関数を調整すれば、単一のデータオブジェクトに変換できる。</p>
+<pre class="prettyprint"><code class="language-scala">case class Item(id: Long, name: String, price: Int, description: String)
+
+val m = mapping(
+  &quot;id&quot; -&gt; longNumber,
+  &quot;name&quot; -&gt; text,
+  &quot;meta&quot; -&gt; tuple(
+    &quot;price&quot; -&gt; number,
+    &quot;description&quot; -&gt; text
+  )
+) { (id, name, meta) =&gt;
+  Item(id, name, meta._1, meta._2)
+} { (item) =&gt;
+  Some((item.id, item.name, (item.price, item.description)))
+}
+</code></pre>
+<h3><a href="#fieldmapping" name="fieldmapping" class="anchor"><span class="anchor-link"></span></a>FieldMapping</h3>
+<p><code>play.api.data.FiledMapping</code> は単一値のマッピングを行なう。</p>
+<p><code>play.api.data.Forms.of[T](implicit binder: Formatter[T])</code> を用いる事で、型パラメータ <code>T</code> に応じた <code>FieldMapping</code> を生成できる。基本的な <code>Formatter</code> は <code>play.api.data.format.Formats._</code> に暗黙パラメータとして定義されている。</p>
+<pre class="prettyprint"><code class="language-scala">import play.api.data._
+import play.api.data.Forms._
+import play.api.data.format.Formats._
+
+val m: Mapping[(Long, String)] = tuple(
+  &quot;id&quot; -&gt; of[Long],    // play.api.data.format.Formats.longFormat
+  &quot;name&quot; -&gt; of[String] // play.api.data.format.Formats.stringFormat
+)
+</code></pre>
+<p>固定値には <code>play.api.data.Forms.ignored</code> を使う。<code>bind</code> で上書きはされない。<code>unbind</code> 時には除外される。</p>
+<pre class="prettyprint"><code class="language-scala">val m: Mapping[(Long, String)] = tuple(
+  &quot;id&quot; -&gt; ignored(123L),
+  &quot;name&quot; -&gt; text
+)
+assert(Right((123L, &quot;Foo&quot;)) == m.bind(Map(&quot;name&quot; -&gt; &quot;Foo&quot;)))
+assert(Right((123L, &quot;Foo&quot;)) == m.bind(Map(&quot;id&quot; -&gt; &quot;999&quot;, &quot;name&quot; -&gt; &quot;Foo&quot;))) // id:999 ignored
+assert(Map(&quot;name&quot; -&gt; &quot;Foo&quot;) == m.unbind((123L, &quot;Foo&quot;))) // id:123 removed
+</code></pre>
+<h3><a href="#repeatedmapping" name="repeatedmapping" class="anchor"><span class="anchor-link"></span></a>RepeatedMapping</h3>
+<p><code>play.api.data.RepeatedMapping</code> は、<code>(List|Seq)</code> へのマッピングを行なう。<code>FieldMapping</code> を <code>play.api.data.Forms.(list|seq)</code> 関数で括ればよい。</p>
+<p>リスト値のフォーム入力のキーは <code>tags[0], tags[1], tags[2], ...</code> のように、インデックス文字列 <code>[i]</code> を付与する。</p>
+<pre class="prettyprint"><code class="language-scala">val m = tuple(
+  &quot;numbers&quot; -&gt; list(of[Int]),
+  &quot;tags&quot; -&gt; seq(of[String])
+)
+
+m.bind(Map(
+  &quot;numbers[0]&quot; -&gt; &quot;123&quot;,
+  &quot;numbers[1]&quot; -&gt; &quot;456&quot;,
+  &quot;tags[0]&quot; -&gt; &quot;scala&quot;,
+  &quot;tags[1]&quot; -&gt; &quot;play&quot;,
+  &quot;tags[2]&quot; -&gt; &quot;framework&quot;
+)) match {
+  case Right(a) =&gt;
+    assert(a._1 == List(123, 456))
+    assert(a._2 == Seq(&quot;scala&quot;, &quot;play&quot;, &quot;framework&quot;))
+  case Left(_) =&gt;
+}
+</code></pre>
+<p>ユーティリィティメゾッドの <code>RepeatedMapping.indexes</code> により、<code>Map[String, String]</code> から、指定キーのインデックス値のリスト <code>Seq[Int]</code> を得る事ができる。キーは昇順ソートされ、重複キーは削除される。</p>
+<pre class="prettyprint"><code class="language-scala">val data = Map(
+  &quot;tags[0]&quot; -&gt; &quot;foo&quot;,
+  &quot;tags[1]&quot; -&gt; &quot;bar&quot;,
+  &quot;tags[2]&quot; -&gt; &quot;baz&quot;
+)
+assert(Seq(0, 1, 2) == RepeatedMapping.indexes(&quot;tags&quot;, data))
+</code></pre>
+<h3><a href="#optionalmapping" name="optionalmapping" class="anchor"><span class="anchor-link"></span></a>OptionalMapping</h3>
+<p><code>play.api.data.OptionalMapping</code> は <code>Option</code> へのマッピングを行なう。<code>Mapping</code> を <code>play.api.data.Forms.option</code> 関数で括ればよい。</p>
+<p><code>play.api.data.Forms.default</code> 関数を使うとデフォルト値を指定できる。内部的には <code>Mapping#transform</code> で <code>Option#getOrElse</code> から変換しているので、<code>FieldMapping</code> ではない点に注意する。</p>
+<pre class="prettyprint"><code class="language-scala">case class User(id: Option[Long], name: String, activated: Boolean)
+
+val m = mapping(
+  &quot;id&quot; -&gt; optional(of[Long]),
+  &quot;name&quot; -&gt; of[String],
+  &quot;activated&quot; -&gt; default(of[Boolean], true)
+)(User.apply)(User.unapply)
+</code></pre>
+<h2><a href="#constraint" name="constraint" class="anchor"><span class="anchor-link"></span></a>Constraint</h2>
+<p><code>play.api.data.validation.Constraint[T]</code> により、バリデータを作成できる。</p>
+<pre class="prettyprint"><code class="language-scala">import play.api.data.validation._
+
+val yesOrNo = Constraint[String] { s: String =&gt;
+  s match {
+    case &quot;yes&quot; | &quot;no&quot; =&gt; Valid
+    case _ =&gt; Invalid(&quot;The string must be (yes|no).&quot;)
+  }
+}
+assert(Valid == yesOrNo(&quot;yes&quot;))
+
+def range(min: Int, max: Int) = Constraint[Int](&quot;constraint.range&quot;, min, max) { v: Int =&gt;
+  if (v &gt;= min &amp;&amp; v &lt;= max) Valid
+  else Invalid(&quot;error.range&quot;, min, max)
+}
+val validator = range(1, 10)
+assert(Some(&quot;constraint.range&quot;) == validator.name)
+assert(Seq(1, 10) == validator.args)
+validator(0) match {
+  case Invalid(errors) =&gt;
+    assert(1 == errors.size)
+    assert(&quot;error.range&quot; == errors(0).message)
+    assert(Seq(1, 10) == errors(0).args)
+  case _ =&gt;
+    assert(false)
+}
+</code></pre>
+<ul>
+  <li><code>Constraint[T].apply</code> を使ってバリデータを作成する。引数には、値をチェックする関数 <code>T =&gt; play.api.data.validation.ValidationResult</code> を渡す。
+    <ul>
+      <li>正常時には <code>Valid</code> を返す。</li>
+      <li>エラー時には <code>Invalid</code> を返す。</li>
+    </ul>
+  </li>
+  <li><code>Constraint[T]#apply</code> メゾッドで値をチェックして <code>ValidationResult</code> を受け取る。</li>
+  <li>バリデータのメタ情報を外部から参照できるように、<code>Constraint[T].apply</code> でバリデーション名と引数 <code>Any*</code> を定義することができる。入力のヒント文字列の組み立て等のために、外部用に提供する属性であって、バリデーションを行なう関数内から参照はできない。設定が冗長になるのを回避するには、<code>Constraint[T]</code> インスタンスを生成するヘルパー関数を定義するとよい。</li>
+</ul>
+<p><code>Invalid</code> は <code>apply</code> メゾッドに <code>play.api.data.validation.ValidationError</code> を渡して作成する。メッセージと引数だけの <code>apply</code> も提供されている。インスタンスは <code>Invalid#++</code> でマージできる。</p>
+<pre class="prettyprint"><code class="language-scala">val result1 = Invalid(ValidationError(&quot;error.foo&quot;, 1))
+val result2 = Invalid(&quot;error.bar&quot;, 2, 3)
+val result3 = result1 ++ result2
+assert(Seq(
+  ValidationError(&quot;error.foo&quot;, 1),
+  ValidationError(&quot;error.bar&quot;, 2, 3)
+) == result3.errors)
+</code></pre>
+<p><code>play.api.data.validation.Constraints._</code> に、基本的なバリデータは定義されているので、不足する場合に独自に作成すればよい。</p>
+<pre class="prettyprint"><code class="language-scala">import play.api.data.validation.Constraints.pattern
+
+val alnum = pattern(regex = &quot;&quot;&quot;^[A-Z0-9]+$&quot;&quot;&quot;.r, error = &quot;must be alphanumeric&quot;)
+</code></pre>
+<h3><a href="#working-with-mapping" name="working-with-mapping" class="anchor"><span class="anchor-link"></span></a>Working with Mapping</h3>
+<p><code>Mapping#verifying</code> メゾッドで、フィールド値の制約を定義できる。</p>
+<pre class="prettyprint"><code class="language-scala">val m = tuple(
+  &quot;username&quot; -&gt; tuple(
+    &quot;main&quot; -&gt; text.verifying(pattern( &quot;&quot;&quot;[a-z][a-z0-9]{4,31}&quot;&quot;&quot;.r)),
+    &quot;sub&quot; -&gt; text
+  ).verifying(&quot;error.username.sub&quot;, { v =&gt;
+    v._1 == v._2
+  }),
+  &quot;age&quot; -&gt; number.verifying(min(0), max(100))
+)
+m.bind(Map(
+  &quot;username.main&quot; -&gt; &quot;abc123&quot;,
+  &quot;username.sub&quot; -&gt; &quot;abc12&quot;,
+  &quot;age&quot; -&gt; &quot;26&quot;
+)) match {
+  case Left(errors) =&gt;
+    assert(1 === errors.size)
+    assert(&quot;error.username.sub&quot; === errors(0).message)
+  case Right(_) =&gt;
+}
+</code></pre>
+<ul>
+  <li><code>Constraint[T]</code> のインスタンスを可変長引数で渡す。</li>
+  <li><code>Constraint[T]</code> の代わりに、<code>T =&gt; Boolean</code> の関数を渡すこともできる。値の制約は <code>Constraint[T]</code> を作るのがよいが、入力確認フィールドの状態など、マッピング全体の制約にはこの方法が良いだろう。</li>
+  <li><code>Constraint#apply</code> で得られるエラーは <code>ValidationError</code> だが、<code>Mapping#bind</code> でのエラーは、エラーが起こったフィールドキーと共に、<code>play.api.data.FormError</code> に移し替えられる。</li>
+</ul>
+<h2><a href="#form" name="form" class="anchor"><span class="anchor-link"></span></a>Form</h2>
+<p><code>play.api.data.Form</code> は、<code>Mapping</code> をラップした HTTP フォームのモデルを提供する。<code>Mapping</code> はマッピングのみで状態を持たないが、<code>Form</code> は入力値やエラーを保持する。</p>
+<pre class="prettyprint"><code class="language-scala">val userForm = Form(mapping(
+  &quot;name&quot; -&gt; nonEmptyText,
+  &quot;age&quot; -&gt; number.verifying(min(0), max(100))
+)(User.apply)(User.unapply))
+val boundForm = userForm.bind(Map(&quot;name&quot; -&gt; &quot;Foo&quot;, &quot;age&quot; -&gt; &quot;26&quot;))
+assert(Some(User(&quot;Foo&quot;, 26)) == boundForm.value)
+assert(false == boundForm.hasErrors)
+</code></pre>
+<p>状態は持つが <code>Form</code> はケースクラス、すなわちイミュータブルであり、副作用のメゾッドは持たない。言い換えると <code>Form#(bind|fill)</code> 等で状態を更新する度にコピーされるので、スレッドセーフについては考慮しなくてよい。</p>
+<p><code>Controller</code> 内で利用する際、リクエスト毎に <code>Mapping</code> から <code>Form</code> を毎回組み立てるのはコストがかかるので、<code>Controller</code> のメンバー変数などに、初期値でインスタンス化したものを保持しておくとよい。</p>
+<pre class="prettyprint"><code class="language-scala">import models.Contact
+import play.api.data._
+import play.api.mvc._
+
+object ContactsController extends Controller {
+  val contactForm = Form(mapping(
+    ...
+  )(Contact.apply)(Contact.unapply))
+
+  def entry = Action {
+    Ok(views.html.contacts.entry(contactForm))
+  }
+
+  def submit = Action { implicit request =&gt;
+    contactForm.bindFromRequest.fold(
+      formWithErrors =&gt; BadRequest(views.html.contacts.entry(formWithErrors)),
+      contact =&gt; {
+        // TODO: Do something with the value contact.
+        Redirect(routes.ContactController.done())
+      }
+    )
+  }
+
+  def done = Action {
+    Ok(views.html.contacts.done())
+  }
+}
+</code></pre>
+<p>送信されるフォームデータは、<code>Form#bindFromRequest</code> で暗黙パラメータの <code>Request</code> からバインドし、<code>Form#fold</code> で、エラー時と正常時の関数を定義しておくと簡潔に書ける。</p>
+<h3><a href="#field" name="field" class="anchor"><span class="anchor-link"></span></a>Field</h3>
+<p><code>Form#apply</code> メゾッドを介して、指定フィールドのモデル <code>play.api.data.Field</code> を得ることができる。フィールド状態の取得の他、HTMLの組み立てを想定した API が提供されている。</p>
+<pre class="prettyprint"><code class="language-scala">val itemForm = Form(mapping(
+  &quot;name&quot; -&gt; nonEmptyText,
+  &quot;tags&quot; -&gt; list(text)
+)(Item.apply)(Item.unapply)).bind(
+  Map(
+    &quot;tags[0]&quot; -&gt; &quot;foo&quot;,
+    &quot;tags[1]&quot; -&gt; &quot;bar&quot;
+  )
+)
+
+assert(&quot;tags_0&quot; == itemForm(&quot;tags[0]&quot;).id)
+assert(&quot;tags.0&quot; == itemForm(&quot;tags[0]&quot;).label)
+</code></pre>
+<ul>
+  <li><code>Field#id</code> により、入力 HTML 要素のid 属性文字列を得る。フィールド名と同じだが <code>foo.bar[0]</code> は <code>foo_bar_0</code> に変換される。</li>
+  <li><code>Field#label</code> により、フィールド名のラベルに対応する<code>play.api.i18n.Messages</code> のキーを得る。フィールド名と同じだが <code>foo[0]</code> は <code>foo.0</code> に変換される。</li>
+</ul>
+<h2><a href="#fieldconstructor" name="fieldconstructor" class="anchor"><span class="anchor-link"></span></a>FieldConstructor</h2>
+<h3><a href="#views-html-helper-input" name="views-html-helper-input" class="anchor"><span class="anchor-link"></span></a>views.html.helper.input</h3>
+<p>HTMLフォームフィールドのヘルパーとして <code>views.html.helper.input</code> が提供されている。</p>
+<pre class="prettyprint"><code class="language-scala">@(field: play.api.data.Field, args: (Symbol, Any)*)
+(inputDef: (String, String, Option[String], Map[Symbol, Any]) =&gt; Html)
+(implicit handler: FieldConstructor, messages: play.api.i18n.Messages)
+</code></pre>
+<p><code>views.html.helper.FieldConstructor</code> を暗黙パラメータに持ち、ラベルやエラーメッセージを含めたフィールドブロックの HTML を組み立てることができる。</p>
+<pre class="prettyprint"><code class="language-scala">@helper.input(
+  userForm(&quot;name&quot;),
+  &#39;id -&gt; &quot;userNameInput&quot;,
+  &#39;size -&gt; 30,
+  &#39;_id -&gt; &quot;userNameBlock&quot;,
+  &#39;_showConstraints -&gt; false
+) { (id, name, value, args) =&gt;
+  &lt;input type=&quot;text&quot; name=&quot;@name&quot; id=&quot;@id&quot; @toHtmlArgs(args)&gt;
+}
+</code></pre>
+<ul>
+  <li><code>field: play.api.data.Field</code>: 出力対象の <code>field:Field</code> オブジェクト</li>
+  <li><code>args: (Symbol, Any)*</code>
+    <ul>
+      <li><code>&#39;_id -&gt; String</code>: フィールドブロック要素の id 属性。入力要素の id 属性ではない点に注意。</li>
+      <li><code>&#39;_label -&gt; String</code>: label 属性。<code>messages</code> のキーとしては参照されない。</li>
+      <li><code>&#39;_help -&gt; String</code>: 入力ガイド文字列。<code>messages</code> のキーとしても参照される。</li>
+      <li><code>&#39;_showConstraints -&gt; Boolean</code>: 入力ガイドを表示するかどうか？</li>
+      <li><code>&#39;_error -&gt; String</code>: エラーメッセージ文字列。<code>messages</code> のキーとしても参照される。</li>
+      <li><code>&#39;_showErrors -&gt; Boolean</code>: エラーメッセージを表示するかどうか？</li>
+      <li><code>&#39;_(.+) -&gt; Any</code>: 独自 <code>FieldConstructor</code> へのパラメータ</li>
+      <li><code>id -&gt; String</code>: 入力 HTML 要素 (input/select/textarea) の id 属性</li>
+      <li><code>[^_](.+) -&gt; Any</code>: 入力 HTML 要素の追加属性</li>
+    </ul>
+  </li>
+  <li><code>inputDef</code>: 入力 HTML 要素の <code>play.twirl.api.Html</code> を返す関数
+    <ul>
+      <li><code>id: String</code>: id 属性</li>
+      <li><code>name: String</code>: name 属性</li>
+      <li><code>value: Option[String]</code>: フィールド値</li>
+      <li><code>args: (Symbol, Any)</code>: <code>&#39;id</code> および <code>&#39;_*</code> のエントリを除く追加属性の <code>Map</code></li>
+    </ul>
+  </li>
+</ul>
+<p>暗黙パラメータの <code>handler: FieldConstructor</code> に対し、<code>views.html.helper.FieldElements</code> を渡してフィールドブロックの HTML 得る流れになる。</p>
+<h3><a href="#defaultfieldconstructor" name="defaultfieldconstructor" class="anchor"><span class="anchor-link"></span></a>defaultFieldConstructor</h3>
+<p><code>FieldConstructor</code> はデフォルトで、<code>views.html.helper.defaultFieldConstructor</code> を暗黙値として持っている。</p>
+<p>独自の <code>FieldConstructor</code> を作成したい場合は、まず <code>FieldElements</code> から <code>Html</code> を返すヘルパーを作成する。</p>
+<p><code>views/_helpers/customFieldConstructor.scala.html</code>:</p>
+<pre class="prettyprint"><code class="language-scala">@(elements: helper.FieldElements)
+
+&lt;dl class=&quot;@elements.args.get(&#39;_class) @if(elements.hasErrors) {error}&quot;
+    id=&quot;@elements.args.get(&#39;_id).getOrElse(elements.id + &quot;_field&quot;)&quot;&gt;
+    @if(elements.hasName) {
+    &lt;dt&gt;@elements.name(elements.lang)&lt;/dt&gt;
+    } else {
+    &lt;dt&gt;&lt;label for=&quot;@elements.id&quot;&gt;@elements.label(elements.lang)&lt;/label&gt;&lt;/dt&gt;
+    }
+    &lt;dd&gt;@elements.input&lt;/dd&gt;
+    @elements.errors(elements.lang).map { error =&gt;
+        &lt;dd class=&quot;error&quot;&gt;@error&lt;/dd&gt;
+    }
+    @elements.infos(elements.lang).map { info =&gt;
+        &lt;dd class=&quot;info&quot;&gt;@info&lt;/dd&gt;
+    }
+&lt;/dl&gt;
+</code></pre>
+<p>任意のパッケージ内で <code>FieldConstructor</code> の暗黙値を定義し <code>@import</code> すれば良い。</p>
+<pre class="prettyprint"><code class="language-scala">@import views._helpers.fieldConstructor
+</code></pre>
+<p><code>views/_helpers/package.scala</code>:</p>
+<pre class="prettyprint"><code class="language-scala">package views
+
+import views.html.helper.FieldConstructor
+
+package object _helpers {
+  implicit val fieldConstructor = FieldConstructor(views.html._helpers.customFieldConstructor.f)
+}
+</code></pre>
+<p>Twirl では <code>@implicit*</code> で始まる Reusable block を暗黙値として定義してくれるので、動的に組み込む方法もある。</p>
+<pre class="prettyprint"><code class="language-scala">@implicitField = @{ helper.FieldConstructor(_helpers.customFieldConstructor.f) }
+</code></pre>
+<p>明示的にフィールド単位で指定することもできる。この場合は <code>play.api.i18n.Lang</code> も必要になる。</p>
+<pre class="prettyprint"><code class="language-scala">@(userForm: Form[User])(implicit lang: play.api.i18n.Lang)
+...
+@helper.inputText(userForm(&quot;name&quot;))(
+  helper.FieldConstructor(_helpers.customFieldConstructor.f),
+  lang
+)
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

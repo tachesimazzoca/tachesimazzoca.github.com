@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Actions | Play Framework</title>
+<title>tachesimazzoca - Wiki | Actions</title>
 <link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,406 +20,358 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="../index.html">Play Framework</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
-
-
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="../index.html">Play Framework</a></li><li><a href="./index.html">Scala</a></li><li>Actions</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./iteratees.html">Iteratees</a></li><li><a href="./http.html">HTTP</a></li><li class="active"><a href="./actions.html">Actions</a></li><li><a href="./filters.html">Filters</a></li><li><a href="./forms.html">Forms</a></li><li><a href="./ws.html">WS</a></li><li><a href="./anorm.html">Anorm</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/play/scala/actions.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/play/scala/actions.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/play/scala/actions.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Actions</h1>
-          <div id="toc">
-          </div>
-          <h2>Overview</h2>
-
-<ul>
-<li>https://www.playframework.com/documentation/2.3.x/ScalaActions</li>
-<li>https://www.playframework.com/documentation/2.3.x/HttpApi</li>
-</ul>
-
-
-<h2>EssentialAction</h2>
-
-<p>トレイト<code>play.api.mvc.EssentialAction</code> の実体は、HTTP リクエストヘッダ <code>play.api.mvc.RequestHeader</code> を引数とし、<code>Iteratee[Array[Byte], Result]</code> を返す関数である。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">EssentialAction</span> <span class="k">extends</span> <span class="o">(</span><span class="nc">RequestHeader</span> <span class="k">=&gt;</span> <span class="nc">Iteratee</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]</span>, <span class="kt">Result</span><span class="o">])</span></code></pre></div>
-
-
-<p><code>Array[Byte]</code> は HTTP ボディ部のチャンクにあたる。ストリームとしてボディ部を受け取り、どのように <code>Result</code> を組み立てるかを <em>Iteratee</em> として定義する。</p>
-
-<h2>Action</h2>
-
-<p>トレイト <code>play.api.mvc.Action[A]</code> は <code>EssentialAction</code> を継承している。</p>
-
-<p>すなわち <code>RequestHeader</code> を受け取り <code>Iteratee[Array[Byte], Result]</code> を返す関数であり、実装は <code>play.api.mvc.BodyParser[+A]</code> を介して行なっている。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="nc">extends</span> <span class="nc">EssentialAction</span> <span class="o">{</span>
-  <span class="o">...</span>
-  <span class="k">def</span> <span class="n">parser</span><span class="k">:</span> <span class="kt">BodyParser</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
-
-  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">]</span>
-
-  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">rh</span><span class="k">:</span> <span class="kt">RequestHeader</span><span class="o">)</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]</span>, <span class="kt">Result</span><span class="o">]</span> <span class="k">=</span> <span class="n">parser</span><span class="o">(</span><span class="n">rh</span><span class="o">).</span><span class="n">mapM</span> <span class="o">{</span>
-    <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="n">r</span><span class="o">)</span> <span class="k">=&gt;</span>
-      <span class="nc">Play</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="o">(</span><span class="s">&quot;Got direct result from the BodyParser: &quot;</span> <span class="o">+</span> <span class="n">r</span><span class="o">)</span>
-      <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span><span class="o">(</span><span class="n">r</span><span class="o">)</span>
-    <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span>
-      <span class="k">val</span> <span class="n">request</span> <span class="k">=</span> <span class="nc">Request</span><span class="o">(</span><span class="n">rh</span><span class="o">,</span> <span class="n">a</span><span class="o">)</span>
-      <span class="nc">Play</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="o">(</span><span class="s">&quot;Invoking action with request: &quot;</span> <span class="o">+</span> <span class="n">request</span><span class="o">)</span>
-      <span class="nc">Play</span><span class="o">.</span><span class="n">maybeApplication</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">app</span> <span class="k">=&gt;</span>
-        <span class="n">play</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="nc">Threads</span><span class="o">.</span><span class="n">withContextClassLoader</span><span class="o">(</span><span class="n">app</span><span class="o">.</span><span class="n">classloader</span><span class="o">)</span> <span class="o">{</span>
-          <span class="n">apply</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
-        <span class="o">}</span>
-      <span class="o">}.</span><span class="n">getOrElse</span> <span class="o">{</span>
-        <span class="n">apply</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
-      <span class="o">}</span>
-  <span class="o">}</span>
-  <span class="o">...</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p><code>BodyParser</code> の実体は <code>RequestHeader</code> を受け取り <code>Itereatee[Array[Byte], Either[Result, A]]</code> を返す関数である。</p>
-
-<ul>
-<li>失敗時の <code>Left</code> は、直接エラー応答の <code>Result</code> となる。</li>
-<li>成功時の <code>Right</code> は、ボディ部で、<code>Action#apply(request: Request[A])</code> を介して <code>Result</code> を得る。</li>
-</ul>
-
-
-<p><code>parser</code> に、ボディ部が渡っていないのが疑問に思いがちだが、返すのは <em>Iteratee</em> であって、どのようにボディ部 <code>Array[Byte]</code> から出力 <code>A</code> を組み立てるかの定義だけである。ボディ部は、然るべき <em>Enumerator</em> からストリーム送信されるのであって、<em>BodyParser</em>  が全てのボディ部を得るのではない。</p>
-
-<h3>Helper Methods</h3>
-
-<p>ヘルパーメゾッド <code>Action.apply</code> を使って <code>Action#apply(request: Request[A])</code> を実装できる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">noRequest</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">AnyContent</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
-  <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;Hello&quot;</span><span class="o">)</span>
-<span class="o">}</span>
-<span class="k">def</span> <span class="n">withDefaultContent</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">AnyContent</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span>
-  <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;Request: &quot;</span> <span class="o">+</span> <span class="n">request</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p>明示的に <code>Future[Result]</code> で返したい場合は <code>Action.async</code> を使う。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.libs.ws._</span>
-
-<span class="k">def</span> <span class="n">wsAction</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">.</span><span class="n">async</span> <span class="o">{</span>
-  <span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="s">&quot;http://foo.example.net&quot;</span><span class="o">).</span><span class="n">get</span><span class="o">().</span><span class="n">map</span> <span class="o">{</span> <span class="n">response</span> <span class="k">=&gt;</span>
-    <span class="nc">Ok</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="o">)</span>
-  <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p><code>Action.async</code> は非同期処理用ではなく、明示的に <code>Future[Result]</code> を返したい場合のヘルパーメゾッドである。いずれのヘルパーメゾッドを使ったとしても、実装される <code>Action#apply(request: Request)</code> が返すのは <code>Future[Result]</code> であり、どちらも非同期に実行されることに違いはない。</p>
-
-<p><code>Future</code> を使えば、自動的にノンブロッキングとなるのではない。ブロックする処理を書かなければいけない場合は、コアのスレッドを占有しないように、別の <code>ExecutionContext</code> を使う必要がある。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.libs.concurrent.Akka</span>
-
-<span class="k">implicit</span> <span class="k">val</span> <span class="n">expensiveOperations</span> <span class="k">=</span>
-  <span class="nc">Akka</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">dispatchers</span><span class="o">.</span><span class="n">lookup</span><span class="o">(</span><span class="s">&quot;contexts.expensive-operations&quot;</span><span class="o">)</span>
-
-<span class="c1">// OK: To avoid blocking operation, use a separate execution context.</span>
-<span class="k">def</span> <span class="n">search</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">AnyContent</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">.</span><span class="n">async</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="n">job1</span> <span class="k">=</span> <span class="nc">Promise</span><span class="o">.</span><span class="n">timeout</span><span class="o">({</span> <span class="o">...</span> <span class="o">}</span> <span class="mf">5.</span><span class="n">second</span><span class="o">)</span>
-  <span class="k">val</span> <span class="n">job2</span> <span class="k">=</span> <span class="nc">Promise</span><span class="o">.</span><span class="n">timeout</span><span class="o">({</span> <span class="o">...</span> <span class="o">}</span> <span class="mf">5.</span><span class="n">second</span><span class="o">)</span>
-  <span class="nc">Future</span><span class="o">.</span><span class="n">firstCompleteOf</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">job1</span><span class="o">,</span> <span class="n">job2</span><span class="o">)</span> <span class="n">map</span> <span class="o">{</span> <span class="n">x</span> <span class="k">=&gt;</span>
-    <span class="o">...</span>
-    <span class="nc">Ok</span><span class="o">(...)</span>
-  <span class="o">})</span> <span class="o">(</span><span class="n">expensiveOperations</span><span class="o">)</span>
-<span class="o">}</span>
-
-<span class="c1">// NG: The thread of defaultContext is going to block.</span>
-<span class="k">def</span> <span class="n">block</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">AnyContent</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">.</span><span class="n">async</span> <span class="o">{</span>
-  <span class="nc">Future</span> <span class="o">{</span>
-    <span class="nc">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mi">10000L</span><span class="o">)</span>
-    <span class="nc">Ok</span><span class="o">(...)</span>
-  <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h2>BodyParser</h2>
-
-<p>基本的な <em>BodyParser</em> は、あらかじめ <code>play.api.mvc.BodyParsers.parse</code> に定義されている。</p>
-
-<p>デフォルトの <em>BodyParser</em> は <code>parse.anyContent</code> が使われる。ボディ部は <code>play.api.mvc.AnyContent</code> になる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">xmlFormat</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span>
-  <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">asXml</span> <span class="n">map</span> <span class="o">{</span> <span class="n">xml</span> <span class="k">=&gt;</span>
-    <span class="nc">Ok</span><span class="o">(...)</span>
-  <span class="o">}.</span><span class="n">getOrElse</span> <span class="o">{</span>
-    <span class="nc">BadRequest</span><span class="o">(..)</span>
-  <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p>ヘルパーメゾッド <code>Action.apply[A](parser: BodyParser[A])(...)</code> を使うと、ボディ部を明示的に指定できる。 不正なリクエストの場合は、<em>Action</em> ブロックには渡らず、<em>BadReqeust</em> 400 エラーが直接応答される。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">xmlOnly</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">(</span><span class="n">parse</span><span class="o">.</span><span class="n">xml</span><span class="o">)</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span> <span class="o">...</span> <span class="o">}</span></code></pre></div>
-
-
-<p><code>tolerant</code> がついているものは、リクエストヘッダのチェックを行なわず、ボディ部がパースできればエラーとならない。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">xmlOnly</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">(</span><span class="n">parse</span><span class="o">.</span><span class="n">torelantXml</span><span class="o">)</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span> <span class="o">...</span> <span class="o">}</span></code></pre></div>
-
-
-<h3>file / temporaryFile / multipartFormData</h3>
-
-<p><code>parse.file</code> を用いるとボディ部をファイルに保存できる。指定した <code>java.io.File</code> がボディ部になる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">parser</span> <span class="k">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">file</span><span class="o">(</span><span class="n">to</span> <span class="k">=</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="nc">File</span><span class="o">(</span><span class="s">&quot;/path/to/a.txt&quot;</span><span class="o">))</span></code></pre></div>
-
-
-<p><code>parse.temporaryFile</code> は一時ファイルで保存できる。<code>play.api.libs.Files.TemporaryFile</code> がボディ部になる。<code>TemporaryFIle</code> のメゾッドは、旧 Java File API によるもののため <em>Deprecated</em> となっている。</p>
-
-<p>フォームからのファイルアップロード <code>multipart/form-data</code> 形式には、<code>parse.multipartFormData</code> を使う。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">upload</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">(</span><span class="n">parse</span><span class="o">.</span><span class="n">multipartFormData</span><span class="o">)</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span>
-  <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">file</span><span class="o">(</span><span class="s">&quot;pic&quot;</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">part</span> <span class="k">=&gt;</span>
-    <span class="k">val</span> <span class="n">temp</span><span class="k">:</span> <span class="kt">TemporaryFile</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span>
-    <span class="k">val</span> <span class="n">file</span><span class="k">:</span> <span class="kt">java.io.File</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">file</span>
-    <span class="o">...</span>
-    <span class="nc">Ok</span><span class="o">(...)</span>
-  <span class="o">}.</span><span class="n">getOrElse</span> <span class="o">{</span>
-    <span class="nc">BadRequest</span><span class="o">(...)</span>
-  <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p>ファイルサイズに制限をかけたい場合は、ヘルパーメゾッド <code>parse.maxLength</code> を使う。ボディ部は <code>Either[MaxSizeexceeded, A]</code> となる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// up to 4096 bytes</span>
-<span class="k">val</span> <span class="n">upload</span> <span class="k">=</span> <span class="nc">Action</span><span class="o">(</span><span class="n">parse</span><span class="o">.</span><span class="n">maxLength</span><span class="o">(</span><span class="mi">4096</span><span class="o">,</span> <span class="n">parse</span><span class="o">.</span><span class="n">multipartFormData</span><span class="o">))</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span>
-  <span class="n">request</span><span class="o">.</span><span class="n">body</span> <span class="k">match</span> <span class="o">{</span>
-    <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="nc">MaxSizeExceeded</span><span class="o">(</span><span class="n">len</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="o">...</span>
-    <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">multipartFormdata</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">...</span>
-  <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h2>ActionBuilder</h2>
-
-<p>ヘルパーオブジェクト <code>Action</code> の実体は、トレイト <code>play.api.mvc.ActionBuilder[Request]</code> である。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Action</span> <span class="k">extends</span> <span class="nc">ActionBuilder</span><span class="o">[</span><span class="kt">Request</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">invokeBlock</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
-                     <span class="n">block</span><span class="k">:</span> <span class="o">(</span><span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">])</span> <span class="k">=</span> <span class="n">block</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p>同様に <code>ActionBuilder</code> を実装すれば、独自のヘルパーオブジェクトを作成できる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">AppAction</span> <span class="k">extends</span> <span class="nc">ActionBuilder</span><span class="o">[</span><span class="kt">Request</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">override</span> <span class="k">def</span> <span class="n">invokeBlock</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
-                              <span class="n">block</span><span class="k">:</span> <span class="o">(</span><span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="n">remoteAddress</span><span class="o">.</span><span class="n">equals</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">))</span> <span class="o">{</span>
-      <span class="n">block</span><span class="o">(</span><span class="n">request</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">withHeaders</span><span class="o">(</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Chrome=1&quot;</span><span class="o">)</span>
-      <span class="o">}</span>
-    <span class="o">}</span> <span class="k">else</span> <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span><span class="o">(</span><span class="nc">Forbidden</span><span class="o">)</span> <span class="c1">// localhost only</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-
-<span class="k">val</span> <span class="n">action</span> <span class="k">=</span> <span class="nc">AppAction</span> <span class="o">{</span>
-  <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;...&quot;</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p><em>ActionBuilder</em> は <code>ActionBuilder#andThen</code> で連結できる。<code>Request</code> は外側から、<code>Future[Result]</code> は内側から伝播する。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">action</span> <span class="k">=</span> <span class="o">(</span><span class="nc">LoggingAction</span> <span class="n">andThen</span> <span class="nc">SecureAction</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;...&quot;</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p>以下の様に <em>Action</em> をラップしてもよい。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Logging</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">action</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">override</span> <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-    <span class="nc">Logger</span><span class="o">.</span><span class="n">info</span><span class="o">(</span><span class="s">&quot;...&quot;</span><span class="o">)</span>
-    <span class="n">action</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
-  <span class="o">}</span>
-
-  <span class="k">lazy</span> <span class="k">val</span> <span class="n">parser</span> <span class="k">=</span> <span class="n">action</span><span class="o">.</span><span class="n">parser</span>
-<span class="o">}</span>
-
-<span class="k">def</span> <span class="n">action</span> <span class="k">=</span> <span class="nc">Logging</span> <span class="o">{</span>
-  <span class="nc">Action</span> <span class="o">{</span>
-    <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;...&quot;</span><span class="o">)</span>
-  <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p><code>Action.async</code> ブロック内で、元の <code>Action#apply</code> を呼ぶ方法でもよい。元の <em>BodyParser</em> もみ消さないように明示する必要がある。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">logging</span><span class="o">(</span><span class="n">action</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
-  <span class="nc">Action</span><span class="o">.</span><span class="n">async</span><span class="o">(</span><span class="n">action</span><span class="o">.</span><span class="n">parser</span><span class="o">)</span> <span class="o">{</span> <span class="n">request</span> <span class="k">=&gt;</span>
-    <span class="nc">Logger</span><span class="o">.</span><span class="n">info</span><span class="o">(</span><span class="s">&quot;...&quot;</span><span class="o">)</span>
-    <span class="n">action</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
-  <span class="o">}</span></code></pre></div>
-
-
-<p><code>ActionBuilder#composeAction</code> に、<em>Action</em> をラップする関数を指定できる。共通の前後処理をパーツ化しておいて、組み替えることで、コードを再利用できる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">onlyHttps</span><span class="o">(</span><span class="n">action</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span>
-<span class="k">def</span> <span class="n">loggingErrors</span><span class="o">(</span><span class="n">action</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span>
-
-<span class="k">object</span> <span class="nc">AppAction</span> <span class="k">extends</span> <span class="nc">ActionBuilder</span><span class="o">[</span><span class="kt">Request</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">override</span> <span class="k">def</span> <span class="n">invokeBlock</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
-                              <span class="n">block</span><span class="k">:</span> <span class="o">(</span><span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">Result</span><span class="o">])</span> <span class="k">=</span> <span class="o">{</span>
-    <span class="n">block</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
-  <span class="o">}</span>
-
-  <span class="k">override</span> <span class="k">protected</span> <span class="k">def</span> <span class="n">composeAction</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">action</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Action</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
-    <span class="n">onlyHttps</span><span class="o">(</span><span class="n">loggingErrors</span><span class="o">(</span><span class="n">action</span><span class="o">))</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h2>ActionRefiner</h2>
-
-<p><code>play.api.mvc.ActionRefiner[R, P]</code> により、<em>ActionBuilder</em> の <code>Request</code> 型を変換できる。</p>
-
-<p><code>Future[Either[Result, P[A]]]</code> を返す <code>ActionRefiner#refine[A](request: R[A])</code> を実装する。<code>UserRequest</code> のコンストラクタの第一引数 <code>Request[A]</code> は、継承元の <code>WrappedRequest</code> に引き渡す引数になるので、重複してインスタンス変数に持つ必要はない。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
-
-<span class="k">object</span> <span class="nc">User</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">find</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
-<span class="o">}</span>
-
-<span class="k">class</span> <span class="nc">UserRequest</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="k">val</span> <span class="n">user</span><span class="k">:</span> <span class="kt">User</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">WrappedRequest</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="nc">UserAction</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">ActionRefiner</span><span class="o">[</span><span class="kt">Request</span>, <span class="kt">UserRequest</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">override</span> <span class="k">protected</span> <span class="k">def</span> <span class="n">refine</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Either</span><span class="o">[</span><span class="kt">Result</span>, <span class="kt">UserRequest</span><span class="o">]]</span> <span class="k">=</span>
-    <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span> <span class="o">{</span>
-      <span class="o">(</span><span class="k">for</span> <span class="o">{</span>
-        <span class="n">userid</span> <span class="k">&lt;-</span> <span class="n">request</span><span class="o">.</span><span class="n">sessions</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">&quot;userid&quot;</span><span class="o">)</span>
-        <span class="n">id</span> <span class="k">&lt;-</span> <span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="nc">Long</span><span class="o">.</span><span class="n">parseLong</span><span class="o">(</span><span class="n">userid</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>
-        <span class="n">user</span> <span class="k">&lt;-</span> <span class="nc">User</span><span class="o">.</span><span class="n">find</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
-      <span class="o">}</span> <span class="k">yield</span> <span class="k">new</span> <span class="nc">UserRequest</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">user</span><span class="o">)).</span><span class="n">toRight</span><span class="o">(</span><span class="nc">Forbidden</span><span class="o">)</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-<span class="k">val</span> <span class="n">action</span> <span class="k">=</span> <span class="o">(</span><span class="nc">Action</span> <span class="n">andThen</span> <span class="nc">UserAction</span><span class="o">)</span> <span class="o">{</span> <span class="n">userRequest</span> <span class="k">=&gt;</span>
-  <span class="nc">Ok</span><span class="o">(</span><span class="s">&quot;Hello &quot;</span> <span class="o">+</span> <span class="n">userRequest</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h3>ActionTransformer</h3>
-
-<p><code>Request</code> 型の変換に際して例外が起こらないなら、<code>play.api.mvc.ActionTransformer[R, P]</code> を使えばよい。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">UserRequest</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
-                     <span class="k">val</span> <span class="n">lang</span><span class="k">:</span> <span class="kt">Lang</span><span class="o">,</span>
-                     <span class="k">val</span> <span class="n">robot</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">WrappedRequest</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="o">)</span>
-<span class="k">object</span> <span class="nc">UserAction</span> <span class="k">extends</span> <span class="nc">ActionTransformer</span><span class="o">[</span><span class="kt">Request</span>, <span class="kt">UserRequest</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">override</span> <span class="k">protected</span> <span class="k">def</span> <span class="n">transform</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">UserRequest</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span> <span class="k">=</span>
-    <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span> <span class="o">{</span>
-      <span class="k">val</span> <span class="n">lang</span><span class="k">:</span> <span class="kt">Lang</span> <span class="o">=</span> <span class="o">...</span>
-      <span class="k">val</span> <span class="n">robot</span><span class="k">:</span> <span class="kt">Booean</span> <span class="o">=</span> <span class="o">...</span>
-      <span class="k">new</span> <span class="nc">UserRequest</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">lang</span><span class="o">,</span> <span class="n">robot</span><span class="o">)</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h3>ActionFilter</h3>
-
-<p>例外チェックのみを行ないたいなら <code>play.api.mvc.ActionFilter[R]</code> を使えばよい。例外時に <code>Some[Result]</code> を返すことで、<em>Action</em> ブロックを経由せずに直接応答する。正常時には <code>None</code> を返せばよい。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">RemoteAddressFilter</span> <span class="k">extends</span> <span class="nc">ActionFilter</span><span class="o">[</span><span class="kt">Request</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">override</span> <span class="k">protected</span> <span class="k">def</span> <span class="n">filter</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=</span>
-    <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span> <span class="o">{</span>
-      <span class="k">if</span> <span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="n">remoteAddress</span><span class="o">.</span><span class="n">equals</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">))</span> <span class="nc">None</span>
-      <span class="k">else</span> <span class="nc">Some</span><span class="o">(</span><span class="nc">Forbidden</span><span class="o">)</span>
-    <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
+
+<div id="main">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="pankuzu">
+<ul>
+  <li><a href="../../index.html">Home</a></li>
+  <li><a href="../../play/index.html">Play Framework</a></li>
+  <li><a href="../../play/scala/index.html">Scala</a></li>
+  <li>Actions</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../../play/scala/actions.html#actions" class="header">Actions</a>
+  <ul>
+    <li><a href="../../play/scala/actions.html#overview" class="header">Overview</a></li>
+    <li><a href="../../play/scala/actions.html#essentialaction" class="header">EssentialAction</a></li>
+    <li><a href="../../play/scala/actions.html#action" class="header">Action</a></li>
+    <li><a href="../../play/scala/actions.html#bodyparser" class="header">BodyParser</a></li>
+    <li><a href="../../play/scala/actions.html#actionbuilder" class="header">ActionBuilder</a></li>
+    <li><a href="../../play/scala/actions.html#actionrefiner" class="header">ActionRefiner</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/play/scala/actions.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#actions" name="actions" class="anchor"><span class="anchor-link"></span></a>Actions</h1>
+<h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
+<ul>
+  <li><a href="https://www.playframework.com/documentation/2.3.x/ScalaActions">https://www.playframework.com/documentation/2.3.x/ScalaActions</a></li>
+  <li><a href="https://www.playframework.com/documentation/2.3.x/HttpApi">https://www.playframework.com/documentation/2.3.x/HttpApi</a></li>
+</ul>
+<h2><a href="#essentialaction" name="essentialaction" class="anchor"><span class="anchor-link"></span></a>EssentialAction</h2>
+<p>トレイト<code>play.api.mvc.EssentialAction</code> の実体は、HTTP リクエストヘッダ <code>play.api.mvc.RequestHeader</code> を引数とし、<code>Iteratee[Array[Byte], Result]</code> を返す関数である。</p>
+<pre class="prettyprint"><code class="language-scala">trait EssentialAction extends (RequestHeader =&gt; Iteratee[Array[Byte], Result])
+</code></pre>
+<p><code>Array[Byte]</code> は HTTP ボディ部のチャンクにあたる。ストリームとしてボディ部を受け取り、どのように <code>Result</code> を組み立てるかを <em>Iteratee</em> として定義する。</p>
+<h2><a href="#action" name="action" class="anchor"><span class="anchor-link"></span></a>Action</h2>
+<p>トレイト <code>play.api.mvc.Action[A]</code> は <code>EssentialAction</code> を継承している。</p>
+<p>すなわち <code>RequestHeader</code> を受け取り <code>Iteratee[Array[Byte], Result]</code> を返す関数であり、実装は <code>play.api.mvc.BodyParser[+A]</code> を介して行なっている。</p>
+<pre class="prettyprint"><code class="language-scala">trait Action[A] extends EssentialAction {
+  ...
+  def parser: BodyParser[A]
+
+  def apply(request: Request[A]): Future[Result]
+
+  def apply(rh: RequestHeader): Iteratee[Array[Byte], Result] = parser(rh).mapM {
+    case Left(r) =&gt;
+      Play.logger.trace(&quot;Got direct result from the BodyParser: &quot; + r)
+      Future.successful(r)
+    case Right(a) =&gt;
+      val request = Request(rh, a)
+      Play.logger.trace(&quot;Invoking action with request: &quot; + request)
+      Play.maybeApplication.map { app =&gt;
+        play.utils.Threads.withContextClassLoader(app.classloader) {
+          apply(request)
+        }
+      }.getOrElse {
+        apply(request)
+      }
+  }
+  ...
+}
+</code></pre>
+<p><code>BodyParser</code> の実体は <code>RequestHeader</code> を受け取り <code>Itereatee[Array[Byte], Either[Result, A]]</code> を返す関数である。</p>
+<ul>
+  <li>失敗時の <code>Left</code> は、直接エラー応答の <code>Result</code> となる。</li>
+  <li>成功時の <code>Right</code> は、ボディ部で、<code>Action#apply(request: Request[A])</code> を介して <code>Result</code> を得る。</li>
+</ul>
+<p><code>parser</code> に、ボディ部が渡っていないのが疑問に思いがちだが、返すのは <em>Iteratee</em> であって、どのようにボディ部 <code>Array[Byte]</code> から出力 <code>A</code> を組み立てるかの定義だけである。ボディ部は、然るべき <em>Enumerator</em> からストリーム送信されるのであって <em>BodyParser</em> が全てのボディ部を得るのではない。</p>
+<h3><a href="#helper-methods" name="helper-methods" class="anchor"><span class="anchor-link"></span></a>Helper Methods</h3>
+<p>ヘルパーメゾッド <code>Action.apply</code> を使って <code>Action#apply(request: Request[A])</code> を実装できる。</p>
+<pre class="prettyprint"><code class="language-scala">def noRequest: Action[AnyContent] = Action {
+  Ok(&quot;Hello&quot;)
+}
+def withDefaultContent: Action[AnyContent] = Action { result =&gt;
+  Ok(&quot;Request: &quot; + request)
+}
+</code></pre>
+<p>明示的に <code>Future[Result]</code> で返したい場合は <code>Action.async</code> を使う。</p>
+<pre class="prettyprint"><code class="language-scala">import play.api.libs.ws._
+
+def wsAction = Action.async {
+  WS.url(&quot;http://foo.example.net&quot;).get().map { response =&gt;
+    Ok(response.body)
+  }
+}
+</code></pre>
+<p><code>Action.async</code> は非同期処理用ではなく、明示的に <code>Future[Result]</code> を返したい場合のヘルパーメゾッドである。いずれのヘルパーメゾッドを使ったとしても、実装される <code>Action#apply(request: Request)</code> が返すのは <code>Future[Result]</code> であり、どちらも非同期に実行されることに違いはない。</p>
+<p><code>Future</code> を使えば、自動的にノンブロッキングとなるのではない。ブロックする処理を書かなければいけない場合は、コアのスレッドを占有しないように、別の <code>ExecutionContext</code> を使う必要がある。</p>
+<pre class="prettyprint"><code class="language-scala">import play.api.libs.concurrent.Akka
+
+implicit val expensiveOperations =
+  Akka.system.dispatchers.lookup(&quot;contexts.expensive-operations&quot;)
+
+// OK: To avoid blocking operation, use a separate execution context.
+def search: Action[AnyContent] = Action.async {
+  val job1 = Promise.timeout({ ... } 5.second)
+  val job2 = Promise.timeout({ ... } 5.second)
+  Future.firstCompleteOf(Seq(job1, job2) map { x =&gt;
+    ...
+    Ok(...)
+  }) (expensiveOperations)
+}
+
+// NG: The thread of defaultContext is going to block.
+def block: Action[AnyContent] = Action.async {
+  Future {
+    Thread.sleep(10000L)
+    Ok(...)
+  }
+}
+</code></pre>
+<h2><a href="#bodyparser" name="bodyparser" class="anchor"><span class="anchor-link"></span></a>BodyParser</h2>
+<p>基本的な <em>BodyParser</em> は、あらかじめ <code>play.api.mvc.BodyParsers.parse</code> に定義されている。</p>
+<p>デフォルトの <em>BodyParser</em> は <code>parse.anyContent</code> が使われる。ボディ部は <code>play.api.mvc.AnyContent</code> になる。</p>
+<pre class="prettyprint"><code class="language-scala">def xmlFormat = Action { request =&gt;
+  request.body.asXml map { xml =&gt;
+    Ok(...)
+  }.getOrElse {
+    BadRequest(..)
+  }
+}
+</code></pre>
+<p>ヘルパーメゾッド <code>Action.apply[A](parser: BodyParser[A])(...)</code> を使うと、ボディ部を明示的に指定できる。 不正なリクエストの場合は <em>Action</em> ブロックには渡らず <em>BadReqeust</em> 400 エラーが直接応答される。</p>
+<pre class="prettyprint"><code class="language-scala">def xmlOnly = Action(parse.xml) { request =&gt; ... }
+</code></pre>
+<p><code>tolerant</code> がついているものは、リクエストヘッダのチェックを行なわず、ボディ部がパースできればエラーとならない。</p>
+<pre class="prettyprint"><code class="language-scala">def xmlOnly = Action(parse.torelantXml) { request =&gt; ... }
+</code></pre>
+<h3><a href="#file-temporaryfile-multipartformdata" name="file-temporaryfile-multipartformdata" class="anchor"><span class="anchor-link"></span></a>file / temporaryFile / multipartFormData</h3>
+<p><code>parse.file</code> を用いるとボディ部をファイルに保存できる。指定した <code>java.io.File</code> がボディ部になる。</p>
+<pre class="prettyprint"><code class="language-scala">val parser = parse.file(to = new java.io.File(&quot;/path/to/a.txt&quot;))
+</code></pre>
+<p><code>parse.temporaryFile</code> は一時ファイルで保存できる。<code>play.api.libs.Files.TemporaryFile</code> がボディ部になる。<code>TemporaryFIle</code> のメゾッドは、旧 Java File API によるもののため <em>Deprecated</em> となっている。</p>
+<p>フォームからのファイルアップロード <code>multipart/form-data</code> 形式には、<code>parse.multipartFormData</code> を使う。</p>
+<pre class="prettyprint"><code class="language-scala">val upload = Action(parse.multipartFormData) { request =&gt;
+  request.body.file(&quot;pic&quot;).map { part =&gt;
+    val temp: TemporaryFile = part.ref
+    val file: java.io.File = temp.file
+    ...
+    Ok(...)
+  }.getOrElse {
+    BadRequest(...)
+  }
+}
+</code></pre>
+<p>ファイルサイズに制限をかけたい場合は、ヘルパーメゾッド <code>parse.maxLength</code> を使う。ボディ部は <code>Either[MaxSizeexceeded, A]</code> となる。</p>
+<pre class="prettyprint"><code class="language-scala">// up to 4096 bytes
+val upload = Action(parse.maxLength(4096, parse.multipartFormData)) { request =&gt;
+  request.body match {
+    case Left(MaxSizeExceeded(len)) =&gt; ...
+    case Right(multipartFormdata) =&gt; ...
+  }
+}
+</code></pre>
+<h2><a href="#actionbuilder" name="actionbuilder" class="anchor"><span class="anchor-link"></span></a>ActionBuilder</h2>
+<p>ヘルパーオブジェクト <code>Action</code> の実体は、トレイト <code>play.api.mvc.ActionBuilder[Request]</code> である。</p>
+<pre class="prettyprint"><code class="language-scala">object Action extends ActionBuilder[Request] {
+  def invokeBlock[A](request: Request[A],
+                     block: (Request[A]) =&gt; Future[Result]) = block(request)
+}
+</code></pre>
+<p>同様に <code>ActionBuilder</code> を実装すれば、独自のヘルパーオブジェクトを作成できる。</p>
+<pre class="prettyprint"><code class="language-scala">object AppAction extends ActionBuilder[Request] {
+  override def invokeBlock[A](request: Request[A],
+                              block: (Request[A]) =&gt; Future[Result]): Future[Result] = {
+    if (request.remoteAddress.equals(&quot;127.0.0.1&quot;)) {
+      block(request).map { result =&gt;
+        result.withHeaders(&quot;X-UA-Compatible&quot; -&gt; &quot;Chrome=1&quot;)
+      }
+    } else Future.successful(Forbidden) // localhost only
+  }
+}
+
+val action = AppAction {
+  Ok(&quot;...&quot;)
+}
+</code></pre>
+<p><em>ActionBuilder</em> は <code>ActionBuilder#andThen</code> で連結できる。<code>Request</code> は外側から、<code>Future[Result]</code> は内側から伝播する。</p>
+<pre class="prettyprint"><code class="language-scala">val action = (LoggingAction andThen SecureAction) {
+  Ok(&quot;...&quot;)
+}
+</code></pre>
+<p>以下の様に <em>Action</em> をラップしてもよい。</p>
+<pre class="prettyprint"><code class="language-scala">case class Logging[A](action: Action[A]) extends Action[A] {
+  override def apply(request: Request[A]): Future[Result] = {
+    Logger.info(&quot;...&quot;)
+    action(request)
+  }
+
+  lazy val parser = action.parser
+}
+
+def action = Logging {
+  Action {
+    Ok(&quot;...&quot;)
+  }
+}
+</code></pre>
+<p><code>Action.async</code> ブロック内で、元の <code>Action#apply</code> を呼ぶ方法でもよい。元の <em>BodyParser</em> もみ消さないように明示する必要がある。</p>
+<pre class="prettyprint"><code class="language-scala">def logging(action: Action[A]): Action[A] =
+  Action.async(action.parser) { request =&gt;
+    Logger.info(&quot;...&quot;)
+    action(request)
+  }
+</code></pre>
+<p><code>ActionBuilder#composeAction</code> に <em>Action</em> をラップする関数を指定できる。共通の前後処理をパーツ化しておいて、組み替えることで、コードを再利用できる。</p>
+<pre class="prettyprint"><code class="language-scala">def onlyHttps(action: Action[A]): Action[A] = ...
+def loggingErrors(action: Action[A]): Action[A] = ...
+
+object AppAction extends ActionBuilder[Request] {
+  override def invokeBlock[A](request: Request[A],
+                              block: (Request[A]) =&gt; Future[Result]) = {
+    block(request)
+  }
+
+  override protected def composeAction[A](action: Action[A]): Action[A] =
+    onlyHttps(loggingErrors(action))
+}
+</code></pre>
+<h2><a href="#actionrefiner" name="actionrefiner" class="anchor"><span class="anchor-link"></span></a>ActionRefiner</h2>
+<p><code>play.api.mvc.ActionRefiner[R, P]</code> により <em>ActionBuilder</em> の <code>Request</code> 型を変換できる。</p>
+<p><code>Future[Either[Result, P[A]]]</code> を返す <code>ActionRefiner#refine[A](request: R[A])</code> を実装する。<code>UserRequest</code> のコンストラクタの第一引数 <code>Request[A]</code> は、継承元の <code>WrappedRequest</code> に引き渡す引数になるので、重複してインスタンス変数に持つ必要はない。</p>
+<pre class="prettyprint"><code class="language-scala">case class User(id: Long, name: String)
+
+object User {
+  def find(id: Long): Option[User] = ???
+}
+
+class UserRequest[A](request: Request[A], val user: User) extends WrappedRequest[A](request)
+
+val UserAction = new ActionRefiner[Request, UserRequest] {
+  override protected def refine[A](request: Request[A]): Future[Either[Result, UserRequest]] =
+    Future.successful {
+      (for {
+        userid &lt;- request.sessions.get(&quot;userid&quot;)
+        id &lt;- java.lang.Long.parseLong(userid, 10)
+        user &lt;- User.find(id)
+      } yield new UserRequest(request, user)).toRight(Forbidden)
+    }
+}
+
+val action = (Action andThen UserAction) { userRequest =&gt;
+  Ok(&quot;Hello &quot; + userRequest.user.name)
+}
+</code></pre>
+<h3><a href="#actiontransformer" name="actiontransformer" class="anchor"><span class="anchor-link"></span></a>ActionTransformer</h3>
+<p><code>Request</code> 型の変換に際して例外が起こらないなら、<code>play.api.mvc.ActionTransformer[R, P]</code> を使えばよい。</p>
+<pre class="prettyprint"><code class="language-scala">class UserRequest[A](request: Request[A],
+                     val lang: Lang,
+                     val robot: Boolean) extends WrappedRequest[A](request)
+object UserAction extends ActionTransformer[Request, UserRequest] {
+  override protected def transform[A](request: Request[A]): Future[UserRequest[A]] =
+    Future.successful {
+      val lang: Lang = ...
+      val robot: Booean = ...
+      new UserRequest(request, lang, robot)
+    }
+  }
+}
+</code></pre>
+<h3><a href="#actionfilter" name="actionfilter" class="anchor"><span class="anchor-link"></span></a>ActionFilter</h3>
+<p>例外チェックのみを行ないたいなら <code>play.api.mvc.ActionFilter[R]</code> を使えばよい。例外時に <code>Some[Result]</code> を返すことで <em>Action</em> ブロックを経由せずに直接応答する。正常時には <code>None</code> を返せばよい。</p>
+<pre class="prettyprint"><code class="language-scala">object RemoteAddressFilter extends ActionFilter[Request] {
+  override protected def filter[A](request: Request[A]) =
+    Future.successful {
+      if (request.remoteAddress.equals(&quot;127.0.0.1&quot;)) None
+      else Some(Forbidden)
+    }
+}
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Threads | Android</title>
+<title>tachesimazzoca - Wiki | Threads</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,349 +20,323 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Android</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
-
-
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Android</a></li><li>Threads</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./manifest.html">Manifest</a></li><li><a href="./activity.html">Activity</a></li><li class="active"><a href="./threads.html">Threads</a></li><li><a href="./broadcast.html">Broadcast Receivers</a></li><li><a href="./notifications.html">Notifications</a></li><li><a href="./storage.html">Storage</a></li><li><a href="./providers.html">Content Providers</a></li><li><a href="./preferences.html">Preferences</a></li><li><a href="./material.html">Material Design</a></li><li><a href="ui/index.html">User Interface</a></li><li><a href="tools/index.html">Tools</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/threads.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/threads.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/threads.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Threads</h1>
-          <div id="toc">
-          </div>
-          <h2>Overview</h2>
-
-<ul>
-<li><a href="http://developer.android.com/guide/components/processes-and-threads.html">http://developer.android.com/guide/components/processes-and-threads.html</a></li>
-</ul>
-
-
-<h2>UI Thread</h2>
-
-<p>Android では、アプリケーション毎に一つのプロセスが作成され、UI Thread と呼ばれる単一のメインスレッドのみが、画面操作のやりとりを行なう。これにより Activity は、複数スレッドからアクセスされることはないため、スレッドセーフである必要はない。Android UI Toolkit <code>android.(view|widget).*</code> もスレッドセーフではない。</p>
-
-<p>言い換えると、通信などの時間のかかる処理で、UI Thread をブロックすると、一切の画面操作を受け付けずハングしてしまうことになる。規定の秒数（約５秒）を超えると <a href="http://developer.android.com/training/articles/perf-anr.html>">"Application Not Responding" (ANR)</a> 警告ダイアログが表示される。</p>
-
-<p>これを避けるためには、別スレッドで処理させることが必要になるが、UI Thread 以外のスレッドから UI Toolkit を直接操作すると、ランタイムエラーにより強制終了する。</p>
-
-<p>UI Thread 外から UI Toolkit にアクセスする場合は、以下の API を用いる。</p>
-
-<ul>
-<li><a href="http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)">Activity.runOnUiThread(Runnable)</a></li>
-<li><a href="http://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable)">View.post(Runnable)</a></li>
-<li><a href="http://developer.android.com/reference/android/view/View.html#postDelayed(java.lang.Runnable,%20long)">View.postDelayed(Runnable, long)</a></li>
-</ul>
-
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
-    <span class="o">...</span>
-    <span class="kd">private</span> <span class="n">TextView</span> <span class="n">mTextView</span><span class="o">;</span>
-    <span class="o">...</span>
-
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">waitFor</span><span class="o">(</span><span class="kt">long</span> <span class="n">msec</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">msec</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Error</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="c1">// OK: Activity.runOnUiThread(Runnable)</span>
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">accessInsideUiThread</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                <span class="n">waitFor</span><span class="o">(</span><span class="mi">5000L</span><span class="o">);</span>
-                <span class="n">runOnUiThread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
-                    <span class="nd">@Override</span>
-                    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                        <span class="n">mTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;Access inside the UI thread.&quot;</span><span class="o">);</span>
-                    <span class="o">}</span>
-                <span class="o">});</span>
-            <span class="o">}</span>
-        <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="c1">// OK: View.post(Runnable)</span>
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">postToMessageQueue</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                <span class="n">waitFor</span><span class="o">(</span><span class="mi">5000L</span><span class="o">);</span>
-                <span class="n">mTextView</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
-                    <span class="nd">@Override</span>
-                    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                        <span class="n">mTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;Access via MessageQueue&quot;</span><span class="o">);</span>
-                    <span class="o">}</span>
-                <span class="o">});</span>
-            <span class="o">}</span>
-        <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="c1">// NG: Do not block the UI thread.</span>
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">blockUiThread</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">waitFor</span><span class="o">(</span><span class="mi">5000L</span><span class="o">);</span>
-        <span class="n">mTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;This is an incorrect solution.&quot;</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="c1">// NG: Do not access the Android UI toolkit from outside the UI thread.</span>
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">accessOutsideUiThread</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                <span class="n">waitFor</span><span class="o">(</span><span class="mi">5000L</span><span class="o">);</span>
-                <span class="c1">// The application will crash with a runtime exception.</span>
-                <span class="n">mTextView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;This doesn&#39;t work.&quot;</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h2>AsyncTask</h2>
-
-<p>AsyncTask により、別スレッドの処理を簡潔に記述することができる。</p>
-
-<p><code>MeanTask.java</code></p>
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MeanTask</span> <span class="kd">extends</span> <span class="n">AsyncTask</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">Listener</span> <span class="n">mListener</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Listener</span> <span class="o">{</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onProgress</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">);</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onResult</span><span class="o">(</span><span class="n">Float</span> <span class="n">result</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="nf">MeanTask</span><span class="o">(</span><span class="n">Listener</span> <span class="n">listener</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">mListener</span> <span class="o">=</span> <span class="n">listener</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">Float</span> <span class="nf">doInBackground</span><span class="o">(</span><span class="n">Integer</span><span class="o">...</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
-        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="n">publishProgress</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span>
-                    <span class="s">&quot;sum = %d + %d (%d/%d)&quot;</span><span class="o">,</span> <span class="n">sum</span><span class="o">,</span> <span class="n">params</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">len</span><span class="o">));</span>
-            <span class="n">sum</span> <span class="o">+=</span> <span class="n">params</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="o">((</span><span class="kt">float</span><span class="o">)</span> <span class="n">sum</span><span class="o">)</span> <span class="o">/</span> <span class="n">len</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onProgressUpdate</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">progress</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">mListener</span><span class="o">.</span><span class="na">onProgress</span><span class="o">(</span><span class="n">progress</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPostExecute</span><span class="o">(</span><span class="n">Float</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">mListener</span><span class="o">.</span><span class="na">onResult</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p><code>MeanTaskClient.java</code></p>
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">MeanTask</span><span class="o">.</span><span class="na">Listener</span> <span class="n">listener</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MeanTask</span><span class="o">.</span><span class="na">Listener</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">};</span>
-<span class="k">new</span> <span class="nf">MeanTask</span><span class="o">(</span><span class="n">listener</span><span class="o">).</span><span class="na">execute</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span></code></pre></div>
-
-
-<p>AsyncTask 内に Activity への参照を持ちたい時は <a href="http://developer.android.com/reference/java/lang/ref/WeakReference.html">WeakReferece</a> で持つようにする。直接保持すると、アクティビティのライフサイクルで破棄されず、メモリリークを起こす場合がある。</p>
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">WeakReference</span><span class="o">&lt;</span><span class="n">MainActivity</span><span class="o">&gt;</span> <span class="n">mActivityRef</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="nf">SomeAsyncTask</span><span class="o">(</span><span class="n">MainActivity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">mActivityRef</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeakReference</span><span class="o">&lt;</span><span class="n">MainActivity</span><span class="o">&gt;(</span><span class="n">activity</span><span class="o">);</span>
-<span class="o">}</span>
-
-<span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPostExecute</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">MainActivity</span> <span class="n">activity</span> <span class="o">=</span> <span class="n">mActivityRef</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-    <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
-        <span class="o">...</span>
-    <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h2>Handler</h2>
-
-<ul>
-<li><a href="https://developer.android.com/training/multiple-threads/communicate-ui.html">https://developer.android.com/training/multiple-threads/communicate-ui.html</a></li>
-</ul>
-
-
-<p>Android では、スレッド毎に <a href="http://developer.android.com/reference/android/os/MessageQueue.html">MessageQueue</a> を持ち、<a href="http://developer.android.com/reference/android/os/Looper.html">Looper</a> が順番に送信されたメッセージをキューから取り出し、処理を行なっている。</p>
-
-<p><a href="http://developer.android.com/reference/android/os/Handler.html">Handler</a> により、このキューにメッセージを送信することができる。</p>
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">handler</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Handler</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleMessage</span><span class="o">(</span><span class="n">Message</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">switch</span> <span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">what</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">case</span> <span class="nl">MESSAGE_PROGRESS:</span>
-            <span class="n">mProgressBar</span><span class="o">.</span><span class="na">setProgress</span><span class="o">((</span><span class="n">Integer</span><span class="o">)</span> <span class="n">msg</span><span class="o">.</span><span class="na">obj</span><span class="o">);</span>
-            <span class="k">break</span><span class="o">;</span>
-        <span class="k">default</span><span class="o">:</span>
-            <span class="k">break</span><span class="o">;</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">handler</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span> <span class="o">()</span> <span class="o">{</span>
-                <span class="n">mProgressBar</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">});</span>
-
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">;</span> <span class="n">n</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="n">Message</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="na">obtainMessage</span><span class="o">(</span><span class="n">MESSAGE_PROGRESS</span><span class="o">,</span> <span class="n">n</span><span class="o">);</span>
-            <span class="n">handler</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}).</span><span class="na">start</span><span class="o">();</span></code></pre></div>
-
-
-<p>以下の２つのオブジェクトを送信することができる。</p>
-
-<ul>
-<li><a href="http://developer.android.com/reference/java/lang/Runnable.html">Runnable</a>
-
-<ul>
-<li><code>Handler#post</code> により MessageQueue に、Runnable オブジェクトがプールされる。</li>
-<li>Looper は <code>Runnable#run</code> を実行する。</li>
-</ul>
-</li>
-<li><a href="http://developer.android.com/reference/android/os/Message.html">Message</a>
-
-<ul>
-<li><code>Handler#obtainMessage</code> で、Handler に関連づけられた Message オブジェクトを作成する。</li>
-<li><code>Handler#sendMessage</code> により MessageQueue に、Message オブジェクトがプールされる。</li>
-<li>Looper は、Message に紐づけられている Handler を介して <code>Handler#handleMessage</code> を実行する。</li>
-</ul>
-</li>
-</ul>
-
-
-<p>複数スレッドからのメッセージを、単一スレッド上の MessageQueue に集めて Looper で処理を行なうので、同一 Looper を使う限り、スレッドセーフである必要がなく、不要な同期処理を避けることができる。</p>
-
-<p>Handler は、必ず一つの Looper を持つ。コンストラクタで指定しない場合は、同一スレッドに存在する Looper が使われる。Looper が存在しない場合や、同一スレッドで複数 Looper を扱うとエラーになる。</p>
-
-<p>UI Thread 内では、すでに Looper は割り当てられており、UI Thread 内で Looper を指定せずに Handler を作成した場合、UI Thread 上の Looper で実行されることになる。<code>Runnable#run</code> や <code>Handler#handleMessage</code> の中で UI Thread をブロックするような長時間の処理は行なってはならない。また、MessageQueue を圧迫しないように、メッセージ送信数も最小限にすべきである。</p>
-
-<p>UI Thread の Looper は <code>Looper.getMainLooper</code> で得られる。以下は <code>Acitivity#runOnUiThread</code> と同じことである。</p>
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="n">Handler</span> <span class="n">hander</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Handler</span><span class="o">(</span><span class="n">Looper</span><span class="o">.</span><span class="na">getMainLooper</span><span class="o">());</span>
-<span class="n">handler</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">});</span></code></pre></div>
-
-
-<p>別スレッドの Handler を作成する場合は、以下のようになる。</p>
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LooperThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="n">Hander</span> <span class="n">handler</span><span class="o">;</span>
-    <span class="o">...</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Looper</span><span class="o">.</span><span class="na">prepare</span><span class="o">();</span>
-        <span class="n">handler</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Handler</span><span class="o">()</span> <span class="o">{</span>
-            <span class="o">...</span>
-        <span class="o">}</span>
-        <span class="n">Looper</span><span class="o">.</span><span class="na">loop</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-<span class="kd">final</span> <span class="n">LooperThread</span> <span class="n">looperThread</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">LooperThread</span><span class="o">(...);</span>
-<span class="n">looperThread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-
-<span class="n">looperThread</span><span class="o">.</span><span class="na">handler</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">});</span></code></pre></div>
-
-
-
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
+
+<div id="main">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../android/index.html">Android</a></li>
+  <li>Threads</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../android/threads.html#threads" class="header">Threads</a>
+  <ul>
+    <li><a href="../android/threads.html#overview" class="header">Overview</a></li>
+    <li><a href="../android/threads.html#ui-thread" class="header">UI Thread</a></li>
+    <li><a href="../android/threads.html#asynctask" class="header">AsyncTask</a></li>
+    <li><a href="../android/threads.html#handler" class="header">Handler</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/android/threads.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#threads" name="threads" class="anchor"><span class="anchor-link"></span></a>Threads</h1>
+<h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
+<ul>
+  <li><a href="http://developer.android.com/guide/components/processes-and-threads.html">http://developer.android.com/guide/components/processes-and-threads.html</a></li>
+</ul>
+<h2><a href="#ui-thread" name="ui-thread" class="anchor"><span class="anchor-link"></span></a>UI Thread</h2>
+<p>Android では、アプリケーション毎に一つのプロセスが作成され、UI Thread と呼ばれる単一のメインスレッドのみが、画面操作のやりとりを行なう。これにより Activity は、複数スレッドからアクセスされることはないため、スレッドセーフである必要はない。Android UI Toolkit <code>android.(view|widget).*</code> もスレッドセーフではない。</p>
+<p>言い換えると、通信などの時間のかかる処理で、UI Thread をブロックすると、一切の画面操作を受け付けずハングしてしまうことになる。規定の秒数（約５秒）を超えると <a href="http://developer.android.com/training/articles/perf-anr.html">&ldquo;Application Not Responding&rdquo; (ANR)</a> 警告ダイアログが表示される。</p>
+<p>これを避けるためには、別スレッドで処理させることが必要になるが、UI Thread 以外のスレッドから UI Toolkit を直接操作すると、ランタイムエラーにより強制終了する。</p>
+<p>UI Thread 外から UI Toolkit にアクセスする場合は、以下の API を用いる。</p>
+<ul>
+  <li><a href="http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)">Activity.runOnUiThread(Runnable)</a></li>
+  <li><a href="http://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable)">View.post(Runnable)</a></li>
+  <li><a href="https://developer.android.com/reference/android/view/View.html#postDelayed(java.lang.Runnable,%20long)">View.postDelayed(Runnable, long)</a></li>
+</ul>
+<pre class="prettyprint"><code class="language-java">public class MainActivity extends Activity {
+    ...
+    private TextView mTextView;
+    ...
+
+    private void waitFor(long msec) {
+        try {
+            Thread.sleep(msec);
+        } catch (Exception e) {
+            throw new Error(e);
+        }
+    }
+
+    // OK: Activity.runOnUiThread(Runnable)
+    private void accessInsideUiThread() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                waitFor(5000L);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTextView.setText(&quot;Access inside the UI thread.&quot;);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    // OK: View.post(Runnable)
+    private void postToMessageQueue() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                waitFor(5000L);
+                mTextView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTextView.setText(&quot;Access via MessageQueue&quot;);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    // NG: Do not block the UI thread.
+    private void blockUiThread() {
+        waitFor(5000L);
+        mTextView.setText(&quot;This is an incorrect solution.&quot;);
+    }
+
+    // NG: Do not access the Android UI toolkit from outside the UI thread.
+    private void accessOutsideUiThread() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                waitFor(5000L);
+                // The application will crash with a runtime exception.
+                mTextView.setText(&quot;This doesn&#39;t work.&quot;);
+            }
+        }).start();
+    }
+}
+</code></pre>
+<h2><a href="#asynctask" name="asynctask" class="anchor"><span class="anchor-link"></span></a>AsyncTask</h2>
+<p>AsyncTask により、別スレッドの処理を簡潔に記述することができる。</p>
+<p><code>MeanTask.java</code></p>
+<pre class="prettyprint"><code class="language-java">public class MeanTask extends AsyncTask&lt;Integer, String, Float&gt; {
+    private Listener mListener;
+
+    public interface Listener {
+        public void onProgress(String message);
+        public void onResult(Float result);
+    }
+
+    public MeanTask(Listener listener) {
+        mListener = listener;
+    }
+
+    @Override
+    protected Float doInBackground(Integer... params) {
+        int len = params.length;
+        int sum = 0;
+        for (int i = 0; i &lt; len; i++) {
+            publishProgress(String.format(
+                    &quot;sum = %d + %d (%d/%d)&quot;, sum, params[i], i + 1, len));
+            sum += params[i];
+        }
+        return ((float) sum) / len;
+    }
+
+    @Override
+    protected void onProgressUpdate(String... progress) {
+        mListener.onProgress(progress[0]);
+    }
+
+    @Override
+    protected void onPostExecute(Float result) {
+        mListener.onResult(result);
+    }
+}
+</code></pre>
+<p><code>MeanTaskClient.java</code></p>
+<pre class="prettyprint"><code class="language-java">MeanTask.Listener listener = new MeanTask.Listener() { ... };
+new MeanTask(listener).execute(1, 2, 3, 4);
+</code></pre>
+<p>AsyncTask 内に Activity への参照を持ちたい時は <a href="http://developer.android.com/reference/java/lang/ref/WeakReference.html">WeakReferece</a> で持つようにする。直接保持すると、アクティビティのライフサイクルで破棄されず、メモリリークを起こす場合がある。</p>
+<pre class="prettyprint"><code class="language-java">private WeakReference&lt;MainActivity&gt; mActivityRef;
+
+public SomeAsyncTask(MainActivity activity) {
+    mActivityRef = new WeakReference&lt;MainActivity&gt;(activity);
+}
+
+@Override
+protected void onPostExecute(Bitmap result) {
+    MainActivity activity = mActivityRef.get();
+    if (null != activity) {
+        ...
+    }
+}
+</code></pre>
+<h2><a href="#handler" name="handler" class="anchor"><span class="anchor-link"></span></a>Handler</h2>
+<ul>
+  <li><a href="https://developer.android.com/training/multiple-threads/communicate-ui.html">https://developer.android.com/training/multiple-threads/communicate-ui.html</a></li>
+</ul>
+<p>Android では、スレッド毎に <a href="http://developer.android.com/reference/android/os/MessageQueue.html">MessageQueue</a> を持ち、<a href="http://developer.android.com/reference/android/os/Looper.html">Looper</a> が順番に送信されたメッセージをキューから取り出し、処理を行なっている。</p>
+<p><a href="http://developer.android.com/reference/android/os/Handler.html">Handler</a> により、このキューにメッセージを送信することができる。</p>
+<pre class="prettyprint"><code class="language-java">handler = new Handler() {
+    @Override
+    public void handleMessage(Message msg) {
+        switch (msg.what) {
+        case MESSAGE_PROGRESS:
+            mProgressBar.setProgress((Integer) msg.obj);
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+new Thread(new Runnable() {
+    @Override
+    public void run() {
+        handler.post(new Runnable() {
+            @Override
+            public void run () {
+                mProgressBar.setVisibility(View.VISIBLE);
+            }
+        });
+
+        for (int n = 1; n &lt;= 100; n++) {
+            Message msg = handler.obtainMessage(MESSAGE_PROGRESS, n);
+            handler.sendMessage(msg);
+        }
+    }
+}).start();
+</code></pre>
+<p>以下の２つのオブジェクトを送信することができる。</p>
+<ul>
+  <li><a href="http://developer.android.com/reference/java/lang/Runnable.html">Runnable</a>
+    <ul>
+      <li><code>Handler#post</code> により MessageQueue に、Runnable オブジェクトがプールされる。</li>
+      <li>Looper は <code>Runnable#run</code> を実行する。</li>
+    </ul>
+  </li>
+  <li><a href="http://developer.android.com/reference/android/os/Message.html">Message</a>
+    <ul>
+      <li><code>Handler#obtainMessage</code> で、Handler に関連づけられた Message オブジェクトを作成する。</li>
+      <li><code>Handler#sendMessage</code> により MessageQueue に、Message オブジェクトがプールされる。</li>
+      <li>Looper は、Message に紐づけられている Handler を介して <code>Handler#handleMessage</code> を実行する。</li>
+    </ul>
+  </li>
+</ul>
+<p>複数スレッドからのメッセージを、単一スレッド上の MessageQueue に集めて Looper で処理を行なうので、同一 Looper を使う限り、スレッドセーフである必要がなく、不要な同期処理を避けることができる。</p>
+<p>Handler は、必ず一つの Looper を持つ。コンストラクタで指定しない場合は、同一スレッドに存在する Looper が使われる。Looper が存在しない場合や、同一スレッドで複数 Looper を扱うとエラーになる。</p>
+<p>UI Thread 内では、すでに Looper は割り当てられており、UI Thread 内で Looper を指定せずに Handler を作成した場合、UI Thread 上の Looper で実行されることになる。<code>Runnable#run</code> や <code>Handler#handleMessage</code> の中で UI Thread をブロックするような長時間の処理は行なってはならない。また、MessageQueue を圧迫しないように、メッセージ送信数も最小限にすべきである。</p>
+<p>UI Thread の Looper は <code>Looper.getMainLooper</code> で得られる。以下は <code>Acitivity#runOnUiThread</code> と同じことである。</p>
+<pre class="prettyprint"><code class="language-java">final Handler hander = new Handler(Looper.getMainLooper());
+handler.post(new Runnable() { ... });
+</code></pre>
+<p>別スレッドの Handler を作成する場合は、以下のようになる。</p>
+<pre class="prettyprint"><code class="language-java">public class LooperThread extends Thread {
+    public Hander handler;
+    ...
+    @Override
+    public void run() {
+        Looper.prepare();
+        handler = new Handler() {
+            ...
+        }
+        Looper.loop();
+    }
+}
+
+final LooperThread looperThread = new LooperThread(...);
+looperThread.start();
+
+looperThread.handler.post(new Runnable() { ... });
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

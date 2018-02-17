@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Linear Regression | Machine Learning</title>
+<title>tachesimazzoca - Wiki | Linear Regression</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,180 +20,143 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Machine Learning</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../machine_learning/index.html">Machine Learning</a></li>
+  <li>Linear Regression</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../machine_learning/linear_regression.html#linear-regression" class="header">Linear Regression</a>
+  <ul>
+    <li><a href="../machine_learning/linear_regression.html#cost-function" class="header">Cost Function</a></li>
+    <li><a href="../machine_learning/linear_regression.html#gradient-decent" class="header">Gradient Decent</a></li>
+    <li><a href="../machine_learning/linear_regression.html#normal-equations" class="header">Normal Equations</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Machine Learning</a></li><li>Linear Regression</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li class="active"><a href="./linear_regression.html">Linear Regression</a></li><li><a href="./logistic_regression.html">Logistic Regression</a></li><li><a href="./gradient_descent.html">Gradient Descent</a></li><li><a href="./regularization.html">Regularization</a></li><li><a href="./testing.html">Testing</a></li><li><a href="./neural_networks.html">Neural Networks</a></li><li><a href="./svm.html">Support Vector Machine</a></li><li><a href="./clustering.html">Clustering</a></li><li><a href="./pca.html">Principal Component Analysis</a></li><li><a href="./anomaly_detection.html">Anomaly Detection</a></li><li><a href="./collaborative_filtering.html">Collaborative Filtering</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/machine_learning/linear_regression.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/machine_learning/linear_regression.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/machine_learning/linear_regression.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Linear Regression</h1>
-          <div id="toc">
-          </div>
-          <script type="text/x-mathjax-config">
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/machine_learning/linear_regression.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#linear-regression" name="linear-regression" class="anchor"><span class="anchor-link"></span></a>Linear Regression</h1>
+<script type="text/x-mathjax-config">
   MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
 </script>
-
-
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
 </script>
-
-
-<h2>Cost Function</h2>
-
+<h2><a href="#cost-function" name="cost-function" class="anchor"><span class="anchor-link"></span></a>Cost Function</h2>
 <ul>
-<li><code>x</code> から <code>y</code> を導く <code>m</code> 個の学習データがあるとする。例) x: 部屋の広さ, y: 家賃</li>
-<li><code>y</code> を予測する関数を <code>h(x) = a + b * x</code> とする。</li>
-<li><code>h(x) - y</code> すなわち <code>(a + b * x) - y</code> が予測との誤差になる。</li>
+  <li><code>x</code> から <code>y</code> を導く <code>m</code> 個の学習データがあるとする。例) x: 部屋の広さ, y: 家賃</li>
+  <li><code>y</code> を予測する関数を <code>h(x) = a + b * x</code> とする。</li>
+  <li><code>h(x) - y</code> すなわち <code>(a + b * x) - y</code> が予測との誤差になる。</li>
 </ul>
-
-
 <p>各データ毎の誤差の二乗したものの総和を、「二乗誤差」 <em>Squared error</em> と呼ぶ。この値が小さい程、予測との誤差が少ないことになる。この誤差を元に、コスト関数 <em>Cost Function</em> を定義して、最適値を見つけていく。</p>
-
 <p>例として、以下のコスト関数 <code>J(a, b)</code> を定義し、学習データ <code>x = [1; 2; 3], y = [2; 4; 6]</code> を適用してみる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-hypothesis">
 h(x) = a + bx
 </script>
-
-
 <script type="math/tex; mode=display" id="MathJax-Element-mse">
 J(a, b) = \frac{1}{2m} {\sum_{i=1}^{m} (h(x^{(i)})-y^{(i)})^2}
 </script>
-
-
 <script type="math/tex; mode=display" id="MathJax-Element-cost_function1">
 J(1, 1) = \frac{(2 - 2)^2 + (3 - 4)^2 + (4 - 6)^2}{2 \cdot 3} = 0.83333 \ldots
 </script>
-
-
 <script type="math/tex; mode=display" id="MathJax-Element-cost_function2">
 J(0, 2) = \frac{(2 - 2)^2 + (4 - 4)^2 + (6 - 6)^2}{2 \cdot 3} = 0
 </script>
-
-
 <p><code>a = 0, b = 2</code> の時にコストが最小となり、<code>h(x) = 2 * x</code> が最適式であることが分かる。この手法を線形回帰 <em>Linear regression</em> と呼ぶ。</p>
-
 <p>この学習データ内では <code>J(0, 2) = 0</code> で誤差はないが、今後のあらゆるケースで、誤差なく予測できるわけではない。あくまで学習データ内で誤差がないというだけである。言い替えると、学習データに関しては、誤差なく予測することができる。</p>
-
 <ul>
-<li>学習データに含まれない <code>x = 4</code> が、必ず <code>y = h(x) = 2 * 4 = 8</code> という結果になるわけではない。</li>
-<li>今後の入力データが、学習データに含まれる <code>x = 2</code> であったとしても、必ず <code>y = h(x) = 2 * 2 = 4</code> という結果になるわけではない。</li>
+  <li>学習データに含まれない <code>x = 4</code> が、必ず <code>y = h(x) = 2 * 4 = 8</code> という結果になるわけではない。</li>
+  <li>今後の入力データが、学習データに含まれる <code>x = 2</code> であったとしても、必ず <code>y = h(x) = 2 * 2 = 4</code> という結果になるわけではない。</li>
 </ul>
-
-
-<h2>Gradient Decent</h2>
-
-<p>ニュートン法 <em>Newton's method</em> により平方根を見つける例をおさらいしてみる。</p>
-
+<h2><a href="#gradient-decent" name="gradient-decent" class="anchor"><span class="anchor-link"></span></a>Gradient Decent</h2>
+<p>ニュートン法 <em>Newton&rsquo;s method</em> により平方根を見つける例をおさらいしてみる。</p>
 <p><code>x</code> を平方根、<code>a</code> をその二乗としたとき</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-newtons_method_f">
 f(x) = x^2 - a
 </script>
-
-
 <p>を定義する。この関数を <code>y</code> 軸においたグラフにおいて、<code>x</code> 軸との交点 <code>(x, f(x) = 0)</code> の <code>x</code> が平方根になる。</p>
-
-<p>この関数を微分した時の導関数 <code>f'(x)</code> は、微分の公式</p>
-
+<p>この関数を微分した時の導関数 <code>f&#39;(x)</code> は、微分の公式</p>
 <script type="math/tex; mode=display" id="MathJax-Element-newtons_method_calcu_df_formula">
 (x^n)' = nx^{n-1} \\
 </script>
-
-
 <p>より</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-newtons_method_fd">
 f'(x) = (f(x))' = (x^2 - a)' = 2x
 </script>
-
-
-<p>であるので、任意の <code>(x(i), f(x(i)))</code> を接点とする接線の傾きは、<code>f'(x(i)) = 2x(i)</code> であることがわかる。</p>
-
+<p>であるので、任意の <code>(x(i), f(x(i)))</code> を接点とする接線の傾きは、<code>f&#39;(x(i)) = 2x(i)</code> であることがわかる。</p>
 <p>直線の方程式は <em>「底辺 x = 高さ y / 傾き m」</em> であるので、この接線の <code>x</code> 軸との交点を <code>x(i+1)</code> とすると</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-newtons_method_fd_line">
 x_{i+1} = x_{i} - \frac{f(x_{i})}{f'(x_{i})} = x_{i} - \frac{x_{i}^2 - a}{2x_{i}}
 </script>
-
-
 <p>で求められる。この式を繰り返すことで、<code>x(i)</code> と <code>x(i+1)</code> が限りなく近づき、<code>x(i)</code> は <code>(x, f(x) = 0)</code> すなわち平方根に収束する。</p>
-
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">x</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c">% find out sqrt(3) by Newton&#39;s Method</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">x</span> <span class="p">=</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">x</span>^<span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
-<span class="n">x</span> <span class="p">=</span>  <span class="mi">2</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">x</span> <span class="p">=</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">x</span>^<span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
-<span class="n">x</span> <span class="p">=</span>  <span class="mf">1.7500</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">x</span> <span class="p">=</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">x</span>^<span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
-<span class="n">x</span> <span class="p">=</span>  <span class="mf">1.7321</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">x</span> <span class="p">=</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">x</span>^<span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
-<span class="n">x</span> <span class="p">=</span>  <span class="mf">1.7321</span></code></pre></div>
-
-
+<pre class="prettyprint"><code class="language-octave">octave&gt; x = 1;  % find out sqrt(3) by Newton&#39;s Method
+octave&gt; x = x - (x^2 - 3) / (2*x)
+x =  2
+octave&gt; x = x - (x^2 - 3) / (2*x)
+x =  1.7500
+octave&gt; x = x - (x^2 - 3) / (2*x)
+x =  1.7321
+octave&gt; x = x - (x^2 - 3) / (2*x)
+x =  1.7321
+</code></pre>
 <p>コスト関数が最小となる式を見つける場合も、微分をとって少しづつ進めていく反復を繰り返し、最適値に収束させていけばよい。方法として、最急降下法 <em>Gradient descent (Steepest descent method)</em> がある。</p>
-
 <p>コスト関数を <code>J(θ)</code> とし、そのパラメータを <code>θ = [θ1; θ2]</code> とした時、<code>(θ1, θ2, J(θ))</code> の三次元グラフを書くと、<code>J(θ)</code> 軸で凹凸をもったグラフとなる。すなわち、この凹みの最も深い位置が、最も誤差の少ない最適値になる。</p>
-
 <p>最急降下法では、以下の式でコスト関数のパラメータの更新を繰り返し、最適値に収束させる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-gradient_descent">
 J(\theta) = \frac{1}{2m} {\sum_{i=1}^{m} (h_{\theta}(x^{(i)})-y^{(i)})^2} \\
 \theta_0 := \theta_0 - \alpha \left( \frac{\partial}{\partial \theta_0} J(\theta) \right) \\
@@ -215,142 +165,120 @@ J(\theta) = \frac{1}{2m} {\sum_{i=1}^{m} (h_{\theta}(x^{(i)})-y^{(i)})^2} \\
 \vdots \\
 \theta_n := \theta_n - \alpha \left( \frac{\partial}{\partial \theta_n} J(\theta) \right) \\
 </script>
-
-
 <ul>
-<li><code>θ</code> は、コスト関数 <code>J(θ)</code> のパラメータのベクトル</li>
-<li>パラメータ <code>θ1, θ2, ...</code> 毎に、コスト関数 <code>J(θ)</code> でのパラメータ自身の偏微分を減らすことで、勾配を下って行く。</li>
-<li><code>α</code> は、どれだけ進むかの割合 <em>Learning rate</em> で、正の数（主に定数）をとる。</li>
-<li>この式を反復して、パラメータ <code>θ</code> を更新していく。勾配を下って凹みに向かって収束していくため、<code>α</code> が大きすぎなければ <code>J(θ)</code> は必ず小さくなる。</li>
+  <li><code>θ</code> は、コスト関数 <code>J(θ)</code> のパラメータのベクトル</li>
+  <li>パラメータ <code>θ1, θ2, ...</code> 毎に、コスト関数 <code>J(θ)</code> でのパラメータ自身の偏微分を減らすことで、勾配を下って行く。</li>
+  <li><code>α</code> は、どれだけ進むかの割合 <em>Learning rate</em> で、正の数（主に定数）をとる。</li>
+  <li>この式を反復して、パラメータ <code>θ</code> を更新していく。勾配を下って凹みに向かって収束していくため、<code>α</code> が大きすぎなければ <code>J(θ)</code> は必ず小さくなる。</li>
 </ul>
-
-
 <p>いかなる条件であっても、必ず最適値を見つけられるわけではない。</p>
-
 <ul>
-<li>複数の凹みがある場合、降下を始めた地点からたどり着く「局所的な最小値」 <em>Local minimum</em> になる。必ずしも「全域の最小値」 <em>Global minimum</em> ではない。</li>
-<li><code>α</code> の値は、固定であっても、勾配を進む割合が一定というわけではない。</li>
-<li><code>α</code> の値は、小さすぎると収束 <em>Converge</em> するまでに時間がかかりすぎてしまう。大きすぎると最小値を通り過ぎて、勾配を上ってしまうことになり、反復するほどに悪い解へと向かう発散 <em>Diverge</em> を引き起こす場合もある。</li>
+  <li>複数の凹みがある場合、降下を始めた地点からたどり着く「局所的な最小値」 <em>Local minimum</em> になる。必ずしも「全域の最小値」 <em>Global minimum</em> ではない。</li>
+  <li><code>α</code> の値は、固定であっても、勾配を進む割合が一定というわけではない。</li>
+  <li><code>α</code> の値は、小さすぎると収束 <em>Converge</em> するまでに時間がかかりすぎてしまう。大きすぎると最小値を通り過ぎて、勾配を上ってしまうことになり、反復するほどに悪い解へと向かう発散 <em>Diverge</em> を引き起こす場合もある。</li>
 </ul>
-
-
 <p>学習データ <code>x = [1; 2; 3]; y = [2; 4; 6]</code> の式 <code>hθ(x) = θ0 + θ1 * x</code> を、最急降下法で求めてみる。</p>
-
 <p>入力データ <code>x</code> より、先頭列に固定値 <code>1</code> を置いた行列 <code>X</code> を作成する。</p>
+<pre class="prettyprint"><code class="language-octave">octave&gt; x = [1; 2; 3];
+octave&gt; X = [ones(3, 1), x]
+X =
 
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">x</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">3</span><span class="p">];</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="nb">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">x</span><span class="p">]</span>
-<span class="n">X</span> <span class="p">=</span>
+   1   1
+   1   2
+   1   3
 
-   <span class="mi">1</span>   <span class="mi">1</span>
-   <span class="mi">1</span>   <span class="mi">2</span>
-   <span class="mi">1</span>   <span class="mi">3</span></code></pre></div>
-
-
+</code></pre>
 <p>パラメータ <code>θ</code> 用に、ベクトル <code>theta</code> を作成する。<code>X(:,1) = 1</code> としておいたことで、行列の積 <code>X * theta</code> のみで、各入力の <code>hθ(x) = θ0 + θ1 * x</code> の解が得られることが分かる。パラメータが増えた時は、<code>X</code> の各列と <code>theta</code> に追加するだけで良い。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-gradient_descent_hypothesis">
 x_{0} = 1 \\
 h_{\theta}(x) = \theta^T x = \theta_{0}x_{0} + \theta_{1}x_{1} + \ldots + \theta_{n}x_n
 </script>
+<pre class="prettyprint"><code class="language-octave">octave&gt; theta = [2; 3];
+octave&gt; X * theta
+ans =
 
+    5
+    8
+   11
 
-
-
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">theta</span> <span class="p">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">;</span> <span class="mi">3</span><span class="p">];</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="o">*</span> <span class="n">theta</span>
-<span class="n">ans</span> <span class="p">=</span>
-
-    <span class="mi">5</span>
-    <span class="mi">8</span>
-   <span class="mi">11</span></code></pre></div>
-
-
+</code></pre>
 <p>最急降下法により、最適値に収束するまで <code>theta</code> を更新していく。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-gradient_descent_a">
 \theta_{j} := \theta_{j} - \alpha \left( \frac{\partial}{\partial \theta_{j}} J(\theta) \right) \\
 \frac{\partial}{\partial \theta_{j}} J(\theta) = \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)}) x_{j}^{(i)} \\
 </script>
-
-
 <p><code>theta = [1; 1], alpha = 0.1</code> を初期値として反復していくと、<code>theta = [0; 2]</code> すなわち <code>h(x) = 2 * x</code> に収束していくことが分かる。　</p>
+<pre class="prettyprint"><code class="language-octave">octave&gt; x = [1; 2; 3];
+octave&gt; y = [2; 4; 6];
 
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">x</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">3</span><span class="p">];</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">y</span> <span class="p">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">;</span> <span class="mi">4</span><span class="p">;</span> <span class="mi">6</span><span class="p">];</span>
+octave&gt; m = size(x, 1)          % number of rows
+m = 3
+octave&gt; X = [ones(m, 1), x];    % input data with intercept term 1
+octave&gt; alpha = 0.1;            % learniing rate
+octave&gt; theta = [1; 1];         % parameters of hypothesis
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">m</span> <span class="p">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>          <span class="c">% number of rows</span>
-<span class="n">m</span> <span class="p">=</span> <span class="mi">3</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="nb">ones</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">x</span><span class="p">];</span>    <span class="c">% input data with intercept term 1</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">alpha</span> <span class="p">=</span> <span class="mf">0.1</span><span class="p">;</span>            <span class="c">% learniing rate</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">theta</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span> <span class="mi">1</span><span class="p">];</span>         <span class="c">% parameters of hypothesis</span>
+octave&gt; X * theta - y           % difference of each output
+ans =
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="o">*</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span>           <span class="c">% difference of each output</span>
-<span class="n">ans</span> <span class="p">=</span>
+   0
+  -1
+  -2
 
-   <span class="mi">0</span>
-  <span class="o">-</span><span class="mi">1</span>
-  <span class="o">-</span><span class="mi">2</span>
+octave&gt; (X * theta - y)&#39; * X    % difference of each output * each input parameter
+ans =
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">X</span> <span class="o">*</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span>    <span class="c">% difference of each output * each input parameter</span>
-<span class="n">ans</span> <span class="p">=</span>
+  -3  -8
 
-  <span class="o">-</span><span class="mi">3</span>  <span class="o">-</span><span class="mi">8</span>
+octave&gt; theta = theta - (((X * theta - y)&#39; * X) .* alpha / m)&#39;
+theta =
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">theta</span> <span class="p">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="p">(((</span><span class="n">X</span> <span class="o">*</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> <span class="o">.*</span> <span class="n">alpha</span> <span class="o">/</span> <span class="n">m</span><span class="p">)</span><span class="o">&#39;</span>
-<span class="n">theta</span> <span class="p">=</span>
+   1.1000
+   1.2667
 
-   <span class="mf">1.1000</span>
-   <span class="mf">1.2667</span>
+octave&gt; theta = theta - (((X * theta - y)&#39; * X) .* alpha / m)&#39;
+theta =
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">theta</span> <span class="p">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="p">(((</span><span class="n">X</span> <span class="o">*</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> <span class="o">.*</span> <span class="n">alpha</span> <span class="o">/</span> <span class="n">m</span><span class="p">)</span><span class="o">&#39;</span>
-<span class="n">theta</span> <span class="p">=</span>
+   1.1367
+   1.3889
 
-   <span class="mf">1.1367</span>
-   <span class="mf">1.3889</span>
+octave&gt; for i = 1:410, theta = theta - (((X * theta - y)&#39; * X) .* alpha / m)&#39;; end
+octave&gt; theta
+theta =
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">i</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">410</span><span class="p">,</span> <span class="n">theta</span> <span class="p">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="p">(((</span><span class="n">X</span> <span class="o">*</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> <span class="o">.*</span> <span class="n">alpha</span> <span class="o">/</span> <span class="n">m</span><span class="p">)</span><span class="o">&#39;</span><span class="p">;</span> <span class="k">end</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">theta</span>
-<span class="n">theta</span> <span class="p">=</span>
+   0.0082757
+   1.9963595
 
-   <span class="mf">0.0082757</span>
-   <span class="mf">1.9963595</span>
+octave&gt; theta = theta - (((X * theta - y)&#39; * X) .* alpha / m)&#39;
+theta =
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">theta</span> <span class="p">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="p">(((</span><span class="n">X</span> <span class="o">*</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> <span class="o">.*</span> <span class="n">alpha</span> <span class="o">/</span> <span class="n">m</span><span class="p">)</span><span class="o">&#39;</span>
-<span class="n">theta</span> <span class="p">=</span>
+   0.0081763
+   1.9964032
 
-   <span class="mf">0.0081763</span>
-   <span class="mf">1.9964032</span></code></pre></div>
-
-
-<h3>Feature Normalization</h3>
-
+</code></pre>
+<h3><a href="#feature-normalization" name="feature-normalization" class="anchor"><span class="anchor-link"></span></a>Feature Normalization</h3>
 <p>各パラメータの変動範囲を統一することで、収束時間を短くすることができる。「(値 - 平均値) / 標準偏差」に正規化すると、概ね <em>-2 &lt; x &lt; 2</em> の範囲に収まる。</p>
+<pre class="prettyprint"><code class="language-octave">octave&gt; X = [45 452000; 24 285000; 53 524000; 35 389000];
+octave&gt; m = size(X, 1)
+m =  4
+octave&gt; X = X - repmat(mean(X), m, 1)
+X =
 
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">45</span> <span class="mi">452000</span><span class="p">;</span> <span class="mi">24</span> <span class="mi">285000</span><span class="p">;</span> <span class="mi">53</span> <span class="mi">524000</span><span class="p">;</span> <span class="mi">35</span> <span class="mi">389000</span><span class="p">];</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">m</span> <span class="p">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">m</span> <span class="p">=</span>  <span class="mi">4</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="p">=</span> <span class="n">X</span> <span class="o">-</span> <span class="nb">repmat</span><span class="p">(</span><span class="nb">mean</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">X</span> <span class="p">=</span>
+   5.7500e+00   3.9500e+04
+  -1.5250e+01  -1.2750e+05
+   1.3750e+01   1.1150e+05
+  -4.2500e+00  -2.3500e+04
 
-   <span class="mf">5.7500e+00</span>   <span class="mf">3.9500e+04</span>
-  <span class="o">-</span><span class="mf">1.5250e+01</span>  <span class="o">-</span><span class="mf">1.2750e+05</span>
-   <span class="mf">1.3750e+01</span>   <span class="mf">1.1150e+05</span>
-  <span class="o">-</span><span class="mf">4.2500e+00</span>  <span class="o">-</span><span class="mf">2.3500e+04</span>
+octave&gt; X = X ./ repmat(std(X), m, 1)
+X =
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="p">=</span> <span class="n">X</span> <span class="o">./</span> <span class="nb">repmat</span><span class="p">(</span><span class="nb">std</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">X</span> <span class="p">=</span>
+   0.45805   0.38983
+  -1.21483  -1.25831
+   1.09534   1.10041
+  -0.33856  -0.23192
 
-   <span class="mf">0.45805</span>   <span class="mf">0.38983</span>
-  <span class="o">-</span><span class="mf">1.21483</span>  <span class="o">-</span><span class="mf">1.25831</span>
-   <span class="mf">1.09534</span>   <span class="mf">1.10041</span>
-  <span class="o">-</span><span class="mf">0.33856</span>  <span class="o">-</span><span class="mf">0.23192</span></code></pre></div>
-
-
-<h2>Normal Equations</h2>
-
+</code></pre>
+<h2><a href="#normal-equations" name="normal-equations" class="anchor"><span class="anchor-link"></span></a>Normal Equations</h2>
 <p>最急降下法を用いずに、連立方程式で解を得る方法もある。連立方程式は以下のように行列で表すことができる。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-normaleq">
 \left\{
   \begin{array}{l l}
@@ -390,10 +318,7 @@ q \\
 
 \right.
 </script>
-
-
 <p>おなじ要領で、学習データの行列を用いて、連立方程式を解けばよい。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-normaleq_matrices">
 \theta =
 \begin{bmatrix}
@@ -420,55 +345,46 @@ y_2 \\
 y_{m} \\
 \end{bmatrix}
 </script>
-
-
-<p>公式は <code>X^-1 * y</code> になるが、逆行列 <code>X^-1</code> を求めるには <code>m = n</code> の正方行列 <em>Square matrix</em> である必要がある。正方行列でない場合は、疑似逆行列 <em>Pseudo-inverse matrix</em> <code>(X^T * X)^-1 * X^T</code> を用いる。疑似逆行列の計算には、<em>O(n^3)</em> のコストがかかってしまうので、パラメータ数が多い場合は最急降下法を使う。</p>
-
+<p>公式は <code>X^-1 * y</code> になるが、逆行列 <code>X^-1</code> を求めるには <code>m = n</code> の正方行列 <em>Square matrix</em> である必要がある。正方行列でない場合は、疑似逆行列 <em>Pseudo-inverse matrix</em> <code>(X^T * X)^-1 * X^T</code> を用いる。疑似逆行列の計算には <em>O(n^3)</em> のコストがかかってしまうので、パラメータ数が多い場合は最急降下法を使う。</p>
 <script type="math/tex; mode=display" id="MathJax-Element-normaleq_matrices_formula">
 \begin{align}
 \theta & = X^{-1} y\\
 \theta & = (X^T X)^{-1} X^T y \\
 \end{align}
 </script>
+<pre class="prettyprint"><code class="language-octave">octave&gt; X = [1 1; 1 2; 1 3];
+octave&gt; y = [2; 4; 6];
 
+octave&gt; inv(X)
+error: inverse: argument must be a square matrix
 
+octave&gt; inv(X&#39; * X) * X&#39;      % pseudo-inverse matrix: [1.3333 0.3333 -0.6666; -0.5 0 0.5]
+ans =
 
+   1.3333e+00   3.3333e-01  -6.6667e-01
+  -5.0000e-01  -2.2204e-16   5.0000e-01
 
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">3</span><span class="p">];</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">y</span> <span class="p">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">;</span> <span class="mi">4</span><span class="p">;</span> <span class="mi">6</span><span class="p">];</span>
+octave&gt; pinv(X)               % using pinv(x)
+ans =
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="nb">inv</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="nb">error</span><span class="p">:</span> <span class="n">inverse</span><span class="p">:</span> <span class="n">argument</span> <span class="n">must</span> <span class="n">be</span> <span class="n">a</span> <span class="n">square</span> <span class="n">matrix</span>
+   1.3333e+00   3.3333e-01  -6.6667e-01
+  -5.0000e-01  -4.8572e-16   5.0000e-01
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="nb">inv</span><span class="p">(</span><span class="n">X</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="o">&#39;</span>      <span class="c">% pseudo-inverse matrix: [1.3333 0.3333 -0.6666; -0.5 0 0.5]</span>
-<span class="n">ans</span> <span class="p">=</span>
+octave&gt; inv(X&#39; * X) * X&#39; * X  % identity matrix: [1 0; 0 1]
+ans =
 
-   <span class="mf">1.3333e+00</span>   <span class="mf">3.3333e-01</span>  <span class="o">-</span><span class="mf">6.6667e-01</span>
-  <span class="o">-</span><span class="mf">5.0000e-01</span>  <span class="o">-</span><span class="mf">2.2204e-16</span>   <span class="mf">5.0000e-01</span>
+   1.0000e+00  -5.3291e-15
+  -6.6613e-16   1.0000e+00
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="nb">pinv</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>               <span class="c">% using pinv(x)</span>
-<span class="n">ans</span> <span class="p">=</span>
+octave&gt; inv(X&#39; * X) * X&#39; * y  % solution: [0; 2]
+ans =
 
-   <span class="mf">1.3333e+00</span>   <span class="mf">3.3333e-01</span>  <span class="o">-</span><span class="mf">6.6667e-01</span>
-  <span class="o">-</span><span class="mf">5.0000e-01</span>  <span class="o">-</span><span class="mf">4.8572e-16</span>   <span class="mf">5.0000e-01</span>
+  -1.0658e-14
+   2.0000e+00
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="nb">inv</span><span class="p">(</span><span class="n">X</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span>  <span class="c">% identity matrix: [1 0; 0 1]</span>
-<span class="n">ans</span> <span class="p">=</span>
-
-   <span class="mf">1.0000e+00</span>  <span class="o">-</span><span class="mf">5.3291e-15</span>
-  <span class="o">-</span><span class="mf">6.6613e-16</span>   <span class="mf">1.0000e+00</span>
-
-<span class="n">octave</span><span class="o">&gt;</span> <span class="nb">inv</span><span class="p">(</span><span class="n">X</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">y</span>  <span class="c">% solution: [0; 2]</span>
-<span class="n">ans</span> <span class="p">=</span>
-
-  <span class="o">-</span><span class="mf">1.0658e-14</span>
-   <span class="mf">2.0000e+00</span></code></pre></div>
-
-
-<h3>Non-invertible Matrix</h3>
-
+</code></pre>
+<h3><a href="#non-invertible-matrix" name="non-invertible-matrix" class="anchor"><span class="anchor-link"></span></a>Non-invertible Matrix</h3>
 <p>行列が非可逆行列 <em>Non-invertible matrix (singular/degenerate)</em> である場合、解が存在しない（平行グラフである）か、式が重複している（同グラフである）ため、式を満たすあらゆる解が存在する。</p>
-
 <script type="math/tex; mode=display" id="MathJax-Element-normaleq_noninvertible">
 \left\{
   \begin{array}{l l}
@@ -486,61 +402,61 @@ y_{m} \\
   \end{array}
 \right. \\
 </script>
-
-
 <p>このように非可逆行列になるケースは以下がある。これらは、重複するパラメータを減らすことで解決できる。</p>
-
 <ul>
-<li><code>X = [1 2 4; 2 4 8; 3 6 12]</code> のように、単に各パラメータが一定率で変化している場合</li>
-<li>学習データ数 <code>m</code> が、パラメータ数 <code>n</code> より少ない場合</li>
+  <li><code>X = [1 2 4; 2 4 8; 3 6 12]</code> のように、単に各パラメータが一定率で変化している場合</li>
+  <li>学習データ数 <code>m</code> が、パラメータ数 <code>n</code> より少ない場合</li>
 </ul>
+<pre class="prettyprint"><code class="language-octave">octave&gt; X = [6 2; 3 1];
+octave&gt; inv(X)
+warning: inverse: matrix singular to machine precision, rcond = 0
+ans =
 
+   Inf   Inf
+   Inf   Inf
 
-<div class="highlight"><pre><code class="language-octave" data-lang="octave"><span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">3</span> <span class="mi">1</span><span class="p">];</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="nb">inv</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="nb">warning</span><span class="p">:</span> <span class="n">inverse</span><span class="p">:</span> <span class="n">matrix</span> <span class="n">singular</span> <span class="n">to</span> <span class="n">machine</span> <span class="n">precision</span><span class="p">,</span> <span class="nb">rcond</span> <span class="p">=</span> <span class="mi">0</span>
-<span class="n">ans</span> <span class="p">=</span>
+octave&gt; X = [1 10 8; 1 23 -8];
+octave&gt; inv(X&#39; * X) * X&#39;
+warning: inverse: matrix singular to machine precision, rcond = 5.26926e-19
+ans =
 
-   <span class="nb">Inf</span>   <span class="nb">Inf</span>
-   <span class="nb">Inf</span>   <span class="nb">Inf</span>
+   0.000000   0.000000
+   0.039062   0.039062
+   0.078125  -0.031250
 
-<span class="n">octave</span><span class="o">&gt;</span> <span class="n">X</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">10</span> <span class="mi">8</span><span class="p">;</span> <span class="mi">1</span> <span class="mi">23</span> <span class="o">-</span><span class="mi">8</span><span class="p">];</span>
-<span class="n">octave</span><span class="o">&gt;</span> <span class="nb">inv</span><span class="p">(</span><span class="n">X</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="o">&#39;</span>
-<span class="nb">warning</span><span class="p">:</span> <span class="n">inverse</span><span class="p">:</span> <span class="n">matrix</span> <span class="n">singular</span> <span class="n">to</span> <span class="n">machine</span> <span class="n">precision</span><span class="p">,</span> <span class="nb">rcond</span> <span class="p">=</span> <span class="mf">5.26926e-19</span>
-<span class="n">ans</span> <span class="p">=</span>
-
-   <span class="mf">0.000000</span>   <span class="mf">0.000000</span>
-   <span class="mf">0.039062</span>   <span class="mf">0.039062</span>
-   <span class="mf">0.078125</span>  <span class="o">-</span><span class="mf">0.031250</span></code></pre></div>
-
-
-
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

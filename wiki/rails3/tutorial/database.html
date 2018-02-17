@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | データベース操作 | Rails3</title>
+<title>tachesimazzoca - Wiki | データベース操作</title>
 <link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,78 +20,80 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="../index.html">Rails3</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../../index.html">Home</a></li>
+  <li><a href="../../rails3/index.html">Rails3</a></li>
+  <li><a href="../../rails3/tutorial/index.html">Tutorial</a></li>
+  <li>データベース操作</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../../rails3/tutorial/database.html#データベース操作" class="header">データベース操作</a>
+  <ul>
+    <li><a href="../../rails3/tutorial/database.html#データベース設定" class="header">データベース設定</a></li>
+    <li><a href="../../rails3/tutorial/database.html#active-record-migraions" class="header">Active Record Migraions</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="../index.html">Rails3</a></li><li><a href="./index.html">Tutorial</a></li><li>データベース操作</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./static.html">静的ファイル出力</a></li><li><a href="./page.html">HTMLページ出力</a></li><li><a href="./view.html">Views</a></li><li class="active"><a href="./database.html">データベース操作</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/rails3/tutorial/database.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/rails3/tutorial/database.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/rails3/tutorial/database.md">History</a>
-          </div>
-          <div id="content">
-          <h1>データベース操作</h1>
-          <div id="toc">
-          </div>
-          <h2>データベース設定</h2>
-
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/rails3/tutorial/database.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#データベース操作" name="データベース操作" class="anchor"><span class="anchor-link"></span></a>データベース操作</h1>
+<h2><a href="#データベース設定" name="データベース設定" class="anchor"><span class="anchor-link"></span></a>データベース設定</h2>
 <p><code>config/database.yml</code> にデータベースの設定を記述します。</p>
-
 <p><code>mysql2</code> アダプタを用いた場合の記述例です。</p>
-
 <pre><code>development:
   adapter: mysql2
   encoding: utf8
@@ -135,48 +124,36 @@ production:
   password:
   socket: /var/lib/mysql/mysql.sock
 </code></pre>
-
 <p><a href="http://api.rubyonrails.org/classes/ActiveRecord/Base.html">ActiveRecord::Base</a> の <a href="http://api.rubyonrails.org/classes/ActiveRecord/Base.html#method-c-establish_connection">establish_connection</a> メゾッドを通じて、この設定ファイルが読み込まれます。</p>
-
 <pre><code>#!/usr/bin/env ruby
 
-require ::File.expand_path('../config/boot',  __FILE__)
-require "active_record"
+require ::File.expand_path(&#39;../config/boot&#39;,  __FILE__)
+require &quot;active_record&quot;
 
-ActiveRecord::Base.establish_connection(YAML.load_file('/path/to/rails/config/database.yml')['development'])
+ActiveRecord::Base.establish_connection(YAML.load_file(&#39;/path/to/rails/config/database.yml&#39;)[&#39;development&#39;])
 
 adapter = ActiveRecord::Base.connection
-result_set = adapter.exec_query("SELECT * FROM users")
+result_set = adapter.exec_query(&quot;SELECT * FROM users&quot;)
 ....
 </code></pre>
-
-<h2>Active Record Migraions</h2>
-
+<h2><a href="#active-record-migraions" name="active-record-migraions" class="anchor"><span class="anchor-link"></span></a>Active Record Migraions</h2>
 <p><a href="http://api.rubyonrails.org/classes/ActiveRecord/Migration.html">ActiveRecord::Migration</a> の仕組みを用いてデータベース管理を容易にします。</p>
-
-<h3>データベース作成/削除</h3>
-
+<h3><a href="#データベース作成-削除" name="データベース作成-削除" class="anchor"><span class="anchor-link"></span></a>データベース作成/削除</h3>
 <p>設定したユーザに、データベース作成権限があれば、<code>rake</code> コマンドで作成/削除ができます。</p>
-
 <pre><code># データベース作成
 % bundle exec rake db:create
 # データベース削除
 % bundle exec rake db:drop
 </code></pre>
-
-<h3>テーブル作成</h3>
-
+<h3><a href="#テーブル作成" name="テーブル作成" class="anchor"><span class="anchor-link"></span></a>テーブル作成</h3>
 <p><code>db/migrate/(バージョン番号)_create_(テーブル名).rb</code> の命名規則でファイルを作成します。</p>
-
 <p><code>products</code> テーブルを例にします。</p>
-
 <p><code>db/migrate/1_create_products.rb</code></p>
-
 <pre><code>class CreateProducts &lt; ActiveRecord::Migration
   def change
-    create_table(:products, :primary_key =&gt; 'id') do |t|
-      t.string :code, :null =&gt; false, :default =&gt; ''
-      t.string :name, :null =&gt; false, :default =&gt; ''
+    create_table(:products, :primary_key =&gt; &#39;id&#39;) do |t|
+      t.string :code, :null =&gt; false, :default =&gt; &#39;&#39;
+      t.string :name, :null =&gt; false, :default =&gt; &#39;&#39;
       t.text :description
       t.integer :price, :null =&gt; false, :default =&gt; 0
       t.datetime :open_date
@@ -188,45 +165,47 @@ result_set = adapter.exec_query("SELECT * FROM users")
   end
 end
 </code></pre>
-
 <p><code>db:migrate</code> でテーブルを作成します。</p>
-
 <pre><code>% bundle exec rake db:migrate
 </code></pre>
-
 <p>間違えた場合は <code>db:rollback</code> でやり直すことができます。</p>
-
 <pre><code>% bundle exec rake db:rollback
 % vim db/migrate/1_create_products.rb
 ....
 % bundle exec rake db:migrate
 </code></pre>
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

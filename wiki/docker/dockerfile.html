@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Dockerfile | Docker</title>
+<title>tachesimazzoca - Wiki | Dockerfile</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,218 +20,218 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Docker</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../docker/index.html">Docker</a></li>
+  <li>Dockerfile</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../docker/dockerfile.html#dockerfile" class="header">Dockerfile</a>
+  <ul>
+    <li><a href="../docker/dockerfile.html#overview" class="header">Overview</a></li>
+    <li><a href="../docker/dockerfile.html#mysql-server" class="header">mysql-server</a></li>
+    <li><a href="../docker/dockerfile.html#php53" class="header">php53</a></li>
+    <li><a href="../docker/dockerfile.html#lamp-sshd" class="header">LAMP + sshd</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Docker</a></li><li>Dockerfile</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./installation.html">Installation</a></li><li><a href="./cli.html">Docker CLI</a></li><li><a href="./machine.html">Docker Machine</a></li><li class="active"><a href="./dockerfile.html">Dockerfile</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/docker/dockerfile.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/docker/dockerfile.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/docker/dockerfile.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Dockerfile</h1>
-          <div id="toc">
-          </div>
-          <h2>Overview</h2>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>cat Dockerfile
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/docker/dockerfile.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#dockerfile" name="dockerfile" class="anchor"><span class="anchor-link"></span></a>Dockerfile</h1>
+<h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
+<pre class="prettyprint"><code class="language-bash">$ cat Dockerfile
 FROM nginx
 COPY html /usr/share/nginx/html
 
-<span class="nv">$ </span>mkdir html
-<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;&lt;html&gt;&lt;body&gt;Hello World&lt;body&gt;&lt;/html&gt;&#39;</span> &gt; html/index.html
+$ mkdir html
+$ echo &#39;&lt;html&gt;&lt;body&gt;Hello World&lt;body&gt;&lt;/html&gt;&#39; &gt; html/index.html
 
-<span class="nv">$ </span>docker build -t <span class="nb">local</span>/nginx .
+$ docker build -t local/nginx .
 
 ...
 
-<span class="nv">$ </span>docker run -d -p 8080:80 --name web <span class="nb">local</span>/nginx
-<span class="nv">$ </span>curl <span class="s2">&quot;http://$(docker-machine ip default):8080&quot;</span>
-&lt;html&gt;&lt;body&gt;Hello World&lt;body&gt;&lt;/html&gt;</code></pre></div>
+$ docker run -d -p 8080:80 --name web local/nginx
+$ curl &quot;http://$(docker-machine ip default):8080&quot;
+&lt;html&gt;&lt;body&gt;Hello World&lt;body&gt;&lt;/html&gt;
+</code></pre>
+<h2><a href="#mysql-server" name="mysql-server" class="anchor"><span class="anchor-link"></span></a>mysql-server</h2>
+<pre><code>FROM centos:6
 
-
-<h2>mysql-server</h2>
-
-<div class="highlight"><pre><code class="language-dockerfile" data-lang="dockerfile"><span class="k">FROM</span> centos:6
-
-<span class="k">RUN</span> yum update -y <span class="o">&amp;&amp;</span> <span class="err">\</span>
-  yum -y install http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm <span class="o">&amp;&amp;</span> <span class="err">\</span>
-  yum install -y mysql-server <span class="o">&amp;&amp;</span> <span class="err">\</span>
+RUN yum update -y &amp;&amp; \
+  yum -y install http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm &amp;&amp; \
+  yum install -y mysql-server &amp;&amp; \
   yum clean all
 
-<span class="c"># Simulate mysql_secure_installation</span>
-<span class="k">RUN</span> service mysqld start <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="err">&quot;\</span>
-  DELETE FROM mysql.user WHERE <span class="nv">user</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span> AND host NOT IN <span class="o">(</span><span class="s1">&#39;localhost&#39;</span>, <span class="s1">&#39;127.0.0.1&#39;</span>, <span class="s1">&#39;::1&#39;</span><span class="o">)</span><span class="p">;</span> <span class="err">\</span>
-  DELETE FROM mysql.user WHERE <span class="nv">user</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="err">\</span>
-  DELETE FROM mysql.db WHERE db LIKE <span class="s1">&#39;test%&#39;</span><span class="p">;</span> <span class="err">\</span>
-  FLUSH PRIVILEGES<span class="p">;</span><span class="err">&quot;</span> <span class="p">|</span> mysql -u root
+# Simulate mysql_secure_installation
+RUN service mysqld start &amp;&amp; echo &quot;\
+  DELETE FROM mysql.user WHERE user = &#39;root&#39; AND host NOT IN (&#39;localhost&#39;, &#39;127.0.0.1&#39;, &#39;::1&#39;); \
+  DELETE FROM mysql.user WHERE user = &#39;&#39;; \
+  DELETE FROM mysql.db WHERE db LIKE &#39;test%&#39;; \
+  FLUSH PRIVILEGES;&quot; | mysql -u root
 
-<span class="k">EXPOSE</span> <span class="m">3306</span>
-<span class="k">CMD</span> <span class="o">[</span> <span class="err">\</span>
-  <span class="s2">&quot;/usr/sbin/mysqld&quot;</span>, <span class="err">\</span>
-  <span class="s2">&quot;--datadir=/var/lib/mysql&quot;</span>, <span class="err">\</span>
-  <span class="s2">&quot;--socket=/var/lib/mysql/mysql.sock&quot;</span>, <span class="err">\</span>
-  <span class="s2">&quot;--pid-file=/var/run/mysqld/mysqld.pid&quot;</span>, <span class="err">\</span>
-  <span class="s2">&quot;--basedir=/usr&quot;</span>, <span class="err">\</span>
-  <span class="s2">&quot;--user=mysql&quot;</span> <span class="err">\</span>
-<span class="o">]</span></code></pre></div>
+EXPOSE 3306
+CMD [ \
+  &quot;/usr/sbin/mysqld&quot;, \
+  &quot;--datadir=/var/lib/mysql&quot;, \
+  &quot;--socket=/var/lib/mysql/mysql.sock&quot;, \
+  &quot;--pid-file=/var/run/mysqld/mysqld.pid&quot;, \
+  &quot;--basedir=/usr&quot;, \
+  &quot;--user=mysql&quot; \
+]
+</code></pre>
+<h2><a href="#php53" name="php53" class="anchor"><span class="anchor-link"></span></a>php53</h2>
+<pre><code>FROM centos:5
 
-
-<h2>php53</h2>
-
-<div class="highlight"><pre><code class="language-dockerfile" data-lang="dockerfile"><span class="k">FROM</span> centos:5
-
-<span class="k">RUN</span> yum update -y <span class="o">&amp;&amp;</span> <span class="err">\</span>
-  yum install -y httpd <span class="o">&amp;&amp;</span> <span class="err">\</span>
-  yum install -y php53 php53-devel php53-mbstring php53-mysql php53-xml php53-xmlrpc <span class="o">&amp;&amp;</span> <span class="err">\</span>
-  yum install -y php-pear <span class="o">&amp;&amp;</span> <span class="err">\</span>
-  yum clean all 
+RUN yum update -y &amp;&amp; \
+  yum install -y httpd &amp;&amp; \
+  yum install -y php53 php53-devel php53-mbstring php53-mysql php53-xml php53-xmlrpc &amp;&amp; \
+  yum install -y php-pear &amp;&amp; \
+  yum clean all
 
 COPY files/etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
-<span class="k">EXPOSE</span> <span class="m">80</span>
-<span class="k">CMD</span> <span class="o">[</span><span class="s2">&quot;/usr/sbin/httpd&quot;</span>, <span class="s2">&quot;-D&quot;</span>, <span class="s2">&quot;FOREGROUND&quot;</span><span class="o">]</span></code></pre></div>
+EXPOSE 80
+CMD [&quot;/usr/sbin/httpd&quot;, &quot;-D&quot;, &quot;FOREGROUND&quot;]
+</code></pre>
+<h2><a href="#lamp-sshd" name="lamp-sshd" class="anchor"><span class="anchor-link"></span></a>LAMP + sshd</h2>
+<pre><code>FROM centos:5
 
+# epel
+RUN rpm -ivh http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
 
-<h2>LAMP + sshd</h2>
-
-<div class="highlight"><pre><code class="language-dockerfile" data-lang="dockerfile"><span class="k">FROM</span> centos:5
-
-<span class="c"># epel</span>
-<span class="k">RUN</span> rpm -ivh http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
-
-<span class="c"># yum</span>
-<span class="k">RUN</span> yum clean all <span class="o">&amp;&amp;</span> <span class="err">\</span>
-  yum update -y <span class="o">&amp;&amp;</span> <span class="err">\</span>
-  yum install -y supervisor openssh-server mysql-server httpd <span class="o">&amp;&amp;</span> <span class="err">\</span>
-  yum install -y php53 php53-devel php53-mbstring php53-mysql php53-xml php53-xmlrpc php-pear <span class="o">&amp;&amp;</span> <span class="err">\</span>
+# yum
+RUN yum clean all &amp;&amp; \
+  yum update -y &amp;&amp; \
+  yum install -y supervisor openssh-server mysql-server httpd &amp;&amp; \
+  yum install -y php53 php53-devel php53-mbstring php53-mysql php53-xml php53-xmlrpc php-pear &amp;&amp; \
   yum clean all
 
-<span class="c"># sshd</span>
-<span class="k">RUN</span> service sshd start
+# sshd
+RUN service sshd start
 
-<span class="c"># mysqld</span>
-<span class="k">RUN</span> service mysqld start <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="err">&quot;\</span>
-  DELETE FROM mysql.user WHERE <span class="nv">User</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span> AND Host NOT IN <span class="o">(</span><span class="s1">&#39;localhost&#39;</span>, <span class="s1">&#39;127.0.0.1&#39;</span>, <span class="s1">&#39;::1&#39;</span><span class="o">)</span><span class="p">;</span> <span class="err">\</span>
-  DELETE FROM mysql.user WHERE <span class="nv">User</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="err">\</span>
-  DELETE FROM mysql.db WHERE Db LIKE <span class="s1">&#39;test%&#39;</span><span class="p">;</span> <span class="err">\</span>
-  GRANT ALL PRIVILEGES ON *.* TO <span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;%&#39;</span> WITH GRANT OPTION<span class="p">;</span> <span class="err">\</span>
-  FLUSH PRIVILEGES<span class="p">;</span><span class="err">&quot;</span> <span class="p">|</span> mysql -u root <span class="o">&amp;&amp;</span> service mysqld stop
+# mysqld
+RUN service mysqld start &amp;&amp; echo &quot;\
+  DELETE FROM mysql.user WHERE User = &#39;root&#39; AND Host NOT IN (&#39;localhost&#39;, &#39;127.0.0.1&#39;, &#39;::1&#39;); \
+  DELETE FROM mysql.user WHERE User = &#39;&#39;; \
+  DELETE FROM mysql.db WHERE Db LIKE &#39;test%&#39;; \
+  GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; WITH GRANT OPTION; \
+  FLUSH PRIVILEGES;&quot; | mysql -u root &amp;&amp; service mysqld stop
 
-<span class="c"># httpd</span>
+# httpd
 COPY files/etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
-<span class="c"># supervisor</span>
+# supervisor
 COPY files/usr/bin/pidproxy /usr/bin/pidproxy
 COPY files/etc/supervisord.conf /etc/supervisord.conf
 
-<span class="c"># /root/.ssh/authorized_keys</span>
-<span class="k">RUN</span> mkdir -p /root/.ssh <span class="o">&amp;&amp;</span> chmod <span class="m">700</span> /root/.ssh
+# /root/.ssh/authorized_keys
+RUN mkdir -p /root/.ssh &amp;&amp; chmod 700 /root/.ssh
 COPY files/root/.ssh/authorized_keys /root/.ssh/authorized_keys
-<span class="k">RUN</span> chmod <span class="m">600</span> /root/.ssh/authorized_keys
+RUN chmod 600 /root/.ssh/authorized_keys
 
-<span class="k">EXPOSE</span> <span class="m">22</span> <span class="m">80</span> <span class="m">3306</span>
-<span class="k">CMD</span> <span class="o">[</span><span class="s2">&quot;/usr/bin/supervisord&quot;</span><span class="o">]</span></code></pre></div>
-
-
+EXPOSE 22 80 3306
+CMD [&quot;/usr/bin/supervisord&quot;]
+</code></pre>
 <p>Docker containers can manage only one process. Using supervisor is one of the solutions to allow us manage one or more processes.</p>
-
 <p><code>files/etc/supervisor.conf</code>:</p>
+<pre><code>[supervisord]
+nodaemon=true
 
-<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="k">[supervisord]</span>
-<span class="na">nodaemon</span><span class="o">=</span><span class="s">true</span>
+[program:sshd]
+command=/usr/sbin/sshd -D
 
-<span class="k">[program:sshd]</span>
-<span class="na">command</span><span class="o">=</span><span class="s">/usr/sbin/sshd -D</span>
+[program:httpd]
+command=/usr/sbin/httpd -DFOREGROUND
 
-<span class="k">[program:httpd]</span>
-<span class="na">command</span><span class="o">=</span><span class="s">/usr/sbin/httpd -DFOREGROUND</span>
-
-<span class="k">[program:mysqld]</span>
-<span class="na">command</span><span class="o">=</span><span class="s">/usr/libexec/mysqld</span></code></pre></div>
-
-
-
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+[program:mysqld]
+command=/usr/libexec/mysqld
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

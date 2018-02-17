@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Block Ciphers | Cryptography</title>
+<title>tachesimazzoca - Wiki | Block Ciphers</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,294 +20,247 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Cryptography</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../crypto/index.html">Cryptography</a></li>
+  <li>Block Ciphers</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../crypto/block_ciphers.html#block-ciphers" class="header">Block Ciphers</a>
+  <ul>
+    <li><a href="../crypto/block_ciphers.html#overview" class="header">Overview</a></li>
+    <li><a href="../crypto/block_ciphers.html#pseudo-random-function-prf-" class="header">Pseudo Random Function (PRF)</a></li>
+    <li><a href="../crypto/block_ciphers.html#pseudo-random-permutation-prp-" class="header">Pseudo Random Permutation (PRP)</a></li>
+    <li><a href="../crypto/block_ciphers.html#des" class="header">DES</a></li>
+    <li><a href="../crypto/block_ciphers.html#aes" class="header">AES</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Cryptography</a></li><li>Block Ciphers</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./overview.html">Overview</a></li><li><a href="./stream_ciphers.html">Stream Ciphers</a></li><li class="active"><a href="./block_ciphers.html">Block Ciphers</a></li><li><a href="./macs.html">Message Authentication Code</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/crypto/block_ciphers.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/crypto/block_ciphers.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/crypto/block_ciphers.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Block Ciphers</h1>
-          <div id="toc">
-          </div>
-          <script type="text/x-mathjax-config">
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/crypto/block_ciphers.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#block-ciphers" name="block-ciphers" class="anchor"><span class="anchor-link"></span></a>Block Ciphers</h1>
+<script type="text/x-mathjax-config">
   MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
 </script>
-
-
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
 </script>
-
-
-<h2>Overview</h2>
-
+<h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
 <p>ブロック暗号 <em>Block cipher</em> は、メッセージを固定長ブロックに分けて、ブロック毎にキーを切り替えて暗号化を行なう。</p>
-
-<h2>Pseudo Random Function (PRF)</h2>
-
+<h2><a href="#pseudo-random-function-prf-" name="pseudo-random-function-prf-" class="anchor"><span class="anchor-link"></span></a>Pseudo Random Function (PRF)</h2>
 <p><em>Pseudo Random Function (PRF)</em> は、以下の二つの関数集合から成り立つ。</p>
-
 <ol>
-<li>入力 <code>X</code> から出力 <code>Y</code> に変換する関数 (Deterministic function) の集合 <code>Funs[X,Y]</code></li>
-<li><code>Funs[X,Y]</code> の関数集合のうち、キー <code>K</code> により導かれる関数集合 <code>S = { F(k,.), k in K }</code></li>
+  <li>入力 <code>X</code> から出力 <code>Y</code> に変換する関数 (Deterministic function) の集合 <code>Funs[X,Y]</code></li>
+  <li><code>Funs[X,Y]</code> の関数集合のうち、キー <code>K</code> により導かれる関数集合 <code>S = { F(k,.), k in K }</code></li>
 </ol>
-
-
 <p>キーによりどの関数が決まり、その関数は決定的であるので、復号が可能になる。言い換えると、入力 <code>x</code> から、どの関数が使われたかを区別できなければ、セキュアな PRF である。</p>
-
-<h2>Pseudo Random Permutation (PRP)</h2>
-
-<h2>DES</h2>
-
+<h2><a href="#pseudo-random-permutation-prp-" name="pseudo-random-permutation-prp-" class="anchor"><span class="anchor-link"></span></a>Pseudo Random Permutation (PRP)</h2>
+<h2><a href="#des" name="des" class="anchor"><span class="anchor-link"></span></a>DES</h2>
 <p><em>Data Encryption Standard (DES)</em> は、IBM により開発され、1976 年に U.S. の連邦規格として採用された共通鍵暗号方式である。</p>
-
 <ul>
-<li><a href="http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf">http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf</a></li>
+  <li><a href="http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf">http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf</a></li>
 </ul>
-
-
 <p>ブロックサイズは 64bits で以下の手順で暗号化する。</p>
-
 <ul>
-<li>Initial Permuation (IP) に従い、ビットを入れ替え
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Initial_permutation_.28IP.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Initial_permutation_.28IP.29</a></li>
+  <li>Initial Permuation (IP) に従い、ビットを入れ替え
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Initial_permutation_.28IP.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Initial_permutation_.28IP.29</a></li>
+    </ul>
+  </li>
+  <li>Feistel 構造を通して撹拌</li>
+  <li>Final Permuation (IP^-1) に従い、ビットを入れ替え
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Final_permutation_.28IP.E2.88.921.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Final_permutation_.28IP.E2.88.921.29</a>
+        <ul>
+          <li>Initial Permuation の逆のマッピング</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
 </ul>
-</li>
-<li>Feistel 構造を通して撹拌</li>
-<li>Final Permuation (IP^-1) に従い、ビットを入れ替え
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Final_permutation_.28IP.E2.88.921.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Final_permutation_.28IP.E2.88.921.29</a>
-
-<ul>
-<li>Initial Permuation の逆のマッピング</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>Key Schedule</h3>
-
+<h3><a href="#key-schedule" name="key-schedule" class="anchor"><span class="anchor-link"></span></a>Key Schedule</h3>
 <p>DES のキー長は 64bits で、実際には 56bits が使われる。48bits のラウンド鍵が生成される。</p>
-
 <ul>
-<li>PC-1: 64bits を 56bits に変換する
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29</a></li>
+  <li>PC-1: 64bits を 56bits に変換する
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_1_.28PC-1.29</a></li>
+    </ul>
+  </li>
+  <li>PC-2: 56bits を 48bits に変換する
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29</a></li>
+      <li>各ラウンドごとにビットシフトを行なう。ラウンド毎にシフトするビット数は異なる。
+        <ul>
+          <li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule">https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
 </ul>
-</li>
-<li>PC-2: 56bits を 48bits に変換する
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permuted_choice_2_.28PC-2.29</a></li>
-<li>各ラウンドごとにビットシフトを行なう。ラウンド毎にシフトするビット数は異なる。
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule">https://en.wikipedia.org/wiki/DES_supplementary_material#Rotations_in_the_key-schedule</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>Feistel Network</h3>
-
+<h3><a href="#feistel-network" name="feistel-network" class="anchor"><span class="anchor-link"></span></a>Feistel Network</h3>
 <p>DES では、Lucifer 暗号の発明者の <em>Horst Feistel</em> に由来する <em>Feistel network</em> と呼ばれる構造で、各ブロックを暗号化する。</p>
-
 <p>64bits のブロックを、半分 32bits の L/R 二つに分けて、以下の処理を 16 回繰り返す。</p>
-
 <ul>
-<li><code>L(i)</code> ブロックを、Feistel 関数を通し <code>R(i)</code> との XOR を、次の <code>R(i+1)</code> とする。</li>
-<li><code>R(i)</code> ブロックを、次の <code>L(i+1)</code> とする。</li>
+  <li><code>L(i)</code> ブロックを、Feistel 関数を通し <code>R(i)</code> との XOR を、次の <code>R(i+1)</code> とする。</li>
+  <li><code>R(i)</code> ブロックを、次の <code>L(i+1)</code> とする。</li>
 </ul>
-
-
 <p>復号は逆順に行なうだけでよい。</p>
-
-<h3>Feistel Function</h3>
-
+<h3><a href="#feistel-function" name="feistel-function" class="anchor"><span class="anchor-link"></span></a>Feistel Function</h3>
 <p>Feistel network では、Feistel 関数により各ブロックが撹拌される。</p>
-
 <ul>
-<li>E: 32bits を 48bits に拡張する
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Expansion_function_.28E.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Expansion_function_.28E.29</a></li>
+  <li>E: 32bits を 48bits に拡張する
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Expansion_function_.28E.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Expansion_function_.28E.29</a></li>
+    </ul>
+  </li>
+  <li>S-box: 48bits のラウンド鍵との XOR を、6bits 毎に 8 つに分ける
+    <ul>
+      <li>8 つの S-box を通して、6bits ブロックを 4bits に置き換える</li>
+      <li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Substitution_boxes_.28S-boxes.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Substitution_boxes_.28S-boxes.29</a></li>
+    </ul>
+  </li>
+  <li>P: 4 x 8 = 32bits のビットを入れ替える
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permutation_.28P.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permutation_.28P.29</a></li>
+    </ul>
+  </li>
 </ul>
-</li>
-<li>S-box: 48bits のラウンド鍵との XOR を、6bits 毎に 8 つに分ける
-
-<ul>
-<li>8 つの S-box を通して、6bits ブロックを 4bits に置き換える</li>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Substitution_boxes_.28S-boxes.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Substitution_boxes_.28S-boxes.29</a></li>
-</ul>
-</li>
-<li>P: 4 x 8 = 32bits のビットを入れ替える
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/DES_supplementary_material#Permutation_.28P.29">https://en.wikipedia.org/wiki/DES_supplementary_material#Permutation_.28P.29</a></li>
-</ul>
-</li>
-</ul>
-
-
-<h2>AES</h2>
-
+<h2><a href="#aes" name="aes" class="anchor"><span class="anchor-link"></span></a>AES</h2>
 <p><em>Advanced Encryption Standard (AES)</em> は、DES の後継として、新たに U.S. の暗号規格として採用された共通鍵暗号方式である。</p>
-
 <p>ブロックサイズは 128bits で、Feistel 構造ではなく、Substitution-permutation Network (SPN) 構造を用いる。入力を 4x4 = 16 bytes の行列として扱い、ビットの撹拌と 128bits のラウンド鍵との XOR を繰り返して暗号化する。</p>
-
-<h3>Key Schedule</h3>
-
+<h3><a href="#key-schedule" name="key-schedule" class="anchor"><span class="anchor-link"></span></a>Key Schedule</h3>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Rijndael_key_schedule">https://en.wikipedia.org/wiki/Rijndael_key_schedule</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Rijndael_key_schedule">https://en.wikipedia.org/wiki/Rijndael_key_schedule</a></li>
 </ul>
-
-
 <p>AES のキーサイズは、128/192/256 bits を選択できる。サイズに応じて SPN 構造での撹拌サイクル数が異なる。</p>
-
 <ul>
-<li>AES-128: 128bits keys / 10 cycles</li>
-<li>AES-192: 192bits keys / 12 cycles</li>
-<li>AES-256: 256bits keys / 14 cycles</li>
+  <li>AES-128: 128bits keys / 10 cycles</li>
+  <li>AES-192: 192bits keys / 12 cycles</li>
+  <li>AES-256: 256bits keys / 14 cycles</li>
 </ul>
-
-
 <p>撹拌サイクル数 + 1 回の 128bits(16bytes) のラウンド鍵が生成される。AES-128 の場合、合計で 16 x 11 = 176 bytes の鍵が生成される。</p>
-
-<h3>Substitution Permutation Network</h3>
-
+<h3><a href="#substitution-permutation-network" name="substitution-permutation-network" class="anchor"><span class="anchor-link"></span></a>Substitution Permutation Network</h3>
 <ul>
-<li>Initial round
-
-<ul>
-<li>ラウンド鍵 <code>k(0)</code> と XOR</li>
+  <li>Initial round
+    <ul>
+      <li>ラウンド鍵 <code>k(0)</code> と XOR</li>
+    </ul>
+  </li>
+  <li>Rounds
+    <ul>
+      <li>SubBytes: Rijndael S-box に従い 4x4 の全バイトを入れ替える
+        <ul>
+          <li><a href="https://en.wikipedia.org/wiki/Rijndael_S-box">https://en.wikipedia.org/wiki/Rijndael_S-box</a></li>
+        </ul>
+      </li>
+      <li>ShiftRows: 各行を行番号分左へシフト
+        <ul>
+          <li><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_ShiftRows_step">https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_ShiftRows_step</a></li>
+        </ul>
+      </li>
+      <li>MixColumns: Rijndael mix columns に従い、各列を変換する
+        <ul>
+          <li><a href="https://en.wikipedia.org/wiki/Rijndael_mix_columns">https://en.wikipedia.org/wiki/Rijndael_mix_columns</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_MixColumns_step">https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_MixColumns_step</a></li>
+        </ul>
+      </li>
+      <li>ラウンド鍵 <code>k(i)</code> と XOR</li>
+    </ul>
+  </li>
+  <li>Final round
+    <ul>
+      <li>SubBytes</li>
+      <li>ShiftRows</li>
+      <li>ラウンド鍵 <code>k(n)</code> と XOR</li>
+    </ul>
+  </li>
 </ul>
-</li>
-<li>Rounds
-
-<ul>
-<li>SubBytes: Rijndael S-box に従い 4x4 の全バイトを入れ替える
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Rijndael_S-box">https://en.wikipedia.org/wiki/Rijndael_S-box</a></li>
-</ul>
-</li>
-<li>ShiftRows: 各行を行番号分左へシフト
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_ShiftRows_step">https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_ShiftRows_step</a></li>
-</ul>
-</li>
-<li>MixColumns: Rijndael mix columns に従い、各列を変換する
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Rijndael_mix_columns">https://en.wikipedia.org/wiki/Rijndael_mix_columns</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_MixColumns_step">https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#The_MixColumns_step</a></li>
-</ul>
-</li>
-<li>ラウンド鍵 <code>k(i)</code> と XOR</li>
-</ul>
-</li>
-<li>Final round
-
-<ul>
-<li>SubBytes</li>
-<li>ShiftRows</li>
-<li>ラウンド鍵 <code>k(n)</code> と XOR</li>
-</ul>
-</li>
-</ul>
-
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

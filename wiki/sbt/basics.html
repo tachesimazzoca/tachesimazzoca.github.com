@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tachesimazzoca - Wiki | Basics</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M96M8MG');</script>
+<!-- End Google Tag Manager -->
+
+</head>
+<body>
+<div id="wrapper">
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
+
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../sbt/index.html">SBT</a></li>
+  <li>Basics</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../sbt/basics.html#basics" class="header">Basics</a>
+  <ul>
+    <li><a href="../sbt/basics.html#プロジェクト作成" class="header">プロジェクト作成</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/sbt/basics.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#basics" name="basics" class="anchor"><span class="anchor-link"></span></a>Basics</h1>
+<h2><a href="#プロジェクト作成" name="プロジェクト作成" class="anchor"><span class="anchor-link"></span></a>プロジェクト作成</h2>
+<p>以下の構成でファイル/ディレクトリをあらかじめ作成します</p>
+<ul>
+  <li>buid.sbt</li>
+  <li>project/build.properties</li>
+  <li>src/main/java/</li>
+  <li>src/main/scala/</li>
+  <li>src/main/resources/</li>
+  <li>src/test/java/</li>
+  <li>src/test/scala/</li>
+  <li>src/test/resources/</li>
+  <li>lib/</li>
+</ul>
+<p><code>build.sbt</code> にプロジェクトの情報を記載しておきます。</p>
+<pre><code>name := &quot;sandbox&quot;
+
+version := &quot;1.0&quot;
+
+scalaVersion := &quot;2.10.4&quot;
+</code></pre>
+<p><code>project/build.properties</code> に sbt の情報を記載しておきます。</p>
+<pre><code>sbt.version=0.13.5
+</code></pre>
+<p>ソースは <code>src/main/(java|scala)</code> に置きます。<code>src/main/scala/Sandbox.scala</code> を作成してみます。</p>
+<pre class="prettyprint"><code class="language-scala">object Sandbox {
+  def main(args:Array[String]) {
+     println(&quot;Hello World&quot;)
+  }
+}
+</code></pre>
+<p>プロジェクトディレクトリ直下で <code>sbt</code> コマンドを実行するとインタラクティブモードでコンソールが立ち上がります。初回起動時は必要なパッケージがダウンロードされます。</p>
+<pre><code>% cd /path/to/sbt/project/sandbox
+% sbt
+...
+[info] Done updating.
+[info] Set current project to sandbox (in build file:...)
+&gt;
+</code></pre>
+<p><code>run</code> でコンパイルが行われ main ブロックが実行されます。</p>
+<pre><code>&gt; run
+[info] Compiling 1 Scala source to ...
+[info] Running Sandbox
+[success] Total time: ....
+Hello World
+</code></pre>
+<p><code>compile</code> でコンパイルのみ行われます。先頭に <code>~</code> を付けるとファイル更新を検知して、自動でコンパイルしてくれます。</p>
+<pre><code>&gt; ~compile
+1. Waiting for source changes... (press enter to interrupt)
+</code></pre>
+<h3><a href="#lib-" name="lib-" class="anchor"><span class="anchor-link"></span></a>lib/</h3>
+<p><code>sbt</code> で管理しない jar パッケージは、<code>lib/</code> に置いておきます。自動で <code>-classpath</code> を通してくれます。</p>
+<h3><a href="#src-main-resources" name="src-main-resources" class="anchor"><span class="anchor-link"></span></a>src/main/resources</h3>
+<p>データファイル関連は <code>src/main/resources</code> に置きます。</p>
+<p><code>src/main/resources/sandbox.properties</code> を読み込む <code>src/main/scala/Sandbox.scala</code> のサンプルコードです。</p>
+<pre class="prettyprint"><code class="language-scala">import java.io.FileInputStream
+import java.util.Properties
+
+import scala.collection.JavaConversions._
+
+object Sandbox {
+  def main(args:Array[String]) {
+
+    val prop = new Properties()
+    prop.load(getClass().getResourceAsStream(&quot;/sandbox.properties&quot;))
+
+    prop.stringPropertyNames().foreach { key =&gt;
+      println(prop.getProperty(key))
+    }
+  }
+}
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
+</body>
+</html>

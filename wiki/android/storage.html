@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Storage | Android</title>
+<title>tachesimazzoca - Wiki | Storage</title>
 <link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,196 +20,154 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Android</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
 
-
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="./index.html">Android</a></li><li>Storage</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li><a href="./manifest.html">Manifest</a></li><li><a href="./activity.html">Activity</a></li><li><a href="./threads.html">Threads</a></li><li><a href="./broadcast.html">Broadcast Receivers</a></li><li><a href="./notifications.html">Notifications</a></li><li class="active"><a href="./storage.html">Storage</a></li><li><a href="./providers.html">Content Providers</a></li><li><a href="./preferences.html">Preferences</a></li><li><a href="./material.html">Material Design</a></li><li><a href="ui/index.html">User Interface</a></li><li><a href="tools/index.html">Tools</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/android/storage.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/android/storage.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/android/storage.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Storage</h1>
-          <div id="toc">
-          </div>
-          <h2>Shared Preferences</h2>
-
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
 <ul>
-<li><a href="http://developer.android.com/guide/topics/data/data-storage.html#pref">http://developer.android.com/guide/topics/data/data-storage.html#pref</a></li>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../android/index.html">Android</a></li>
+  <li>Storage</li>
 </ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../android/storage.html#storage" class="header">Storage</a>
+  <ul>
+    <li><a href="../android/storage.html#shared-preferences" class="header">Shared Preferences</a></li>
+    <li><a href="../android/storage.html#internal-storage" class="header">Internal Storage</a></li>
+    <li><a href="../android/storage.html#external-storage" class="header">External Storage</a></li>
+    <li><a href="../android/storage.html#multi-user" class="header">Multi User</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
 
-
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/android/storage.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#storage" name="storage" class="anchor"><span class="anchor-link"></span></a>Storage</h1>
+<h2><a href="#shared-preferences" name="shared-preferences" class="anchor"><span class="anchor-link"></span></a>Shared Preferences</h2>
+<ul>
+  <li><a href="http://developer.android.com/guide/topics/data/data-storage.html#pref">http://developer.android.com/guide/topics/data/data-storage.html#pref</a></li>
+</ul>
 <p>アプリケーション固有の設定を記録しておくには、Key-Value ストアの <a href="http://developer.android.com/reference/android/content/SharedPreferences.html">SharedPreferences</a> を用いるとよい。保存可能な値はプリミティブ型 <em>boolean / int / long float / String</em> に限る。</p>
+<pre class="prettyprint"><code class="language-java">private static final String PREF_NAME = &quot;settings&quot;;
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PREF_NAME</span> <span class="o">=</span> <span class="s">&quot;settings&quot;</span><span class="o">;</span>
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    ...
+    SharedPreferences settings = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    String foo = settings.getString(&quot;foo&quot;);
+}
 
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-    <span class="o">...</span>
-    <span class="n">SharedPreferences</span> <span class="n">settings</span> <span class="o">=</span> <span class="n">getSharedPreferences</span><span class="o">(</span><span class="n">PREF_NAME</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
-    <span class="n">String</span> <span class="n">foo</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">);</span>
-<span class="o">}</span>
+...
 
-<span class="o">...</span>
-
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onStop</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">SharedPreferences</span> <span class="n">settings</span> <span class="o">=</span> <span class="n">getSharedPreferences</span><span class="o">(</span><span class="n">PREF_NAME</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
-    <span class="n">SharedPreferences</span><span class="o">.</span><span class="na">Editor</span> <span class="n">editor</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="na">edit</span><span class="o">();</span>
-    <span class="n">settings</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="s">&quot;bar&quot;</span><span class="o">);</span>
-    <span class="o">...</span>
-    <span class="kd">super</span><span class="o">.</span><span class="na">onStop</span><span class="o">();</span>
-<span class="o">}</span></code></pre></div>
-
-
+protected void onStop() {
+    SharedPreferences settings = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = settings.edit();
+    settings.putString(&quot;foo&quot;, &quot;bar&quot;);
+    ...
+    super.onStop();
+}
+</code></pre>
 <p>SharedPreferences の読み書きには、それなりのコストがかかるため、ユーザ操作ごとに更新してはならない。更新タイミングは、HONEYCOMB 以降のみのサポートなら <code>Activity#onStop</code> でよい。それ以前のバージョンでは、<code>onStop</code> が呼ばれない場合があるため <code>onPause</code> で保存する。</p>
-
-<h2>Internal Storage</h2>
-
+<h2><a href="#internal-storage" name="internal-storage" class="anchor"><span class="anchor-link"></span></a>Internal Storage</h2>
 <p>Internal Storage には、アプリケーション固有のファイルを保存する。アプリケーションを介する読み書きのみで、ユーザ自身がファイルを操作することはできない。アプリケーションのアンインストールにより削除される。</p>
-
 <ul>
-<li><a href="http://developer.android.com/reference/android/content/Context.html#openFileOutput(java.lang.String,%20int)">Context#opneFileOutput</a></li>
-<li><a href="http://developer.android.com/reference/android/content/Context.html#openFileInput(java.lang.String)">Context#openFileInput</a></li>
+  <li><a href="http://developer.android.com/reference/android/content/Context.html#openFileOutput(java.lang.String,%20int)">Context#opneFileOutput</a></li>
+  <li><a href="http://developer.android.com/reference/android/content/Context.html#openFileInput(java.lang.String)">Context#openFileInput</a></li>
 </ul>
-
-
 <p>により、得られるファイルストリームに対し読み書きすれば良い。</p>
-
 <p>キャッシュなどの一時ファイルは <a href="http://developer.android.com/reference/android/content/Context.html#getCacheDir()">Context#getCacheDir</a> により得られるディレクトリ以下に保存する。このディレクトリ内のファイルは、容量が足りなくなった時などの必要時に応じて削除される。</p>
-
-<h2>External Storage</h2>
-
+<h2><a href="#external-storage" name="external-storage" class="anchor"><span class="anchor-link"></span></a>External Storage</h2>
 <p>External Storage には、ユーザ自身が操作可能なファイル（写真 / 動画 / ダウンロードファイル 等）を保存する。</p>
-
 <p>取り外し可能な、SDカードなどのリムーバブルストレージのみを指すわけではない。端末内部にも仮想デバイスとして External Storage が提供される。</p>
-
 <p><a href="http://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()">Environment.getExternalStorageDirectory</a> により External Storage のディレクトリが得られる。<code>(READ|WRITE)_EXTERNAL_STORAGE</code> のパーミッションを持っていれば、このディレクトリ以下の全てのファイルにアクセスできる。</p>
-
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;</span> <span class="nt">/&gt;</span></code></pre></div>
-
-
+<pre class="prettyprint"><code class="language-xml">&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
+</code></pre>
 <p>Internal Storage とは異なり、アプリケーション外から全てのファイル操作が可能である。</p>
-
 <ul>
-<li>外部アプリケーションから、ファイル読み書きが可能</li>
-<li>USBデバイスとして、ユーザ自身がファイルを操作することが可能</li>
+  <li>外部アプリケーションから、ファイル読み書きが可能</li>
+  <li>USBデバイスとして、ユーザ自身がファイルを操作することが可能</li>
 </ul>
-
-
 <p>このため、漏洩 / 改変されると問題のあるデータ（ポイント/認証トークン/パスワード等）を保存してはならない。セキュリティ的には問題がないデータであっても、改変されてはならないアプリケーション固有のデータは Internal Storage を使う。</p>
-
-<h3>Public Directory</h3>
-
+<h3><a href="#public-directory" name="public-directory" class="anchor"><span class="anchor-link"></span></a>Public Directory</h3>
 <p><a href="http://developer.android.com/reference/android/os/Environment.html#getExternalStoragePublicDirectory(java.lang.String)">Environment.getExternalStoragePublicDirectory</a> により、ファイル種別毎の共有ディレクトリを取得できる。</p>
-
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">File</span> <span class="n">path</span> <span class="o">=</span> <span class="n">Environment</span><span class="o">.</span><span class="na">getExternalStoragePublicDirectory</span><span class="o">(</span><span class="n">Environment</span><span class="o">.</span><span class="na">DIRECTORY_PICTURES</span><span class="o">);</span></code></pre></div>
-
-
+<pre class="prettyprint"><code class="language-java">File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+</code></pre>
 <p>システムが、ファイル種別毎に区分けしたディレクトリであって、保存するファイル種別の制限はない。アプリケーション自身でハンドリングを行なう必要がある。</p>
-
-<h3>Application Directory</h3>
-
+<h3><a href="#application-directory" name="application-directory" class="anchor"><span class="anchor-link"></span></a>Application Directory</h3>
 <p><a href="http://developer.android.com/reference/android/content/Context.html#getExternalFilesDir(java.lang.String)">Context#getExternalFilesDir</a> により、アプリケーション用の保存ディレクトリを取得できる。</p>
-
 <p>このディレクトリはアプリケーションのアンインストールとともに削除される。写真などの共有データや購入コンテンツを保存してはならない。Internal Strage に収まりきらない、漏洩や改変があっても問題ないファイルを保存し、アンインストールとともに削除されるべきファイルを保存する。</p>
-
 <p>他アプリケーションとのファイル名衝突がないように、システムによりアプリケーション用に区分けされたディレクトリであって、External Storage へのパーミッションを持つアプリケーションはアクセス可能である点に注意する。</p>
-
 <p>Android 4.4 (API19) 以降では、自身のパッケージのディレクトリであれば、パーミッションを持たなくてもアクセスできる。Public Directory へのアクセスが不要なら <code>maxSdkVersion</code> を指定しておくとよい。</p>
-
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;</span>
-                     <span class="na">android:maxSdkVersion=</span><span class="s">&quot;18&quot;</span> <span class="nt">/&gt;</span></code></pre></div>
-
-
+<pre class="prettyprint"><code class="language-xml">&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;
+                     android:maxSdkVersion=&quot;18&quot; /&gt;
+</code></pre>
 <p>API19 以降の端末のみで動作確認すると、パーミッションの追加を忘れてしまいがちなので注意する。</p>
-
-<h3>Error Handling</h3>
-
+<h3><a href="#error-handling" name="error-handling" class="anchor"><span class="anchor-link"></span></a>Error Handling</h3>
 <p>External Storage がリムーバブルである場合、マウントされていなければ利用可能できない。</p>
-
 <ul>
-<li><a href="http://developer.android.com/reference/android/content/Context.html#getExternalFilesDir(java.lang.String)">Context#getExternalFilesDir</a> は、アクセスできない場合には <code>null</code> が返る。</li>
-<li><a href="http://developer.android.com/reference/android/os/Environment.html#getExternalStorageState()">Environment#getExternalStorageState</a> でマウント状態を取得できる。</li>
+  <li><a href="http://developer.android.com/reference/android/content/Context.html#getExternalFilesDir(java.lang.String)">Context#getExternalFilesDir</a> は、アクセスできない場合には <code>null</code> が返る。</li>
+  <li><a href="http://developer.android.com/reference/android/os/Environment.html#getExternalStorageState()">Environment#getExternalStorageState</a> でマウント状態を取得できる。</li>
+  <li><a href="http://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()">Environment.html#getExternalStorageDirectory</a></li>
 </ul>
-
-
 <p><code>ACTION_MEDIA_(MOUNTED|REMOVED)</code> の Broadcast が送信されるので、レシーバを登録しておくこともできる。</p>
-
-<ul>
-<li><a href="http://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()">http://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()</a></li>
-</ul>
-
-
-<h2>Multi User</h2>
-
+<h2><a href="#multi-user" name="multi-user" class="anchor"><span class="anchor-link"></span></a>Multi User</h2>
 <p>Android 4.2 よりマルチユーザに対応している。Internal Storage および、端末内部の External Storage には、ユーザID毎のディレクトリが作成され、利用ユーザごとのアプリケーションデータが作成されることになる。</p>
-
 <ul>
-<li>Internal Storage: <code>/data/user/(ユーザID)</code></li>
-<li>External Storage: <code>/storage/emulated/(ユーザID)</code></li>
+  <li>Internal Storage: <code>/data/user/(ユーザID)</code></li>
+  <li>External Storage: <code>/storage/emulated/(ユーザID)</code></li>
 </ul>
-
-
 <p>External Storage がリムーバブルの場合には、マルチユーザとはならない。</p>
-
 <p>アプリケーション側では、シングル/マルチユーザの違いは意識せず API を介してディレクトリを取得すればよい。ディレクトリ名は端末により異なるので、直接ファイルパスを指定してはならない。</p>
-
 <p>エミュレータではシングルユーザに制限されている。Android 4.2(API17) 系のエミュレータであれば、<code>adb shell</code> を介して <code>fw.max_users</code> で最大ユーザ数を指定することで、マルチユーザを利用することができる。</p>
-
 <pre><code>$ adb shell
 root@generic:/ # pm get-max-users
 Maximum supported users: 1
@@ -230,32 +175,38 @@ root@generic:/ # setprop fw.max_users 8
 root@generic:/ # pm get-max-users
 Maximum supported users: 8
 </code></pre>
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-

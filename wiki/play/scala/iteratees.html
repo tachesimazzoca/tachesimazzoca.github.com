@@ -4,24 +4,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tachesimazzoca - Wiki | Iteratees | Play Framework</title>
+<title>tachesimazzoca - Wiki | Iteratees</title>
 <link href="../../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
-<link href="../../assets/stylesheets/github.css" media="screen" rel="stylesheet" type="text/css">
 <script src="../../assets/lib/jquery-1.11.1/jquery.min.js"></script>
 <script src="../../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-<script src="../../assets/javascripts/jquery.toctree.js"></script>
-<script>
-
-(function($) {
-
-    $(function() {
-        $('#toc').toctree({ selector:'#content :header', offset:1, depth:3 });
-    });
-
-})(window.jQuery);
-
-</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,483 +20,407 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../../index.html">tachesimazzoca - Wiki</a>
-        </div>
-        <div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="../index.html">Play Framework</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
-  <input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon" style="background: transparent; border-color: #333">
-        <span class="glyphicon glyphicon-search"></span>
-      </div>
-      <input type="text" class="form-control" name="as_q" placeholder="Search">
-    </div>
-  </div>
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="http://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
 </form>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#header-->
-
-
-  <div id="main">
-    <div class="container-fluid">
-      <ul class="breadcrumb">
-        <li><a href="../index.html">Play Framework</a></li><li><a href="./index.html">Scala</a></li><li>Iteratees</li>
-      </ul>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 hidden-xs">
-          <div id="navigation">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
-              </div>
-              <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked"><li class="active"><a href="./iteratees.html">Iteratees</a></li><li><a href="./http.html">HTTP</a></li><li><a href="./actions.html">Actions</a></li><li><a href="./filters.html">Filters</a></li><li><a href="./forms.html">Forms</a></li><li><a href="./ws.html">WS</a></li><li><a href="./anorm.html">Anorm</a></li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          
-          <div class="btn-group pull-right">
-            <a class="btn btn-default" href="https://raw.github.com/tachesimazzoca/wiki/master/src/play/scala/iteratees.md">Raw</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/blame/master/src/play/scala/iteratees.md">Blame</a>
-            <a class="btn btn-default" href="https://github.com/tachesimazzoca/wiki/commits/master/src/play/scala/iteratees.md">History</a>
-          </div>
-          <div id="content">
-          <h1>Iteratees</h1>
-          <div id="toc">
-          </div>
-          <h2>Overview</h2>
-
-<ul>
-<li>https://www.playframework.com/documentation/2.3.x/Iteratees</li>
-</ul>
-
-
-<p><code>play.api.libs.iteratee.Iteratee[E, +A]</code> は入力から出力を組み立てる <em>Consumer</em> となる。単に入力 <code>E</code> に対して、どのように出力 <code>A</code> を組み立てるかのみを定義する。</p>
-
-<p>ヘルパーメゾッド <code>Iteratee.fold[E, A]</code> により、アキュームレータ <code>A</code> と入力 <code>E</code> から、出力 <code>A</code> を返す関数を指定するだけで <code>Iteratee[E, A]</code> を実装できる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">fold</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">](</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="n">acc</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">toInt</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p><code>play.api.libs.iteratee.Enumerator[E]</code> は <code>Iteratee</code> に入力を与える <em>Producer</em> となる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">,</span> <span class="s">&quot;3&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span>
-<span class="n">result</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(6) ... 1 + 2 + 3</span></code></pre></div>
-
-
-<h2>Iteratee</h2>
-
-<p><em>Iteratee</em> は、一つのインスタンスで連続する入力を処理する（ループ等を繰り返す）のではない。ステップ毎に新たな <em>Iteratee</em> を生成して引き継いでいく。</p>
-
-<h3>Input</h3>
-
-<p><code>play.api.libs.iteratee.Input</code> は <em>Iteratee</em> に送る入力を表す。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">Input</span><span class="o">[</span><span class="kt">+E</span><span class="o">]</span>
-
-<span class="nc">object</span> <span class="nc">Input</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="k">class</span> <span class="nc">El</span><span class="o">[</span><span class="kt">+E</span><span class="o">](</span><span class="n">e</span><span class="k">:</span> <span class="kt">E</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Input</span><span class="o">[</span><span class="kt">E</span><span class="o">]</span>
-  <span class="k">case</span> <span class="k">object</span> <span class="nc">Empty</span> <span class="k">extends</span> <span class="nc">Input</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span>
-  <span class="k">case</span> <span class="k">object</span> <span class="nc">EOF</span> <span class="k">extends</span> <span class="nc">Input</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span>
-<span class="o">}</span></code></pre></div>
-
-
-<ul>
-<li><code>Input.El(e)</code> は入力があることを示す: <em>Iteratee</em> は入力を出力に変換し、次の <em>Iteratee</em> に引き継ぐ。</li>
-<li><code>Input.Empty</code> は入力がないことを示す: <em>Iteratee</em> は何もせずに、次の <em>Iteratee</em> に引き継ぐ。</li>
-<li><code>Input.EOF</code> は入力の終端を示す: <em>Iteratee</em> は処理結果を返す。</li>
-</ul>
-
-
-<h3>DoneIteratee</h3>
-
-<p><code>play.api.libs.iteratee.Done[E, A]</code> により、どのような入力があっても固定の結果を返す <em>Iteratee</em> を生成できる。<code>Input.EOF</code> が送られた時に、最終の出力結果を返すために用いる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">doneIt</span> <span class="k">=</span> <span class="nc">Done</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">](</span><span class="mi">123</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">)</span>
-<span class="c1">// It will print Success(123) regardless of the type of input.</span>
-<span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">doneIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">)).</span><span class="n">run</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">doneIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">)).</span><span class="n">run</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">doneIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;345&quot;</span><span class="o">))).</span><span class="n">run</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span></code></pre></div>
-
-
-<h3>ContIteratee</h3>
-
-<p><code>play.api.libs.iteratee.Cont[E, A])</code> により、継続する <em>Iteratee</em> を生成できる。入力に応じた次の <em>Iteratee</em> を返す関数 <code>Input[E] =&gt; Iteratee[E, A]</code> を <code>apply</code> メゾッドに渡せばよい。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">step</span><span class="o">(</span><span class="n">acc</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="n">in</span><span class="k">:</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">in</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="c1">// Add the number converted from a string to the state</span>
-  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="n">e</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Cont</span><span class="o">(</span><span class="n">step</span><span class="o">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">toInt</span><span class="o">))</span>
-  <span class="c1">// Keep the state</span>
-  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span> <span class="k">=&gt;</span> <span class="nc">Cont</span><span class="o">(</span><span class="n">step</span><span class="o">(</span><span class="n">acc</span><span class="o">))</span>
-  <span class="c1">// Done iteration</span>
-  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span> <span class="k">=&gt;</span> <span class="nc">Done</span><span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">)</span>
-<span class="o">}</span>
-
-<span class="k">val</span> <span class="n">contIt</span> <span class="k">=</span> <span class="nc">Cont</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">](</span><span class="n">step</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span>
-<span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">contIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">)).</span><span class="n">run</span>
-  <span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">a</span> <span class="k">=&gt;</span> <span class="n">assert</span><span class="o">(</span><span class="nc">Success</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">===</span> <span class="n">a</span><span class="o">))</span>
-<span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">contIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;123&quot;</span><span class="o">))).</span><span class="n">run</span>
-  <span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">a</span> <span class="k">=&gt;</span> <span class="n">assert</span><span class="o">(</span><span class="nc">Success</span><span class="o">(</span><span class="mi">123</span><span class="o">)</span> <span class="o">===</span> <span class="n">a</span><span class="o">))</span>
-
-<span class="o">(</span><span class="k">for</span> <span class="o">{</span>
-  <span class="n">it1</span> <span class="k">&lt;-</span> <span class="n">contIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;12&quot;</span><span class="o">))</span>
-  <span class="n">it2</span> <span class="k">&lt;-</span> <span class="n">it1</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;34&quot;</span><span class="o">))</span>
-  <span class="n">it3</span> <span class="k">&lt;-</span> <span class="n">it2</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">)</span>
-  <span class="n">it4</span> <span class="k">&lt;-</span> <span class="n">it3</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;56&quot;</span><span class="o">))</span>
-  <span class="n">a</span> <span class="k">&lt;-</span> <span class="n">it4</span><span class="o">.</span><span class="n">run</span>
-<span class="o">}</span> <span class="k">yield</span> <span class="n">a</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(102) ... 12 + 34 + 56</span></code></pre></div>
-
-
-<h3>ErrorIteratee</h3>
-
-<p><code>play.api.libs.iteratee.Error[E]</code> により、エラーを返す <em>Iteratee</em> を生成できる。<code>Done</code> と同様に、この <em>Iteratee</em> に引き継がれた場合は、以降の入力は無視される。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">step</span><span class="o">(</span><span class="n">acc</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="n">in</span><span class="k">:</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">in</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="n">e</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="k">if</span> <span class="o">(!</span><span class="n">e</span><span class="o">.</span><span class="n">isEmpty</span><span class="o">)</span> <span class="nc">Cont</span><span class="o">(</span><span class="n">step</span><span class="o">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">toInt</span><span class="o">))</span>
-    <span class="k">else</span> <span class="nc">Error</span><span class="o">(</span><span class="s">&quot;empty string&quot;</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">)</span>
-  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span> <span class="k">=&gt;</span> <span class="nc">Cont</span><span class="o">(</span><span class="n">step</span><span class="o">(</span><span class="n">acc</span><span class="o">))</span>
-  <span class="k">case</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span> <span class="k">=&gt;</span> <span class="nc">Done</span><span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">)</span>
-<span class="o">}</span>
-
-<span class="o">(</span><span class="k">for</span> <span class="o">{</span>
-  <span class="n">it1</span> <span class="k">&lt;-</span> <span class="n">errorIt</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;12&quot;</span><span class="o">))</span>
-  <span class="n">it2</span> <span class="k">&lt;-</span> <span class="n">it1</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">))</span>
-  <span class="c1">// The following feed will be ignored because it just</span>
-  <span class="c1">// returns Error(msg, e) regardless of the type of input.</span>
-  <span class="n">it3</span> <span class="k">&lt;-</span> <span class="n">it2</span><span class="o">.</span><span class="n">feed</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">El</span><span class="o">(</span><span class="s">&quot;56&quot;</span><span class="o">))</span>
-  <span class="n">a</span> <span class="k">&lt;-</span> <span class="n">it3</span><span class="o">.</span><span class="n">run</span>
-<span class="o">}</span> <span class="k">yield</span> <span class="n">a</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Failure(java.lang.RuntimeException: empty string)</span></code></pre></div>
-
-
-<h3>Step</h3>
-
-<p>独自の <em>Iteratee</em> を作成するには、<code>Iteratee#fold</code> メゾッドを実装する。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">fold</span><span class="o">[</span><span class="kt">B</span><span class="o">](</span><span class="n">folder</span><span class="k">:</span> <span class="kt">Step</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span>
-           <span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span> <span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span></code></pre></div>
-
-
-<p><code>fold</code> メゾッドにより、<code>folder</code> 関数を通じて、<em>Iteratee</em> は、自身がどのステップ <code>play.api.libs.iteratee.Step</code> であるかを伝えて処理結果を得る。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">Step</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">+A</span><span class="o">]</span>
-
-<span class="nc">object</span> <span class="nc">Step</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="k">class</span> <span class="nc">Done</span><span class="o">[</span><span class="kt">+A</span>, <span class="kt">E</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">remaining</span><span class="k">:</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">E</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">Step</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span>
-  <span class="k">case</span> <span class="k">class</span> <span class="nc">Cont</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">+A</span><span class="o">](</span><span class="n">k</span><span class="k">:</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">E</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Iteratee</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">E</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">Step</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span>
-  <span class="k">case</span> <span class="k">class</span> <span class="nc">Error</span><span class="o">[</span><span class="kt">E</span><span class="o">](</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">input</span><span class="k">:</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">E</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">Step</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">Nothing</span><span class="o">]</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p><code>folder</code> 関数はどのようなものかは、<code>Iteratee#run</code> の実装を参考にするとよい。<em>ContIteratee</em> であれば、<code>Input.EOF</code> を送って処理結果を得ている。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">run</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="n">fold</span><span class="o">({</span>
-  <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Done</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span><span class="o">(</span><span class="n">a</span><span class="o">)</span>
-  <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Cont</span><span class="o">(</span><span class="n">k</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">k</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">).</span><span class="n">fold</span><span class="o">({</span>
-    <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Done</span><span class="o">(</span><span class="n">a1</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span><span class="o">(</span><span class="n">a1</span><span class="o">)</span>
-    <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Cont</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">error</span><span class="o">(</span><span class="s">&quot;diverging iteratee after Input.EOF&quot;</span><span class="o">)</span>
-    <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Error</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">e</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">error</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
-  <span class="o">})(</span><span class="n">dec</span><span class="o">)</span>
-  <span class="k">case</span> <span class="nc">Step</span><span class="o">.</span><span class="nc">Error</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">e</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">error</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
-<span class="o">})(</span><span class="n">dec</span><span class="o">)</span></code></pre></div>
-
-
-<p><em>Done / Cont / Error</em> の各 <em>Iteratee</em> の <code>fold</code> の実装は、以下と同等である。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">k</span><span class="o">(</span><span class="n">in</span><span class="k">:</span> <span class="kt">Step</span><span class="o">)</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">in</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="o">...</span>
-<span class="o">}</span>
-<span class="c1">// val contIteratee = Cont[String, Int](k)</span>
-<span class="k">val</span> <span class="n">contIteratee</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">fold</span><span class="o">[</span><span class="kt">B</span><span class="o">](</span><span class="n">folder</span><span class="k">:</span> <span class="kt">Step</span><span class="o">[</span><span class="kt">String</span>,<span class="kt">Int</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span>
-             <span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span> <span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span> <span class="k">=</span>
-    <span class="n">folder</span><span class="o">(</span><span class="nc">Step</span><span class="o">.</span><span class="nc">Cont</span><span class="o">(</span><span class="n">k</span><span class="o">))</span>
-<span class="o">}</span>
-
-<span class="c1">// val doneIteratee = Done[String, Int](1, Input.Empty)</span>
-<span class="k">val</span> <span class="n">doneIteratee</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">fold</span><span class="o">[</span><span class="kt">B</span><span class="o">](</span><span class="n">folder</span><span class="k">:</span> <span class="kt">Step</span><span class="o">[</span><span class="kt">String</span>,<span class="kt">Int</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span>
-             <span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span> <span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span> <span class="k">=</span>
-    <span class="n">folder</span><span class="o">(</span><span class="nc">Step</span><span class="o">.</span><span class="nc">Done</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">))</span>
-<span class="o">}</span>
-
-<span class="c1">// val errorIteratee = Error[String](&quot;something wrong&quot;, Input.Empty)</span>
-<span class="k">val</span> <span class="n">errorIteratee</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">fold</span><span class="o">[</span><span class="kt">B</span><span class="o">](</span><span class="n">folder</span><span class="k">:</span> <span class="kt">Step</span><span class="o">[</span><span class="kt">String</span>,<span class="kt">Int</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span>
-             <span class="o">(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span> <span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span> <span class="k">=</span>
-    <span class="n">folder</span><span class="o">(</span><span class="nc">Step</span><span class="o">.</span><span class="nc">Error</span><span class="o">(</span><span class="s">&quot;something wrong&quot;</span><span class="o">,</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">Empty</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h3>Helper Methods</h3>
-
-<h4>consume</h4>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
-<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="s">&quot;bar&quot;</span><span class="o">,</span> <span class="s">&quot;baz&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span>
-<span class="n">result</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// foobarbaz</span></code></pre></div>
-
-
-<h4>foreach</h4>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">foreach</span><span class="o">[</span><span class="kt">String</span><span class="o">](</span><span class="n">prinln</span><span class="o">)</span>
-<span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="s">&quot;bar&quot;</span><span class="o">,</span> <span class="s">&quot;baz&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span>
-<span class="c1">// foo</span>
-<span class="c1">// bar</span>
-<span class="c1">// baz</span></code></pre></div>
-
-
-<h4>flatten</h4>
-
-<p>継続する <em>Iteratee</em> は、遅延評価で非同期に得るため <code>Future[Iteratee[E, A]]</code> となる。<code>Iteratee#run</code> で <code>Input.EOF</code> を送るには、<code>flatMap</code> や <em>for-comprehension</em> を介して行なう必要がある。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
-<span class="k">val</span> <span class="n">newIt</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="s">&quot;bar&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;</span> <span class="n">it</span>
-<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">newIt</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">run</span><span class="o">)</span></code></pre></div>
-
-
-<p><code>Iteratee.flatten</code> は <code>Iteratee#fold</code> 内部で <code>flatMap</code> を行う <code>Iteratee</code> を生成する。あたかも初回の <em>Iteratee</em> のように振る舞う。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">futureIt</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">newIt</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">futureIt</span><span class="o">.</span><span class="n">run</span></code></pre></div>
-
-
-<h2>Enumerator</h2>
-
-<p><em>Enumerator</em> は、<em>Iteratee</em> に送る入力ストリームを生成する。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">enumerator1</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="s">&quot;bar&quot;</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">enumerator2</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">,</span> <span class="s">&quot;qux&quot;</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">enumerator</span> <span class="k">=</span> <span class="n">enumerator1</span><span class="o">.</span><span class="n">andThen</span><span class="o">(</span><span class="n">enumerator2</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
-<span class="k">val</span> <span class="n">newIt</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="n">enumerator</span><span class="o">(</span><span class="n">it</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">newIt</span><span class="o">).</span><span class="n">run</span>
-<span class="n">result</span><span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// foobarbazqux</span></code></pre></div>
-
-
-<h3>>>> (andThen)</h3>
-
-<p><code>Enumerator#andThen</code> で <em>Enumerator</em> を連結することができる。エイリアスとして <code>Enumerator#&gt;&gt;&gt;</code> が提供されている。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">enumerator1</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="s">&quot;bar&quot;</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">enumerator2</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">,</span> <span class="s">&quot;qux&quot;</span><span class="o">)</span>
-<span class="c1">//val enumerator = enumerator1.andThen(enumerator2)</span>
-<span class="k">val</span> <span class="n">enumerator</span> <span class="k">=</span> <span class="n">enumerator1</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">enumerator2</span></code></pre></div>
-
-
-<h3>|>> (apply)</h3>
-
-<p><code>Enumerator#apply</code> に <em>Iteratee</em> を渡す事で、<code>Future[Iteratee[E, A]]</code> が得られる。<code>Iteratee#feed</code> は内部的には同等のことを行なっている。エイリアスとして <code>Enumerator#|&gt;&gt;</code> が提供されている。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
-<span class="k">val</span> <span class="n">enumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;Foo&quot;</span><span class="o">,</span> <span class="s">&quot;Bar&quot;</span><span class="o">,</span> <span class="s">&quot;Baz&quot;</span><span class="o">)</span>
-<span class="c1">//val newIt: Future[Iteratee[String, String]] = enumerator(it)</span>
-<span class="k">val</span> <span class="n">newIt</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="n">enumerator</span> <span class="o">|&gt;&gt;</span> <span class="n">it</span></code></pre></div>
-
-
-<h3>|>>> (run)</h3>
-
-<p><code>Enumerator#|&gt;&gt;&gt;</code> により、入力ストリームの送信後に <code>Input.EOF</code> を送信して処理結果を得ることができる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
-<span class="k">val</span> <span class="n">enumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;Foo&quot;</span><span class="o">,</span> <span class="s">&quot;Bar&quot;</span><span class="o">,</span> <span class="s">&quot;Baz&quot;</span><span class="o">)</span>
-<span class="c1">//val result: Future[String] = enumerator(it).flatMap(_.run)</span>
-<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">enumerator</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">it</span></code></pre></div>
-
-
-<p><code>Future[Iteratee[E, A]]</code> のまま <code>flatMap</code> で <code>Iteratee#run</code> を送って <code>Future[B]</code> を得るので、<code>Iteratee</code> に置き換える <code>Iteratee.flatten</code> とは異なる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">newIt</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="n">enumerator</span> <span class="o">|&gt;&gt;</span> <span class="n">it</span>
-<span class="k">val</span> <span class="n">futureIt</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="n">newIt</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">futureIt</span><span class="o">.</span><span class="n">run</span></code></pre></div>
-
-
-<h3>Helper Methods</h3>
-
-<h4>repeatM / generateM</h4>
-
-<p><em>Enumerator</em> は、無限の入力ストリームを扱うことができる。<code>Enumerator.repeatM</code> に <code>Future[E]</code> を返す関数を渡すことで、無限に反復実行される。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">play.api.libs.concurrent.Promise</span>
-<span class="o">...</span>
-<span class="k">val</span> <span class="n">dateEnumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">Date</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">.</span><span class="n">repeatM</span> <span class="o">{</span>
-  <span class="nc">Promise</span><span class="o">.</span><span class="n">timeout</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">(),</span> <span class="mf">1.</span><span class="n">seconds</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<p><code>Enumerator.generateM</code> では、<code>Future[Option[E]]</code> を返す関数を渡すことで、<code>None</code> の場合に反復実行を停止する。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">endOfTime</span> <span class="k">=</span> <span class="nc">System</span><span class="o">.</span><span class="n">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="mi">3000L</span>
-<span class="k">val</span> <span class="n">dateEnumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">Date</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">.</span><span class="n">generateM</span> <span class="o">{</span>
-  <span class="nc">Promise</span><span class="o">.</span><span class="n">timeout</span><span class="o">({</span>
-    <span class="k">if</span> <span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="n">currentTimeMillis</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">endOfTime</span><span class="o">)</span> <span class="nc">Some</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">())</span>
-    <span class="k">else</span> <span class="nc">None</span>
-  <span class="o">},</span> <span class="mf">1.</span><span class="n">seconds</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h4>fromStream / fromFile</h4>
-
-<p><code>Enumerator.fromStream</code> では <code>java.io.InputStream</code> を入力ソースとすることができる。内部的には <code>Enumerator.generateM</code> を用いており、読み込み中に <code>Some[Array[Byte]]</code> を返し、読み込み完了後に <code>None</code> を返している。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">streamEnumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="nc">Enumerator</span><span class="o">.</span><span class="n">fromStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">&quot;/path/to/file&quot;</span><span class="o">)))</span>
-<span class="o">}</span>
-<span class="c1">// or use Enumerator.fromFile</span>
-<span class="k">val</span> <span class="n">fileEnumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="nc">Enumerator</span><span class="o">.</span><span class="n">fromFile</span><span class="o">(</span><span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">&quot;/path/to/file&quot;</span><span class="o">))</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h2>Enumeratee</h2>
-
-<p><code>plap.api.libs.iteratee.Enumeratee[From, To]</code> により、ストリームデータを変換をすることができる。</p>
-
-<p>ヘルパーメゾッド <code>Enumeratee.map</code> に変換関数を渡せば、<em>Enumeratee</em> を生成できる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">byteToHexStr</span><span class="k">:</span> <span class="kt">Enumeratee</span><span class="o">[</span><span class="kt">Byte</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Enumeratee</span><span class="o">.</span><span class="n">map</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]</span> <span class="o">{</span> <span class="n">b</span> <span class="k">=&gt;</span>
-  <span class="s">&quot;%02X&quot;</span><span class="o">.</span><span class="n">format</span><span class="o">(</span><span class="n">b</span><span class="o">)</span>
-<span class="o">}</span></code></pre></div>
-
-
-<h3>&amp;>> (transform)</h3>
-
-<p><code>Enumeratee#transform</code> により、前段に変換を加えた <em>Iteratee</em> を生成できる。エイリアスとして <code>Enumeratee#&amp;&gt;&gt;</code> が提供されている。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">consume</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">consume</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
-<span class="c1">//val it = byteToHexStr.transform(consume)</span>
-<span class="k">val</span> <span class="n">it</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">Byte</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">byteToHexStr</span> <span class="o">&amp;&gt;&gt;</span> <span class="n">consume</span></code></pre></div>
-
-
-<h3>&amp;> (through)</h3>
-
-<p><em>Enumeratee</em> は <em>Enumerator</em> に対しても適用できる。<code>Enumerater#through</code> により、後段に変換を加えた <em>Enumerator</em> を生成できる。エイリアスとして <code>Enumerator#&amp;&gt;</code> が提供されている。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Make sure that either &quot;&amp;&gt;&quot; or &quot;through&quot; is defined</span>
-<span class="c1">// on Enumerator, not on Enumeratee.</span>
-
-<span class="k">val</span> <span class="n">enumerator</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;Hello&quot;</span><span class="o">.</span><span class="n">getBytes</span><span class="o">())</span>
-<span class="c1">//val hexStrEnumerator = enumerator.through(byteHexStr)</span>
-<span class="k">val</span> <span class="n">hexStrEnumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]</span> <span class="k">=</span> <span class="n">enumerator</span> <span class="o">&amp;&gt;</span> <span class="n">byteToHexStr</span></code></pre></div>
-
-
-<h3>apply</h3>
-
-<p>元の <em>Iteratee</em> がすでに <code>EOF</code> を受けて完了していた場合、<code>Enumeratee#transform</code> で <em>Iteratee</em> を変換したところで、その後の入力は破棄されてしまう。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">sum</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">fold</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">](</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="n">acc</span> <span class="o">+</span> <span class="n">x</span>
-<span class="o">}</span>
-<span class="k">val</span> <span class="n">strToInt</span> <span class="k">=</span> <span class="nc">Enumeratee</span><span class="o">.</span><span class="n">map</span><span class="o">[</span><span class="kt">String</span><span class="o">](</span><span class="k">_</span><span class="o">.</span><span class="n">toInt</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="n">doneIt</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span><span class="nc">Enumerator</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">&gt;&gt;&gt;</span> <span class="nc">Enumerator</span><span class="o">.</span><span class="n">eof</span> <span class="o">|&gt;&gt;</span> <span class="n">sum</span><span class="o">)</span>
-<span class="c1">// The iteratee doneIt has been done,</span>
-<span class="nc">Iteratee</span><span class="o">.</span><span class="n">isDoneOrError</span><span class="o">(</span><span class="n">doneIt</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(true)</span>
-<span class="k">val</span> <span class="n">transformedIt</span> <span class="k">=</span> <span class="n">strToInt</span> <span class="o">&amp;&gt;&gt;</span> <span class="n">doneIt</span>
-<span class="c1">// so any inputs after that will be ignored.</span>
-<span class="o">(</span><span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;3&quot;</span><span class="o">,</span> <span class="s">&quot;4&quot;</span><span class="o">,</span> <span class="s">&quot;5&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">transformedIt</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(3)</span></code></pre></div>
-
-
-<p><code>Enumeratee#apply</code> は、変換前の <em>Iteratee</em> を出力とする <em>Iteratee</em> を生成する。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// The method apply returns Iteratee[String, Iteratee[Int, Int]],</span>
-<span class="k">val</span> <span class="n">adaptedIt</span><span class="k">:</span> <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Iteratee</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="n">strToInt</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
-<span class="c1">// so we can get the original iteratee after the adaptedIt is done.</span>
-<span class="k">val</span> <span class="n">originalIt</span><span class="k">:</span> <span class="kt">Interatee</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">flatten</span><span class="o">(</span>
-    <span class="nc">Enumerator</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">,</span> <span class="s">&quot;2&quot;</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">adaptedIt</span><span class="o">)</span>
-<span class="c1">// The original iteratee has not been done yet because it&#39;s just</span>
-<span class="c1">// an output of the adaptedIt.</span>
-<span class="nc">Iteratee</span><span class="o">.</span><span class="n">isDoneOrError</span><span class="o">(</span><span class="n">originalIt</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(false)</span>
-<span class="o">(</span><span class="nc">Enumerator</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">originalIt</span><span class="o">).</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(15)</span></code></pre></div>
-
-
-<p>変換した <em>Iteratee</em> を <code>EOF</code> で完了させた後でも、出力は変換元の <em>Iteratee</em> であるので、入力を継続できる。すなわち <em>Enumeratee</em> を切り替えながら、異なる <em>Enumerator</em> からの入力を <em>Iteratee</em> にまとめることができる。</p>
-
-<h3>Traversable</h3>
-
-<p><code>Enumeratee.(take|drop|takeWhile|dropWhile|...)</code> 等のヘルパーメゾッドは、他のコレクション API のように、要素を切り出す <em>Enumeratee</em> を生成できる。</p>
-
-<p>ただし切り出し位置は <em>Enumerator</em> から送信されるチャンク単位になる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">it</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">fold</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]</span>, <span class="kt">String</span><span class="o">](</span><span class="s">&quot;&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="n">acc</span> <span class="o">++</span> <span class="n">x</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">toChar</span><span class="o">).</span><span class="n">mkString</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)</span>
-<span class="o">}</span>
-
-<span class="k">val</span> <span class="n">enumerator</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">(</span>
-  <span class="s">&quot;123&quot;</span><span class="o">.</span><span class="n">getBytes</span><span class="o">(),</span>
-  <span class="s">&quot;456&quot;</span><span class="o">.</span><span class="n">getBytes</span><span class="o">(),</span>
-  <span class="s">&quot;789&quot;</span><span class="o">.</span><span class="n">getBytes</span><span class="o">()</span>
-<span class="o">)</span>
-
-<span class="k">def</span> <span class="n">limitChunks</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="nc">Enumeratee</span><span class="o">.</span><span class="n">take</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]](</span><span class="n">n</span><span class="o">)</span>
-<span class="o">}</span>
-<span class="o">(</span><span class="n">enumerator</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">limitChunks</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span> <span class="o">&amp;&gt;&gt;</span> <span class="n">it</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(&quot;123456&quot;)</span></code></pre></div>
-
-
-<p>入力が <code>scala.collection.TraversableLike</code> を含んでいれば、<code>play.api.iteratee.Traversable</code> を使うことで、<code>TraversableLike</code> の実装に応じて切り出し位置を決定する。つまり <code>Array[Byte]</code> なら、配列インデックスでカウントされる。</p>
-
-<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">limitBytes</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="nc">Traversable</span><span class="o">.</span><span class="n">take</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Byte</span><span class="o">]](</span><span class="n">n</span><span class="o">)</span>
-<span class="o">}</span>
-<span class="o">(</span><span class="n">enumerator</span> <span class="o">|&gt;&gt;&gt;</span> <span class="n">limitBytes</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span> <span class="o">&amp;&gt;&gt;</span> <span class="n">it</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">onComplete</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// Success(&quot;12345&quot;)</span></code></pre></div>
-
-
-
-
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/#main-->
-  <div id="footer">
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
+
+<div id="main">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal pull-right">
-        <dt><span class="muted">Repository</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
-        <dt><span class="muted">Author</span></dt>
-        <dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
-      </dl>
-    </div>
-  </div>
+<div class="pankuzu">
+<ul>
+  <li><a href="../../index.html">Home</a></li>
+  <li><a href="../../play/index.html">Play Framework</a></li>
+  <li><a href="../../play/scala/index.html">Scala</a></li>
+  <li>Iteratees</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../../play/scala/iteratees.html#iteratees" class="header">Iteratees</a>
+  <ul>
+    <li><a href="../../play/scala/iteratees.html#overview" class="header">Overview</a></li>
+    <li><a href="../../play/scala/iteratees.html#iteratee" class="header">Iteratee</a></li>
+    <li><a href="../../play/scala/iteratees.html#enumerator" class="header">Enumerator</a></li>
+    <li><a href="../../play/scala/iteratees.html#enumeratee" class="header">Enumeratee</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/play/scala/iteratees.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#iteratees" name="iteratees" class="anchor"><span class="anchor-link"></span></a>Iteratees</h1>
+<h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
+<ul>
+  <li><a href="https://www.playframework.com/documentation/2.3.x/Iteratees">https://www.playframework.com/documentation/2.3.x/Iteratees</a></li>
+</ul>
+<p><code>play.api.libs.iteratee.Iteratee[E, +A]</code> は入力から出力を組み立てる <em>Consumer</em> となる。単に入力 <code>E</code> に対して、どのように出力 <code>A</code> を組み立てるかのみを定義する。</p>
+<p>ヘルパーメゾッド <code>Iteratee.fold[E, A]</code> により、アキュームレータ <code>A</code> と入力 <code>E</code> から、出力 <code>A</code> を返す関数を指定するだけで <code>Iteratee[E, A]</code> を実装できる。</p>
+<pre class="prettyprint"><code class="language-scala">val it: Iteratee[String, Int] = Iteratee.fold[String, Int](0) { (acc, x) =&gt;
+  acc + x.toInt
+}
+</code></pre>
+<p><code>play.api.libs.iteratee.Enumerator[E]</code> は <code>Iteratee</code> に入力を与える <em>Producer</em> となる。</p>
+<pre class="prettyprint"><code class="language-scala">val result: Future[Int] = Enumerator(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;) |&gt;&gt;&gt; it
+result.onComplete(println) // Success(6) ... 1 + 2 + 3
+</code></pre>
+<h2><a href="#iteratee" name="iteratee" class="anchor"><span class="anchor-link"></span></a>Iteratee</h2>
+<p><em>Iteratee</em> は、一つのインスタンスで連続する入力を処理する（ループ等を繰り返す）のではない。ステップ毎に新たな <em>Iteratee</em> を生成して引き継いでいく。</p>
+<h3><a href="#input" name="input" class="anchor"><span class="anchor-link"></span></a>Input</h3>
+<p><code>play.api.libs.iteratee.Input</code> は <em>Iteratee</em> に送る入力を表す。</p>
+<pre class="prettyprint"><code class="language-scala">trait Input[+E]
+
+object Input {
+  case class El[+E](e: E) extends Input[E]
+  case object Empty extends Input[Nothing]
+  case object EOF extends Input[Nothing]
+}
+</code></pre>
+<ul>
+  <li><code>Input.El(e)</code> は入力があることを示す: <em>Iteratee</em> は入力を出力に変換し、次の <em>Iteratee</em> に引き継ぐ。</li>
+  <li><code>Input.Empty</code> は入力がないことを示す: <em>Iteratee</em> は何もせずに、次の <em>Iteratee</em> に引き継ぐ。</li>
+  <li><code>Input.EOF</code> は入力の終端を示す: <em>Iteratee</em> は処理結果を返す。</li>
+</ul>
+<h3><a href="#doneiteratee" name="doneiteratee" class="anchor"><span class="anchor-link"></span></a>DoneIteratee</h3>
+<p><code>play.api.libs.iteratee.Done[E, A]</code> により、どのような入力があっても固定の結果を返す <em>Iteratee</em> を生成できる。<code>Input.EOF</code> が送られた時に、最終の出力結果を返すために用いる。</p>
+<pre class="prettyprint"><code class="language-scala">val doneIt = Done[String, Int](123, Input.Empty)
+// It will print Success(123) regardless of the type of input.
+Iteratee.flatten(doneIt.feed(Input.EOF)).run.onComplete(println)
+Iteratee.flatten(doneIt.feed(Input.Empty)).run.onComplete(println)
+Iteratee.flatten(doneIt.feed(Input.El(&quot;345&quot;))).run.onComplete(println)
+</code></pre>
+<h3><a href="#contiteratee" name="contiteratee" class="anchor"><span class="anchor-link"></span></a>ContIteratee</h3>
+<p><code>play.api.libs.iteratee.Cont[E, A])</code> により、継続する <em>Iteratee</em> を生成できる。入力に応じた次の <em>Iteratee</em> を返す関数 <code>Input[E] =&gt; Iteratee[E, A]</code> を <code>apply</code> メゾッドに渡せばよい。</p>
+<pre class="prettyprint"><code class="language-scala">def step(acc: Int)(in: Input[String]): Iteratee[String, Int] = in match {
+  // Add the number converted from a string to the state
+  case Input.El(e: String) =&gt; Cont(step(acc + e.toInt))
+  // Keep the state
+  case Input.Empty =&gt; Cont(step(acc))
+  // Done iteration
+  case Input.EOF =&gt; Done(acc, Input.EOF)
+}
+
+val contIt = Cont[String, Int](step(0))
+Iteratee.flatten(contIt.feed(Input.EOF)).run
+  .onComplete(a =&gt; assert(Success(0) === a))
+Iteratee.flatten(contIt.feed(Input.El(&quot;123&quot;))).run
+  .onComplete(a =&gt; assert(Success(123) === a))
+
+(for {
+  it1 &lt;- contIt.feed(Input.El(&quot;12&quot;))
+  it2 &lt;- it1.feed(Input.El(&quot;34&quot;))
+  it3 &lt;- it2.feed(Input.Empty)
+  it4 &lt;- it3.feed(Input.El(&quot;56&quot;))
+  a &lt;- it4.run
+} yield a).onComplete(println) // Success(102) ... 12 + 34 + 56
+</code></pre>
+<h3><a href="#erroriteratee" name="erroriteratee" class="anchor"><span class="anchor-link"></span></a>ErrorIteratee</h3>
+<p><code>play.api.libs.iteratee.Error[E]</code> により、エラーを返す <em>Iteratee</em> を生成できる。<code>Done</code> と同様に、この <em>Iteratee</em> に引き継がれた場合は、以降の入力は無視される。</p>
+<pre class="prettyprint"><code class="language-scala">def step(acc: Int)(in: Input[String]): Iteratee[String, Int] = in match {
+  case Input.El(e: String) =&gt;
+    if (!e.isEmpty) Cont(step(acc + e.toInt))
+    else Error(&quot;empty string&quot;, Input.Empty)
+  case Input.Empty =&gt; Cont(step(acc))
+  case Input.EOF =&gt; Done(acc, Input.EOF)
+}
+
+(for {
+  it1 &lt;- errorIt.feed(Input.El(&quot;12&quot;))
+  it2 &lt;- it1.feed(Input.El(&quot;&quot;))
+  // The following feed will be ignored because it just
+  // returns Error(msg, e) regardless of the type of input.
+  it3 &lt;- it2.feed(Input.El(&quot;56&quot;))
+  a &lt;- it3.run
+} yield a).onComplete(println) // Failure(java.lang.RuntimeException: empty string)
+</code></pre>
+<h3><a href="#step" name="step" class="anchor"><span class="anchor-link"></span></a>Step</h3>
+<p>独自の <em>Iteratee</em> を作成するには、<code>Iteratee#fold</code> メゾッドを実装する。</p>
+<pre class="prettyprint"><code class="language-scala">def fold[B](folder: Step[E, A] =&gt; Future[B])
+           (implicit ec: ExecutionContext) : Future[B]
+</code></pre>
+<p><code>fold</code> メゾッドにより、<code>folder</code> 関数を通じて <em>Iteratee</em> は自身がどのステップ <code>play.api.libs.iteratee.Step</code> であるかを伝えて処理結果を得る。</p>
+<pre class="prettyprint"><code class="language-scala">trait Step[E, +A]
+
+object Step {
+  case class Done[+A, E](a: A, remaining: Input[E]) extends Step[E, A]
+  case class Cont[E, +A](k: Input[E] =&gt; Iteratee[A, E]) extends Step[E, A]
+  case class Error[E](msg: String, input: Input[E]) extends Step[E, Nothing]
+}
+</code></pre>
+<p><code>folder</code> 関数はどのようなものかは、<code>Iteratee#run</code> の実装を参考にするとよい。 <em>ContIteratee</em> であれば、<code>Input.EOF</code> を送って処理結果を得ている。</p>
+<pre class="prettyprint"><code class="language-scala">def run: Future[A] = fold({
+  case Step.Done(a, _) =&gt; Future.successful(a)
+  case Step.Cont(k) =&gt; k(Input.EOF).fold({
+    case Step.Done(a1, _) =&gt; Future.successful(a1)
+    case Step.Cont(_) =&gt; sys.error(&quot;diverging iteratee after Input.EOF&quot;)
+    case Step.Error(msg, e) =&gt; sys.error(msg)
+  })(dec)
+  case Step.Error(msg, e) =&gt; sys.error(msg)
+})(dec)
+</code></pre>
+<p><em>Done / Cont / Error</em> の各 <em>Iteratee</em> の <code>fold</code> の実装は、以下と同等である。</p>
+<pre class="prettyprint"><code class="language-scala">val k(in: Step): Iteratee[String, Int] = in match {
+  ...
+}
+// val contIteratee = Cont[String, Int](k)
+val contIteratee = new Iteratee[String, Int] {
+  def fold[B](folder: Step[String,Int] =&gt; Future[B])
+             (implicit ec: ExecutionContext) : Future[B] =
+    folder(Step.Cont(k))
+}
+
+// val doneIteratee = Done[String, Int](1, Input.Empty)
+val doneIteratee = new Iteratee[String, Int] {
+  def fold[B](folder: Step[String,Int] =&gt; Future[B])
+             (implicit ec: ExecutionContext) : Future[B] =
+    folder(Step.Done(1, Input.Empty))
+}
+
+// val errorIteratee = Error[String](&quot;something wrong&quot;, Input.Empty)
+val errorIteratee = new Iteratee[String, Int] {
+  def fold[B](folder: Step[String,Int] =&gt; Future[B])
+             (implicit ec: ExecutionContext) : Future[B] =
+    folder(Step.Error(&quot;something wrong&quot;, Input.Empty)
+}
+</code></pre>
+<h3><a href="#helper-methods" name="helper-methods" class="anchor"><span class="anchor-link"></span></a>Helper Methods</h3>
+<h4><a href="#consume" name="consume" class="anchor"><span class="anchor-link"></span></a>consume</h4>
+<pre class="prettyprint"><code class="language-scala">val it: Iteratee[String, String] = Iteratee.consume[String]()
+val result: Future[String] = Enumerator(&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;) |&gt;&gt;&gt; it
+result.onComplete(println) // foobarbaz
+</code></pre>
+<h4><a href="#foreach" name="foreach" class="anchor"><span class="anchor-link"></span></a>foreach</h4>
+<pre class="prettyprint"><code class="language-scala">val it: Iteratee[String, Unit] = Iteratee.foreach[String](prinln)
+Enumerator(&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;) |&gt;&gt;&gt; it
+// foo
+// bar
+// baz
+</code></pre>
+<h4><a href="#flatten" name="flatten" class="anchor"><span class="anchor-link"></span></a>flatten</h4>
+<p>継続する <em>Iteratee</em> は、遅延評価で非同期に得るため <code>Future[Iteratee[E, A]]</code> となる。<code>Iteratee#run</code> で <code>Input.EOF</code> を送るには、<code>flatMap</code> や <em>for-comprehension</em> を介して行なう必要がある。</p>
+<pre class="prettyprint"><code class="language-scala">val it: Iteratee[String, String] = Iteratee.consume[String]()
+val newIt: Future[Iteratee[String, String]] = Enumerator(&quot;foo&quot;, &quot;bar&quot;) |&gt;&gt; it
+val result: Future[String] = newIt.flatMap(_.run)
+</code></pre>
+<p><code>Iteratee.flatten</code> は <code>Iteratee#fold</code> 内部で <code>flatMap</code> を行う <code>Iteratee</code> を生成する。あたかも初回の <em>Iteratee</em> のように振る舞う。</p>
+<pre class="prettyprint"><code class="language-scala">val futureIt: Iteratee[String, String] = Iteratee.flatten(newIt)
+val result: Future[String] = futureIt.run
+</code></pre>
+<h2><a href="#enumerator" name="enumerator" class="anchor"><span class="anchor-link"></span></a>Enumerator</h2>
+<p><em>Enumerator</em> は <em>Iteratee</em> に送る入力ストリームを生成する。</p>
+<pre class="prettyprint"><code class="language-scala">val enumerator1: Enumerator[String] = Enumerator(&quot;foo&quot;, &quot;bar&quot;)
+val enumerator2: Enumerator[String] = Enumerator(&quot;baz&quot;, &quot;qux&quot;)
+val enumerator = enumerator1.andThen(enumerator2)
+
+val it: Iteratee[String, String] = Iteratee.consume[String]()
+val newIt: Future[Iteratee[String, String]] = enumerator(it)
+
+val result: Future[String] = Iteratee.flatten(newIt).run
+result.onComplete(println) // foobarbazqux
+</code></pre>
+<h3><a href="#andthen-" name="andthen-" class="anchor"><span class="anchor-link"></span></a>&gt;&gt;&gt; (andThen)</h3>
+<p><code>Enumerator#andThen</code> で <em>Enumerator</em> を連結することができる。エイリアスとして <code>Enumerator#&gt;&gt;&gt;</code> が提供されている。</p>
+<pre class="prettyprint"><code class="language-scala">val enumerator1: Enumerator[String] = Enumerator(&quot;foo&quot;, &quot;bar&quot;)
+val enumerator2: Enumerator[String] = Enumerator(&quot;baz&quot;, &quot;qux&quot;)
+//val enumerator = enumerator1.andThen(enumerator2)
+val enumerator = enumerator1 &gt;&gt;&gt; enumerator2
+</code></pre>
+<h3><a href="#apply-" name="apply-" class="anchor"><span class="anchor-link"></span></a>|&gt;&gt; (apply)</h3>
+<p><code>Enumerator#apply</code> に <em>Iteratee</em> を渡す事で、<code>Future[Iteratee[E, A]]</code> が得られる。<code>Iteratee#feed</code> は内部的には同等のことを行なっている。エイリアスとして <code>Enumerator#|&gt;&gt;</code> が提供されている。</p>
+<pre class="prettyprint"><code class="language-scala">val it: Iteratee[String, String] = Iteratee.consume[String]()
+val enumerator: Enumerator[String] = Enumerator(&quot;Foo&quot;, &quot;Bar&quot;, &quot;Baz&quot;)
+//val newIt: Future[Iteratee[String, String]] = enumerator(it)
+val newIt: Future[Iteratee[String, String]] = enumerator |&gt;&gt; it
+</code></pre>
+<h3><a href="#run-" name="run-" class="anchor"><span class="anchor-link"></span></a>|&gt;&gt;&gt; (run)</h3>
+<p><code>Enumerator#|&gt;&gt;&gt;</code> により、入力ストリームの送信後に <code>Input.EOF</code> を送信して処理結果を得ることができる。</p>
+<pre class="prettyprint"><code class="language-scala">val it: Iteratee[String, String] = Iteratee.consume[String]()
+val enumerator: Enumerator[String] = Enumerator(&quot;Foo&quot;, &quot;Bar&quot;, &quot;Baz&quot;)
+//val result: Future[String] = enumerator(it).flatMap(_.run)
+val result: Future[String] = enumerator |&gt;&gt;&gt; it
+</code></pre>
+<p><code>Future[Iteratee[E, A]]</code> のまま <code>flatMap</code> で <code>Iteratee#run</code> を送って <code>Future[B]</code> を得るので、<code>Iteratee</code> に置き換える <code>Iteratee.flatten</code> とは異なる。</p>
+<pre class="prettyprint"><code class="language-scala">val newIt: Future[Iteratee[String, String]] = enumerator |&gt;&gt; it
+val futureIt: Iteratee[String, String] = Iteratee.flatten(newIt)
+val result: Future[String] = futureIt.run
+</code></pre>
+<h3><a href="#helper-methods" name="helper-methods" class="anchor"><span class="anchor-link"></span></a>Helper Methods</h3>
+<h4><a href="#repeatm-generatem" name="repeatm-generatem" class="anchor"><span class="anchor-link"></span></a>repeatM / generateM</h4>
+<p><em>Enumerator</em> は、無限の入力ストリームを扱うことができる。<code>Enumerator.repeatM</code> に <code>Future[E]</code> を返す関数を渡すことで、無限に反復実行される。</p>
+<pre class="prettyprint"><code class="language-scala">import play.api.libs.concurrent.Promise
+...
+val dateEnumerator: Enumerator[Date] = Enumerator.repeatM {
+  Promise.timeout(new Date(), 1.seconds)
+}
+</code></pre>
+<p><code>Enumerator.generateM</code> では、<code>Future[Option[E]]</code> を返す関数を渡すことで、<code>None</code> の場合に反復実行を停止する。</p>
+<pre class="prettyprint"><code class="language-scala">val endOfTime = System.currentTimeMillis() + 3000L
+val dateEnumerator: Enumerator[Date] = Enumerator.generateM {
+  Promise.timeout({
+    if (System.currentTimeMillis() &lt; endOfTime) Some(new Date())
+    else None
+  }, 1.seconds)
+}
+</code></pre>
+<h4><a href="#fromstream-fromfile" name="fromstream-fromfile" class="anchor"><span class="anchor-link"></span></a>fromStream / fromFile</h4>
+<p><code>Enumerator.fromStream</code> では <code>java.io.InputStream</code> を入力ソースとすることができる。内部的には <code>Enumerator.generateM</code> を用いており、読み込み中に <code>Some[Array[Byte]]</code> を返し、読み込み完了後に <code>None</code> を返している。</p>
+<pre class="prettyprint"><code class="language-scala">val streamEnumerator: Enumerator[Array[Byte]] = {
+  Enumerator.fromStream(new FileInputStream(new File(&quot;/path/to/file&quot;)))
+}
+// or use Enumerator.fromFile
+val fileEnumerator: Enumerator[Array[Byte]] = {
+  Enumerator.fromFile(new File(&quot;/path/to/file&quot;))
+}
+</code></pre>
+<h2><a href="#enumeratee" name="enumeratee" class="anchor"><span class="anchor-link"></span></a>Enumeratee</h2>
+<p><code>plap.api.libs.iteratee.Enumeratee[From, To]</code> により、ストリームデータを変換をすることができる。</p>
+<p>ヘルパーメゾッド <code>Enumeratee.map</code> に変換関数を渡せば <em>Enumeratee</em> を生成できる。</p>
+<pre class="prettyprint"><code class="language-scala">val byteToHexStr: Enumeratee[Byte, String] = Enumeratee.map[Byte] { b =&gt;
+  &quot;%02X&quot;.format(b)
+}
+</code></pre>
+<h3><a href="#transform-" name="transform-" class="anchor"><span class="anchor-link"></span></a>&amp;&gt;&gt; (transform)</h3>
+<p><code>Enumeratee#transform</code> により、前段に変換を加えた <em>Iteratee</em> を生成できる。エイリアスとして <code>Enumeratee#&amp;&gt;&gt;</code> が提供されている。</p>
+<pre class="prettyprint"><code class="language-scala">val consume: Iteratee[String, String] = Iteratee.consume[String]()
+//val it = byteToHexStr.transform(consume)
+val it: Iteratee[Byte, String] = byteToHexStr &amp;&gt;&gt; consume
+</code></pre>
+<h3><a href="#through-" name="through-" class="anchor"><span class="anchor-link"></span></a>&amp;&gt; (through)</h3>
+<p><em>Enumeratee</em> は <em>Enumerator</em> に対しても適用できる。<code>Enumerater#through</code> により、後段に変換を加えた <em>Enumerator</em> を生成できる。エイリアスとして <code>Enumerator#&amp;&gt;</code> が提供されている。</p>
+<pre class="prettyprint"><code class="language-scala">// Make sure that either &quot;&amp;&gt;&quot; or &quot;through&quot; is defined
+// on Enumerator, not on Enumeratee.
+
+val enumerator = Enumerator(&quot;Hello&quot;.getBytes())
+//val hexStrEnumerator = enumerator.through(byteHexStr)
+val hexStrEnumerator: Enumerator[Byte] = enumerator &amp;&gt; byteToHexStr
+</code></pre>
+<h3><a href="#apply" name="apply" class="anchor"><span class="anchor-link"></span></a>apply</h3>
+<p>元の <em>Iteratee</em> がすでに <code>EOF</code> を受けて完了していた場合、<code>Enumeratee#transform</code> で <em>Iteratee</em> を変換したところで、その後の入力は破棄されてしまう。</p>
+<pre class="prettyprint"><code class="language-scala">val sum = Iteratee.fold[Int, Int](0) { (acc, x) =&gt;
+  acc + x
+}
+val strToInt = Enumeratee.map[String](_.toInt)
+
+val doneIt = Iteratee.flatten(Enumerator(1, 2) &gt;&gt;&gt; Enumerator.eof |&gt;&gt; sum)
+// The iteratee doneIt has been done,
+Iteratee.isDoneOrError(doneIt).onComplete(println) // Success(true)
+val transformedIt = strToInt &amp;&gt;&gt; doneIt
+// so any inputs after that will be ignored.
+(Enumerator(&quot;3&quot;, &quot;4&quot;, &quot;5&quot;) |&gt;&gt;&gt; transformedIt).onComplete(println) // Success(3)
+</code></pre>
+<p><code>Enumeratee#apply</code> は、変換前の <em>Iteratee</em> を出力とする <em>Iteratee</em> を生成する。</p>
+<pre class="prettyprint"><code class="language-scala">// The method apply returns Iteratee[String, Iteratee[Int, Int]],
+val adaptedIt: Iteratee[String, Iteratee[Int, Int]] = strToInt(sum)
+// so we can get the original iteratee after the adaptedIt is done.
+val originalIt: Interatee[Int, Int] = Iteratee.flatten(
+    Enumerator(&quot;1&quot;, &quot;2&quot;) |&gt;&gt;&gt; adaptedIt)
+// The original iteratee has not been done yet because it&#39;s just
+// an output of the adaptedIt.
+Iteratee.isDoneOrError(originalIt).onComplete(println) // Success(false)
+(Enumerator(3, 4, 5) |&gt;&gt;&gt; originalIt).onComplete(println) // Success(15)
+</code></pre>
+<p>変換した <em>Iteratee</em> を <code>EOF</code> で完了させた後でも、出力は変換元の <em>Iteratee</em> であるので、入力を継続できる。すなわち <em>Enumeratee</em> を切り替えながら、異なる <em>Enumerator</em> からの入力を <em>Iteratee</em> にまとめることができる。</p>
+<h3><a href="#traversable" name="traversable" class="anchor"><span class="anchor-link"></span></a>Traversable</h3>
+<p><code>Enumeratee.(take|drop|takeWhile|dropWhile|...)</code> 等のヘルパーメゾッドは、他のコレクション API のように、要素を切り出す <em>Enumeratee</em> を生成できる。</p>
+<p>ただし切り出し位置は <em>Enumerator</em> から送信されるチャンク単位になる。</p>
+<pre class="prettyprint"><code class="language-scala">val it = Iteratee.fold[Array[Byte], String](&quot;&quot;) { (acc, x) =&gt;
+  acc ++ x.map(_.toChar).mkString(&quot;&quot;)
+}
+
+val enumerator = Enumerator(
+  &quot;123&quot;.getBytes(),
+  &quot;456&quot;.getBytes(),
+  &quot;789&quot;.getBytes()
+)
+
+def limitChunks(n: Int) = {
+  Enumeratee.take[Array[Byte]](n)
+}
+(enumerator |&gt;&gt;&gt; limitChunks(2) &amp;&gt;&gt; it)
+  .onComplete(println) // Success(&quot;123456&quot;)
+</code></pre>
+<p>入力が <code>scala.collection.TraversableLike</code> を含んでいれば、<code>play.api.iteratee.Traversable</code> を使うことで、<code>TraversableLike</code> の実装に応じて切り出し位置を決定する。つまり <code>Array[Byte]</code> なら、配列インデックスでカウントされる。</p>
+<pre class="prettyprint"><code class="language-scala">def limitBytes(n: Int) = {
+  Traversable.take[Array[Byte]](n)
+}
+(enumerator |&gt;&gt;&gt; limitBytes(5) &amp;&gt;&gt; it)
+  .onComplete(println) // Success(&quot;12345&quot;)
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 <!--/#footer-->
 
 </div>
 <!--/#wrapper-->
+<style type="text/css">@import "../../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
-
