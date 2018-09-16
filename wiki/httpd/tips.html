@@ -77,6 +77,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <ul>
     <li><a href="../httpd/tips.html#virtualhost" class="header">VirtualHost</a></li>
     <li><a href="../httpd/tips.html#basic-authentication" class="header">Basic Authentication</a></li>
+    <li><a href="../httpd/tips.html#ip-address-restriction" class="header">IP Address Restriction</a></li>
     <li><a href="../httpd/tips.html#maitenance-mode" class="header">Maitenance Mode</a></li>
     <li><a href="../httpd/tips.html#load-blancing" class="header">Load Blancing</a></li>
   </ul></li>
@@ -147,6 +148,14 @@ allow from 192.168.0
 &lt;Files ~ &quot;^.(htpasswd|htaccess)$&quot;&gt;
     deny from all
 &lt;/Files&gt;
+</code></pre>
+<h2><a href="#ip-address-restriction" name="ip-address-restriction" class="anchor"><span class="anchor-link"></span></a>IP Address Restriction</h2>
+<pre><code>&lt;Location /&gt;
+  SetEnvIf X-Forwarded-For &quot;192\.168\.33\.101.*&quot; allowed_ip
+  Order Deny,Allow
+  Deny from all
+  Allow from env=allowed_ip
+&lt;/Location&gt;
 </code></pre>
 <h2><a href="#maitenance-mode" name="maitenance-mode" class="anchor"><span class="anchor-link"></span></a>Maitenance Mode</h2>
 <p>Webサイトをメンテナンス状態とする場合、単にページ内容を変更したり、メンテナンスページへリダイレクトする方法ではSEO対策として問題があります。検索エンジンのクローラにとっては、メンテナンス状態であるかの判断はできないため、通常のページ更新があったものとみなされてメンテナンスページが収集されてしまうことになります。</p>
