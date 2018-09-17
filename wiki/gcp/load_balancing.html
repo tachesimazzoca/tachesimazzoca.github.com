@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tachesimazzoca - Wiki | Cloud Load Balancing</title>
+<link href="../assets/lib/bootstrap-3.2.0/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../assets/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="../assets/lib/jquery-1.11.1/jquery.min.js"></script>
+<script src="../assets/lib/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M96M8MG');</script>
+<!-- End Google Tag Manager -->
+
+</head>
+<body>
+<div id="wrapper">
+<div id="header">
+<div class="navbar navbar-static-top navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#jsNavbarCollapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="../index.html">tachesimazzoca - Wiki</a>
+</div>
+<div class="collapse navbar-collapse" id="jsNavbarCollapse-1">
+<ul class="nav navbar-nav">
+</ul>
+<form class="navbar-form navbar-right" action="https://www.google.com/search" style="box-shadow: none; border: none">
+<input type="hidden" name="as_sitesearch" value="tachesimazzoca.github.io/wiki">
+<div class="form-group">
+<div class="input-group">
+<div class="input-group-addon" style="background: transparent; border-color: #333">
+<span class="glyphicon glyphicon-search"></span>
+</div>
+<input type="text" class="form-control" name="as_q" placeholder="Search">
+</div>
+</div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+<!--/#header-->
+
+<div id="main">
+<div class="container-fluid">
+<div class="pankuzu">
+<ul>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../gcp/index.html">Google Cloud Platform</a></li>
+  <li>Cloud Load Balancing</li>
+</ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-sm-4 hidden-xs">
+<div id="navigation" data-spy="affix" data-offset-top="110">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title" style="text-align: center; font-size: 11px; text-transform: uppercase; color: #999">Table of Contents</h3>
+</div>
+<div class="panel-body" id="jsNavigationHolder">
+<ul>
+  <li><a href="../gcp/load_balancing.html#cloud-load-balancing" class="header">Cloud Load Balancing</a>
+  <ul>
+    <li><a href="../gcp/load_balancing.html#load-balancers" class="header">Load Balancers</a></li>
+    <li><a href="../gcp/load_balancing.html#ssl-certficates" class="header">SSL Certficates</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<div class="col-md-9 col-sm-8">
+<div class="btn-group pull-right">
+<a class="btn btn-info" href="https://github.com/tachesimazzoca/wiki/tree/master/src/main/paradox/gcp/load_balancing.md">Source</a>
+</div>
+<div id="content">
+<h1><a href="#cloud-load-balancing" name="cloud-load-balancing" class="anchor"><span class="anchor-link"></span></a>Cloud Load Balancing</h1>
+<h2><a href="#load-balancers" name="load-balancers" class="anchor"><span class="anchor-link"></span></a>Load Balancers</h2>
+<h3><a href="#http-s-load-balancer" name="http-s-load-balancer" class="anchor"><span class="anchor-link"></span></a>HTTP(S) Load Balancer</h3>
+<h2><a href="#ssl-certficates" name="ssl-certficates" class="anchor"><span class="anchor-link"></span></a>SSL Certficates</h2>
+<p>The following example shows how to create a SSL certificate resource with a self-signed SSL certificate for the common name <code>*.example.net</code>.</p>
+<pre class="prettyprint"><code class="language-shell"># Create a private key file
+$ openssl genrsa -out example.key 2048
+
+# Create a CSR(Certificate-Singing-Request) file
+$ openssl req -new -key example.key -out example.csr
+...
+-----
+Country Name (2 letter code) [AU]:JP
+State or Province Name (full name) [Some-State]:Tokyo
+Locality Name (eg, city) []:
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Self Signed Example
+Organizational Unit Name (eg, section) []:
+Common Name (e.g. server FQDN or YOUR name) []:*.example.net
+Email Address []:
+
+Please enter the following &#39;extra&#39; attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+
+# Generate a self-signed certiricate with the CSR file and the key file
+$ openssl x509 -req -days 3650 -in example.csr -signkey example.key -out example.crt
+Signature ok
+subject=C = JP, ST = Tokyo, O = Self Signed Example, CN = *.example.net
+Getting Private key
+
+$ gcloud compute ssl-cetificates create wilidcard-example-net \
+  --certificate example.crt \
+  --private-key example.key
+NAME                  CREATION_TIMESTAMP
+wildcard-example-net  2018-01-23T01:23:45.000-07:00
+</code></pre><div class="callout warning "><div class="callout-title">Caution</div>
+<p>In practice self-signed certificates are used for testing purpose only. You should never use self-signed certificates for public sites on production.</p></div>
+<p>See also</p>
+<ul>
+  <li><a href="https://cloud.google.com/load-balancing/docs/ssl-certificates">Creating and Using SSL Certificates</a></li>
+  <li><a href="https://cloud.google.com/sdk/gcloud/reference/compute/ssl-certificates/">gcloud compute ssl-certificates</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/#main-->
+<div id="footer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<dl class="dl-horizontal pull-right">
+<dt><span class="muted">Repository</span></dt>
+<dd><a href="https://github.com/tachesimazzoca/wiki">tachesimazzoca/wiki</a></dd>
+<dt><span class="muted">Author</span></dt>
+<dd><a href="https://github.com/tachesimazzoca">@tachesimazzoca</a></dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<!--/#footer-->
+
+</div>
+<!--/#wrapper-->
+<style type="text/css">@import "../assets/lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="../assets/lib/prettify/prettify.js"></script>
+<script type="text/javascript">
+(function(jq) {
+jq(function(){
+window.prettyPrint && prettyPrint();
+});
+})(window.jQuery);
+</script>
+</body>
+</html>
