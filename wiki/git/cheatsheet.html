@@ -86,6 +86,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li><a href="../git/cheatsheet.html#log" class="header">log</a></li>
     <li><a href="../git/cheatsheet.html#show" class="header">show</a></li>
     <li><a href="../git/cheatsheet.html#diff" class="header">diff</a></li>
+    <li><a href="../git/cheatsheet.html#diff-index" class="header">diff-index</a></li>
     <li><a href="../git/cheatsheet.html#fetch" class="header">fetch</a></li>
     <li><a href="../git/cheatsheet.html#branch" class="header">branch</a></li>
     <li><a href="../git/cheatsheet.html#working-with-remote-repositories" class="header">Working with Remote Repositories</a></li>
@@ -105,126 +106,126 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div id="content">
 <h1><a href="#cheat-sheet" name="cheat-sheet" class="anchor"><span class="anchor-link"></span></a>Cheat Sheet</h1>
 <h2><a href="#init" name="init" class="anchor"><span class="anchor-link"></span></a>init</h2>
-<pre><code>% cd /path/to/git/project
-% git init
+<pre class="prettyprint"><code class="language-shell">$ cd /path/to/git/project
+$ git init
 
-% ls -a
+$ ls -a
 . .. .git
 </code></pre>
 <h2><a href="#config" name="config" class="anchor"><span class="anchor-link"></span></a>config</h2>
-<pre><code>% git config user.name &quot;Foo Bar&quot;
-% git config user.email &quot;foo@example.net&quot;
-% git config -l
+<pre class="prettyprint"><code class="language-shell">$ git config user.name &quot;Foo Bar&quot;
+$ git config user.email &quot;foo@example.net&quot;
+$ git config -l
 ...
 </code></pre>
 <h2><a href="#add" name="add" class="anchor"><span class="anchor-link"></span></a>add</h2>
-<pre><code>% touch a.txt
-% touch b.txt
-% git add .
-% git status -s
+<pre class="prettyprint"><code class="language-shell">$ touch a.txt
+$ touch b.txt
+$ git add .
+$ git status -s
 A  a.txt
 A  b.txt
 
-% touch c.txt
-% rm a.txt
-% git status -s
+$ touch c.txt
+$ rm a.txt
+$ git status -s
 AD a.txt
 A  b.txt
 ?? c.txt
 </code></pre>
 <p>The <code>-u</code> option removes as well as modifies index entries to match the working tree, but adds no new files.</p>
-<pre><code>% git add -u .
-% git status -s
+<pre class="prettyprint"><code class="language-shell">$ git add -u .
+$ git status -s
 A  b.txt
 ?? c.txt
 </code></pre>
 <p>To add, modifiy and remove them, use the <code>-A</code> option.</p>
-<pre><code>% rm b.txt
-% git add -A .
-% git status -s
+<pre class="prettyprint"><code class="language-shell">$ rm b.txt
+$ git add -A .
+$ git status -s
 A  c.txt
 </code></pre>
 <h2><a href="#rm" name="rm" class="anchor"><span class="anchor-link"></span></a>rm</h2>
-<pre><code>% git rm /path/to/file
-% git rm -r /path/to/dir/
+<pre class="prettyprint"><code class="language-shell">$ git rm /path/to/file
+$ git rm -r /path/to/dir/
 </code></pre>
 <p>The following is an one-liner to remove index entries that start with <code>^.D</code> as tracking status. (i.e. Each file tracked by the index entries has already been removed without using git-rm.)</p>
-<pre><code>% git status -s | grep ^&#39;.D&#39; | awk &#39;{print $2}&#39; | xargs git rm
+<pre class="prettyprint"><code class="language-shell">$ git status -s | grep ^&#39;.D&#39; | awk &#39;{print $2}&#39; | xargs git rm
 </code></pre>
 <h2><a href="#remote" name="remote" class="anchor"><span class="anchor-link"></span></a>remote</h2>
-<pre><code>% git remote -v
+<pre class="prettyprint"><code class="language-shell">$ git remote -v
 origin  ssh://gitolite-server/foo.git (fetch)
 origin  ssh://gitolite-server/foo.git (push)
 
-% git remote set-url origin ssh://gitolite-server/bar.git
-% git remote -v
+$ git remote set-url origin ssh://gitolite-server/bar.git
+$ git remote -v
 origin  ssh://gitolite-server/bar.git (fetch)
 origin  ssh://gitolite-server/bar.git (push)
 
-% git remote remove origin
-% git remote add origin ssh://codecommit-user/v1/repos/sandbox
+$ git remote remove origin
+$ git remote add origin ssh://codecommit-user/v1/repos/sandbox
 </code></pre>
 <h2><a href="#commit" name="commit" class="anchor"><span class="anchor-link"></span></a>commit</h2>
-<pre><code># コミット候補を追加
-% git add a.txt
+<pre class="prettyprint"><code class="language-shell"># コミット候補を追加
+$ git add a.txt
 # add 時点の状態でコミットされる
-% git commit
+$ git commit
 
-% vi a.txt
+$ vi a.txt
 ....
 # 更新をコミットする場合も add してコミット候補に含める
-% git add a.txt
-% git commit
+$ git add a.txt
+$ git commit
 
 # -a オプションで作業ファイルの状態でコミットできる
 # 全ての追跡対象ファイルを add したのち commit することと同義
-% git commit -a
+$ git commit -a
 
 # reset author
-% git config user.name &quot;Foo Bar&quot;
-% git config user.email &quot;foo@example.net&quot;
-% git commit --amend --reset-author
+$ git config user.name &quot;Foo Bar&quot;
+$ git config user.email &quot;foo@example.net&quot;
+$ git commit --amend --reset-author
 
 # commit with empty message
-% git commit -a --allow-empty-message -m &#39;&#39;
+$ git commit -a --allow-empty-message -m &#39;&#39;
 </code></pre>
 <h2><a href="#clean" name="clean" class="anchor"><span class="anchor-link"></span></a>clean</h2>
 <p>カレントディレクトリ以下の追跡対象外のファイルを削除します。</p>
-<pre><code># 未追跡ファイル/ディレクトリを確認
-% git clean -nd
+<pre class="prettyprint"><code class="language-shell"># 未追跡ファイル/ディレクトリを確認
+$ git clean -nd
 # 未追跡ファイル/ディレクトリを削除
-% git clean -fd
+$ git clean -fd
 # x オプションで .gitignore 対象も含めることができます
-% git clean -ndx
-% git clean -fdx
+$ git clean -ndx
+$ git clean -fdx
 </code></pre>
 <h2><a href="#tag" name="tag" class="anchor"><span class="anchor-link"></span></a>tag</h2>
 <p>バージョンのタグについては <code>-a</code> オプションで注釈つきでタグをつける方法を推奨します。</p>
-<pre><code> % git tag -a v1.0 -m &quot;version 1.0&quot;
+<pre class="prettyprint"><code class="language-shell">$ git tag -a v1.0 -m &quot;version 1.0&quot;
 </code></pre>
 <p>コミットへのポインタのみのタグを作成することもできます。作業時など単に特定リビジョンをマークしたい場合に便利です。</p>
-<pre><code>% git tag 20120123-01
+<pre class="prettyprint"><code class="language-shell">$ git tag 20120123-01
 </code></pre>
 <p>リモートリポジトリにはタグは送信されません。タグを <code>push</code> する必要があります。</p>
-<pre><code># タグ v1.0 をリモート origin に送信
-% git push origin v1.0
+<pre class="prettyprint"><code class="language-shell"># タグ v1.0 をリモート origin に送信
+$ git push origin v1.0
 
 # ローカルリポジトリの全てのタグを origin に送信
-% git push origin --tags
+$ git push origin --tags
 </code></pre>
 <h2><a href="#log" name="log" class="anchor"><span class="anchor-link"></span></a>log</h2>
 <p>ログのフォーマットを指定することができます。</p>
-<pre><code>% git log --pretty=&quot;format:%h %s&quot;
+<pre class="prettyprint"><code class="language-shell">$ git log --pretty=&quot;format:%h %s&quot;
 
 # フォーマットについての詳細はマニュアルを参照
-% man git-log
+$ man git-log
 </code></pre>
 <h2><a href="#show" name="show" class="anchor"><span class="anchor-link"></span></a>show</h2>
 <p><code>git show (リビジョン):(ファイル名)</code> で特定リビジョンのファイルを表示できます。</p>
-<pre><code># ひとつ前のコミットの ./README.md を表示
-% git show HEAD^:./README.md
+<pre class="prettyprint"><code class="language-shell"># ひとつ前のコミットの ./README.md を表示
+$ git show HEAD^:./README.md
 # コミット deadbeef.... の ./README.md を表示
-% git show deadbeef:./README.md
+$ git show deadbeef:./README.md
 </code></pre>
 <h2><a href="#diff" name="diff" class="anchor"><span class="anchor-link"></span></a>diff</h2>
 <table class="table table-bordered table-striped">
@@ -241,61 +242,65 @@ origin  ssh://gitolite-server/bar.git (push)
   <td>作業ファイルとHEADの差分。`git commit -a` でコミットされる差分を確認</td>
 </tr>
 </table>
+<h2><a href="#diff-index" name="diff-index" class="anchor"><span class="anchor-link"></span></a>diff-index</h2>
+<pre class="prettyprint"><code class="language-shell"># Commit only if there are some files to be committed.
+$ git diff-index --quiet HEAD || git commit -m &quot;Add some files&quot;
+</code></pre>
 <h2><a href="#fetch" name="fetch" class="anchor"><span class="anchor-link"></span></a>fetch</h2>
 <p>To download objects and references from another repository, use the command <code>git fetch &lt;remote&gt;</code>.</p>
-<pre><code>% git fetch origin
+<pre class="prettyprint"><code class="language-shell">$ git fetch origin
 
 # The remote &quot;origin&quot; will be used, when no remote is specified.
-% git fetch
+$ git fetch
 </code></pre>
 <p>By default, the command won&rsquo;t remove any references that no longer exist on the remote. To prune them, use the <code>-p --prune</code> option.</p>
-<pre><code>% git fetch -p
+<pre class="prettyprint"><code class="language-shell">$ git fetch -p
 </code></pre>
 <h2><a href="#branch" name="branch" class="anchor"><span class="anchor-link"></span></a>branch</h2>
-<pre><code># 現在のブランチを確認
-% git branch
+<pre class="prettyprint"><code class="language-shell"># 現在のブランチを確認
+$ git branch
     * master
 
 # current ブランチを作成
-% git branch current
-% git branch
+$ git branch current
+$ git branch
   current
     * master
 
 # current ブランチに切替
-% git checkout current
-% git branch
+$ git checkout current
+$ git branch
     * current
   master
 
 ....
 
 # master ブランチにマージされていないブランチを確認
-% git checkout master
-% git branch --no-merge
+$ git checkout master
+$ git branch --no-merge
   current
 # master / current ブランチの差分を確認
-% git diff master..curent
+$ git diff master..curent
 ....
 # master ブランチに current ブランチをマージ
-% git merge current
+$ git merge current
 ....
 # master ブランチにマージされているブランチを確認
-% git branch --merged
+$ git branch --merged
   current
     * master
 
 # current ブランチを削除
-% git branch -d current
+$ git branch -d current
 </code></pre>
 <h2><a href="#working-with-remote-repositories" name="working-with-remote-repositories" class="anchor"><span class="anchor-link"></span></a>Working with Remote Repositories</h2>
-<pre><code># List remote-tracking repositories with the verbose option.
-% git remote -v
+<pre class="prettyprint"><code class="language-shell"># List remote-tracking repositories with the verbose option.
+$ git remote -v
 origin  git@github.com:foo/bar.git (fetch)
 origin  git@github.com:foo/bar.git (push)
 
 # List both remote-tracking branches and local branches.
-% git branch -a
+$ git branch -a
     * master
   remotes/origin/master
 
@@ -307,23 +312,23 @@ origin  git@github.com:foo/bar.git (push)
 #     git fetch
 #     git fetch (リモート名)
 #
-% git fetch origin
+$ git fetch origin
 ....
 #  2. fetch したリモート origin の最新と比較
-% git diff FETCH_HEAD
+$ git diff FETCH_HEAD
 ....
 #  3. リモート origin の master ブランチを、作業ブランチにマージ
-% git merge origin/master
+$ git merge origin/master
 ....
 #  4. pull で fetch + merge をまとめて行うこともできる
-% git pull
+$ git pull
 
 #
 # 作業ブランチの更新を、リモートブランチへ反映
 #
 #  1. 作業ブランチの変更を commit
 ....
-% git commit
+$ git commit
 ....
 #
 #  2. master ブランチをリモート origin へ反映
@@ -331,18 +336,18 @@ origin  git@github.com:foo/bar.git (push)
 #      git push (リモート名) (ブランチ名)
 #      git push (リモート名) (ローカルブランチ名):(リモートブランチ名)
 #
-% git push origin master
+$ git push origin master
 
 # リモート origin/development をローカルブランチ development としてチェックアウト
-% git checkout -b development origin/development
+$ git checkout -b development origin/development
 
 # リモートブランチ origin/development を削除
 # 空のローカルブランチでリモートブランチ development を更新と考えると覚えやすい
-% git push origin :development
+$ git push origin :development
 </code></pre>
 <h2><a href="#history" name="history" class="anchor"><span class="anchor-link"></span></a>History</h2>
 <p>To reset authorship information, use <code>git-rebase</code> with the option <code>-i</code>. The following is an example to modify last 2 commits.</p>
-<pre><code>% git rebase -i HEAD~2
+<pre class="prettyprint"><code class="language-shell">$ git rebase -i HEAD~2
 pick b234567  Do something
 pick a123456  Do something at last
 
@@ -355,7 +360,7 @@ pick a123456  Do something at last
 ...
 </code></pre>
 <p>Replace <code>pick</code> at each line with <code>edit</code> and then quit the editor.</p>
-<pre><code>edit b234567  Do something
+<pre class="prettyprint"><code class="language-shell">edit b234567  Do something
 edit a123456  Do something at last
 ...
 :q
@@ -369,34 +374,34 @@ Once you are satisfied with your changes, run
         git rebase --continue
 </code></pre>
 <p>Repeat running the commands <code>commit --amend --reset-author</code> and <code>rebase --continue</code> alternately.</p>
-<pre><code>% git commit --amend --reset-author
-% git rebase --continue
-% git commit --amend --reset-author
-% git rebase --continue
+<pre class="prettyprint"><code class="language-shell">$ git commit --amend --reset-author
+$ git rebase --continue
+$ git commit --amend --reset-author
+$ git rebase --continue
 Successfully rebased and updated refs/heads/...
 </code></pre>
 <p>You can also use <code>filter-branch</code> to reset all commits.</p>
-<pre><code>% git filter-branch --commit-filter &#39;
+<pre class="prettyprint"><code class="language-shell">$ git filter-branch --commit-filter &#39;
 GIT_AUTHOR_NAME=&quot;Foo Bar&quot;
 GIT_AUTHOR_EMAIL=&quot;foo@example.net&quot;
 git commit-tree &quot;$@&quot;
 &#39; HEAD
 </code></pre>
 <h2><a href="#merging-a-pull-request-manually" name="merging-a-pull-request-manually" class="anchor"><span class="anchor-link"></span></a>Merging a Pull Request Manually</h2>
-<pre><code># Fork the repository &quot;sandbox&quot; made by Alice
-% git remote add upstream http://github.com/alice/sandbox.git
-% git pull upstream master
-% git checkout -b hotfix
-% git commit
-% git push origin hotfix
+<pre class="prettyprint"><code class="language-shell"># Fork the repository &quot;sandbox&quot; made by Alice
+$ git remote add upstream http://github.com/alice/sandbox.git
+$ git pull upstream master
+$ git checkout -b hotfix
+$ git commit
+$ git push origin hotfix
 
 # Merge the pull request sent by Bob
-% git remote add bob http://github.com/bob/sandbox.git
-% git fetch bob
-% git checkout -b bob-hotfix bob/hotfix
-% git checkout master
-% git merge --no-ff hotfix
-% git push origin master
+$ git remote add bob http://github.com/bob/sandbox.git
+$ git fetch bob
+$ git checkout -b bob-hotfix bob/hotfix
+$ git checkout master
+$ git merge --no-ff hotfix
+$ git push origin master
 </code></pre>
 </div>
 </div>
