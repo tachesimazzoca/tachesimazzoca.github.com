@@ -232,7 +232,7 @@ m.bind(Map(
   case Left(_) =&gt;
 }
 </code></pre>
-<p>ユーティリィティメゾッドの <code>RepeatedMapping.indexes</code> により、<code>Map[String, String]</code> から、指定キーのインデックス値のリスト <code>Seq[Int]</code> を得る事ができる。キーは昇順ソートされ、重複キーは削除される。</p>
+<p>ユーティリィティメソッドの <code>RepeatedMapping.indexes</code> により、<code>Map[String, String]</code> から、指定キーのインデックス値のリスト <code>Seq[Int]</code> を得る事ができる。キーは昇順ソートされ、重複キーは削除される。</p>
 <pre class="prettyprint"><code class="language-scala">val data = Map(
   &quot;tags[0]&quot; -&gt; &quot;foo&quot;,
   &quot;tags[1]&quot; -&gt; &quot;bar&quot;,
@@ -286,10 +286,10 @@ validator(0) match {
       <li>エラー時には <code>Invalid</code> を返す。</li>
     </ul>
   </li>
-  <li><code>Constraint[T]#apply</code> メゾッドで値をチェックして <code>ValidationResult</code> を受け取る。</li>
+  <li><code>Constraint[T]#apply</code> メソッドで値をチェックして <code>ValidationResult</code> を受け取る。</li>
   <li>バリデータのメタ情報を外部から参照できるように、<code>Constraint[T].apply</code> でバリデーション名と引数 <code>Any*</code> を定義することができる。入力のヒント文字列の組み立て等のために、外部用に提供する属性であって、バリデーションを行なう関数内から参照はできない。設定が冗長になるのを回避するには、<code>Constraint[T]</code> インスタンスを生成するヘルパー関数を定義するとよい。</li>
 </ul>
-<p><code>Invalid</code> は <code>apply</code> メゾッドに <code>play.api.data.validation.ValidationError</code> を渡して作成する。メッセージと引数だけの <code>apply</code> も提供されている。インスタンスは <code>Invalid#++</code> でマージできる。</p>
+<p><code>Invalid</code> は <code>apply</code> メソッドに <code>play.api.data.validation.ValidationError</code> を渡して作成する。メッセージと引数だけの <code>apply</code> も提供されている。インスタンスは <code>Invalid#++</code> でマージできる。</p>
 <pre class="prettyprint"><code class="language-scala">val result1 = Invalid(ValidationError(&quot;error.foo&quot;, 1))
 val result2 = Invalid(&quot;error.bar&quot;, 2, 3)
 val result3 = result1 ++ result2
@@ -304,7 +304,7 @@ assert(Seq(
 val alnum = pattern(regex = &quot;&quot;&quot;^[A-Z0-9]+$&quot;&quot;&quot;.r, error = &quot;must be alphanumeric&quot;)
 </code></pre>
 <h3><a href="#working-with-mapping" name="working-with-mapping" class="anchor"><span class="anchor-link"></span></a>Working with Mapping</h3>
-<p><code>Mapping#verifying</code> メゾッドで、フィールド値の制約を定義できる。</p>
+<p><code>Mapping#verifying</code> メソッドで、フィールド値の制約を定義できる。</p>
 <pre class="prettyprint"><code class="language-scala">val m = tuple(
   &quot;username&quot; -&gt; tuple(
     &quot;main&quot; -&gt; text.verifying(pattern( &quot;&quot;&quot;[a-z][a-z0-9]{4,31}&quot;&quot;&quot;.r)),
@@ -340,7 +340,7 @@ val boundForm = userForm.bind(Map(&quot;name&quot; -&gt; &quot;Foo&quot;, &quot;
 assert(Some(User(&quot;Foo&quot;, 26)) == boundForm.value)
 assert(false == boundForm.hasErrors)
 </code></pre>
-<p>状態は持つが <code>Form</code> はケースクラス、すなわちイミュータブルであり、副作用のメゾッドは持たない。言い換えると <code>Form#(bind|fill)</code> 等で状態を更新する度にコピーされるので、スレッドセーフについては考慮しなくてよい。</p>
+<p>状態は持つが <code>Form</code> はケースクラス、すなわちイミュータブルであり、副作用のメソッドは持たない。言い換えると <code>Form#(bind|fill)</code> 等で状態を更新する度にコピーされるので、スレッドセーフについては考慮しなくてよい。</p>
 <p><code>Controller</code> 内で利用する際、リクエスト毎に <code>Mapping</code> から <code>Form</code> を毎回組み立てるのはコストがかかるので、<code>Controller</code> のメンバー変数などに、初期値でインスタンス化したものを保持しておくとよい。</p>
 <pre class="prettyprint"><code class="language-scala">import models.Contact
 import play.api.data._
@@ -372,7 +372,7 @@ object ContactsController extends Controller {
 </code></pre>
 <p>送信されるフォームデータは、<code>Form#bindFromRequest</code> で暗黙パラメータの <code>Request</code> からバインドし、<code>Form#fold</code> で、エラー時と正常時の関数を定義しておくと簡潔に書ける。</p>
 <h3><a href="#field" name="field" class="anchor"><span class="anchor-link"></span></a>Field</h3>
-<p><code>Form#apply</code> メゾッドを介して、指定フィールドのモデル <code>play.api.data.Field</code> を得ることができる。フィールド状態の取得の他、HTMLの組み立てを想定した API が提供されている。</p>
+<p><code>Form#apply</code> メソッドを介して、指定フィールドのモデル <code>play.api.data.Field</code> を得ることができる。フィールド状態の取得の他、HTMLの組み立てを想定した API が提供されている。</p>
 <pre class="prettyprint"><code class="language-scala">val itemForm = Form(mapping(
   &quot;name&quot; -&gt; nonEmptyText,
   &quot;tags&quot; -&gt; list(text)

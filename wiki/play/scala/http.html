@@ -123,7 +123,7 @@ val enumratorFromStr: Enumerator[Array[Byte]] = enumerator(&quot;Hello&quot;)
 val enumratorFromXml: Enumerator[Array[Byte]] = enumerator(&lt;foo&gt;bar&lt;/foo&gt;)
 </code></pre>
 <h3><a href="#status" name="status" class="anchor"><span class="anchor-link"></span></a>Status</h3>
-<p><code>Result</code> インスタンスの生成には、通常は <code>play.api.mvc.Results.Status</code> のヘルパーメゾッドを使えばよい。ボディ部は <code>Writeable[E]</code> により、暗黙的に <code>Array[Byte]</code> に変換される。</p>
+<p><code>Result</code> インスタンスの生成には、通常は <code>play.api.mvc.Results.Status</code> のヘルパーメソッドを使えばよい。ボディ部は <code>Writeable[E]</code> により、暗黙的に <code>Array[Byte]</code> に変換される。</p>
 <pre class="prettyprint"><code class="language-scala">// Result(123, Map(Content-Type -&gt; text/plain; charset=utf-8))
 val status = Status(123)(&quot;One-Two-Three&quot;)
 // Result(200, Map(Content-Type -&gt; text/html; charset=utf-8))
@@ -142,7 +142,7 @@ val movedPermanetly = Redirect(&quot;/path/to/url&quot;, MOVED_PERMANENTLY)
 val withQueryString = Redirect(&quot;/path/to/url&quot;, Map(&quot;foo&quot; -&gt; Seq(&quot;bar&quot;, &quot;baz&quot;)))
 </code></pre>
 <h3><a href="#chunked-transfer-encoding" name="chunked-transfer-encoding" class="anchor"><span class="anchor-link"></span></a>Chunked Transfer Encoding</h3>
-<p>ファイル送信を行なうには、ヘルパーメゾッドの <code>Status.sendFile</code> を使えばよい。</p>
+<p>ファイル送信を行なうには、ヘルパーメソッドの <code>Status.sendFile</code> を使えばよい。</p>
 <pre class="prettyprint"><code class="language-scala">val file = new java.io.File(getClass.getResource(&quot;/a.txt&quot;).getPath())
 Ok.sendFile(
   content = file,
@@ -166,7 +166,7 @@ Result(
 )
 </code></pre>
 <p>入力ソースが <code>java.io.InputStream</code> のように、あらかじめボディ部のサイズを得る事ができない場合は <code>Transfer-Encoding: chunked</code> で送信する。</p>
-<p>ヘルパーメゾッドの <code>Status.chunked</code> により、Chunked 形式で送信できる。</p>
+<p>ヘルパーメソッドの <code>Status.chunked</code> により、Chunked 形式で送信できる。</p>
 <pre class="prettyprint"><code class="language-scala">val input = getClass.getResourceAsStream(&quot;/a.txt&quot;)
   Ok.chunked(Enumerator.fromStream(input)).withHeaders(
     CONTENT_DISPOSITION -&gt; &quot;attachment; filename=a.txt&quot;,
@@ -195,7 +195,7 @@ Result(
   ...
 }
 </code></pre>
-<p>テスト時にモックを作りたい場合は、<code>play.api.test.FakeRequest</code> を使う。テストがしやすいように <code>withHeaders</code> などのメゾッドが追加されている。</p>
+<p>テスト時にモックを作りたい場合は、<code>play.api.test.FakeRequest</code> を使う。テストがしやすいように <code>withHeaders</code> などのメソッドが追加されている。</p>
 <pre class="prettyprint"><code class="language-scala">val rh: Request[NodeSeq] = FakeRequest(&quot;POST&quot;, &quot;/create&quot;)
     .withHeaders(&quot;X-Requested-With&quot; -&gt; &quot;0123456789abcdef&quot;)
     .withBody(&lt;foo&gt;bar&lt;/foo&gt;)

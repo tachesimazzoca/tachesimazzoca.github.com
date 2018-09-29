@@ -139,7 +139,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </ul>
 <p><code>parser</code> に、ボディ部が渡っていないのが疑問に思いがちだが、返すのは <em>Iteratee</em> であって、どのようにボディ部 <code>Array[Byte]</code> から出力 <code>A</code> を組み立てるかの定義だけである。ボディ部は、然るべき <em>Enumerator</em> からストリーム送信されるのであって <em>BodyParser</em> が全てのボディ部を得るのではない。</p>
 <h3><a href="#helper-methods" name="helper-methods" class="anchor"><span class="anchor-link"></span></a>Helper Methods</h3>
-<p>ヘルパーメゾッド <code>Action.apply</code> を使って <code>Action#apply(request: Request[A])</code> を実装できる。</p>
+<p>ヘルパーメソッド <code>Action.apply</code> を使って <code>Action#apply(request: Request[A])</code> を実装できる。</p>
 <pre class="prettyprint"><code class="language-scala">def noRequest: Action[AnyContent] = Action {
   Ok(&quot;Hello&quot;)
 }
@@ -156,7 +156,7 @@ def wsAction = Action.async {
   }
 }
 </code></pre>
-<p><code>Action.async</code> は非同期処理用ではなく、明示的に <code>Future[Result]</code> を返したい場合のヘルパーメゾッドである。いずれのヘルパーメゾッドを使ったとしても、実装される <code>Action#apply(request: Request)</code> が返すのは <code>Future[Result]</code> であり、どちらも非同期に実行されることに違いはない。</p>
+<p><code>Action.async</code> は非同期処理用ではなく、明示的に <code>Future[Result]</code> を返したい場合のヘルパーメソッドである。いずれのヘルパーメソッドを使ったとしても、実装される <code>Action#apply(request: Request)</code> が返すのは <code>Future[Result]</code> であり、どちらも非同期に実行されることに違いはない。</p>
 <p><code>Future</code> を使えば、自動的にノンブロッキングとなるのではない。ブロックする処理を書かなければいけない場合は、コアのスレッドを占有しないように、別の <code>ExecutionContext</code> を使う必要がある。</p>
 <pre class="prettyprint"><code class="language-scala">import play.api.libs.concurrent.Akka
 
@@ -192,7 +192,7 @@ def block: Action[AnyContent] = Action.async {
   }
 }
 </code></pre>
-<p>ヘルパーメゾッド <code>Action.apply[A](parser: BodyParser[A])(...)</code> を使うと、ボディ部を明示的に指定できる。 不正なリクエストの場合は <em>Action</em> ブロックには渡らず <em>BadReqeust</em> 400 エラーが直接応答される。</p>
+<p>ヘルパーメソッド <code>Action.apply[A](parser: BodyParser[A])(...)</code> を使うと、ボディ部を明示的に指定できる。 不正なリクエストの場合は <em>Action</em> ブロックには渡らず <em>BadReqeust</em> 400 エラーが直接応答される。</p>
 <pre class="prettyprint"><code class="language-scala">def xmlOnly = Action(parse.xml) { request =&gt; ... }
 </code></pre>
 <p><code>tolerant</code> がついているものは、リクエストヘッダのチェックを行なわず、ボディ部がパースできればエラーとならない。</p>
@@ -202,7 +202,7 @@ def block: Action[AnyContent] = Action.async {
 <p><code>parse.file</code> を用いるとボディ部をファイルに保存できる。指定した <code>java.io.File</code> がボディ部になる。</p>
 <pre class="prettyprint"><code class="language-scala">val parser = parse.file(to = new java.io.File(&quot;/path/to/a.txt&quot;))
 </code></pre>
-<p><code>parse.temporaryFile</code> は一時ファイルで保存できる。<code>play.api.libs.Files.TemporaryFile</code> がボディ部になる。<code>TemporaryFIle</code> のメゾッドは、旧 Java File API によるもののため <em>Deprecated</em> となっている。</p>
+<p><code>parse.temporaryFile</code> は一時ファイルで保存できる。<code>play.api.libs.Files.TemporaryFile</code> がボディ部になる。<code>TemporaryFIle</code> のメソッドは、旧 Java File API によるもののため <em>Deprecated</em> となっている。</p>
 <p>フォームからのファイルアップロード <code>multipart/form-data</code> 形式には、<code>parse.multipartFormData</code> を使う。</p>
 <pre class="prettyprint"><code class="language-scala">val upload = Action(parse.multipartFormData) { request =&gt;
   request.body.file(&quot;pic&quot;).map { part =&gt;
@@ -215,7 +215,7 @@ def block: Action[AnyContent] = Action.async {
   }
 }
 </code></pre>
-<p>ファイルサイズに制限をかけたい場合は、ヘルパーメゾッド <code>parse.maxLength</code> を使う。ボディ部は <code>Either[MaxSizeexceeded, A]</code> となる。</p>
+<p>ファイルサイズに制限をかけたい場合は、ヘルパーメソッド <code>parse.maxLength</code> を使う。ボディ部は <code>Either[MaxSizeexceeded, A]</code> となる。</p>
 <pre class="prettyprint"><code class="language-scala">// up to 4096 bytes
 val upload = Action(parse.maxLength(4096, parse.multipartFormData)) { request =&gt;
   request.body match {

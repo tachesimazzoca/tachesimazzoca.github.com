@@ -105,7 +105,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 )
 </code></pre>
 <h2><a href="#wsclient" name="wsclient" class="anchor"><span class="anchor-link"></span></a>WSClient</h2>
-<p>ヘルパーメゾッド <code>play.api.libs.ws.WS.client</code> より、アプリケーション内に <em>WSPlugin</em> 経由でロードされている HTTP クライアント <code>play.api.libs.ws.WSClient</code> が得られる。</p>
+<p>ヘルパーメソッド <code>play.api.libs.ws.WS.client</code> より、アプリケーション内に <em>WSPlugin</em> 経由でロードされている HTTP クライアント <code>play.api.libs.ws.WSClient</code> が得られる。</p>
 <pre class="prettyprint"><code class="language-scala">val client: WSClient = WS.client
 </code></pre>
 <p>この HTTP クライアントはリクエスト毎に作られるのではない。アプリケーションが持つインスタンスは一つで、<code>WSClient#url</code> より <code>play.api.libs.ws.WSRequestHolder</code> をリクエスト毎に得る。一つの HTTP クライアントがアプリケーション上に常駐し、複数のリクエスト送信とレスポンス取得を非同期に行うと考えればよい。</p>
@@ -154,7 +154,7 @@ client.close()
   <li><code>WSClientConfig</code> だけではカバーしていない <em>AsyncHttpClient</em> 独自のオプションを指定したい場合は、第二引数に <code>AsyncHttpClientConfig.Builder</code> を渡す。</li>
 </ul>
 <h2><a href="#ws" name="ws" class="anchor"><span class="anchor-link"></span></a>WS</h2>
-<p>HTTP リクエスト <code>WSRequestHolder</code> を作成する場合、 通常はヘルパーメゾッド <code>WS.url</code> を使えばよい。HTTP クライアントは <code>WS.client</code> が使われる。</p>
+<p>HTTP リクエスト <code>WSRequestHolder</code> を作成する場合、 通常はヘルパーメソッド <code>WS.url</code> を使えばよい。HTTP クライアントは <code>WS.client</code> が使われる。</p>
 <pre class="prettyprint"><code class="language-scala">val holderWithDefaultClient: WSRequestHolder = WS.url(&quot;http://example.net&quot;)
 </code></pre>
 <p><code>WS.clientUrl</code> を使うと、暗黙パラメータで <code>WSClient</code> を指定できる。</p>

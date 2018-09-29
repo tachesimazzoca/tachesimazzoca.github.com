@@ -241,7 +241,7 @@ public Cursor query(Uri uri, String[] projection, String selection,
     ...
 }
 </code></pre>
-<p><code>searchable[@android:searchSuggestSelection]</code> に、<code>ContentProvider#query</code> の第２引数 <code>selection</code> に渡す文字列（WHERE 節等）を指定できる。この場合、検索クエリは、第３引数の <code>selectionArgs</code> に渡される。<code>selection</code> 文字列をどう使うかは、<code>ContentProvider#query</code> メゾッドの実装次第なので、単に <code>selectionArgs</code> から検索クエリを受け取るために、ダミーの <code>android:searchSuggestSelection</code> を指定する方法もある。</p>
+<p><code>searchable[@android:searchSuggestSelection]</code> に、<code>ContentProvider#query</code> の第２引数 <code>selection</code> に渡す文字列（WHERE 節等）を指定できる。この場合、検索クエリは、第３引数の <code>selectionArgs</code> に渡される。<code>selection</code> 文字列をどう使うかは、<code>ContentProvider#query</code> メソッドの実装次第なので、単に <code>selectionArgs</code> から検索クエリを受け取るために、ダミーの <code>android:searchSuggestSelection</code> を指定する方法もある。</p>
 <pre class="prettyprint"><code class="language-xml">&lt;searchable ...
     android:searchSuggestAuthority=&quot;net.example.android.search.SuggestionsProvider&quot;
     android:searchSuggestSelection=&quot; ? &quot; /&gt;

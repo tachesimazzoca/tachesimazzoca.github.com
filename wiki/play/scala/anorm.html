@@ -103,7 +103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 )
 </code></pre>
 <h2><a href="#sql" name="sql" class="anchor"><span class="anchor-link"></span></a>SQL</h2>
-<p>ヘルパーメゾッド <code>SQL</code> により、SQL文字列が <code>SqlQuery</code> に変換される。</p>
+<p>ヘルパーメソッド <code>SQL</code> により、SQL文字列が <code>SqlQuery</code> に変換される。</p>
 <pre class="prettyprint"><code class="language-scala">def SQL(stmt: String): SqlQuery =
   SqlStatementParser.parse(stmt).map(ts =&gt; SqlQuery.prepare(ts, ts.names)).get
 </code></pre>
@@ -123,8 +123,8 @@ println(ts.tokens)
 </code></pre>
 <p><code>TokenizedStatement</code> は別モジュール <code>anorm-tokenizer</code> に含まれている。パッケージプライベート <code>private[anorm]</code> のため直接扱うことはない。</p>
 <h3><a href="#sqlquery" name="sqlquery" class="anchor"><span class="anchor-link"></span></a>SqlQuery</h3>
-<p><code>SqlQuery</code> 自体は、単に <code>TokenizedStatement</code> を保持しておくだけの箱である。Implicit conversion により<code>SqlQuery#asSimple</code> が呼ばれ <code>SimpleSql</code> のメゾッドが利用可能になる。</p>
-<p>都度、ヘルパーメゾッド <code>SQL</code> を呼ぶと変換コストがかかってしまうので、変換済みの <code>SqlQuery</code> インスタンスを保持しておくようにする。</p>
+<p><code>SqlQuery</code> 自体は、単に <code>TokenizedStatement</code> を保持しておくだけの箱である。Implicit conversion により<code>SqlQuery#asSimple</code> が呼ばれ <code>SimpleSql</code> のメソッドが利用可能になる。</p>
+<p>都度、ヘルパーメソッド <code>SQL</code> を呼ぶと変換コストがかかってしまうので、変換済みの <code>SqlQuery</code> インスタンスを保持しておくようにする。</p>
 <pre class="prettyprint"><code class="language-scala">import anorm._
 import anorm.SqlParser._
 
@@ -143,9 +143,9 @@ for (n &lt;- 1 to 10000) {
 }
 </code></pre>
 <h2><a href="#withresult" name="withresult" class="anchor"><span class="anchor-link"></span></a>WithResult</h2>
-<p><code>WithResult</code> は、SELECT 結果を得るメゾッドを提供する。scala-arm の <code>resource.ManagedResource</code> により、自動的に <code>java.sql.(PreparedStatement|ResultSet)</code> がクローズされる。</p>
+<p><code>WithResult</code> は、SELECT 結果を得るメソッドを提供する。scala-arm の <code>resource.ManagedResource</code> により、自動的に <code>java.sql.(PreparedStatement|ResultSet)</code> がクローズされる。</p>
 <h3><a href="#as" name="as" class="anchor"><span class="anchor-link"></span></a>as</h3>
-<p><code>as</code> メゾッドに <code>ResultSetParser</code> を渡すことで、結果セットを任意のモデルに変換できる。</p>
+<p><code>as</code> メソッドに <code>ResultSetParser</code> を渡すことで、結果セットを任意のモデルに変換できる。</p>
 <pre class="prettyprint"><code class="language-scala">import anorm._
 import anorm.SqlParser._
 
@@ -158,7 +158,7 @@ val usersList: List[(Long, String)] =
   SQL(&quot;SELECT * FROM users WHERE status = 1 ORDER BY id&quot;).as(parser.*)
 </code></pre>
 <h3><a href="#withresult" name="withresult" class="anchor"><span class="anchor-link"></span></a>withResult</h3>
-<p><code>withResult</code> メゾッドを使えば、結果を一度にメモリに入れることなく一行づつ処理できる。Loan pattern でカーソルを受け取る関数 <code>Option[Cursor] =&gt; T</code> を渡す。<code>List[Row]</code> を組み立てる場合を例にすると、 アキュムレータを使った再帰関数を部分適用して渡せば良い。</p>
+<p><code>withResult</code> メソッドを使えば、結果を一度にメモリに入れることなく一行づつ処理できる。Loan pattern でカーソルを受け取る関数 <code>Option[Cursor] =&gt; T</code> を渡す。<code>List[Row]</code> を組み立てる場合を例にすると、 アキュムレータを使った再帰関数を部分適用して渡せば良い。</p>
 <pre class="prettyprint"><code class="language-scala">@annotation.tailrec
 def go(op: Option[Cursor], acc: List[Row]): List[Row] =
   op match {
@@ -171,7 +171,7 @@ val result: Either[List[Throwable], List[Row]] =
     .withResult(go(_, List.empty[Row]))
 </code></pre>
 <h3><a href="#fold" name="fold" class="anchor"><span class="anchor-link"></span></a>fold</h3>
-<p>通常は <code>fold</code> メゾッドを使うと良い。内部で <code>withResult</code> を呼んでいる。</p>
+<p>通常は <code>fold</code> メソッドを使うと良い。内部で <code>withResult</code> を呼んでいる。</p>
 <pre class="prettyprint"><code class="language-scala">val result: Either[List[Throwable], List[Row]] =
   SQL(&quot;SELECT * FROM users ORDER BY id&quot;)
     .fold(List.empty[Row]) { (acc, row) =&gt; acc :+ row }
@@ -187,14 +187,14 @@ val result: Either[List[Throwable], List[Row]] =
 </code></pre>
 <h2><a href="#rowparser" name="rowparser" class="anchor"><span class="anchor-link"></span></a>RowParser</h2>
 <p><code>RowParser[+A]</code> の実体は、関数 <code>Row =&gt; SqlResult[A]</code> である。</p>
-<p>ヘルパーメゾッド <code>SqlParser.get[T]</code> で、指定のカラム名またはカラム番号の RowParser を得られる。</p>
+<p>ヘルパーメソッド <code>SqlParser.get[T]</code> で、指定のカラム名またはカラム番号の RowParser を得られる。</p>
 <pre class="prettyprint"><code class="language-scala">import anorm.SqlParser._
 
 val idColumnParser = get[Long](&quot;id&quot;)
 val emailColumnParser = get[String](&quot;email&quot;)
 val thirdColumnParser = get[Int](3)
 </code></pre>
-<p>一般的な型のヘルパーメゾッドが定義されているので、通常はこれらを使う。</p>
+<p>一般的な型のヘルパーメソッドが定義されているので、通常はこれらを使う。</p>
 <pre class="prettyprint"><code class="language-scala">import anorm.SqlParser._
 
 val idColumnParser = long(&quot;id&quot;)
@@ -235,7 +235,7 @@ val tuple: (Long, String, Int) = tupleLike match {
   case ~(~(id, email), status) =&gt; (id, email, status)
 }
 </code></pre>
-<p>ケースクラスとしての <code>anorm.~[+A, +B]</code> と、<code>RowParser</code> のメゾッド <code>~[B](p: RowParser[B]): RowParser[A ~ B]</code> を混同しがちである。</p>
+<p>ケースクラスとしての <code>anorm.~[+A, +B]</code> と、<code>RowParser</code> のメソッド <code>~[B](p: RowParser[B]): RowParser[A ~ B]</code> を混同しがちである。</p>
 <pre class="prettyprint"><code class="language-scala">// NG: ~[RowParser[Long], RowParser[String]]
 val ng = new ~(SqlParser.long(&quot;id&quot;), SqlParser.long(&quot;email&quot;))
 // OK: RowParser[~[Long, String]]
@@ -243,7 +243,7 @@ val ok = SqlParser.long(&quot;id&quot;) ~ SqlParser.long(&quot;email&quot;)
 </code></pre>
 <ul>
   <li>前者は、単に擬似タプルとしての <code>~[A, B]</code> であり、<code>RowParser</code> ではない。</li>
-  <li>後者は、<code>RowParser[A]</code> のメゾッドにより、別の <code>RowParser[B]</code> を加えて生成された、新たな <code>RowParser[A ~ B]</code> である。</li>
+  <li>後者は、<code>RowParser[A]</code> のメソッドにより、別の <code>RowParser[B]</code> を加えて生成された、新たな <code>RowParser[A ~ B]</code> である。</li>
 </ul>
 <p><code>RowParser[+A]</code> の実体は、関数 <code>Row =&gt; SqlResult[A]</code> であるので</p>
 <ul>
@@ -324,7 +324,7 @@ case class Error(msg: SqlRequestError) extends SqlResult[Nothing]
 </code></pre>
 <p><code>MayErr</code> についてはAPI公開されているが、すでに非推奨であり使うことはない。 <em>for-comprehension</em> で記述するための内部クラスで <code>Either</code> の <code>RightProjection</code> のようなものと理解しておけばよい。</p>
 <h2><a href="#resultsetparser" name="resultsetparser" class="anchor"><span class="anchor-link"></span></a>ResultSetParser</h2>
-<p><code>ResultSetParser[+A]</code> の実体は 関数 <code>Option[Cursor] =&gt; SqlResult[A]</code> である。<code>RowParser</code> のメゾッドから得られる。</p>
+<p><code>ResultSetParser[+A]</code> の実体は 関数 <code>Option[Cursor] =&gt; SqlResult[A]</code> である。<code>RowParser</code> のメソッドから得られる。</p>
 <pre class="prettyprint"><code class="language-scala">val parser: RowParser[(Long, String)] = long(&quot;id&quot;) ~ str(&quot;email&quot;) map {
   case id ~ email =&gt; (id -&gt; email)
 }
