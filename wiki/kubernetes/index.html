@@ -89,7 +89,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div id="content">
 <h1><a href="#kubernetes" name="kubernetes" class="anchor"><span class="anchor-link"></span></a>Kubernetes</h1>
 <h2><a href="#kubectl" name="kubectl" class="anchor"><span class="anchor-link"></span></a>kubectl</h2>
-<h3><a href="#namespace" name="namespace" class="anchor"><span class="anchor-link"></span></a>namespace</h3>
 <h3><a href="#get-vs-describe" name="get-vs-describe" class="anchor"><span class="anchor-link"></span></a>get vs. describe</h3>
 <p>The <code>get</code> command prints a table of the most important information about specified resources.</p>
 <pre><code>$ kubectl get --help
@@ -102,6 +101,43 @@ $ kubectl get -o json nodes
 <p>The <code>describe</code> command shows details of specified resources with a name prefix.</p>
 <pre><code>$ kubectl describe --help
 $ kubectl describe nodes &lt;NAME_PREFIX&gt;
+</code></pre>
+<h3><a href="#namespace" name="namespace" class="anchor"><span class="anchor-link"></span></a>namespace</h3>
+<p>Kubernetes uses namespaces to organize objects in the cluster.</p>
+<pre><code>$ kubectl get namespaces
+NAME          STATUS    AGE
+default       Active    8d
+kube-public   Active    8d
+kube-system   Active    8d
+</code></pre>
+<p>You need to specify the <code>--namespace</code> flag to set the difference namespace temporarily.</p>
+<pre><code>$ kubectl get deployments --namespace=kube-system
+NAME                    DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+event-exporter-v0.2.3   1         1         1            1           8d
+fluentd-gcp-scaler      1         1         1            1           8d
+heapster-v1.5.3         1         1         1            1           8d
+kube-dns                2         2         2            2           8d
+kube-dns-autoscaler     1         1         1            1           8d
+l7-default-backend      1         1         1            1           8d
+metrics-server-v0.2.1   1         1         1            1           8d
+</code></pre>
+<p>To save the namespace permanently, set a context with the <code>---namespace</code> flag.</p>
+<pre><code>$ kubectl config set-context $(kube config current-context) --namespace=my-resources
+$ kubectl config view | grep namespace
+</code></pre>
+<h3><a href="#run-vs-apply" name="run-vs-apply" class="anchor"><span class="anchor-link"></span></a>run vs. apply</h3>
+<pre><code>$ kubectl run &lt;DEPLOYMENT_NAME&gt; --image=&lt;IMAGE&gt;
+</code></pre>
+<h3><a href="#logs" name="logs" class="anchor"><span class="anchor-link"></span></a>logs</h3>
+<pre><code>$ kubectl logs &lt;POD_NAME&gt;
+</code></pre>
+<h3><a href="#exec-cp" name="exec-cp" class="anchor"><span class="anchor-link"></span></a>exec / cp</h3>
+<pre><code>$ kubectl exec -it &lt;POD_NAME&gt; -- bash
+</code></pre>
+<pre><code>$ kubectl cp &lt;POD_NAME&gt;:/path/to/pod/file /path/to/local/file
+</code></pre>
+<h3><a href="#delete" name="delete" class="anchor"><span class="anchor-link"></span></a>delete</h3>
+<pre><code>$ kubectl delete &lt;DEPLOYMENT_NAME&gt;
 </code></pre>
 </div>
 </div>
