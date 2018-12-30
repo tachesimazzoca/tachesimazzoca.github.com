@@ -154,6 +154,18 @@ $ kubectl apply -f my-pod.yml
 <h3><a href="#delete" name="delete" class="anchor"><span class="anchor-link"></span></a>delete</h3>
 <pre><code>$ kubectl delete &lt;DEPLOYMENT_NAME&gt;
 </code></pre>
+<h3><a href="#port-forward" name="port-forward" class="anchor"><span class="anchor-link"></span></a>port-forward</h3>
+<p>The <code>port-forward</code> command forwards local ports to the specified pod or a selected pod by the deployment.</p>
+<pre><code>$ kubectl port-forward --help
+...
+Usage:
+  kubectl port-forward TYPE/NAME [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N] [options]
+...
+
+# TYPE defaults to pod if omitted.
+$ kubectl port-forward &lt;POD_NAME&gt; &lt;LOCAL_PORT&gt;:&lt;REMOTE_PORT&gt;
+$ kubectl port-forward deployment/&lt;DEPLOYMENT_NAME&gt; &lt;LOCAL_PORT&gt;:&lt;REMOTE_PORT&gt;
+</code></pre>
 </div>
 </div>
 </div>
