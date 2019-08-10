@@ -168,21 +168,29 @@ $ kubectl port-forward &lt;POD_NAME&gt; &lt;LOCAL_PORT&gt;:&lt;REMOTE_PORT&gt;
 $ kubectl port-forward deployment/&lt;DEPLOYMENT_NAME&gt; &lt;LOCAL_PORT&gt;:&lt;REMOTE_PORT&gt;
 </code></pre>
 <h2><a href="#google-kubernetes-engine" name="google-kubernetes-engine" class="anchor"><span class="anchor-link"></span></a>Google Kubernetes Engine</h2>
-<pre class="prettyprint"><code class="language-sh">$ gcloud container clusters create &lt;cluster-name&gt; \
+<p>How to manage clusters:</p>
+<pre class="prettyprint"><code class="language-shell">$ gcloud container clusters create &lt;CLUSTER_NAME&gt; \
   --zone=asia-northeast1-a \
   --machinet-ype=n1-standard-1 \
-  --num-nodes=3
-
-$ gcloud container clusters resize &lt;cluster-name&gt; \
   --num-nodes=1
 
-$ gcloud container clusters update &lt;cluster-name&gt; \
-  --monitoring-servce none
+$ gcloud container clusters resize &lt;CLUSTER_NAME&gt; --num-nodes=3
 
-$ gcloud container clusters update &lt;cluster-name&gt; \
-  --logging-servce none
+$ gcloud container clusters delete &lt;CLUSTER_NAME&gt;
+</code></pre>
+<p>How to reduce default add-on resources:</p>
+<pre class="prettyprint"><code class="language-shell"># Disable Stackdriver monitoring
+$ gcloud container clusters update &lt;CLUSTER_NAME&gt; --monitoring-servce none
+$ gcloud container clusters update &lt;CLUSTER_NAME&gt; --update-addons=HorizontalPodAutoscaling=DISABLED
+$ kubectl --namespace=kube-system scale deployment metrics-server-v0.3.1 --replicas=0
+# (The metrics-server version may vary depending on the GKE cluster version)
 
-$ gcloud container clusters delete &lt;cluster-name&gt;
+# Disable Stackdriver logging
+$ gcloud container clusters update &lt;CLUSTER_NAME&gt; --logging-servce none
+
+# Disalbe DNS autoscaling
+$ kubectl scale --replicas=0 deployment/kube-dns-autoscaler --namespace=kube-system
+$ kubectl scale --replicas=1 deployment/kube-dns --namespace=kube-system
 </code></pre>
 </div>
 </div>
