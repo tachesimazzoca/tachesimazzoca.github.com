@@ -75,6 +75,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li><a href="../kubernetes/index.html#kubernetes" class="header">Kubernetes</a>
   <ul>
     <li><a href="../kubernetes/index.html#kubectl" class="header">kubectl</a></li>
+    <li><a href="../kubernetes/index.html#google-kubernetes-engine" class="header">Google Kubernetes Engine</a></li>
   </ul></li>
 </ul>
 </div>
@@ -165,6 +166,23 @@ Usage:
 # TYPE defaults to pod if omitted.
 $ kubectl port-forward &lt;POD_NAME&gt; &lt;LOCAL_PORT&gt;:&lt;REMOTE_PORT&gt;
 $ kubectl port-forward deployment/&lt;DEPLOYMENT_NAME&gt; &lt;LOCAL_PORT&gt;:&lt;REMOTE_PORT&gt;
+</code></pre>
+<h2><a href="#google-kubernetes-engine" name="google-kubernetes-engine" class="anchor"><span class="anchor-link"></span></a>Google Kubernetes Engine</h2>
+<pre class="prettyprint"><code class="language-sh">$ gcloud container clusters create &lt;cluster-name&gt; \
+  --zone=asia-northeast1-a \
+  --machinet-ype=n1-standard-1 \
+  --num-nodes=3
+
+$ gcloud container clusters resize &lt;cluster-name&gt; \
+  --num-nodes=1
+
+$ gcloud container clusters update &lt;cluster-name&gt; \
+  --monitoring-servce none
+
+$ gcloud container clusters update &lt;cluster-name&gt; \
+  --logging-servce none
+
+$ gcloud container clusters delete &lt;cluster-name&gt;
 </code></pre>
 </div>
 </div>
