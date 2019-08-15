@@ -132,7 +132,7 @@ $ kubectl config view | grep namespace
 $ kubectl run &lt;DEPLOYMENT_NAME&gt; --image=&lt;IMAGE&gt;
 kubectl run --generator=deployment/apps.v1beta1 is DEPRECATED and will be removed in a future version. Use kubectl create instead.
 
-# Use the run command instead
+# Use the create command instead
 $ kubectl create deployment &lt;DEPLOYMENT_NAME&gt; --image=&lt;IMAGE&gt;
 </code></pre>
 <p>If you want to just create a pod, use the <code>apply</code> command with the Pod configuration.</p>
