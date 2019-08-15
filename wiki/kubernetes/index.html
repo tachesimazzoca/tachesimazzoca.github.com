@@ -92,7 +92,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h2><a href="#kubectl" name="kubectl" class="anchor"><span class="anchor-link"></span></a>kubectl</h2>
 <h3><a href="#get-vs-describe" name="get-vs-describe" class="anchor"><span class="anchor-link"></span></a>get vs. describe</h3>
 <p>The <code>get</code> command prints a table of the most important information about specified resources.</p>
-<pre><code>$ kubectl get --help
+<pre class="prettyprint"><code class="language-shell">$ kubectl get --help
 ...
 $ kubectl get componentsstatuses
 $ kubectl get nodes
@@ -105,14 +105,14 @@ $ kubectl describe nodes &lt;NAME_PREFIX&gt;
 </code></pre>
 <h3><a href="#namespace" name="namespace" class="anchor"><span class="anchor-link"></span></a>namespace</h3>
 <p>Kubernetes uses namespaces to organize objects in the cluster.</p>
-<pre><code>$ kubectl get namespaces
+<pre class="prettyprint"><code class="language-shell">$ kubectl get namespaces
 NAME          STATUS    AGE
 default       Active    8d
 kube-public   Active    8d
 kube-system   Active    8d
 </code></pre>
 <p>You need to specify the <code>--namespace</code> flag to set the difference namespace temporarily.</p>
-<pre><code>$ kubectl get deployments --namespace=kube-system
+<pre class="prettyprint"><code class="language-shell">$ kubectl get deployments --namespace=kube-system
 NAME                    DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 event-exporter-v0.2.3   1         1         1            1           8d
 fluentd-gcp-scaler      1         1         1            1           8d
@@ -128,7 +128,7 @@ $ kubectl config view | grep namespace
 </code></pre>
 <h3><a href="#run-vs-apply" name="run-vs-apply" class="anchor"><span class="anchor-link"></span></a>run vs. apply</h3>
 <p>The <code>run</code> command creates a deployment or job to manage the created containers.</p>
-<pre><code># The run command is deprecated.
+<pre class="prettyprint"><code class="language-shell"># The run command is deprecated.
 $ kubectl run &lt;DEPLOYMENT_NAME&gt; --image=&lt;IMAGE&gt;
 kubectl run --generator=deployment/apps.v1beta1 is DEPRECATED and will be removed in a future version. Use kubectl create instead.
 
@@ -136,7 +136,7 @@ kubectl run --generator=deployment/apps.v1beta1 is DEPRECATED and will be remove
 $ kubectl create deployment &lt;DEPLOYMENT_NAME&gt; --image=&lt;IMAGE&gt;
 </code></pre>
 <p>If you want to just create a pod, use the <code>apply</code> command with the Pod configuration.</p>
-<pre><code>$ cat my-pod.yml
+<pre class="prettyprint"><code class="language-shell">$ cat my-pod.yml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -150,20 +150,20 @@ spec:
 $ kubectl apply -f my-pod.yml
 </code></pre>
 <h3><a href="#logs" name="logs" class="anchor"><span class="anchor-link"></span></a>logs</h3>
-<pre><code>$ kubectl logs &lt;POD_NAME&gt;
+<pre class="prettyprint"><code class="language-shell">$ kubectl logs &lt;POD_NAME&gt;
 </code></pre>
 <h3><a href="#exec-cp" name="exec-cp" class="anchor"><span class="anchor-link"></span></a>exec / cp</h3>
-<pre><code>$ kubectl exec -it &lt;POD_NAME&gt; -- bash
+<pre class="prettyprint"><code class="language-shell">$ kubectl exec -it &lt;POD_NAME&gt; -- bash
 </code></pre>
-<pre><code>$ kubectl cp &lt;POD_NAME&gt;:/path/to/pod/file /path/to/local/file
+<pre class="prettyprint"><code class="language-shell">$ kubectl cp &lt;POD_NAME&gt;:/path/to/pod/file /path/to/local/file
 </code></pre>
 <h3><a href="#delete" name="delete" class="anchor"><span class="anchor-link"></span></a>delete</h3>
-<pre><code>$ kubectl delete service &lt;SERVICE_NAME&gt;
+<pre class="prettyprint"><code class="language-shell">$ kubectl delete service &lt;SERVICE_NAME&gt;
 $ kubectl delete deployment &lt;DEPLOYMENT_NAME&gt;
 </code></pre>
 <h3><a href="#port-forward" name="port-forward" class="anchor"><span class="anchor-link"></span></a>port-forward</h3>
 <p>The <code>port-forward</code> command forwards local ports to the specified pod or a selected pod by the deployment.</p>
-<pre><code>$ kubectl port-forward --help
+<pre class="prettyprint"><code class="language-shell">$ kubectl port-forward --help
 ...
 Usage:
   kubectl port-forward TYPE/NAME [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N] [options]
@@ -175,11 +175,11 @@ $ kubectl port-forward deployment/&lt;DEPLOYMENT_NAME&gt; &lt;LOCAL_PORT&gt;:&lt
 </code></pre>
 <h3><a href="#proxy" name="proxy" class="anchor"><span class="anchor-link"></span></a>proxy</h3>
 <p>The <code>proxy</code> command launches a proxy server between localhost and the Kubernetes API server.</p>
-<pre><code>$ kubectl proxy --port=8001
+<pre class="prettyprint"><code class="language-shell">$ kubectl proxy --port=8001
 Starting to serve on 127.0.0.1:8001
 ...
 </code></pre>
-<pre><code>$ curl http://localhost:8001/api/v1/nodes
+<pre class="prettyprint"><code class="language-shell">$ curl http://localhost:8001/api/v1/nodes
 ...
 </code></pre>
 <h2><a href="#google-kubernetes-engine" name="google-kubernetes-engine" class="anchor"><span class="anchor-link"></span></a>Google Kubernetes Engine</h2>
