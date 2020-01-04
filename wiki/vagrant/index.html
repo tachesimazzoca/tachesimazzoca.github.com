@@ -77,6 +77,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li><a href="../vagrant/index.html#creating-a-base-box" class="header">Creating a Base Box</a></li>
     <li><a href="../vagrant/index.html#resizing-a-volume" class="header">Resizing a Volume</a></li>
     <li><a href="../vagrant/index.html#closing-detached-media" class="header">Closing Detached Media</a></li>
+    <li><a href="../vagrant/index.html#vboxmanage-error-failed-to-create-the-host-only-adapter" class="header">VBoxManage: error: Failed to create the host-only adapter</a></li>
     <li><a href="../vagrant/index.html#links" class="header">Links</a></li>
   </ul></li>
 </ul>
@@ -291,6 +292,22 @@ LV Size                14.70 GiB
 ...
 % VBoxManage closemedium disk &lt;UUID&gt;
 </code></pre>
+<h2><a href="#vboxmanage-error-failed-to-create-the-host-only-adapter" name="vboxmanage-error-failed-to-create-the-host-only-adapter" class="anchor"><span class="anchor-link"></span></a>VBoxManage: error: Failed to create the host-only adapter</h2>
+<p>The following error may happen when trying <code>vargrant up</code> with network options.</p>
+<pre><code>Command: [&quot;hostonlyif&quot;, &quot;create&quot;]
+
+Stderr: 0%...
+Progress state: NS_ERROR_FAILURE
+VBoxManage: error: Failed to create the host-only adapter
+VBoxManage: error: VBoxNetAdpCtl: Error while adding new interface: failed to open /dev/vboxnetctl: No such file or directory
+VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component HostNetworkInterfaceWrap, interface IHostNetworkInterface
+VBoxManage: error: Context: &quot;RTEXITCODE handleCreate(HandlerArg *)&quot; at line 94 of file VBoxManageHostonly.cpp
+</code></pre>
+<p>In order to reset <code>/dev/vbox*</code>, simply restart VirtualBox.</p>
+<p>macOS:</p>
+<pre><code>sudo /Library/Application\ Support/VirtualBox/LaunchDaemons/VirtualBoxStartup.sh restart
+</code></pre>
+<p>See also, <a href="https://github.com/hashicorp/vagrant/issues/7212">https://github.com/hashicorp/vagrant/issues/7212</a></p>
 <h2><a href="#links" name="links" class="anchor"><span class="anchor-link"></span></a>Links</h2>
 <ul>
   <li><a href="http://docs.vagrantup.com/v2/">Vagrant Documentation</a></li>
