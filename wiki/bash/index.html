@@ -127,6 +127,49 @@ PRGDIR=`dirname &quot;$PRG&quot;`
 # Set PGM_HOME to the parent directory of $PRGDIR
 PRG_HOME=$(cd &quot;$PRGDIR/..&quot; &gt;/dev/null; pwd)
 </code></pre>
+<h3><a href="#incremental-counter" name="incremental-counter" class="anchor"><span class="anchor-link"></span></a>Incremental counter</h3>
+<pre class="prettyprint"><code class="language-bash">i=0
+while [ $i -lt 10 ]
+do
+  echo $i
+  i=$((i+1))
+done
+</code></pre>
+<h3><a href="#read-lines-from-stdin" name="read-lines-from-stdin" class="anchor"><span class="anchor-link"></span></a>Read lines from stdin</h3>
+<pre class="prettyprint"><code class="language-bash">while IFS= read x
+do
+  echo &quot;|${x}|&quot;
+done &lt; &#39;/path/to/file&#39;
+</code></pre>
+<p><code>IFS=</code> (Internal Field Separator) keeps leading and trailing spaces of each line.</p>
+<pre class="prettyprint"><code class="language-bash">$ cat a.txt
+foo foo
+  bar,  baz
+
+$ cat a.txt | for x in $(cat a.txt); do echo &quot;|${x}|&quot;; done
+|foo|
+|foo|
+|bar,|
+|baz|
+
+$ cat a.txt | while read x; do echo &quot;|${x}|&quot;; done
+|foo foo|
+|bar,  baz|
+
+$ cat a.txt | while IFS= read x; do echo &quot;|${x}|&quot;; done
+|foo foo|
+|  bar,  baz|
+</code></pre>
+<h3><a href="#join-rows-with-a-separator" name="join-rows-with-a-separator" class="anchor"><span class="anchor-link"></span></a>Join rows with a separator</h3>
+<pre class="prettyprint"><code class="language-bash">$ cat a.txt
+foo
+bar
+baz
+
+# -z: Separate lines by NUL characters
+$ cat a.txt | sed -z &#39;s/\n/,/g&#39;
+foo,bar,baz,
+</code></pre>
 </div>
 </div>
 </div>
