@@ -78,6 +78,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li><a href="../git/cheatsheet.html#init" class="header">init</a></li>
     <li><a href="../git/cheatsheet.html#config" class="header">config</a></li>
     <li><a href="../git/cheatsheet.html#add" class="header">add</a></li>
+    <li><a href="../git/cheatsheet.html#update-index" class="header">update-index</a></li>
     <li><a href="../git/cheatsheet.html#rm" class="header">rm</a></li>
     <li><a href="../git/cheatsheet.html#remote" class="header">remote</a></li>
     <li><a href="../git/cheatsheet.html#commit" class="header">commit</a></li>
@@ -144,6 +145,10 @@ A  b.txt
 $ git add -A .
 $ git status -s
 A  c.txt
+</code></pre>
+<h2><a href="#update-index" name="update-index" class="anchor"><span class="anchor-link"></span></a>update-index</h2>
+<pre class="prettyprint"><code class="language-shell">$ chomod 755 setup.sh
+$ git update-index --chmod=+x setup.sh
 </code></pre>
 <h2><a href="#rm" name="rm" class="anchor"><span class="anchor-link"></span></a>rm</h2>
 <pre class="prettyprint"><code class="language-shell">$ git rm /path/to/file
