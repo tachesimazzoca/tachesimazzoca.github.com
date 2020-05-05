@@ -183,6 +183,14 @@ Starting to serve on 127.0.0.1:8001
 ...
 </code></pre>
 <h2><a href="#google-kubernetes-engine" name="google-kubernetes-engine" class="anchor"><span class="anchor-link"></span></a>Google Kubernetes Engine</h2>
+<p>When you authorize your gcloud account, the current project will be updated.</p>
+<pre class="prettyprint"><code class="language-shell">$ gcloud auth login
+...
+$ gcloud config get-value project
+&lt;PROJECT_ID&gt;
+
+$ gcloud config set compute/zone asia-northeast1-a
+</code></pre>
 <p>How to manage clusters:</p>
 <pre class="prettyprint"><code class="language-shell">$ gcloud container clusters create &lt;CLUSTER_NAME&gt; \
   --zone=asia-northeast1-a \
@@ -190,8 +198,14 @@ Starting to serve on 127.0.0.1:8001
   --num-nodes=1
 
 $ gcloud container clusters resize &lt;CLUSTER_NAME&gt; --num-nodes=3
-
 $ gcloud container clusters delete &lt;CLUSTER_NAME&gt;
+</code></pre>
+<p>How to update kubectl current-context:</p>
+<pre class="prettyprint"><code class="language-shell">$ gcloud container clusters get-credentials &lt;CLUSTER_NAME&gt;
+...
+$ kubectl config current-context
+$ kubectl get nodes
+...
 </code></pre>
 <p>How to reduce default add-on resources:</p>
 <pre class="prettyprint"><code class="language-shell"># Disable Stackdriver monitoring
